@@ -1,0 +1,34 @@
+{
+    "name": "NaPlite",
+    "description": "A food blog based on Yii2 framework",
+    "keywords": ["yii2", "food blog"],
+    "homepage": "http://naplite.ru/",
+    "type": "project",
+    "support": {
+        "programmer": "http://weblancer.net/users/alexsava"
+    },
+    "minimum-stability": "stable",
+    "require": {
+        "php": ">=5.6",
+        "yiisoft/yii2": "~2.0.6",
+        "yiisoft/yii2-bootstrap": "~2.0.0",
+        "yiisoft/yii2-swiftmailer": "~2.0.0 || ~2.1.0",
+        "dmstr/yii2-adminlte-asset": "^2.1"
+    },
+    "require-dev": {
+        "yiisoft/yii2-debug": "~2.0.0",
+        "yiisoft/yii2-gii": "~2.0.0",
+        "yiisoft/yii2-faker": "~2.0.0",
+        "codeception/base": "^2.2.3",
+        "codeception/verify": "~0.3.1"
+    },
+    "config": {
+        "process-timeout": 1800
+    },
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "https://asset-packagist.org"
+        }
+    ]
+}
