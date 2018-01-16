@@ -1,4 +1,5 @@
 <?php
+
 namespace common\models;
 
 use Yii;
@@ -8,31 +9,60 @@ use yii\db\ActiveRecord;
 use yii\web\IdentityInterface;
 
 /**
- * User model
+ * This is the model class for table "{{%users}}".
  *
- * @property integer $id
+ * @property int $id
+ * @property string $email
  * @property string $username
+ * @property string $country
+ * @property string $city
+ * @property int $experience_id
+ * @property int $recipes
+ * @property string $about
+ * @property string $avatar
+ * @property string $rate
+ * @property int $status
+ * @property string $email_confirm_token [varchar(255)]
+ * @property string $auth_key
  * @property string $password_hash
  * @property string $password_reset_token
- * @property string $email
- * @property string $auth_key
- * @property integer $status
- * @property integer $created_at
- * @property integer $updated_at
- * @property string $password write-only password
+ * @property int $created_at
+ * @property int $updated_at
+ *
+ * @property Experience $experience
  */
 class User extends ActiveRecord implements IdentityInterface
 {
     const STATUS_DELETED = 0;
+    const STATUS_WAIT = 1;
     const STATUS_ACTIVE = 10;
 
+    const DEFAULT_EXPERIENCE = 1;
+
+    public static function signupRequest($email, $password)
+    {
+        $user = new User();
+        $user->email = $email;
+        $user->setPassword($password);
+        $user->generateAuthKey();
+        $user->experience_id = self::DEFAULT_EXPERIENCE;
+        $user->status = self::STATUS_WAIT;
+        $user->email_confirm_token = Yii::$app->security->generateRandomString();
+        return $user;
+    }
+
+    public function confirmSignup()
+    {
+        $this->status = self::STATUS_ACTIVE;
+        $this->email_confirm_token = null;
+    }
 
     /**
      * @inheritdoc
      */
     public static function tableName()
     {
-        return '{{%user}}';
+        return '{{%users}}';
     }
 
     /**
@@ -51,9 +81,50 @@ class User extends ActiveRecord implements IdentityInterface
     public function rules()
     {
         return [
-            ['status', 'default', 'value' => self::STATUS_ACTIVE],
-            ['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_DELETED]],
+            [['email', 'experience_id', 'auth_key', 'password_hash'], 'required'],
+            [['experience_id', 'recipes', 'rate', 'status'], 'integer'],
+            [['about'], 'string'],
+            [['email', 'password_hash', 'password_reset_token'], 'string', 'max' => 255],
+            [['username', 'avatar'], 'string', 'max' => 50],
+            [['country', 'city'], 'string', 'max' => 60],
+            [['auth_key'], 'string', 'max' => 32],
+            [['email'], 'unique'],
+            [['password_reset_token'], 'unique'],
+            [['experience_id'], 'exist', 'skipOnError' => true, 'targetClass' => Experience::className(), 'targetAttribute' => ['experience_id' => 'id']],
         ];
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function attributeLabels()
+    {
+        return [
+            'id' => 'ID',
+            'email' => 'Email',
+            'username' => 'Username',
+            'country' => 'Country',
+            'city' => 'City',
+            'experience_id' => 'Experience ID',
+            'recipes' => 'Recipes',
+            'about' => 'About',
+            'avatar' => 'Avatar',
+            'rate' => 'Rate',
+            'status' => 'Status',
+            'auth_key' => 'Auth Key',
+            'password_hash' => 'Password Hash',
+            'password_reset_token' => 'Password Reset Token',
+            'created_at' => 'Created At',
+            'updated_at' => 'Updated At',
+        ];
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getExperience()
+    {
+        return $this->hasOne(Experience::className(), ['id' => 'experience_id']);
     }
 
     /**
@@ -81,6 +152,23 @@ class User extends ActiveRecord implements IdentityInterface
     public static function findByUsername($username)
     {
         return static::findOne(['username' => $username, 'status' => self::STATUS_ACTIVE]);
+    }
+
+    /**
+     * @param string $usernameOrEmail
+     * @return null|static
+     */
+    public static function findByUsernameOrEmail($usernameOrEmail)
+    {
+        return static::find()->where([
+            'and',
+            [
+                'or',
+                ['username' => $usernameOrEmail],
+                ['email' => $usernameOrEmail],
+            ],
+            ['status' => self::STATUS_ACTIVE]
+        ])->one();
     }
 
     /**

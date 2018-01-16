@@ -12,6 +12,7 @@ return [
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log', 'common\bootstrap\SetUp'],
     'controllerNamespace' => 'frontend\controllers',
+    'homeUrl' => ['/main/index'],
     'components' => [
         'request' => [
             'csrfParam' => '_csrf-frontend',
@@ -33,6 +34,9 @@ return [
                     'levels' => ['error', 'warning'],
                 ],
             ],
+        ],
+        'assetManager' => [
+            'appendTimestamp' => true,
         ],
         'errorHandler' => [
             'errorAction' => 'site/error',

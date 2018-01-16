@@ -1,8 +1,9 @@
 <?php
 return [
-    'adminEmail' => 'admin@example.com',
-    'supportEmail' => 'support@example.com',
+    'adminEmail' => 'admin@naplite.ru',
+    'supportEmail' => 'support@naplite.ru',
     'user.passwordResetTokenExpire' => 3600,
-    'frontendHostInfo' => 'http://example.com',
-    'backendHostInfo' => 'http://cp.example.com',
+    'user.rememberMeDuration' => 3600 * 24 * 30,
+    'frontendHostInfo' => 'http://naplite.ru',
+    'backendHostInfo' => 'http://cp.naplite.ru',
 ];

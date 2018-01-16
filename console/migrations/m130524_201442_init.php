@@ -12,22 +12,40 @@ class m130524_201442_init extends Migration
             $tableOptions = 'CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE=InnoDB';
         }
 
-        $this->createTable('{{%user}}', [
+        $this->createTable('{{%experiences}}', [
             'id' => $this->primaryKey(),
-            'username' => $this->string()->notNull()->unique(),
+            'name' => $this->string(60)->notNull()->unique(),
+            'rate' => $this->integer()->notNull()->defaultValue(0),
+            'recipes' => $this->integer()->notNull()->defaultValue(0),
+            'system' => $this->boolean()->notNull()->defaultValue(0),
+        ], $tableOptions);
+
+        $this->createTable('{{%users}}', [
+            'id' => $this->primaryKey(),
+            'email' => $this->string()->notNull()->unique(),
+            'username' => $this->string(50)->notNull()->defaultValue(''),
+            'country' => $this->string(60)->notNull()->defaultValue(''),
+            'city' => $this->string(60)->notNull()->defaultValue(''),
+            'experience_id' => $this->integer()->notNull(),
+            'recipes' => $this->integer()->notNull()->defaultValue(0),
+            'about' => $this->text(),
+            'avatar' => $this->string(50)->defaultValue(''),
+            'rate' => $this->integer()->unsigned()->notNull()->defaultValue(0),
+
+            'status' => $this->smallInteger()->notNull()->defaultValue(10),
             'auth_key' => $this->string(32)->notNull(),
             'password_hash' => $this->string()->notNull(),
             'password_reset_token' => $this->string()->unique(),
-            'email' => $this->string()->notNull()->unique(),
-
-            'status' => $this->smallInteger()->notNull()->defaultValue(10),
             'created_at' => $this->integer()->notNull(),
             'updated_at' => $this->integer()->notNull(),
         ], $tableOptions);
+        $this->createIndex('idx-users-experience_id', '{{%users}}', 'experience_id');
+        $this->addForeignKey('fk-users-experience_id-experiences-id', '{{%users}}', 'experience_id', '{{%experiences}}', 'id', 'RESTRICT', 'CASCADE');
     }
 
     public function down()
     {
-        $this->dropTable('{{%user}}');
+        $this->dropTable('{{%users}}');
+        $this->dropTable('{{%experiences}}');
     }
 }
