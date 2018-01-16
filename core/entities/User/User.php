@@ -1,7 +1,9 @@
 <?php
 
-namespace common\models;
+namespace core\entities\User;
 
+
+use lhs\Yii2SaveRelationsBehavior\SaveRelationsBehavior;
 use Yii;
 use yii\base\NotSupportedException;
 use yii\behaviors\TimestampBehavior;
@@ -30,6 +32,7 @@ use yii\web\IdentityInterface;
  * @property int $updated_at
  *
  * @property Experience $experience
+ * @property Network[] $networks
  */
 class User extends ActiveRecord implements IdentityInterface
 {
@@ -57,6 +60,17 @@ class User extends ActiveRecord implements IdentityInterface
         $this->email_confirm_token = null;
     }
 
+    public static function signupByNetwork($network, $identity)
+    {
+        $user = new User();
+        $user->created_at = time();
+        $user->status = self::STATUS_ACTIVE;
+        $user->generateAuthKey();
+        $user->experience_id = self::DEFAULT_EXPERIENCE;
+        $user->networks = [Network::create($network, $identity)];
+        return $user;
+    }
+
     /**
      * @inheritdoc
      */
@@ -72,12 +86,23 @@ class User extends ActiveRecord implements IdentityInterface
     {
         return [
             TimestampBehavior::className(),
+            [
+                'class' => SaveRelationsBehavior::className(),
+                'relations' => ['networks'],
+            ],
+        ];
+    }
+
+    public function transactions()
+    {
+        return [
+            self::SCENARIO_DEFAULT => self::OP_ALL,
         ];
     }
 
     /**
      * @inheritdoc
-     */
+
     public function rules()
     {
         return [
@@ -92,7 +117,7 @@ class User extends ActiveRecord implements IdentityInterface
             [['password_reset_token'], 'unique'],
             [['experience_id'], 'exist', 'skipOnError' => true, 'targetClass' => Experience::className(), 'targetAttribute' => ['experience_id' => 'id']],
         ];
-    }
+    }*/
 
     /**
      * @inheritdoc
@@ -125,6 +150,14 @@ class User extends ActiveRecord implements IdentityInterface
     public function getExperience()
     {
         return $this->hasOne(Experience::className(), ['id' => 'experience_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getNetworks()
+    {
+        return $this->hasMany(Network::className(), ['user_id' => 'id']);
     }
 
     /**
@@ -169,6 +202,11 @@ class User extends ActiveRecord implements IdentityInterface
             ],
             ['status' => self::STATUS_ACTIVE]
         ])->one();
+    }
+
+    public static function findByNetworkIdentity($network, $identity)
+    {
+        return User::find()->joinWith('networks n')->andWhere(['n.network' => $network, 'n.identity' => $identity])->one();
     }
 
     /**

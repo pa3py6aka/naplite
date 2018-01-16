@@ -1,7 +1,7 @@
 <?php
-namespace common\forms;
+namespace core\forms\auth;
 
-use common\models\User;
+use core\entities\User\User;
 use Yii;
 use yii\base\Model;
 
@@ -64,7 +64,7 @@ class LoginForm extends Model
     /**
      * Finds user by [[username]]
      *
-     * @return User|null
+     * @return \core\entities\User\User|null
      */
     protected function getUser()
     {

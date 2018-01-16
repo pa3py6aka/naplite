@@ -1,5 +1,5 @@
 <?php
-$model = new \common\forms\LoginForm();
+$model = new \core\forms\auth\LoginForm();
 
 ?>
 <div class="modalbox" id="loginModal">
@@ -12,14 +12,9 @@ $model = new \common\forms\LoginForm();
                     Нет аккаунта? <a href="javascript:void(0)" class="link_red regButton">Зарегистрируйтесь</a> или войдите через:
                 </div>
                 <div class="p20"></div>
-                <span class="socials_icons">
-						<a href="#"><img src="/img/ico_facebook.png" width="35" height="35" alt=""/></a>
-						<a href="#"><img src="/img/ico_vk.png" width="35" height="35" alt=""/></a>
-						<a href="#"><img src="/img/ico_twitter.png" width="35" height="35" alt=""/></a>
-						<a href="#"><img src="/img/ico_od.png" width="35" height="35" alt=""/></a>
-						<a href="#"><img src="/img/ico_yandex.png" width="35" height="35" alt=""/></a>
-						<a href="#"><img src="/img/ico_google.png" width="35" height="35" alt=""/></a>
-					</span>
+
+                <?= $this->render('@frontend/views/auth/social-block') ?>
+
                 <div class="modals_hr"></div>
                 <?php $form = \yii\widgets\ActiveForm::begin([
                     'action' => ['/auth/login'],

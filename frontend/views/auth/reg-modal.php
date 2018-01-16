@@ -1,5 +1,9 @@
 <?php
-$model = new \frontend\forms\auth\SignupForm();
+
+use core\forms\auth\SignupForm;
+use yii\authclient\widgets\AuthChoice;
+
+$model = new SignupForm();
 
 ?>
 <div class="modalbox" id="regModal">
@@ -12,14 +16,9 @@ $model = new \frontend\forms\auth\SignupForm();
                     Вы можете зарегистрироваться через:
                 </div>
                 <div class="p20"></div>
-                <span class="socials_icons">
-						<a href="#"><img src="/img/ico_facebook.png" width="35" height="35" alt=""/></a>
-						<a href="#"><img src="/img/ico_vk.png" width="35" height="35" alt=""/></a>
-						<a href="#"><img src="/img/ico_twitter.png" width="35" height="35" alt=""/></a>
-						<a href="#"><img src="/img/ico_od.png" width="35" height="35" alt=""/></a>
-						<a href="#"><img src="/img/ico_yandex.png" width="35" height="35" alt=""/></a>
-						<a href="#"><img src="/img/ico_google.png" width="35" height="35" alt=""/></a>
-					</span>
+
+                <?= $this->render('@frontend/views/auth/social-block') ?>
+
                 <div class="modals_hr"></div>
                 <?php $form = \yii\widgets\ActiveForm::begin([
                     'action' => ['/auth/signup'],

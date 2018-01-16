@@ -3,7 +3,7 @@
 namespace console\controllers;
 
 
-use common\models\User;
+use core\entities\User\User;
 use Yii;
 use yii\console\Controller;
 use yii\console\Exception;

@@ -1,7 +1,8 @@
 <?php
 
-namespace common\models;
+namespace core\entities\User;
 
+use core\entities\User\User;
 use Yii;
 use yii\db\ActiveRecord;
 

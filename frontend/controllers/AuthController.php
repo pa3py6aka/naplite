@@ -3,13 +3,13 @@
 namespace frontend\controllers;
 
 
-use common\forms\LoginForm;
-use common\models\User;
+use core\forms\auth\LoginForm;
+use core\entities\User\User;
 use core\access\Rbac;
 use core\services\RoleManager;
-use frontend\forms\auth\PasswordResetRequestForm;
-use frontend\forms\auth\ResetPasswordForm;
-use frontend\forms\auth\SignupForm;
+use core\forms\auth\PasswordResetRequestForm;
+use core\forms\auth\ResetPasswordForm;
+use core\forms\auth\SignupForm;
 use core\services\TransactionManager;
 use Yii;
 use yii\base\InvalidParamException;

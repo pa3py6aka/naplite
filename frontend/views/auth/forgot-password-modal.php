@@ -1,5 +1,5 @@
 <?php
-$model = new \frontend\forms\auth\PasswordResetRequestForm();
+$model = new \core\forms\auth\PasswordResetRequestForm();
 
 ?>
 <div class="modalbox" id="forgotPasswordModal">
