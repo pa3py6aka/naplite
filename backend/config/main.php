@@ -50,7 +50,7 @@ return [
         'rules' => [
             [
                 'allow' => true,
-                'roles' => ['@'],
+                'roles' => [\core\access\Rbac::ROLE_ADMIN],
             ],
         ],
     ],

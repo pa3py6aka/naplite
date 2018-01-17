@@ -15,6 +15,7 @@ use yii\helpers\Html;
             <span class="sr-only">Toggle navigation</span>
         </a>
 
+        <?php /*
         <div class="navbar-custom-menu">
 
             <ul class="nav navbar-nav">
@@ -277,5 +278,6 @@ use yii\helpers\Html;
                 </li>
             </ul>
         </div>
+        */ ?>
     </nav>
 </header>

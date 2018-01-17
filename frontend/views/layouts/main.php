@@ -44,14 +44,21 @@ AppAsset::register($this);
             </div>
             <div class="top_panel_right">
                 <ul class="not_logged">
-                    <li><a href="#" class="b_red"><i class="fa fa-plus"></i>Добавить рецепт</a></li>
+                    <li>
+                        <a
+                            href="<?= Yii::$app->user->isGuest ? 'javascript:void(0)' : Url::to(['/recipes/new']) ?>"
+                            class="b_red<?= Yii::$app->user->isGuest ? ' loginButton' : '' ?>"
+                        >
+                            <i class="fa fa-plus"></i>Добавить рецепт
+                        </a>
+                    </li>
                     <?php if (Yii::$app->user->isGuest): ?>
                         <li class="loginButton"><a href="javascript:void(0)" class="b_green"><i class="fa fa-lock"></i>Войти</a></li>
                     <?php else: ?>
                         <li>
 						<span class="top_userpick">
 							<span class="top_userpick_inner">
-								<span class="top_userpick_photo"><img src="img/photo.jpg" width="200" height="200" alt=""/></span>
+								<span class="top_userpick_photo"><img src="/img/photo.jpg" width="200" height="200" alt=""/></span>
 								<span class="top_userpick_arrow"><i class="fa fa-sort-down"></i></span>
 							</span>
 							<ul>
