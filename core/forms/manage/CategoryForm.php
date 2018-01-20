@@ -44,11 +44,19 @@ class CategoryForm extends Model
         ];
     }
 
-    public function parentCategoriesList()
+    public static function parentCategoriesList($withRoot = true)
     {
-        return ArrayHelper::map(Category::find()->orderBy('lft')->asArray()->all(), 'id', function (array $category) {
+        $cats = ArrayHelper::map(Category::find()->orderBy('lft')->asArray()->all(), 'id', function (array $category) {
             return ($category['depth'] > 1 ? str_repeat('-- ', $category['depth'] - 1) . ' ' : '') . $category['name'];
         });
+
+        if (!$withRoot) {
+            $value = reset($cats);
+            $key   = key($cats);
+            unset($cats[$key]);
+        }
+
+        return $cats;
     }
 
     public function attributeLabels()

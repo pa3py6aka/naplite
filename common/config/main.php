@@ -24,5 +24,8 @@ return [
             'dateFormat' => 'php: d.m.Y',
             'datetimeFormat' => 'php: d.m.Y H:i'
         ],
+        'settings' => [
+            'class' => 'core\services\SettingsManager',
+        ]
     ],
 ];

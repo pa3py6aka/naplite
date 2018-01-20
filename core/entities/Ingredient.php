@@ -28,7 +28,7 @@ class Ingredient extends ActiveRecord
 
     /**
      * @inheritdoc
-     */
+
     public function rules()
     {
         return [
@@ -39,7 +39,7 @@ class Ingredient extends ActiveRecord
             [['uom'], 'string', 'max' => 50],
             [['section_id'], 'exist', 'skipOnError' => true, 'targetClass' => IngredientSection::className(), 'targetAttribute' => ['section_id' => 'id']],
         ];
-    }
+    } */
 
     /**
      * @inheritdoc

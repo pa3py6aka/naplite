@@ -6,23 +6,22 @@ use Yii;
 use yii\db\ActiveRecord;
 
 /**
- * This is the model class for table "{{%recipe_photos}}".
+ * This is the model class for table "{{%recipe_holidays}}".
  *
- * @property int $id
  * @property int $recipe_id
- * @property string $file
- * @property int $sort
+ * @property int $holiday_id
  *
+ * @property Holiday $holiday
  * @property Recipe $recipe
  */
-class Photo extends ActiveRecord
+class RecipeHoliday extends ActiveRecord
 {
     /**
      * @inheritdoc
      */
     public static function tableName()
     {
-        return '{{%recipe_photos}}';
+        return '{{%recipe_holidays}}';
     }
 
     /**
@@ -31,9 +30,10 @@ class Photo extends ActiveRecord
     public function rules()
     {
         return [
-            [['recipe_id', 'file', 'sort'], 'required'],
-            [['recipe_id', 'sort'], 'integer'],
-            [['file'], 'string', 'max' => 255],
+            [['recipe_id', 'holiday_id'], 'required'],
+            [['recipe_id', 'holiday_id'], 'integer'],
+            [['recipe_id', 'holiday_id'], 'unique', 'targetAttribute' => ['recipe_id', 'holiday_id']],
+            [['holiday_id'], 'exist', 'skipOnError' => true, 'targetClass' => Holiday::className(), 'targetAttribute' => ['holiday_id' => 'id']],
             [['recipe_id'], 'exist', 'skipOnError' => true, 'targetClass' => Recipe::className(), 'targetAttribute' => ['recipe_id' => 'id']],
         ];
     }
@@ -44,11 +44,17 @@ class Photo extends ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => 'ID',
             'recipe_id' => 'Recipe ID',
-            'file' => 'File',
-            'sort' => 'Sort',
+            'holiday_id' => 'Holiday ID',
         ];
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getHoliday()
+    {
+        return $this->hasOne(Holiday::className(), ['id' => 'holiday_id']);
     }
 
     /**

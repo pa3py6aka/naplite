@@ -8,6 +8,7 @@ use Yii;
 use yii\base\NotSupportedException;
 use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
+use yii\helpers\Html;
 use yii\web\IdentityInterface;
 
 /**
@@ -30,6 +31,9 @@ use yii\web\IdentityInterface;
  * @property string $password_reset_token
  * @property int $created_at
  * @property int $updated_at
+ *
+ * @property string $avatarUrl
+ * @property string $fullName
  *
  * @property Experience $experience
  * @property Network[] $networks
@@ -69,6 +73,19 @@ class User extends ActiveRecord implements IdentityInterface
         $user->experience_id = self::DEFAULT_EXPERIENCE;
         $user->networks = [Network::create($network, $identity)];
         return $user;
+    }
+
+    public function getAvatarUrl()
+    {
+        if ($this->avatar) {
+            return Yii::$app->params['frontendHostInfo'] . '/ava/' . $this->avatar;
+        }
+        return Yii::$app->params['frontendHostInfo'] . '/ava/empty.png';
+    }
+
+    public function getFullName(): string
+    {
+        return $this->username ? Html::encode($this->username) : 'Неизвестный пользователь';
     }
 
     /**

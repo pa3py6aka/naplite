@@ -2,6 +2,7 @@
 
 namespace core\entities;
 
+use lhs\Yii2SaveRelationsBehavior\SaveRelationsBehavior;
 use Yii;
 use yii\db\ActiveRecord;
 
@@ -9,8 +10,10 @@ use yii\db\ActiveRecord;
  * This is the model class for table "{{%ingredient_sections}}".
  *
  * @property string $id
+ * @property int $recipe_id [int(11)]
  * @property string $name
  *
+ * @property Recipe $recipe
  * @property Ingredient[] $ingredients
  */
 class IngredientSection extends ActiveRecord
@@ -26,15 +29,35 @@ class IngredientSection extends ActiveRecord
     /**
      * @inheritdoc
      */
+    public function behaviors()
+    {
+        return [
+            [
+                'class' => SaveRelationsBehavior::className(),
+                'relations' => ['ingredients'],
+            ],
+        ];
+    }
+
+    public function transactions()
+    {
+        return [
+            self::SCENARIO_DEFAULT => self::OP_ALL,
+        ];
+    }
+
+    /**
+     * @inheritdoc
+
     public function rules()
     {
         return [
-            [['id', 'name'], 'required'],
+            [['id', 'recipe_id', 'name'], 'required'],
             [['id'], 'integer'],
             [['name'], 'string', 'max' => 255],
             [['id'], 'unique'],
         ];
-    }
+    } */
 
     /**
      * @inheritdoc
@@ -45,6 +68,14 @@ class IngredientSection extends ActiveRecord
             'id' => 'ID',
             'name' => 'Название',
         ];
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getRecipe()
+    {
+        return $this->hasOne(Recipe::className(), ['id' => 'recipe_id']);
     }
 
     /**

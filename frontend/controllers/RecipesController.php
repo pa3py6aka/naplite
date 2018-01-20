@@ -3,12 +3,165 @@
 namespace frontend\controllers;
 
 
+use core\access\Rbac;
+use core\entities\Recipe;
+use core\entities\RecipeUserRate;
+use core\forms\CommentForm;
+use core\forms\RecipeForm;
+use core\repositories\NotFoundException;
+use core\repositories\RecipeRepository;
+use core\services\CommentService;
+use core\services\RecipeService;
+use Intervention\Image\ImageManager;
+use Spatie\ImageOptimizer\OptimizerChainFactory;
+use Yii;
+use yii\base\Module;
+use yii\base\UserException;
+use yii\filters\AccessControl;
+use yii\validators\ImageValidator;
 use yii\web\Controller;
+use yii\web\Response;
+use yii\web\UploadedFile;
 
 class RecipesController extends Controller
 {
+    private $service;
+    private $repository;
+
+    public function __construct($id, Module $module, RecipeService $service, RecipeRepository $repository, array $config = [])
+    {
+        parent::__construct($id, $module, $config);
+        $this->service = $service;
+        $this->repository = $repository;
+    }
+
+    public function behaviors()
+    {
+        return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'only' => ['new', 'upload', 'rate'],
+                'rules' => [
+                    [
+                        'actions' => ['new', 'upload', 'rate'],
+                        'allow' => true,
+                        'roles' => [Rbac::ROLE_USER],
+                    ],
+                ],
+            ],
+        ];
+    }
+
     public function actionNew()
     {
-        return $this->render('new');
+        $form = new RecipeForm();
+
+        if ($form->load(Yii::$app->request->post()) && $form->validate()) {
+            Yii::trace('validate ok', 'CHECK');
+            try {
+                $recipe = $this->service->create($form);
+                return $this->redirect(['view', 'id' => $recipe->id]);
+            } catch (\DomainException $e) {
+                Yii::$app->session->setFlash('message', $e->getMessage());
+            }
+        }
+        Yii::trace($form->errors, 'CHECK_ERRORS');
+
+        return $this->render('new', [
+            'model' => $form
+        ]);
+    }
+
+    public function actionView($id)
+    {
+        $recipe = $this->repository->get($id);
+        $commentForm = new CommentForm();
+
+        if ($commentForm->load(Yii::$app->request->post()) && $commentForm->validate()) {
+            /* @var $commentService CommentService */
+            $commentService = Yii::$container->get(CommentService::class);
+            $commentService->addComment($commentForm, $recipe);
+            $commentForm = new CommentForm();
+        }
+
+        return $this->render('view', [
+            'recipe' => $recipe,
+            'commentModel' => $commentForm,
+        ]);
+    }
+
+    public function actionIndex()
+    {
+        throw new UserException("Страница не найдена в вёрстке");
+    }
+
+    public function actionRate()
+    {
+        Yii::$app->response->format = Response::FORMAT_JSON;
+        $value = (int) Yii::$app->request->post('value');
+        $id = (int) Yii::$app->request->post('id');
+        if ($recipe = Recipe::findOne($id)) {
+            if (!$recipeUserRate = RecipeUserRate::find()->where(['recipe_id' => $id, 'user_id' => Yii::$app->user->id])->limit(1)->one()) {
+                $recipeUserRate = new RecipeUserRate([
+                    'recipe_id' => $id,
+                    'user_id' => Yii::$app->user->id,
+                    'value' => $value
+                ]);
+            } else {
+                $recipeUserRate->value = $value;
+            }
+
+            if ($recipeUserRate->save()) {
+                $rate = RecipeUserRate::find()->where(['recipe_id' => $id])->sum('value');
+                $recipe->rate = $rate;
+                if ($recipe->save()) {
+                    return ['result' => 'success', 'rate' => $rate];
+                }
+            }
+        }
+
+        return ['result' => false];
+    }
+
+    public function actionUpload()
+    {
+        Yii::$app->response->format = Response::FORMAT_JSON;
+        $validator = new ImageValidator([
+            'extensions' => 'jpg, jpeg, gif, png',
+            'maxSize' => Yii::$app->params['maxUploadFileSize'],
+            'tooBig' => "Размер фото не должен превышать " . Yii::$app->params['maxUploadFileSizeHuman'],
+            'wrongExtension' => 'Недопустимый формат файла'
+        ]);
+        $files = UploadedFile::getInstancesByName('file');
+        $num = Yii::$app->request->get('num', 0);
+
+        $result = [];
+        foreach ($files as $file) {
+            if (!$validator->validate($file, $error)) {
+                return ['result' => 'error', 'message' => $error];
+            }
+            $name = md5(Yii::$app->user->id . Yii::$app->security->generateRandomString(64)) . "." . $file->extension;
+            $editName = pathinfo($name, PATHINFO_FILENAME) . '_e.' . pathinfo($name, PATHINFO_EXTENSION);
+            $result[$num] = ['name' => $name, 'editName' => $editName];
+
+            $path = Yii::getAlias('@tmp/');
+            if (!$file->saveAs($path . $name)) {
+                Yii::error("Ошибка при сохранении временного файла, файл " . $name . ", RecipesController->actionUpload()");
+                return ['result' => 'error', 'message' => "Ошибка при соранении файла"];
+            }
+
+            //$intervention = new ImageManager(['driver' => 'imagick']);
+            $optimizer = OptimizerChainFactory::create();
+            $optimizer->optimize($path . $name);
+            /*$editImage = $intervention->make($path . $name)
+                ->fit(821, 380, function ($constraint) {
+                    $constraint->upsize();
+                })
+                ->save($path . $editName, 90);*/
+
+            $num++;
+        }
+
+        return ['result' => 'success', 'files' => $result];
     }
 }

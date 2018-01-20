@@ -3,6 +3,7 @@
 namespace core\entities;
 
 use Yii;
+use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "{{%recipe_steps}}".
@@ -12,10 +13,20 @@ use Yii;
  * @property string $description
  * @property string $photo
  *
- * @property Recipes $recipe
+ * @property string|null $photoUrl
+ *
+ * @property Recipe $recipe
  */
-class RecipeStep extends \yii\db\ActiveRecord
+class RecipeStep extends ActiveRecord
 {
+    public function getPhotoUrl()
+    {
+        if ($this->photo) {
+            return '/photos/' . $this->photo;
+        }
+        return null;
+    }
+
     /**
      * @inheritdoc
      */
@@ -34,7 +45,7 @@ class RecipeStep extends \yii\db\ActiveRecord
             [['recipe_id'], 'integer'],
             [['description'], 'string'],
             [['photo'], 'string', 'max' => 255],
-            [['recipe_id'], 'exist', 'skipOnError' => true, 'targetClass' => Recipes::className(), 'targetAttribute' => ['recipe_id' => 'id']],
+            [['recipe_id'], 'exist', 'skipOnError' => true, 'targetClass' => Recipe::className(), 'targetAttribute' => ['recipe_id' => 'id']],
         ];
     }
 
@@ -56,6 +67,6 @@ class RecipeStep extends \yii\db\ActiveRecord
      */
     public function getRecipe()
     {
-        return $this->hasOne(Recipes::className(), ['id' => 'recipe_id']);
+        return $this->hasOne(Recipe::className(), ['id' => 'recipe_id']);
     }
 }

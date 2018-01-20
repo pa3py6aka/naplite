@@ -27,7 +27,7 @@ AppAsset::register($this);
         <div class="top_panel">
             <div class="top_panel_left">
                 <ul>
-                    <li><a href="#"><i class="fa fa-cutlery"></i>Рецепты</a></li>
+                    <li><a href="<?= Url::to(['/recipes/index']) ?>"><i class="fa fa-cutlery"></i>Рецепты</a></li>
                     <li class="space"></li>
                     <li><a href="#"><i class="fa fa-info-circle"></i>Статьи</a></li>
                     <li class="space"></li>
@@ -78,7 +78,7 @@ AppAsset::register($this);
             </div>
         </div>
         <div class="top_bottom">
-            <div class="top_bottom_left"><a href="#"><img src="/img/logo.png" width="282" height="64" alt=""/></a></div>
+            <div class="top_bottom_left"><a href="/"><img src="/img/logo.png" width="282" height="64" alt=""/></a></div>
             <div class="top_bottom_center">
                 <form action="sdfgsdfg.php" method="post">
                     <div class="top_bottom_center_inner">
@@ -98,12 +98,12 @@ AppAsset::register($this);
 </div>
 <div class="top_adaptive">
     <div class="top_adaptive_inner_top">
-        <div class="top_adaptive_left"><a href="#"><img src="/img/logo.png" width="282" height="64" alt=""/></a></div>
+        <div class="top_adaptive_left"><a href="/"><img src="/img/logo.png" width="282" height="64" alt=""/></a></div>
         <div class="top_adaptive_right">
             <a href="#"><i class="fa fa-bars"></i></a>
             <span class="adaptive_top_menu">
 				<ul>
-					<li><a href="#">Рецепты</a></li>
+					<li><a href="<?= Url::to(['/recipes/index']) ?>">Рецепты</a></li>
 					<li><a href="#">Статьи</a></li>
 					<li><a href="#">Кухни мира</a></li>
 					<li><a href="#">Ингредиенты</a></li>
@@ -113,7 +113,7 @@ AppAsset::register($this);
 					<li class="adaptive_top_menu_space"></li>
 					<li>
 						<ul class="not_logged">
-							<li><a href="#" class="b_red"><i class="fa fa-plus"></i>Добавить рецепт</a></li>
+							<li><a href="<?= Yii::$app->user->isGuest ? 'javascript:void(0)' : Url::to(['/recipes/new']) ?>" class="b_red<?= Yii::$app->user->isGuest ? ' loginButton' : '' ?>"><i class="fa fa-plus"></i>Добавить рецепт</a></li>
                             <?php if (Yii::$app->user->isGuest): ?>
 							    <li class="loginButton"><a href="#" class="b_green"><i class="fa fa-lock"></i>Войти</a></li>
                             <?php else: ?>
@@ -121,7 +121,7 @@ AppAsset::register($this);
                                 <li>
                                     <span class="top_userpick">
                                         <span class="top_userpick_inner">
-                                            <span class="top_userpick_photo"><img src="img/photo.jpg" width="200" height="200" alt=""/></span>
+                                            <span class="top_userpick_photo"><img src="/img/photo.jpg" width="200" height="200" alt=""/></span>
                                             <span class="top_userpick_arrow"><i class="fa fa-sort-down"></i></span>
                                         </span>
                                         <ul>
@@ -326,6 +326,8 @@ AppAsset::register($this);
         </div>
     </div>
 </div>
+
+<?= $this->render('message-modal') ?>
 
 <?php if (Yii::$app->user->isGuest) {
     echo $this->render('@frontend/views/auth/login-modal');
