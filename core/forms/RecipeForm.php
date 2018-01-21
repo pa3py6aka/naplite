@@ -54,7 +54,7 @@ class RecipeForm extends Model
             ['mainPhoto', 'integer'],
 
             ['introductoryText', 'required', 'message' => 'Напишите вводный текст'],
-            ['introductoryText', 'string', 'min' => 20, 'max' => 500, 'message' => 'Текст должен быть от 20 до 500 символов'],
+            ['introductoryText', 'string', 'min' => 20, 'max' => \Yii::$app->settings->get(''), 'message' => 'Текст должен быть от 20 до 500 символов'],
 
             [['cookingTimeHours', 'cookingTimeMinutes'], 'required', 'message' => 'Укажите время приготовления'],
             ['cookingTimeHours', 'integer', 'max' => 30],
