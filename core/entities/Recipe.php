@@ -2,6 +2,7 @@
 
 namespace core\entities;
 
+use core\entities\queries\RecipeQuery;
 use core\entities\User\User;
 use lhs\Yii2SaveRelationsBehavior\SaveRelationsBehavior;
 use Yii;
@@ -96,15 +97,15 @@ class Recipe extends ActiveRecord
         ];
     }
 
-    public function getMainPhoto()
+    public function getMainPhoto($small = false)
     {
         if ($this->main_photo_id) {
             if ($photo = Photo::findOne($this->main_photo_id)) {
-                return Yii::$app->params['frontendHostInfo'] . '/photos/' . $photo->file;
+                return Yii::$app->params['frontendHostInfo'] . '/photos/' . ($small ? 'sm_' : '') . $photo->file;
             }
         }
         if (count($this->recipePhotos)) {
-            return Yii::$app->params['frontendHostInfo'] . '/photos/' . $this->recipePhotos[0]->file;
+            return Yii::$app->params['frontendHostInfo'] . '/photos/' . ($small ? 'sm_' : '') . $this->recipePhotos[0]->file;
         }
         return null;
     }
@@ -259,5 +260,14 @@ class Recipe extends ActiveRecord
     public function getHolidays(): ActiveQuery
     {
         return $this->hasMany(Holiday::className(), ['id' => 'holiday_id'])->viaTable('{{%recipe_holidays}}', ['recipe_id' => 'id']);
+    }
+
+    /**
+     * @inheritdoc
+     * @return RecipeQuery the active query used by this AR class.
+     */
+    public static function find()
+    {
+        return new RecipeQuery(get_called_class());
     }
 }

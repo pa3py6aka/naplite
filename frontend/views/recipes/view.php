@@ -92,7 +92,7 @@ $this->title = Html::encode($recipe->name);
                             <span class="recipe_stat_top">Время готовки:</span>
                             <span class="recipe_stat_bottom">
                                 <span class="recipe_stat_bottom_left"><i class="fa fa-clock-o"></i></span>
-                                <span class="recipe_stat_bottom_right"><?= RecipeHelper::hoursFromMinutes($recipe->cooking_time) ?> часа</span>
+                                <span class="recipe_stat_bottom_right"><?= RecipeHelper::hoursFromMinutes($recipe->cooking_time) ?></span>
                             </span>
                         </li>
                         <li>

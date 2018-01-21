@@ -10,7 +10,10 @@ class RecipeHelper
 {
     public static function hoursFromMinutes($minutes)
     {
-        return round($minutes / 60, 1);
+        if ($minutes < 60) {
+            return $minutes . ' мин';
+        }
+        return round($minutes / 60, 1) . ' часа';
     }
 
     public static function getPhotosForCarousel(Recipe $recipe)

@@ -1,18 +1,10 @@
 <?php
 namespace frontend\controllers;
 
+use core\entities\Recipe;
 use Yii;
-use yii\base\InvalidParamException;
-use yii\web\BadRequestHttpException;
+use yii\data\ActiveDataProvider;
 use yii\web\Controller;
-use yii\filters\VerbFilter;
-use yii\filters\AccessControl;
-use core\forms\auth\LoginForm;
-use frontend\models\PasswordResetRequestForm;
-use frontend\models\ResetPasswordForm;
-use frontend\models\SignupForm;
-use frontend\models\ContactForm;
-
 
 class MainController extends Controller
 {
@@ -23,6 +15,15 @@ class MainController extends Controller
      */
     public function actionIndex()
     {
-        return $this->render('index');
+        $recipesQuery = Recipe::find()->orderBy(['id' => SORT_DESC]);
+        $provider = new ActiveDataProvider([
+            'query' => $recipesQuery,
+            'sort' => ['defaultOrder' => ['id' => SORT_DESC]],
+            'pagination' => ['pageSize' => 9],
+        ]);
+
+        return $this->render('index', [
+            'recipes' => $provider->getModels(),
+        ]);
     }
 }

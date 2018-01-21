@@ -2,6 +2,12 @@
 
 /* @var $this yii\web\View */
 
+use core\helpers\RecipeHelper;
+use yii\helpers\Html;
+use yii\helpers\Url;
+
+/* @var $recipes \core\entities\Recipe[]|array */
+
 $this->title = 'На плите! Кулинарные рецепты на любой вкус';
 ?>
 <div class="content_left">
@@ -58,85 +64,48 @@ $this->title = 'На плите! Кулинарные рецепты на люб
         </div>
     </div>
     <ul class="catalogue_ul">
-        <li class="recipe_prev">
-					<span class="recipe_prev_inner">
-						<a href="#" class="recipe_prev_top">
-							<span class="recipe_prev_image"><img src="/img/recipe_image_small.jpg" alt=""/></span>
-							<span class="recipe_prev_th"><b>Морковно-яблочные котлеты</b></span>
-						</a>
-						<span class="recipe_prev_user">
-							<a href="#" class="userpick">
-								<span class="userpick_photo"><img src="/img/photo.jpg" alt=""/></span>
-								<span class="userpick_name">Татьяна Левтерова</span>
-								<span class="userpick_date">Сегодня в 15:00</span>
-							</a>
-						</span>
-						<span class="recipe_prev_stat">
-							<span class="recipe_prev_stat_left">
-								<a href="#" class="stat_ico">
-									<span class="stat_ico_left"><i class="fa fa-star-o"></i></span>
-									<span class="stat_ico_right">115</span>
-									<span class="stat_rasp"></span>
-								</a>
-								<a href="#" class="stat_ico">
-									<span class="stat_ico_left"><i class="fa fa-heart-o"></i></span>
-									<span class="stat_ico_right">245</span>
-									<span class="stat_rasp"></span>
-								</a>
-								<a href="#" class="stat_ico">
-									<span class="stat_ico_left"><i class="fa fa-comment-o"></i></span>
-									<span class="stat_ico_right">245</span>
-								</a>
-							</span>
-							<span class="recipe_prev_stat_right">
-								<span class="stat_ico">
-									<span class="stat_ico_left"><i class="fa fa-clock-o"></i></span>
-									<span class="stat_ico_right">1,5 часа</span>
-								</span>
-							</span>
-						</span>
-					</span>
-        </li>
-        <li class="recipe_prev">
-					<span class="recipe_prev_inner">
-						<a href="#" class="recipe_prev_top">
-							<span class="recipe_prev_image"><img src="img/recipe_image_small.jpg" alt=""/></span>
-							<span class="recipe_prev_th"><b>Морковно-яблочные котлеты</b></span>
-						</a>
-						<span class="recipe_prev_user">
-							<a href="#" class="userpick">
-								<span class="userpick_photo"><img src="img/photo.jpg" alt=""/></span>
-								<span class="userpick_name">Татьяна Левтерова</span>
-								<span class="userpick_date">Сегодня в 15:00</span>
-							</a>
-						</span>
-						<span class="recipe_prev_stat">
-							<span class="recipe_prev_stat_left">
-								<a href="#" class="stat_ico">
-									<span class="stat_ico_left"><i class="fa fa-star-o"></i></span>
-									<span class="stat_ico_right">5</span>
-									<span class="stat_rasp"></span>
-								</a>
-								<a href="#" class="stat_ico">
-									<span class="stat_ico_left"><i class="fa fa-heart-o"></i></span>
-									<span class="stat_ico_right">5</span>
-									<span class="stat_rasp"></span>
-								</a>
-								<a href="#" class="stat_ico">
-									<span class="stat_ico_left"><i class="fa fa-comment-o"></i></span>
-									<span class="stat_ico_right">5</span>
-								</a>
-							</span>
-							<span class="recipe_prev_stat_right">
-								<span class="stat_ico">
-									<span class="stat_ico_left"><i class="fa fa-clock-o"></i></span>
-									<span class="stat_ico_right">30 мин</span>
-								</span>
-							</span>
-						</span>
-					</span>
-        </li>
-        <li class="recipe_prev">
+        <?php foreach ($recipes as $recipe): ?>
+            <li class="recipe_prev">
+                <span class="recipe_prev_inner">
+                    <a href="<?= Url::to(['/recipes/view', 'id' => $recipe->id]) ?>" class="recipe_prev_top">
+                        <span class="recipe_prev_image"><img src="<?= $recipe->getMainPhoto(true) ?>" alt=""/></span>
+                        <span class="recipe_prev_th"><b><?= Html::encode($recipe->name) ?></b></span>
+                    </a>
+                    <span class="recipe_prev_user">
+                        <a href="<?= Url::to(['/users/view', 'id' => $recipe->author_id]) ?>" class="userpick">
+                            <span class="userpick_photo"><img src="<?= $recipe->author->avatarUrl ?>" alt=""/></span>
+                            <span class="userpick_name"><?= Html::encode($recipe->author->fullName) ?></span>
+                            <span class="userpick_date"><?= Yii::$app->formatter->asRelativeTime($recipe->created_at) ?></span>
+                        </a>
+                    </span>
+                    <span class="recipe_prev_stat">
+                        <span class="recipe_prev_stat_left">
+                            <a href="#" class="stat_ico">
+                                <span class="stat_ico_left"><i class="fa fa-star-o"></i></span>
+                                <span class="stat_ico_right"><?= $recipe->rate ?></span>
+                                <span class="stat_rasp"></span>
+                            </a>
+                            <a href="#" class="stat_ico">
+                                <span class="stat_ico_left"><i class="fa fa-heart-o"></i></span>
+                                <span class="stat_ico_right">0</span>
+                                <span class="stat_rasp"></span>
+                            </a>
+                            <a href="#" class="stat_ico">
+                                <span class="stat_ico_left"><i class="fa fa-comment-o"></i></span>
+                                <span class="stat_ico_right"><?= $recipe->comments_count ?></span>
+                            </a>
+                        </span>
+                        <span class="recipe_prev_stat_right">
+                            <span class="stat_ico">
+                                <span class="stat_ico_left"><i class="fa fa-clock-o"></i></span>
+                                <span class="stat_ico_right"><?= RecipeHelper::hoursFromMinutes($recipe->cooking_time) ?></span>
+                            </span>
+                        </span>
+                    </span>
+                </span>
+            </li>
+        <?php endforeach; ?>
+        <!--<li class="recipe_prev">
 					<span class="recipe_prev_inner">
 						<a href="#" class="recipe_prev_top">
 							<span class="recipe_prev_image"><img src="img/recipe_image_small.jpg" alt=""/></span>
@@ -409,6 +378,45 @@ $this->title = 'На плите! Кулинарные рецепты на люб
 						</span>
 					</span>
         </li>
+        <li class="recipe_prev">
+					<span class="recipe_prev_inner">
+						<a href="#" class="recipe_prev_top">
+							<span class="recipe_prev_image"><img src="img/recipe_image_small.jpg" alt=""/></span>
+							<span class="recipe_prev_th"><b>Морковно-яблочные котлеты</b></span>
+						</a>
+						<span class="recipe_prev_user">
+							<a href="#" class="userpick">
+								<span class="userpick_photo"><img src="img/photo.jpg" alt=""/></span>
+								<span class="userpick_name">Татьяна Левтерова</span>
+								<span class="userpick_date">Сегодня в 15:00</span>
+							</a>
+						</span>
+						<span class="recipe_prev_stat">
+							<span class="recipe_prev_stat_left">
+								<a href="#" class="stat_ico">
+									<span class="stat_ico_left"><i class="fa fa-star-o"></i></span>
+									<span class="stat_ico_right">5</span>
+									<span class="stat_rasp"></span>
+								</a>
+								<a href="#" class="stat_ico">
+									<span class="stat_ico_left"><i class="fa fa-heart-o"></i></span>
+									<span class="stat_ico_right">5</span>
+									<span class="stat_rasp"></span>
+								</a>
+								<a href="#" class="stat_ico">
+									<span class="stat_ico_left"><i class="fa fa-comment-o"></i></span>
+									<span class="stat_ico_right">5</span>
+								</a>
+							</span>
+							<span class="recipe_prev_stat_right">
+								<span class="stat_ico">
+									<span class="stat_ico_left"><i class="fa fa-clock-o"></i></span>
+									<span class="stat_ico_right">30 мин</span>
+								</span>
+							</span>
+						</span>
+					</span>
+        </li>-->
     </ul>
     <div class="cb tac">
         <a href="#" class="b_brown b_shadow"><i class="fa fa-refresh"></i>Показать больше рецептов</a>
