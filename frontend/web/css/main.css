@@ -31,6 +31,9 @@ b{font-family:"OpenSans-Bold";}
 .w80per{width:80%;}
 .dib{display:inline-block;}
 .relative{position:relative;}
+.hr{height:1px;background-color:#dad9d7;width:100%;display:block;margin:30px 0px;}
+.tacimp{text-align:center !important;}
+
 
 
 /*fonts*/
@@ -43,7 +46,8 @@ h4{font-family:"OpenSans-Extrabold";font-size:17px;}
 .f13{font-size:13px;}
 .link_gray{color:#8f8e8e;}
 .f14{font-size:14px;}
-
+.italic{font-style:italic;}
+.lh22{line-height:22px;}
 
 
 
@@ -55,7 +59,7 @@ h4{font-family:"OpenSans-Extrabold";font-size:17px;}
 .recipe_prev .recipe_prev_image img,
 .right_banners img,
 .top_menu ul li,
-.right_preview_switch_center_left, 
+.right_preview_switch_center_left,
 .right_preview_switch_center_right,
 .add_ing_inputs_box_4 i,
 .th_parent_links a,
@@ -72,9 +76,9 @@ h4{font-family:"OpenSans-Extrabold";font-size:17px;}
 
 
 input[placeholder]          {text-overflow:ellipsis;}
-input::-moz-placeholder     {text-overflow:ellipsis;} 
-input:-moz-placeholder      {text-overflow:ellipsis;} 
-input:-ms-input-placeholder {text-overflow:ellipsis;} 
+input::-moz-placeholder     {text-overflow:ellipsis;}
+input:-moz-placeholder      {text-overflow:ellipsis;}
+input:-ms-input-placeholder {text-overflow:ellipsis;}
 input, select, textarea{-webkit-appearance:none;}
 
 
@@ -469,7 +473,7 @@ select::-ms-expand{display:none;}
 .coolinars_top li .userpick_name{font-family:"OpenSans-Bold";padding-top:10px;padding-left:10px;}
 .coolinars_top li .stat_ico{display:block;}
 .post_page_content{display:block;font-size:16px;line-height:30px;background:linear-gradient(#ffffff,#f9f9f9);margin:0px -40px -40px -40px;
-box-sizing:border-box;padding:10px 40px 10px 40px;border-bottom: 1px solid #eeedec;}
+	box-sizing:border-box;padding:10px 40px 10px 40px;border-bottom: 1px solid #eeedec;}
 .post_page_content h1{padding-bottom:30px;line-height:46px;}
 .post_page_top{display:block;}
 .post_page_stat{display:block;padding-top:30px;}
@@ -663,6 +667,10 @@ box-sizing:border-box;padding:10px 40px 10px 40px;border-bottom: 1px solid #eeed
 .recipe_prev_image{background:url(../img/preload_image.jpg) center center no-repeat;background-size:cover;}
 .top_adaptive_inner_top{width:100%;}
 .top_adaptive_left img{max-width:282px;}
+.userpage_userpickbox_adaptive{display:none;padding-bottom:20px;}
+.userpage_userpickbox{display:inline-block;}
+.userpage_userpickbox_adaptive img{border-radius:100px;}
+
 
 /*adaptive*/
 .hidden1260{display:inline;}
@@ -883,6 +891,8 @@ box-sizing:border-box;padding:10px 40px 10px 40px;border-bottom: 1px solid #eeed
 	.footer_col p{display:none;}
 	.footer_top{padding-bottom:40px;}
 	.th_parent_seo{height:105px;font-size:90%;}
+	.userpage_userpickbox{display:none;}
+	.userpage_userpickbox_adaptive{display:block;}
 }
 @media screen and (max-device-width:650px), screen and (max-width:650px){
 	.top_articles_box_arrows{bottom:20px;right:20px;}
@@ -986,6 +996,9 @@ box-sizing:border-box;padding:10px 40px 10px 40px;border-bottom: 1px solid #eeed
 	.top{display:none;}
 	.top_adaptive{display:block;}
 	.top_bottom_center_inner_right .fa-search{padding-right:0px;}
+	.blog_adaptive_menu_left{box-sizing:border-box;}
+	.checkbox_outer{text-align:left;}
+	.checkbox:not(checked) + label{font-size:90%;}
 }
 
 /* Added */

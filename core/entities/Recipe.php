@@ -182,8 +182,11 @@ class Recipe extends ActiveRecord
             'cooking_time' => 'Время приготовления',
             'preparation_time' => 'Время подготовки',
             'persons' => 'Кол-во персон',
-            'complexity' => 'Сложность',
+            'complexityName' => 'Сложность',
             'notes' => 'Заметки',
+            'rate' => 'Рейтинг',
+            'comments_count' => 'Кол-во комментариев',
+            'comments_notify' => 'Уведомления автору о новых комментариях',
             'created_at' => 'Дата добавления',
             'updated_at' => 'Дата обновления',
         ];

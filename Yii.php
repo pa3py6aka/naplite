@@ -19,6 +19,8 @@ class Yii extends \yii\BaseYii
  * @propert \app\components\Mailer $mailer The mailer component. This property is read-only. Extended component.
  * @property \core\services\SettingsManager $settings
  * @property \core\components\PhotoSaver $photoSaver
+ * @property \yii\web\UrlManager $backendUrlManager
+ * @property \yii\web\UrlManager $frontendUrlManager
  */
 abstract class BaseApplication extends yii\base\Application
 {

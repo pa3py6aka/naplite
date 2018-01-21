@@ -6,6 +6,7 @@
             [
                 'options' => ['class' => 'sidebar-menu tree', 'data-widget'=> 'tree'],
                 'items' => [
+                    ['label' => 'Рецепты', 'icon' => 'map-o', 'url' => ['/recipe/index'], 'active' => $this->context->id == 'recipe'],
                     ['label' => 'Кухни мира', 'icon' => 'globe', 'url' => ['/kitchen/index'], 'active' => $this->context->id == 'kitchen'],
                     ['label' => 'Категории', 'icon' => 'file-o', 'url' => ['/category/index'], 'active' => $this->context->id == 'category'],
                     ['label' => 'Праздники', 'icon' => 'bookmark', 'url' => ['/holiday/index'], 'active' => $this->context->id == 'holiday'],

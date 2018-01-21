@@ -22,7 +22,7 @@ class RecipeStep extends ActiveRecord
     public function getPhotoUrl()
     {
         if ($this->photo) {
-            return '/photos/' . $this->photo;
+            return Yii::$app->params['frontendHostInfo'] . '/photos/' . $this->photo;
         }
         return null;
     }
