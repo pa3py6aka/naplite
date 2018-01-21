@@ -1,7 +1,7 @@
 <?php
 
 /* @var $this \yii\web\View */
-/* @var $model \core\forms\manage\SettingsForm */
+/* @var $model \core\components\Settings\SettingsForm */
 
 use yii\bootstrap\ActiveForm;
 use yii\helpers\Html;

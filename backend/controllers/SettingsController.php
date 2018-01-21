@@ -3,7 +3,8 @@
 namespace backend\controllers;
 
 
-use core\forms\manage\SettingsForm;
+use core\components\Settings\SettingsForm;
+use Yii;
 use yii\web\Controller;
 
 class SettingsController extends Controller
@@ -12,8 +13,11 @@ class SettingsController extends Controller
     {
         $form = new SettingsForm();
 
-        if ($form->load(\Yii::$app->request->post()) && $form->validate()) {
-
+        if ($form->load(Yii::$app->request->post()) && $form->validate()) {
+            if (Yii::$app->settings->saveAll($form)) {
+                Yii::$app->session->setFlash("success", "Настройки успешно сохранены");
+                return $this->redirect(['index']);
+            }
         }
 
         return $this->render('index', [

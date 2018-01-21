@@ -1,6 +1,6 @@
 <?php
 
-namespace core\services;
+namespace core\components\Settings;
 
 
 use yii\helpers\Json;
@@ -8,6 +8,7 @@ use yii\helpers\Json;
 class SettingsManager
 {
     private $settings;
+    public $file = __DIR__ . '/settings.json';
 
     /* @note Don't change keys in this array!!! */
     private $default = [
@@ -16,7 +17,7 @@ class SettingsManager
 
     public function __construct()
     {
-        $this->settings = Json::decode(file_get_contents(__DIR__ . '/../settings.json'));
+        $this->settings = Json::decode(file_get_contents($this->file));
         $this->prepare();
     }
 
@@ -28,9 +29,14 @@ class SettingsManager
         return null;
     }
 
-    public function getAll()
+    public function getAll(): array
     {
         return $this->settings;
+    }
+
+    public function saveAll(SettingsForm $form)
+    {
+        return file_put_contents($this->file, Json::encode($form->attributes));
     }
 
     private function prepare()

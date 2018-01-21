@@ -25,7 +25,7 @@ return [
             'datetimeFormat' => 'php: d.m.Y H:i'
         ],
         'settings' => [
-            'class' => 'core\services\SettingsManager',
+            'class' => 'core\components\Settings\SettingsManager',
         ],
         'photoSaver' => [
             'class' => 'core\components\PhotoSaver'

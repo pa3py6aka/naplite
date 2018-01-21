@@ -1,6 +1,6 @@
 <?php
 
-namespace core\forms\manage;
+namespace core\components\Settings;
 
 
 use Yii;
@@ -14,7 +14,7 @@ class SettingsForm extends Model
     {
         $settings = Yii::$app->settings->getAll();
         foreach ($settings as $param => $value) {
-
+            $this->$param = $value;
         }
         parent::init();
     }
