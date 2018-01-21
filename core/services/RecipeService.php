@@ -8,6 +8,7 @@ use core\entities\IngredientSection;
 use core\entities\Photo;
 use core\entities\Recipe;
 use core\forms\RecipeForm;
+use core\components\PhotoSaver;
 use core\repositories\RecipeRepository;
 use Yii;
 
@@ -62,10 +63,13 @@ class RecipeService
         foreach ($form->photos as $k => $photo) {
             if (is_file(Yii::getAlias('@tmp/' . $photo))) {
                 if (copy(Yii::getAlias('@tmp/' . $photo), Yii::getAlias('@photoPath/' . $photo))) {
-                    $photos[] = ['file' => $photo, 'sort' => $k];
                     if ($form->mainPhoto == $k) {
                         $mainPhoto = $k;
                     }
+                    $photos[] = ['file' => $photo, 'sort' => $form->mainPhoto == $k ? 0 : $k + 1];
+
+                    copy(Yii::getAlias('@tmp/sm_' . $photo), Yii::getAlias('@photoPath/sm_' . $photo));
+                    //Yii::$app->photoSaver->createRecipeImages(Yii::getAlias('@photoPath/' . $photo));
                 } else {
                     throw new \DomainException("Не удалось сохранить фото");
                 }
@@ -75,7 +79,12 @@ class RecipeService
         $steps = [];
         foreach ($form->stepDescription as $n => $stepDescription) {
             if ($stepDescription) {
-                $steps[] = ['description' => $stepDescription, 'photo' => isset($form->stepPhoto[$n]) ? $form->stepPhoto[$n] : ''];
+                $isPhoto = isset($form->stepPhoto[$n]) && $form->stepPhoto[$n] && is_file(Yii::getAlias('@tmp/' . $form->stepPhoto[$n]));
+                $steps[] = ['description' => $stepDescription, 'photo' => $isPhoto ? $form->stepPhoto[$n] : ''];
+                if ($isPhoto) {
+                    copy(Yii::getAlias('@tmp/' . $form->stepPhoto[$n]), Yii::getAlias('@photoPath/' . $form->stepPhoto[$n]));
+                    //Yii::$app->photoSaver->createStepImage(Yii::getAlias('@photoPath/' . $form->stepPhoto[$n]));
+                }
             }
         }
 

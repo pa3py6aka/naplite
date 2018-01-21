@@ -26,6 +26,9 @@ return [
         ],
         'settings' => [
             'class' => 'core\services\SettingsManager',
-        ]
+        ],
+        'photoSaver' => [
+            'class' => 'core\components\PhotoSaver'
+        ],
     ],
 ];

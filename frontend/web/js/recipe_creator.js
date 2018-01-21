@@ -12,8 +12,10 @@ RecipeCreator = (function () {
         }).on('click', '.upload-file', function (e) {
             e.stopPropagation();
         }).on("change", '.upload-file', function (e) {
-            var $boxLoader = NaPlite.public.getBoxLoader();
-            var $link = $(e.target).parent();
+            var $boxLoader = NaPlite.public.getBoxLoader(),
+                $link = $(e.target).parent(),
+                isSmallBox = $link.parent().hasClass('uploadbox_small');
+
             $link.before($boxLoader);
             setBigUploadBoxEmpty($link.parent());
 
@@ -28,6 +30,7 @@ RecipeCreator = (function () {
             });
             formData.append("_csrf-frontend", yii.getCsrfToken());
             formData.append("num", $link.find('input[type=hidden]').attr('data-num'));
+            formData.append("type", isSmallBox ? 'step' : 'recipe');
             xhr.send(formData);
 
             function uploadProgress(event) {
@@ -43,8 +46,7 @@ RecipeCreator = (function () {
                             $link.find('span').html(data.message);
                         } else {
                             $.each(data.files, function (num, names) {
-                                var $appendTo,
-                                    isSmallBox = $link.parent().hasClass('uploadbox_small');
+                                var $appendTo;
                                 if (isSmallBox) {
                                     $appendTo = $link;
                                 } else if ($link.find('input[data-num=' + num + ']').length) {

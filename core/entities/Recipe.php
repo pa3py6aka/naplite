@@ -209,7 +209,8 @@ class Recipe extends ActiveRecord
      */
     public function getRecipePhotos(): ActiveQuery
     {
-        return $this->hasMany(Photo::className(), ['recipe_id' => 'id']);
+        return $this->hasMany(Photo::className(), ['recipe_id' => 'id'])
+            ->orderBy(['sort' => SORT_ASC]);
     }
 
     /**

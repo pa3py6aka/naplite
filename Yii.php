@@ -18,6 +18,7 @@ class Yii extends \yii\BaseYii
  * @propert \app\components\RbacManager $authManager The auth manager for this application. Null is returned if auth manager is not configured. This property is read-only. Extended component.
  * @propert \app\components\Mailer $mailer The mailer component. This property is read-only. Extended component.
  * @property \core\services\SettingsManager $settings
+ * @property \core\components\PhotoSaver $photoSaver
  */
 abstract class BaseApplication extends yii\base\Application
 {

@@ -133,7 +133,7 @@ class RecipesController extends Controller
             'wrongExtension' => 'Недопустимый формат файла'
         ]);
         $files = UploadedFile::getInstancesByName('file');
-        $num = Yii::$app->request->get('num', 0);
+        $num = Yii::$app->request->post('num', 0);
 
         $result = [];
         foreach ($files as $file) {
@@ -150,9 +150,15 @@ class RecipesController extends Controller
                 return ['result' => 'error', 'message' => "Ошибка при соранении файла"];
             }
 
+            if (Yii::$app->request->post('type') == 'recipe') {
+                Yii::$app->photoSaver->createRecipeImages($path . $name);
+            } else {
+                Yii::$app->photoSaver->createStepImage($path . $name);
+            }
+
             //$intervention = new ImageManager(['driver' => 'imagick']);
-            $optimizer = OptimizerChainFactory::create();
-            $optimizer->optimize($path . $name);
+            //$optimizer = OptimizerChainFactory::create();
+            //$optimizer->optimize($path . $name);
             /*$editImage = $intervention->make($path . $name)
                 ->fit(821, 380, function ($constraint) {
                     $constraint->upsize();
