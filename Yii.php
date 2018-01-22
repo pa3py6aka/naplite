@@ -19,6 +19,7 @@ class Yii extends \yii\BaseYii
  * @property \core\components\PhotoSaver $photoSaver
  * @property \yii\web\UrlManager $backendUrlManager
  * @property \yii\web\UrlManager $frontendUrlManager
+ * @property \core\components\YiiUser $user
  */
 abstract class BaseApplication extends yii\base\Application
 {

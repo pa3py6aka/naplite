@@ -83,6 +83,33 @@ NaPlite = (function () {
             $link.attr('href', url).click();
         });
         /* Конец "пока только для категорий" */
+
+        // Для страницы настроек пользователя
+        $('#userSettingsPage').on('click', '[data-link=choose-avatar-link]', function (e) {
+            $('#userSettingsForm').find('input[type=file][name*=avatar]').click();
+        }).on('click', '.upload-file', function (e) {
+            e.stopPropagation();
+        }).on("change", '.upload-file', function (evt) {
+            var tgt = evt.target || window.event.srcElement,
+                files = tgt.files;
+            // FileReader support
+            if (FileReader && files && files.length) {
+                var fr = new FileReader();
+                fr.onload = function () {
+                    $('[data-image=avatar]').attr('src', fr.result);
+                    //document.getElementById(outImage).src = fr.result;
+                };
+                fr.readAsDataURL(files[0]);
+            }
+            // Not supported
+            else {
+                alert('Фотография выбрана');
+            }
+        }).on('click', '[data-link=form-submit]', function (e) {
+            $('#userSettingsForm').yiiActiveForm('submitForm');
+        }).on('click', '[data-link=change-password]', function (e) {
+            showModal('changePasswordModal');
+        });
     };
 
     function showModal(id) {

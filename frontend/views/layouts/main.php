@@ -3,6 +3,8 @@
 /* @var $this \yii\web\View */
 /* @var $content string */
 
+
+use widgets\ModalAlertWidget;
 use yii\helpers\Html;
 use frontend\assets\AppAsset;
 use yii\helpers\Url;
@@ -58,7 +60,7 @@ AppAsset::register($this);
                         <li>
 						<span class="top_userpick">
 							<span class="top_userpick_inner">
-								<span class="top_userpick_photo"><img src="/img/photo.jpg" width="200" height="200" alt=""/></span>
+								<span class="top_userpick_photo"><img src="<?= Yii::$app->user->identity->avatarUrl ?>" width="200" height="200" alt=""/></span>
 								<span class="top_userpick_arrow"><i class="fa fa-sort-down"></i></span>
 							</span>
 							<ul>
@@ -68,7 +70,7 @@ AppAsset::register($this);
 								<li><a href="#"><i class="fa fa-cutlery"></i>Мои рецепты</a></li>
 								<li><a href="#"><i class="fa fa-comment"></i>Мои посты</a></li>
 								<li><a href="#"><i class="fa fa-photo"></i>Мои фотоотчеты</a></li>
-								<li><a href="#"><i class="fa fa-gear"></i>Настройки</a></li>
+								<li><a href="<?= Url::to(['/users/settings']) ?>"><i class="fa fa-gear"></i>Настройки</a></li>
 								<li><a href="<?= Url::to(['/auth/logout']) ?>" data-method="post"><i class="fa fa-sign-out"></i>Выйти</a></li>
 							</ul>
 						</span>
@@ -121,7 +123,7 @@ AppAsset::register($this);
                                 <li>
                                     <span class="top_userpick">
                                         <span class="top_userpick_inner">
-                                            <span class="top_userpick_photo"><img src="/img/photo.jpg" width="200" height="200" alt=""/></span>
+                                            <span class="top_userpick_photo"><img src="<?= Yii::$app->user->identity->avatarUrl ?>" width="200" height="200" alt=""/></span>
                                             <span class="top_userpick_arrow"><i class="fa fa-sort-down"></i></span>
                                         </span>
                                         <ul>
@@ -331,11 +333,16 @@ AppAsset::register($this);
 </div>
 
 <?= $this->render('message-modal') ?>
+<?= ModalAlertWidget::widget() ?>
 
 <?php if (Yii::$app->user->isGuest) {
     echo $this->render('@frontend/views/auth/login-modal');
     echo $this->render('@frontend/views/auth/reg-modal');
     echo $this->render('@frontend/views/auth/forgot-password-modal');
+
+    if (Yii::$app->request->get('login') == '1') {
+        $this->registerJs('window.addEventListener("load", function(){$(".loginButton").click();});');
+    }
 } ?>
 
 <?php $this->endBody() ?>

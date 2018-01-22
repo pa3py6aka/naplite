@@ -22,7 +22,6 @@ class RecipeRepository
     public function save(Recipe $recipe)
     {
         if (!$recipe->save(false)) {
-            \Yii::trace($recipe->errors, 'SAVE_ERROR');
             throw new \RuntimeException('Ошибка записи в базу.');
         }
     }

@@ -3,14 +3,19 @@
 namespace core\entities\User;
 
 
+use core\components\Subscriber;
 use lhs\Yii2SaveRelationsBehavior\SaveRelationsBehavior;
 use Yii;
 use yii\base\NotSupportedException;
 use yii\behaviors\TimestampBehavior;
+use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
+use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
+use yii\helpers\Json;
 use yii\helpers\Url;
 use yii\web\IdentityInterface;
+use yii\web\UploadedFile;
 
 /**
  * This is the model class for table "{{%users}}".
@@ -18,12 +23,13 @@ use yii\web\IdentityInterface;
  * @property int $id
  * @property string $email
  * @property string $username
- * @property string $country
+ * @property int $country_id [int(11)]
  * @property string $city
  * @property int $experience_id
  * @property int $recipes
  * @property string $about
  * @property string $avatar
+ * @property string|array $subscribes
  * @property string $rate
  * @property int $status
  * @property string $email_confirm_token [varchar(255)]
@@ -37,6 +43,7 @@ use yii\web\IdentityInterface;
  * @property string $pageUrl
  * @property string $fullName
  *
+ * @property Country $country
  * @property Experience $experience
  * @property Network[] $networks
  */
@@ -56,6 +63,7 @@ class User extends ActiveRecord implements IdentityInterface
         $user->generateAuthKey();
         $user->experience_id = self::DEFAULT_EXPERIENCE;
         $user->status = self::STATUS_WAIT;
+        $user->subscribes = Subscriber::DEFAULT_SUBSCRIBES;
         $user->email_confirm_token = Yii::$app->security->generateRandomString();
         return $user;
     }
@@ -71,10 +79,21 @@ class User extends ActiveRecord implements IdentityInterface
         $user = new User();
         $user->created_at = time();
         $user->status = self::STATUS_ACTIVE;
+        $user->subscribes = Subscriber::DEFAULT_SUBSCRIBES;
         $user->generateAuthKey();
         $user->experience_id = self::DEFAULT_EXPERIENCE;
         $user->networks = [Network::create($network, $identity)];
         return $user;
+    }
+
+    public function edit($username, $email, $countryId, $city, $about, array $subscribes)
+    {
+        $this->username = $username;
+        $this->email = $email;
+        $this->country_id = $countryId;
+        $this->city = $city;
+        $this->about = $about;
+        $this->subscribes = $subscribes;
     }
 
     public function getAvatarUrl()
@@ -83,6 +102,24 @@ class User extends ActiveRecord implements IdentityInterface
             return Yii::$app->params['frontendHostInfo'] . '/ava/' . $this->avatar;
         }
         return Yii::$app->params['frontendHostInfo'] . '/ava/empty.png';
+    }
+
+    public function saveAvatar(UploadedFile $file): void
+    {
+        try {
+            $avatar = $this->id . '_' . time() . '.' . $file->extension;
+            if ($file->saveAs(Yii::getAlias('@ava') . '/' . $avatar)) {
+                Yii::$app->photoSaver->fitBySize(Yii::getAlias('@ava') . '/' . $avatar, 200, 200);
+                if ($this->avatar != $avatar && is_file(Yii::getAlias('@ava') . '/' . $this->avatar)) {
+                    unlink(Yii::getAlias('@ava') . '/' . $this->avatar);
+                }
+                $this->avatar = $avatar;
+            } else {
+                throw new \DomainException("Ошибка сохранения файла");
+            }
+        } catch (\Exception $e) {
+            throw new \DomainException($e->getMessage());
+        }
     }
 
     public function getPageUrl($absolute = false)
@@ -95,6 +132,32 @@ class User extends ActiveRecord implements IdentityInterface
     public function getFullName(): string
     {
         return $this->username ? Html::encode($this->username) : 'Неизвестный пользователь';
+    }
+
+    public function getSubscribeFor($id)
+    {
+        return ArrayHelper::getValue($this->subscribes, $id, 0);
+    }
+
+    public function afterFind()
+    {
+        $subscribes = Json::decode($this->subscribes);
+        foreach (Subscriber::DEFAULT_SUBSCRIBES as $id => $value) {
+            if (!isset($subscribes[$id])) {
+                $subscribes[$id] = $value;
+            }
+        }
+        $this->subscribes = $subscribes;
+        parent::afterFind();
+    }
+
+    public function beforeSave($insert)
+    {
+        if (parent::beforeSave($insert)) {
+            $this->subscribes = Json::encode($this->subscribes);
+            return true;
+        }
+        return false;
     }
 
     /**
@@ -170,18 +233,17 @@ class User extends ActiveRecord implements IdentityInterface
         ];
     }
 
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getExperience()
+    public function getCountry(): ActiveQuery
+    {
+        return $this->hasOne(Country::className(), ['id' => 'country_id']);
+    }
+
+    public function getExperience(): ActiveQuery
     {
         return $this->hasOne(Experience::className(), ['id' => 'experience_id']);
     }
 
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getNetworks()
+    public function getNetworks(): ActiveQuery
     {
         return $this->hasMany(Network::className(), ['user_id' => 'id']);
     }

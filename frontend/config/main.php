@@ -18,6 +18,7 @@ return [
             'csrfParam' => '_csrf-frontend',
         ],
         'user' => [
+            'class' => 'core\components\YiiUser',
             'identityClass' => 'core\entities\User\User',
             'enableAutoLogin' => true,
             'identityCookie' => [
