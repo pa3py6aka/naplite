@@ -1,6 +1,6 @@
 var NaPlite = {} || NaPlite;
 NaPlite = (function () {
-    var $mesageModal = $('#messageModal');
+    var $messageModal = $('#messageModal');
 
     var Public = {
         getBoxLoader: function () {
@@ -31,7 +31,7 @@ NaPlite = (function () {
         },
         messageModal: function (title, text) {
             $(".modalbox").hide();
-            $mesageModal.find('H1').html(title).end().find('[data-for=text]').html(text).end().show();
+            $messageModal.find('H1').html(title).end().find('[data-for=text]').html(text).end().show();
         },
         scrollTo: function ($el) {
             $('html, body').animate({
@@ -56,6 +56,17 @@ NaPlite = (function () {
 
         $(".forgotPassLink").on("click", function (e) {
             showModal('forgotPasswordModal');
+        });
+
+        $('[data-link=readSeoText]').on('click', function (e) {
+            var $seoBlock = $('#categorySeoText');
+            if ($seoBlock.hasClass('mini')) {
+                $seoBlock.removeClass('mini', 1000);
+                $(this).html('<i class="fa fa-refresh"></i>Скрыть');
+            } else {
+                $seoBlock.addClass('mini', 1000);
+                $(this).html('<i class="fa fa-refresh"></i>Читать далее');
+            }
         });
     };
 

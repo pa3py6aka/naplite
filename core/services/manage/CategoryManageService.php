@@ -23,10 +23,14 @@ class CategoryManageService
             $form->name,
             $form->slug,
             $form->title,
-            $form->description
+            $form->description,
+            $form->seoText
         );
         $category->appendTo($parent);
         $this->categories->save($category);
+        $form->saveImage();
+        $form->saveIcon();
+
         return $category;
     }
 
@@ -38,7 +42,8 @@ class CategoryManageService
             $form->name,
             $form->slug,
             $form->title,
-            $form->description
+            $form->description,
+            $form->seoText
         );
 
         if ($form->parentId !== $category->parent->id) {
@@ -47,6 +52,8 @@ class CategoryManageService
         }
 
         $this->categories->save($category);
+        $form->saveImage();
+        $form->saveIcon();
     }
     public function remove($id)
     {

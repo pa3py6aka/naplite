@@ -633,7 +633,7 @@ select::-ms-expand{display:none;}
 .th_parent_bottom_text{display:block;width:90%;padding:0px 5%;text-align:center;line-height:26px;font-size:14px;}
 .readmore{display:inline-block;padding-top:10px;color:#8d8d8d;text-decoration:none;padding-bottom:0px;border-bottom:1px solid #e3e3e3;width:auto;}
 .readmore:hover{color:#322d2b;border-bottom:1px solid #322d2b;}
-.th_parent_seo{display:inline-block;height:80px;overflow:hidden;}
+.th_parent_seo{display:inline-block;/*height:80px;*/overflow:hidden;}
 .th_parent_bottom_text .b_white{line-height:normal;margin-top:10px;}
 .th_parent_links{padding-top:40px;}
 .sort_panel_th{display:block;width:100%;text-align:center;}
@@ -890,7 +890,7 @@ select::-ms-expand{display:none;}
 	.footer_col b a{display:block;}
 	.footer_col p{display:none;}
 	.footer_top{padding-bottom:40px;}
-	.th_parent_seo{height:105px;font-size:90%;}
+	.th_parent_seo{/*height:105px;*/font-size:90%;}
 	.userpage_userpickbox{display:none;}
 	.userpage_userpickbox_adaptive{display:block;}
 }
@@ -1030,7 +1030,19 @@ select::-ms-expand{display:none;}
 }
 #holidaysModal label:before {margin-top:7px;}
 .stars_box a.active i {color:#ff9503;}
-
+.th_parent_seo {
+	-webkit-transition: all 0.5s ease;
+	-moz-transition: all 0.5s ease;
+	-o-transition: all 0.5s ease;
+	transition: all 0.5s ease;
+}
+.th_parent_seo.mini {height:80px;}
+@media screen and (max-device-width:768px), screen and (max-width:768px) {
+	.th_parent_seo.mini{height:105px;}
+}
+.min-height-100 > li {min-height:100px;}
+.paginator_right > li.disabled i {padding-left:10px;padding-right:0;color:#ffffff;}
+.paginator_left > li.disabled i {color:#ffffff;}
 
 
 

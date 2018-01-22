@@ -65,6 +65,16 @@ class PhotoSaver
         $this->optimizer->optimize($image);
     }
 
+    public function fitBySize($image, $width, $height)
+    {
+        $this->intervention->make($image)
+            ->fit($width, $height, function ($constraint) {
+                $constraint->upsize();
+            })
+            ->save($image, 90);
+        $this->optimizer->optimize($image);
+    }
+
     public function addWatermark($image)
     {
         $this->intervention->make($image)

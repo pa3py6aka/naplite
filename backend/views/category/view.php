@@ -1,5 +1,6 @@
 <?php
 
+use core\entities\Category;
 use yii\helpers\Html;
 use yii\widgets\DetailView;
 
@@ -32,6 +33,28 @@ $this->params['breadcrumbs'][] = $this->title;
                     'name',
                     'slug',
                     'title',
+                    'description:ntext',
+                    'seo_text:ntext',
+                    [
+                        'label' => 'Иконка',
+                        'value' => function (Category $category) {
+                            $result = '';
+                            if (!$category->getIcon(true)) {
+                                $result = "Без иконки, родительская иконка:<br>";
+                            }
+                            return $result . Html::img($category->getIcon(), ['class' => 'img-responsive', 'style' => 'height:40px;']);
+                        },
+                        'format' => 'raw',
+                    ],
+                    [
+                        'label' => 'Картинка',
+                        'value' => function (Category $category) {
+                            return $category->getImageUrl(true) ?
+                                Html::img($category->imageUrl, ['class' => 'img-responsive', 'style' => 'height:150px;']) :
+                                "Без картинки";
+                        },
+                        'format' => 'raw',
+                    ]
                 ],
             ]) ?>
         </div>

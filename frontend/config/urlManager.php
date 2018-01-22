@@ -10,6 +10,8 @@ return [
     'rules' => [
         '' => 'main/index',
         '<_a:signup|login|logout>' => 'auth/<_a>',
+        '<_c:category>/<slug:[a-z0-9_-]+>' => '<_c>/view',
+
         '<_c:[\w\-]+>' => '<_c>/index',
         '<_c:[\w\-]+>/<id:\d+>' => '<_c>/view',
         '<_c:[\w\-]+>/<id:\d+>/<_a:[\w\-]+>' => '<_c>/<_a>',

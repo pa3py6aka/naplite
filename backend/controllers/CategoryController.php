@@ -68,8 +68,8 @@ class CategoryController extends Controller
         if ($form->load(Yii::$app->request->post()) && $form->validate()) {
             try {
                 $category = $this->service->create($form);
-                //return $this->redirect(['view', 'id' => $category->id]);
-                return $this->redirect(['create']);
+                return $this->redirect(['view', 'id' => $category->id]);
+                //return $this->redirect(['create']);
             } catch (\DomainException $e) {
                 Yii::$app->errorHandler->logException($e);
                 Yii::$app->session->setFlash('error', $e->getMessage());

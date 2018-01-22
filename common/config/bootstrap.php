@@ -8,3 +8,5 @@ Yii::setAlias('@tmp', dirname(dirname(__DIR__)) . '/frontend/web/tmp');
 Yii::setAlias('@photoPath', dirname(dirname(__DIR__)) . '/frontend/web/photos');
 Yii::setAlias('@widgets', dirname(dirname(__DIR__)) . '/widgets');
 Yii::setAlias('@ava', dirname(dirname(__DIR__)) . '/frontend/web/ava');
+Yii::setAlias('@img', dirname(dirname(__DIR__)) . '/frontend/web/img');
+Yii::setAlias('@uploads', dirname(dirname(__DIR__)) . '/frontend/web/uploads');

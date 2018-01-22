@@ -5,8 +5,11 @@ namespace core\forms\manage;
 
 use core\entities\Category;
 use core\validators\SlugValidator;
+use Yii;
 use yii\base\Model;
 use yii\helpers\ArrayHelper;
+use yii\web\UploadedFile;
+
 
 class CategoryForm extends Model
 {
@@ -14,7 +17,10 @@ class CategoryForm extends Model
     public $slug;
     public $title;
     public $description;
+    public $seoText;
     public $parentId;
+    public $image;
+    public $icon;
 
     private $_category;
 
@@ -25,6 +31,7 @@ class CategoryForm extends Model
             $this->slug = $category->slug;
             $this->title = $category->title;
             $this->description = $category->description;
+            $this->seoText = $category->seo_text;
             $this->parentId = $category->parent ? $category->parent->id : null;
             $this->_category = $category;
         }
@@ -38,10 +45,40 @@ class CategoryForm extends Model
             [['name', 'slug'], 'required'],
             [['parentId'], 'integer'],
             [['name', 'slug', 'title'], 'string', 'max' => 255],
-            [['description'], 'string'],
+            [['description', 'seoText'], 'string'],
             ['slug', SlugValidator::class],
-            [['slug'], 'unique', 'targetClass' => Category::class, 'filter' => $this->_category ? ['<>', 'id', $this->_category->id] : null]
+            [['slug'], 'unique', 'targetClass' => Category::class, 'filter' => $this->_category ? ['<>', 'id', $this->_category->id] : null],
+            ['image', 'image', 'extensions' => 'jpg'],
+            ['icon', 'image', 'extensions' => 'png'],
         ];
+    }
+
+    public function beforeValidate()
+    {
+        $this->image = UploadedFile::getInstance($this, 'image');
+        $this->icon = UploadedFile::getInstance($this, 'icon');
+        return parent::beforeValidate();
+    }
+
+    public function saveImage()
+    {
+        if ($this->image instanceof UploadedFile) {
+            /* @var $image UploadedFile */
+            $image = $this->image;
+            $name = Yii::getAlias('@uploads') . '/cat-' . $this->slug . '.jpg';
+            $image->saveAs($name);
+            Yii::$app->photoSaver->fitBySize($name, 570, 400);
+        }
+    }
+
+    public function saveIcon()
+    {
+        if ($this->icon instanceof UploadedFile) {
+            /* @var $icon UploadedFile */
+            $icon = $this->icon;
+            $name = Yii::getAlias('@uploads') . '/ico_cat-' . $this->slug . '.png';
+            $icon->saveAs($name);
+        }
     }
 
     public static function parentCategoriesList($withRoot = true)
@@ -66,7 +103,10 @@ class CategoryForm extends Model
             'slug' => 'Алиас',
             'title' => 'Заголовок',
             'description' => 'Описание',
+            'seoText' => 'Сеошный текст',
             'parentId' => 'Родительская категория',
+            'image' => 'Картинка',
+            'icon' => 'Иконка',
         ];
     }
 }

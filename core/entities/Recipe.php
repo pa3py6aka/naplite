@@ -10,6 +10,7 @@ use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 use yii\helpers\ArrayHelper;
+use yii\helpers\Url;
 
 /**
  * This is the model class for table "{{%recipes}}".
@@ -33,6 +34,7 @@ use yii\helpers\ArrayHelper;
  * @property int $updated_at
  *
  * @property string|null $mainPhoto
+ * @property string $url
  *
  * @property IngredientSection[] $ingredientSections
  * @property RecipeComment[] $recipeComments
@@ -108,6 +110,13 @@ class Recipe extends ActiveRecord
             return Yii::$app->params['frontendHostInfo'] . '/photos/' . ($small ? 'sm_' : '') . $this->recipePhotos[0]->file;
         }
         return null;
+    }
+
+    public function getUrl($absolute = false)
+    {
+        return $absolute ?
+            Yii::$app->frontendUrlManager->createAbsoluteUrl(['recipes/view', 'id' => $this->id]) :
+            Url::to(['recipes/view', 'id' => $this->id]);
     }
 
     public function afterFind()

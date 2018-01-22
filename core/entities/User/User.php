@@ -9,6 +9,7 @@ use yii\base\NotSupportedException;
 use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
 use yii\helpers\Html;
+use yii\helpers\Url;
 use yii\web\IdentityInterface;
 
 /**
@@ -33,6 +34,7 @@ use yii\web\IdentityInterface;
  * @property int $updated_at
  *
  * @property string $avatarUrl
+ * @property string $pageUrl
  * @property string $fullName
  *
  * @property Experience $experience
@@ -81,6 +83,13 @@ class User extends ActiveRecord implements IdentityInterface
             return Yii::$app->params['frontendHostInfo'] . '/ava/' . $this->avatar;
         }
         return Yii::$app->params['frontendHostInfo'] . '/ava/empty.png';
+    }
+
+    public function getPageUrl($absolute = false)
+    {
+        return $absolute ?
+            Yii::$app->frontendUrlManager->createAbsoluteUrl(['user/view', 'id' => $this->id]) :
+            Url::to(['user/view', 'id' => $this->id]);
     }
 
     public function getFullName(): string
