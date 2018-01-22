@@ -25,12 +25,14 @@ $this->title = $category->getHeadingTile();
             <div class="th_parent_top_ico"><img src="<?= $category->getIcon() ?>" width="50" height="40" alt=""/></div>
             <div class="th_parent_top_text"><h1><?= $category->getHeadingTile() ?></h1></div>
         </div>
+        <?php if ($category->description): ?>
         <div class="th_parent_bottom_text">
             <span class="th_parent_seo mini" id="categorySeoText">
                 <?= nl2br($category->description) ?>
             </span>
             <a href="javascript:void(0)" class="b_white" data-link="readSeoText"><i class="fa fa-refresh"></i>Читать далее</a>
         </div>
+        <?php endif; ?>
     </div>
     <div class="cb"></div>
     <ul class="adaptive_categories min-height-100">
@@ -62,52 +64,8 @@ $this->title = $category->getHeadingTile();
             </li>
         </ul>
     </div>
-    <ul class="catalogue_ul">
-        <?php foreach ($recipesProvider->models as $recipe): ?>
-            <?php /* @var $recipe Recipe */ ?>
-            <li class="recipe_prev">
-                <span class="recipe_prev_inner">
-                    <a href="<?= $recipe->url ?>" class="recipe_prev_top">
-                        <span class="recipe_prev_image"><img src="<?= $recipe->mainPhoto ?>" alt=""/></span>
-                        <span class="recipe_prev_th"><b><?= Html::encode($recipe->name) ?></b></span>
-                    </a>
-                    <span class="recipe_prev_user">
-                        <a href="<?= $recipe->author->pageUrl ?>" class="userpick">
-                            <span class="userpick_photo"><img src="<?= $recipe->author->avatarUrl ?>" alt=""/></span>
-                            <span class="userpick_name"><?= $recipe->author->fullName ?></span>
-                            <span class="userpick_date"><?= Yii::$app->formatter->asRelativeTime($recipe->created_at) ?></span>
-                        </a>
-                    </span>
-                    <span class="recipe_prev_stat">
-                        <span class="recipe_prev_stat_left">
-                            <a href="#" class="stat_ico">
-                                <span class="stat_ico_left"><i class="fa fa-star-o"></i></span>
-                                <span class="stat_ico_right"><?= $recipe->rate ?></span>
-                                <span class="stat_rasp"></span>
-                            </a>
-                            <a href="#" class="stat_ico">
-                                <span class="stat_ico_left"><i class="fa fa-heart-o"></i></span>
-                                <span class="stat_ico_right">0</span>
-                                <span class="stat_rasp"></span>
-                            </a>
-                            <a href="#" class="stat_ico">
-                                <span class="stat_ico_left"><i class="fa fa-comment-o"></i></span>
-                                <span class="stat_ico_right"><?= $recipe->comments_count ?></span>
-                            </a>
-                        </span>
-                        <span class="recipe_prev_stat_right">
-                            <span class="stat_ico">
-                                <span class="stat_ico_left"><i class="fa fa-clock-o"></i></span>
-                                <span class="stat_ico_right"><?= RecipeHelper::hoursFromMinutes($recipe->cooking_time) ?></span>
-                            </span>
-                        </span>
-                    </span>
-                </span>
-            </li>
-        <?php endforeach; ?>
-    </ul>
 
-    <?= \widgets\Pager::widget(['pagination' => $recipesProvider->pagination]) ?>
+    <?= $this->render('recipes-block', ['recipesProvider' => $recipesProvider]) ?>
 
     <?php Pjax::end() ?>
 

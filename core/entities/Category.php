@@ -6,6 +6,7 @@ use core\entities\queries\CategoryQuery;
 use paulzi\nestedsets\NestedSetsBehavior;
 use Yii;
 use yii\db\ActiveRecord;
+use yii\helpers\Url;
 
 /**
  * This is the model class for table "{{%categories}}".
@@ -21,6 +22,7 @@ use yii\db\ActiveRecord;
  * @property int $depth
  *
  * @property string|null $imageUrl
+ * @property string $url
  *
  * @property Category $parent
  * @property Category[] $parents
@@ -87,6 +89,11 @@ class Category extends ActiveRecord
         return is_file(Yii::getAlias('@uploads') . '/cat-' . $this->slug . '.jpg') ?
             Yii::$app->params['frontendHostInfo'] . '/uploads/cat-' . $this->slug . '.jpg' :
             ($fromCP ? null : Yii::$app->params['frontendHostInfo'] . '/img/category-empty.jpg');
+    }
+
+    public function getUrl(): string
+    {
+        return Url::to(['/category/view', 'slug' => $this->slug]);
     }
 
     /**

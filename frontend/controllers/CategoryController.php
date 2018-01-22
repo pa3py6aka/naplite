@@ -29,6 +29,9 @@ class CategoryController extends Controller
             ]);
         }
 
-        return null;
+        return $this->render('sub-category', [
+            'category' => $category,
+            'recipesProvider' => $recipesProvider,
+        ]);
     }
 }

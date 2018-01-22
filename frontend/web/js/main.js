@@ -68,6 +68,21 @@ NaPlite = (function () {
                 $(this).html('<i class="fa fa-refresh"></i>Читать далее');
             }
         });
+
+        /* Пока только для категорий */
+        $(document).on('change', 'select[name=sort-selector]', function (e) {
+            var url = $(this).val(),
+                $link = $('[data-link=' + $(this).attr('data-for-link') + ']');
+            url = url.replace(/\?sort=-?/g, '?sort=-');
+            $link.attr('href', url).click();
+        });
+
+        $(document).on('change', 'select[name=occasion-selector]', function (e) {
+            var url = $(this).val(),
+                $link = $('[data-link=' + $(this).attr('data-for-link') + ']');
+            $link.attr('href', url).click();
+        });
+        /* Конец "пока только для категорий" */
     };
 
     function showModal(id) {
