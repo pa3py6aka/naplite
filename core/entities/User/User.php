@@ -4,6 +4,8 @@ namespace core\entities\User;
 
 
 use core\components\Subscriber;
+use core\entities\Recipe;
+use core\entities\RecipeComment;
 use lhs\Yii2SaveRelationsBehavior\SaveRelationsBehavior;
 use Yii;
 use yii\base\NotSupportedException;
@@ -26,12 +28,12 @@ use yii\web\UploadedFile;
  * @property int $country_id [int(11)]
  * @property string $city
  * @property int $experience_id
- * @property int $recipes
  * @property string $about
  * @property string $avatar
  * @property string|array $subscribes
  * @property string $rate
  * @property int $status
+ * @property int $recipes_count [int(11) unsigned]
  * @property string $email_confirm_token [varchar(255)]
  * @property string $auth_key
  * @property string $password_hash
@@ -43,6 +45,8 @@ use yii\web\UploadedFile;
  * @property string $pageUrl
  * @property string $fullName
  *
+ * @property RecipeComment[] $recipeComments
+ * @property Recipe[] $recipes
  * @property Country $country
  * @property Experience $experience
  * @property Network[] $networks
@@ -125,8 +129,8 @@ class User extends ActiveRecord implements IdentityInterface
     public function getPageUrl($absolute = false)
     {
         return $absolute ?
-            Yii::$app->frontendUrlManager->createAbsoluteUrl(['user/view', 'id' => $this->id]) :
-            Url::to(['user/view', 'id' => $this->id]);
+            Yii::$app->frontendUrlManager->createAbsoluteUrl(['users/view', 'id' => $this->id]) :
+            Url::to(['users/view', 'id' => $this->id]);
     }
 
     public function getFullName(): string
@@ -231,6 +235,16 @@ class User extends ActiveRecord implements IdentityInterface
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',
         ];
+    }
+
+    public function getRecipeComments(): ActiveQuery
+    {
+        return $this->hasMany(RecipeComment::className(), ['author_id' => 'id']);
+    }
+
+    public function getRecipes(): ActiveQuery
+    {
+        return $this->hasMany(Recipe::className(), ['author_id' => 'id']);
     }
 
     public function getCountry(): ActiveQuery

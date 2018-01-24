@@ -3,7 +3,9 @@
 namespace core\repositories;
 
 
+use core\entities\Recipe;
 use core\entities\User\User;
+use yii\data\ActiveDataProvider;
 
 class UserRepository
 {
@@ -17,6 +19,17 @@ class UserRepository
             throw new NotFoundException('Пользователь не найден.');
         }
         return $user;
+    }
+
+    public function getRecipesProviderByUserId($id): ActiveDataProvider
+    {
+        return new ActiveDataProvider([
+            'query' => Recipe::find()
+                ->active()
+                ->where(['author_id' => $id]),
+            'pagination' => ['pageSize' => 1, 'defaultPageSize' => 1],
+            'sort' => ['defaultOrder' => ['id' => SORT_DESC]]
+        ]);
     }
 
     public function save(User $user)

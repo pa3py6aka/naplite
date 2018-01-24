@@ -110,6 +110,16 @@ NaPlite = (function () {
         }).on('click', '[data-link=change-password]', function (e) {
             showModal('changePasswordModal');
         });
+
+        // Для страницы пользователя
+        $('[data-link=to-recipes-block]').on('click', function (e) {
+            Public.scrollTo($('#startRecipesBlock'));
+        });
+
+        // Страница списка статей
+        $('#articlesCategory').on('click', '[data-link=search-articles]', function (e) {
+            $('#search-articles-form').submit();
+        });
     };
 
     function showModal(id) {

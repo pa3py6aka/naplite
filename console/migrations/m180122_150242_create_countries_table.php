@@ -12,11 +12,13 @@ class m180122_150242_create_countries_table extends Migration
      */
     public function up()
     {
+        $tableOptions = 'CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci ENGINE=InnoDB';
+
         $this->createTable('{{%countries}}', [
             'id' => $this->primaryKey(),
             'code' => $this->string(2)->notNull()->defaultValue(''),
             'name' => $this->string(50)->notNull()->unique(),
-        ]);
+        ], $tableOptions);
 
         $this->execute(file_get_contents(__DIR__ . '/dump/countries.sql'));
 

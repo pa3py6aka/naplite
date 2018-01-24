@@ -51,6 +51,17 @@ class UsersController extends Controller
         ];
     }
 
+    public function actionView($id)
+    {
+        $user = $this->repository->get($id);
+        $recipesProvider = $this->repository->getRecipesProviderByUserId($id);
+
+        return $this->render('view', [
+            'user' => $user,
+            'recipesProvider' => $recipesProvider,
+        ]);
+    }
+
     public function actionSettings()
     {
         $user = Yii::$app->user->identity;

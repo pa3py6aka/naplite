@@ -1,6 +1,8 @@
 <?php
 /* @var  */
 
+use yii\helpers\Url;
+
 ?>
 <div class="textbox">
     <h2>Интересное о еде</h2>
@@ -34,5 +36,5 @@
         </li>
     </ul>
     <div class="p40"></div>
-    <div class="tac"><a href="#" class="b_white"><i class="fa fa-refresh"></i>Прочитать больше статей</a></div>
+    <div class="tac"><a href="<?= Url::to(['/articles/index']) ?>" class="b_white"><i class="fa fa-refresh"></i>Прочитать больше статей</a></div>
 </div>

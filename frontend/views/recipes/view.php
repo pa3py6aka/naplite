@@ -5,7 +5,10 @@ use core\helpers\IngredientHelper;
 use core\helpers\Pluralize;
 use core\helpers\RecipeHelper;
 use frontend\assets\RecipeViewAsset;
+use widgets\BannerWidget;
+use widgets\BestChefsWidget;
 use widgets\RateWidget;
+use widgets\SocialBlockWidget;
 use yii\bootstrap\Carousel;
 use yii\helpers\Html;
 use yii\helpers\Url;
@@ -262,87 +265,11 @@ $this->title = Html::encode($recipe->name);
     </div>
 </div>
 <div class="content_right">
-    <a href="#" class="right_banner"><img src="/img/banner-naplite.jpg" width="240" height="400" alt=""/></a>
+    <?= BannerWidget::widget(['type' => BannerWidget::TYPE_RIGHT]) ?>
     <div class="p40"></div>
-    <div class="rightbox">
-        <h4>Лучшие кулинары</h4>
-        <ul class="coolinars_top">
-            <li>
-                <a href="#" class="userpick">
-                    <span class="userpick_photo"><img src="/img/photo.jpg" alt=""/></span>
-                    <span class="userpick_name">
-								<span class="cb">Татьяна Левтерова</span>
-								<span class="stat_ico">
-									<span class="stat_ico_left"><i class="fa fa-star-o"></i></span>
-									<span class="stat_ico_right">5</span>
-									<span class="stat_rasp"></span>
-								</span>
-							</span>
-                </a>
-            </li>
-            <li>
-                <a href="#" class="userpick">
-                    <span class="userpick_photo"><img src="/img/photo.jpg" alt=""/></span>
-                    <span class="userpick_name">
-								<span class="cb">Татьяна Левтерова</span>
-								<span class="stat_ico">
-									<span class="stat_ico_left"><i class="fa fa-star-o"></i></span>
-									<span class="stat_ico_right">5</span>
-									<span class="stat_rasp"></span>
-								</span>
-							</span>
-                </a>
-            </li>
-            <li>
-                <a href="#" class="userpick">
-                    <span class="userpick_photo"><img src="/img/photo.jpg" alt=""/></span>
-                    <span class="userpick_name">
-								<span class="cb">Татьяна Левтерова</span>
-								<span class="stat_ico">
-									<span class="stat_ico_left"><i class="fa fa-star-o"></i></span>
-									<span class="stat_ico_right">5</span>
-									<span class="stat_rasp"></span>
-								</span>
-							</span>
-                </a>
-            </li>
-            <li>
-                <a href="#" class="userpick">
-                    <span class="userpick_photo"><img src="/img/photo.jpg" alt=""/></span>
-                    <span class="userpick_name">
-								<span class="cb">Татьяна Левтерова</span>
-								<span class="stat_ico">
-									<span class="stat_ico_left"><i class="fa fa-star-o"></i></span>
-									<span class="stat_ico_right">5</span>
-									<span class="stat_rasp"></span>
-								</span>
-							</span>
-                </a>
-            </li>
-            <li>
-                <a href="#" class="userpick">
-                    <span class="userpick_photo"><img src="/img/photo.jpg" alt=""/></span>
-                    <span class="userpick_name">
-								<span class="cb">Татьяна Левтерова</span>
-								<span class="stat_ico">
-									<span class="stat_ico_left"><i class="fa fa-star-o"></i></span>
-									<span class="stat_ico_right">5</span>
-									<span class="stat_rasp"></span>
-								</span>
-							</span>
-                </a>
-            </li>
-        </ul>
-        <div class="p20"></div>
-        <div class="cb tac"><a href="#" class="b_white"><i class="fa fa-arrow-right"></i>Все кулинары</a></div>
-    </div>
+
+    <?= BestChefsWidget::widget() ?>
     <div class="p40"></div>
-    <div class="socials_plugin">
-        <div class="socials_tabs">
-            <a href="#" class="socials_tabs_active">Вконтакте</a>
-            <a href="#">Instagramm</a>
-            <a href="#">Facebook</a>
-        </div>
-        <div class="socials_content"><img src="/img/socials_plagin.jpg" width="240" height="278" alt=""/></div>
-    </div>
+
+    <?= SocialBlockWidget::widget() ?>
 </div>

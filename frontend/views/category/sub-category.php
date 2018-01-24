@@ -5,6 +5,7 @@ use core\entities\Holiday;
 use core\helpers\CategoryHelper;
 use widgets\ArticlesWidget;
 use widgets\BannerWidget;
+use widgets\RecipesCollectionWidget;
 use widgets\RecipeThemesWidget;
 use widgets\SocialBlockWidget;
 use yii\helpers\Url;
@@ -17,7 +18,7 @@ use yii\widgets\Pjax;
 <div class="content_left">
     <div class="th_parent">
         <div class="breadcump sub-cat">
-            <a href="/">Главная</a> / <?= CategoryHelper::getBreadCrumbs($category) ?>
+            <?= CategoryHelper::getBreadCrumbs($category) ?>
         </div>
         <div class="th_parent_top">
             <div class="th_parent_top_ico"><img src="<?= $category->getIcon() ?>" width="50" height="40" alt=""/></div>
@@ -82,7 +83,7 @@ use yii\widgets\Pjax;
         </div>
     </div>
 
-    <?= $this->render('recipes-block', ['recipesProvider' => $recipesProvider]) ?>
+    <?= $this->render('@frontend/views/recipes/recipes-block', ['recipesProvider' => $recipesProvider]) ?>
     <?php Pjax::end() ?>
 
     <div class="p40"></div>
@@ -97,15 +98,7 @@ use yii\widgets\Pjax;
     <?= SocialBlockWidget::widget() ?>
     <div class="p40"></div>
 
-    <div class="right_banners">
-        <a href="#"><span><b>Соусы</b></span><img src="/img/banner_sauces.jpg" width="240" height="170" alt=""/></a>
-        <a href="#"><span><b>Паштеты</b></span><img src="/img/banner_pates.jpg" width="240" height="170" alt=""/></a>
-        <a href="#"><span><b>Торты<br />и десерты</b></span><img src="/img/banner_deserts.jpg" width="240" height="170" alt=""/></a>
-        <a href="#"><span><b>Стейки<br />и бургеры</b></span><img src="/img/banner_steaks.jpg" width="240" height="170" alt=""/></a>
-        <a href="#"><span><b>Шашлыки</b></span><img src="/img/banner_cebabs.jpg" width="240" height="170" alt=""/></a>
-        <a href="#"><span><b>Супы</b></span><img src="/img/banner_soups.jpg" width="240" height="170" alt=""/></a>
-        <a href="#"><span><b>Салаты</b></span><img src="/img/banner_salads.jpg" width="240" height="170" alt=""/></a>
-    </div>
+    <?= RecipesCollectionWidget::widget() ?>
     <div class="p40"></div>
 
     <?= RecipeThemesWidget::widget() ?>

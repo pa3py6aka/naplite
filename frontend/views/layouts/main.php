@@ -31,7 +31,7 @@ AppAsset::register($this);
                 <ul>
                     <li><a href="<?= Url::to(['/recipes/index']) ?>"><i class="fa fa-cutlery"></i>Рецепты</a></li>
                     <li class="space"></li>
-                    <li><a href="#"><i class="fa fa-info-circle"></i>Статьи</a></li>
+                    <li><a href="<?= Url::to(['/articles/index']) ?>"><i class="fa fa-info-circle"></i>Статьи</a></li>
                     <li class="space"></li>
                     <li><a href="#"><i class="fa fa-globe"></i>Кухни<span class="hidden1260"> мира</span></a></li>
                     <li class="space"></li>
@@ -39,7 +39,7 @@ AppAsset::register($this);
                     <li class="space"></li>
                     <li><a href="#"><i class="fa fa-female"></i>Диеты</a></li>
                     <li class="space"></li>
-                    <li><a href="#"><i class="fa fa-comments"></i><span class="hidden1260">Кулинарный</span> Форум</a></li>
+                    <li><a href="<?= Url::to(['/forum/index']) ?>"><i class="fa fa-comments"></i><span class="hidden1260">Кулинарный</span> Форум</a></li>
                     <li class="space"></li>
                     <li><a href="#"><i class="fa fa-balance-scale"></i>Таблица мер<span class="hidden1260"> и весов</span></a></li>
                 </ul>
@@ -64,7 +64,7 @@ AppAsset::register($this);
 								<span class="top_userpick_arrow"><i class="fa fa-sort-down"></i></span>
 							</span>
 							<ul>
-								<li><a href="#"><i class="fa fa-user"></i>Личная страница</a></li>
+								<li><a href="<?= Yii::$app->user->identity->pageUrl ?>"><i class="fa fa-user"></i>Личная страница</a></li>
 								<li><a href="#"><i class="fa fa-book"></i>Кулинарная книга</a></li>
 								<!--<li><a href="#"><i class="fa fa-envelope"></i>Сообщения</a></li>-->
 								<li><a href="#"><i class="fa fa-cutlery"></i>Мои рецепты</a></li>
@@ -127,13 +127,13 @@ AppAsset::register($this);
                                             <span class="top_userpick_arrow"><i class="fa fa-sort-down"></i></span>
                                         </span>
                                         <ul>
-                                            <li><a href="#"><i class="fa fa-user"></i>Личная страница</a></li>
+                                            <li><a href="<?= Yii::$app->user->identity->pageUrl ?>"><i class="fa fa-user"></i>Личная страница</a></li>
                                             <li><a href="#"><i class="fa fa-book"></i>Кулинарная книга</a></li>
                                             <!--<li><a href="#"><i class="fa fa-envelope"></i>Сообщения</a></li>-->
                                             <li><a href="#"><i class="fa fa-cutlery"></i>Мои рецепты</a></li>
                                             <li><a href="#"><i class="fa fa-comment"></i>Мои посты</a></li>
                                             <li><a href="#"><i class="fa fa-photo"></i>Мои фотоотчеты</a></li>
-                                            <li><a href="#"><i class="fa fa-gear"></i>Настройки</a></li>
+                                            <li><a href="<?= Url::to(['/users/settings']) ?>"><i class="fa fa-gear"></i>Настройки</a></li>
                                             <li><a href="<?= Url::to(['/auth/logout']) ?>" data-method="post"><i class="fa fa-sign-out"></i>Выйти</a></li>
                                         </ul>
                                     </span>

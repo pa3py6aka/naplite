@@ -11,6 +11,7 @@ return [
         '' => 'main/index',
         '<_a:signup|login|logout>' => 'auth/<_a>',
         '<_c:category>/<slug:[a-z0-9_-]+>' => '<_c>/view',
+        '<_c:articles>/category/<slug:[a-z0-9_-]+>' => '<_c>/index',
 
         '<_c:[\w\-]+>' => '<_c>/index',
         '<_c:[\w\-]+>/<id:\d+>' => '<_c>/view',

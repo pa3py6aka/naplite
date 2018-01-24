@@ -34,7 +34,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     'slug',
                     'title',
                     'description:ntext',
-                    'seo_text:ntext',
+                    //'seo_text:ntext',
                     [
                         'label' => 'Иконка',
                         'value' => function (Category $category) {

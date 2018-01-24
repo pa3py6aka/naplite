@@ -11,6 +11,8 @@ use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
+$this->title = "Настройки аккаунта";
+
 ?>
 <div class="content_left" id="userSettingsPage">
     <div class="blog_adaptive_menu">
