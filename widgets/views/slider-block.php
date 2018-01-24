@@ -7,7 +7,7 @@ use widgets\CarouselNaPlite;
 <li class="top_articles">
     <?= CarouselNaPlite::widget([
         'items' => $items,
-        'options' => ['class' => 'slider-block', 'data-interval' => '12000'],
+        'options' => ['class' => 'slider-block slide', 'data-interval' => '12000'],
         'showIndicators' => false,
         'controls' => [
             '<i class="fa fa-arrow-circle-left"></i><span></span>',
