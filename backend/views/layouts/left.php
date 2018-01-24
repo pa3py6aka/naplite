@@ -18,6 +18,10 @@
                     ['label' => 'Категории', 'icon' => 'file-o', 'url' => ['/article-category/index'], 'active' => $this->context->id == 'article-category'],
                     ['label' => 'Топ-блок', 'icon' => 'star-o', 'url' => ['/article-top/index'], 'active' => $this->context->id == 'article-top'],
 
+                    ['label' => 'Меню блога', 'options' => ['class' => 'header']],
+                    ['label' => 'Блоги', 'icon' => 'file-audio-o', 'url' => ['/blog/index'], 'active' => $this->context->id == 'blog'],
+                    ['label' => 'Категории', 'icon' => 'file-o', 'url' => ['/blog-category/index'], 'active' => $this->context->id == 'blog-category'],
+
                     ['label' => 'Разное', 'options' => ['class' => 'header']],
                     ['label' => 'Настройки сайта', 'icon' => 'cogs', 'url' => ['/settings/index'], 'active' => $this->context->id == 'settings'],
 
