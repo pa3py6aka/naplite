@@ -9,11 +9,11 @@ use yii\helpers\FileHelper;
 
 class CronController extends Controller
 {
-    public function actionCleaner()
+    public function actionTempCleaner()
     {
         $files = FileHelper::findFiles(Yii::getAlias("@tmp"));
         foreach ($files as $file) {
-            if (filectime($file) < (time() - 86400)) {
+            if (pathinfo($file, PATHINFO_EXTENSION) != 'gitignore' && filectime($file) < (time() - 86400)) {
                 unlink($file);
             }
         }

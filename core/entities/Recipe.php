@@ -68,7 +68,7 @@ class Recipe extends ActiveRecord
         $photos,
         $holidays,
         $steps
-    )
+    ): Recipe
     {
         $recipe = new self();
         $recipe->author_id = Yii::$app->user->id;
@@ -85,12 +85,40 @@ class Recipe extends ActiveRecord
         $recipe->recipePhotos = $photos;
         $recipe->recipeHolidays = $holidays;
         $recipe->recipeSteps = $steps;
-        //$recipe->ingredientSections = $ingredientSections;
 
         return $recipe;
     }
 
-    public static function complexities()
+    public function edit(
+        $categoryId,
+        $name,
+        $kitchenId,
+        $introductoryText,
+        $cookingTime,
+        $preparationTime,
+        $persons,
+        $complexity,
+        $notes,
+        $commentsNotify,
+        $photos,
+        $steps
+    ): void
+    {
+        $this->category_id = $categoryId;
+        $this->name = $name;
+        $this->kitchen_id = $kitchenId;
+        $this->introductory_text = $introductoryText;
+        $this->cooking_time = $cookingTime;
+        $this->preparation_time = $preparationTime;
+        $this->persons = $persons;
+        $this->complexity = $complexity;
+        $this->notes = $notes;
+        $this->comments_notify = $commentsNotify;
+        $this->recipePhotos = $photos;
+        $this->recipeSteps = $steps;
+    }
+
+    public static function complexities(): array
     {
         return [
             self::COMPLEXITY_EASY => 'Легко',
@@ -99,7 +127,7 @@ class Recipe extends ActiveRecord
         ];
     }
 
-    public function getMainPhoto($small = false)
+    public function getMainPhoto($small = false): ?string
     {
         if ($this->main_photo_id) {
             if ($photo = Photo::findOne($this->main_photo_id)) {
@@ -112,12 +140,14 @@ class Recipe extends ActiveRecord
         return null;
     }
 
-    public function getUrl($absolute = false)
+    public function getUrl($absolute = false): string
     {
         return $absolute ?
             Yii::$app->frontendUrlManager->createAbsoluteUrl(['recipes/view', 'id' => $this->id]) :
             Url::to(['recipes/view', 'id' => $this->id]);
     }
+
+
 
     public function afterFind()
     {
@@ -128,7 +158,7 @@ class Recipe extends ActiveRecord
     /**
      * @inheritdoc
      */
-    public static function tableName()
+    public static function tableName(): string
     {
         return '{{%recipes}}';
     }
@@ -162,7 +192,7 @@ class Recipe extends ActiveRecord
     /**
      * @inheritdoc
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             [['author_id', 'category_id', 'name', 'kitchen_id', 'introductory_text'], 'required'],
@@ -178,7 +208,7 @@ class Recipe extends ActiveRecord
     /**
      * @inheritdoc
      */
-    public function attributeLabels()
+    public function attributeLabels(): array
     {
         return [
             'id' => 'ID',

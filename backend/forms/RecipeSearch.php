@@ -19,7 +19,7 @@ class RecipeSearch extends Recipe
     /**
      * @inheritdoc
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             [['id', 'author_id', 'category_id', 'kitchen_id', 'main_photo_id', 'cooking_time', 'preparation_time', 'persons', 'complexity', 'rate', 'comments_count', 'comments_notify', 'created_at', 'updated_at'], 'integer'],

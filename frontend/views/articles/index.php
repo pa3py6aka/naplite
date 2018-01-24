@@ -20,7 +20,7 @@ $this->title = "Статьи по кулинарным темам";
 ?>
 <div class="content_left" id="articlesCategory">
     <div class="th_parent">
-        <div class="breadcump"><?= CategoryHelper::getBreadCrumbs($category) ?></div>
+        <div class="breadcump sub-cat"><?= CategoryHelper::getBreadCrumbs($category) ?></div>
         <div class="th_parent_top">
             <?php if (!$category->isRoot()): ?>
                 <div class="th_parent_top_ico"><img src="<?= $category->getIcon() ?>"></div>

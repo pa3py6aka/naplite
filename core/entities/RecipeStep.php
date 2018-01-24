@@ -3,6 +3,7 @@
 namespace core\entities;
 
 use Yii;
+use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 
 /**
@@ -19,7 +20,7 @@ use yii\db\ActiveRecord;
  */
 class RecipeStep extends ActiveRecord
 {
-    public function getPhotoUrl()
+    public function getPhotoUrl(): ?string
     {
         if ($this->photo) {
             return Yii::$app->params['frontendHostInfo'] . '/photos/' . $this->photo;
@@ -27,10 +28,29 @@ class RecipeStep extends ActiveRecord
         return null;
     }
 
+    private function removePhoto(): void
+    {
+        if ($this->photo) {
+            $path = Yii::getAlias('@photoPath/');
+            if (
+                is_file($path . $this->photo)
+                && !self::find()->where(['photo' => $this->photo])->andWhere(['<>', 'id', $this->id])->exists()
+            ) {
+                unlink($path . $this->photo);
+            }
+        }
+    }
+
+    public function afterDelete()
+    {
+        $this->removePhoto();
+        parent::afterDelete();
+    }
+
     /**
      * @inheritdoc
      */
-    public static function tableName()
+    public static function tableName(): string
     {
         return '{{%recipe_steps}}';
     }
@@ -38,7 +58,7 @@ class RecipeStep extends ActiveRecord
     /**
      * @inheritdoc
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             [['recipe_id', 'description', 'photo'], 'required'],
@@ -52,7 +72,7 @@ class RecipeStep extends ActiveRecord
     /**
      * @inheritdoc
      */
-    public function attributeLabels()
+    public function attributeLabels(): array
     {
         return [
             'id' => 'ID',
@@ -62,10 +82,7 @@ class RecipeStep extends ActiveRecord
         ];
     }
 
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getRecipe()
+    public function getRecipe(): ActiveQuery
     {
         return $this->hasOne(Recipe::className(), ['id' => 'recipe_id']);
     }

@@ -20,6 +20,7 @@ use yii\base\UserException;
 use yii\filters\AccessControl;
 use yii\validators\ImageValidator;
 use yii\web\Controller;
+use yii\web\ForbiddenHttpException;
 use yii\web\Response;
 use yii\web\UploadedFile;
 
@@ -40,10 +41,10 @@ class RecipesController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'only' => ['new', 'upload', 'rate'],
+                'only' => ['new', 'upload', 'rate', 'edit'],
                 'rules' => [
                     [
-                        'actions' => ['new', 'upload', 'rate'],
+                        'actions' => ['new', 'upload', 'rate', 'edit'],
                         'allow' => true,
                         'roles' => [Rbac::ROLE_USER],
                     ],
@@ -57,7 +58,6 @@ class RecipesController extends Controller
         $form = new RecipeForm();
 
         if ($form->load(Yii::$app->request->post()) && $form->validate()) {
-            Yii::trace('validate ok', 'CHECK');
             try {
                 $recipe = $this->service->create($form);
                 return $this->redirect(['view', 'id' => $recipe->id]);
@@ -65,10 +65,34 @@ class RecipesController extends Controller
                 Yii::$app->session->setFlash('message', $e->getMessage());
             }
         }
-        Yii::trace($form->errors, 'CHECK_ERRORS');
 
         return $this->render('new', [
-            'model' => $form
+            'model' => $form,
+            'recipe' => null,
+        ]);
+    }
+
+    public function actionEdit($id)
+    {
+        $recipe = $this->repository->get($id);
+        if (!Yii::$app->user->can(Rbac::PERMISSION_MANAGE, ['user_id' => $recipe->id])) {
+            throw new ForbiddenHttpException("Вы не можете редактировать эту статью.");
+        }
+
+        $form = new RecipeForm($recipe);
+
+        if ($form->load(Yii::$app->request->post()) && $form->validate()) {
+            try {
+                $this->service->edit($recipe, $form);
+                return $this->redirect(['view', 'id' => $recipe->id]);
+            } catch (\DomainException $e) {
+                Yii::$app->session->setFlash('message', $e->getMessage());
+            }
+        }
+
+        return $this->render('new', [
+            'model' => $form,
+            'recipe' => $recipe,
         ]);
     }
 
@@ -155,15 +179,6 @@ class RecipesController extends Controller
             } else {
                 Yii::$app->photoSaver->createStepImage($path . $name);
             }
-
-            //$intervention = new ImageManager(['driver' => 'imagick']);
-            //$optimizer = OptimizerChainFactory::create();
-            //$optimizer->optimize($path . $name);
-            /*$editImage = $intervention->make($path . $name)
-                ->fit(821, 380, function ($constraint) {
-                    $constraint->upsize();
-                })
-                ->save($path . $editName, 90);*/
 
             $num++;
         }

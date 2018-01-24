@@ -17,6 +17,28 @@ use yii\db\ActiveRecord;
  */
 class Photo extends ActiveRecord
 {
+    private function removeImages(): void
+    {
+        if ($this->file) {
+            $path = Yii::getAlias('@photoPath/');
+            if (
+                is_file($path . $this->file)
+                && !self::find()->where(['file' => $this->file])->andWhere(['<>', 'id', $this->id])->exists()
+            ) {
+                unlink($path . $this->file);
+                if (is_file($path . 'sm_' . $this->file)) {
+                    unlink($path . 'sm_' . $this->file);
+                }
+            }
+        }
+    }
+
+    public function afterDelete()
+    {
+        $this->removeImages();
+        parent::afterDelete();
+    }
+
     /**
      * @inheritdoc
      */
