@@ -66,14 +66,32 @@ class ArticleCategory extends ActiveRecord
         return Yii::$app->params['frontendHostInfo'] . '/img/ico-book.png';
     }
 
-    private function getIconName()
+    private function getIconName($slug = null)
     {
-        return 'ico_art_cat-' . $this->slug . '.png';
+        return 'ico_art_cat-' . ($slug ?: $this->slug) . '.png';
     }
 
     public function getUrl(): string
     {
         return Url::to(['/articles/index', 'slug' => $this->slug]);
+    }
+
+    public function afterSave($insert, $changedAttributes)
+    {
+        if (!$insert) {
+            if (isset($changedAttributes['slug']) && is_file(Yii::getAlias('@uploads/') . $this->getIconName($changedAttributes['slug']))) {
+                rename(Yii::getAlias('@uploads/') . $this->getIconName($changedAttributes['slug']), Yii::getAlias('@uploads/') . $this->getIconName());
+            }
+        }
+        parent::afterSave($insert, $changedAttributes);
+    }
+
+    public function afterDelete()
+    {
+        if (is_file(Yii::getAlias('@uploads/') . $this->getIconName())) {
+            unlink(Yii::getAlias('@uploads/') . $this->getIconName());
+        }
+        parent::afterDelete();
     }
 
     /**

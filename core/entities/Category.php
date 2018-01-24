@@ -79,9 +79,9 @@ class Category extends ActiveRecord
         return Yii::$app->params['frontendHostInfo'] . '/img/bg_dashed.png';
     }
 
-    private function getIconName()
+    private function getIconName($slug = null)
     {
-        return 'ico_cat-' . $this->slug . '.png';
+        return 'ico_cat-' . ($slug ?: $this->slug) . '.png';
     }
 
     public function getImageUrl($fromCP = false)
@@ -94,6 +94,24 @@ class Category extends ActiveRecord
     public function getUrl(): string
     {
         return Url::to(['/category/view', 'slug' => $this->slug]);
+    }
+
+    public function afterSave($insert, $changedAttributes)
+    {
+        if (!$insert) {
+            if (isset($changedAttributes['slug']) && is_file(Yii::getAlias('@uploads/') . $this->getIconName($changedAttributes['slug']))) {
+                rename(Yii::getAlias('@uploads/') . $this->getIconName($changedAttributes['slug']), Yii::getAlias('@uploads/') . $this->getIconName());
+            }
+        }
+        parent::afterSave($insert, $changedAttributes);
+    }
+
+    public function afterDelete()
+    {
+        if (is_file(Yii::getAlias('@uploads/') . $this->getIconName())) {
+            unlink(Yii::getAlias('@uploads/') . $this->getIconName());
+        }
+        parent::afterDelete();
     }
 
     /**
