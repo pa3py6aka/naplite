@@ -26,7 +26,8 @@ class TopArticlesSliderWidget extends Widget
             $items[] = [
                 'content' => Html::img($articleTop->article->getImageUrl(false)),
                 'caption' => Html::encode($articleTop->article->title),
-                'options' => []
+                'options' => [],
+                'url' => $articleTop->article->url
             ];
         }
 

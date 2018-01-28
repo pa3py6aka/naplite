@@ -19,7 +19,7 @@ class CarouselNaPlite extends Carousel
         } elseif (isset($item['content'])) {
             $content = $item['content']
                 . '<span class="top_articles_box_grad"></span>'
-                . '<a href="#" class="top_articles_box_cover"></a>';
+                . '<a href="' . $item['url'] . '" class="top_articles_box_cover"></a>';
             $caption = ArrayHelper::getValue($item, 'caption');
             if ($caption !== null) {
                 $caption = Html::tag('span', $caption, ['class' => 'top_articles_box_th']);
