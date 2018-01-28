@@ -2,6 +2,7 @@
 
 namespace core\entities;
 
+use core\helpers\ContentHelper;
 use Yii;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
@@ -39,6 +40,15 @@ class RecipeStep extends ActiveRecord
                 unlink($path . $this->photo);
             }
         }
+    }
+
+    public function beforeSave($insert)
+    {
+        if (parent::beforeSave($insert)) {
+            $this->description = ContentHelper::optimize($this->description);
+            return true;
+        }
+        return false;
     }
 
     public function afterDelete()

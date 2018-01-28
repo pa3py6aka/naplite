@@ -3,6 +3,7 @@
 namespace core\entities;
 
 use core\entities\User\User;
+use core\helpers\ContentHelper;
 use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
@@ -38,7 +39,7 @@ class RecipeComment extends ActiveRecord
     public function beforeSave($insert)
     {
         if (parent::beforeSave($insert)) {
-            $this->content = str_replace('<p>&nbsp;</p>', '', $this->content);
+            $this->content = ContentHelper::optimize($this->content);
             return true;
         }
         return false;

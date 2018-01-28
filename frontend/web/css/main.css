@@ -1059,6 +1059,6 @@ span.cke_button__emojione_icon {
 	background-repeat: no-repeat;
 	background-size: auto;
 }
-.comment_text p {margin:0;}
+.comment_text p, .hrecipe p {margin:0;}
 
 

@@ -7,6 +7,7 @@ use frontend\assets\RecipeCreatorAsset;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\helpers\Json;
+use yii\helpers\Url;
 use yii\jui\AutoComplete;
 use yii\widgets\ActiveForm;
 
@@ -37,7 +38,7 @@ foreach ($data as $item) {
             <div class="breadcump">
                 <a href="/">Главная</a>
                 <span><i class="fa fa-circle"></i></span>
-                <a href="#">Личный кабинет</a>
+                <a href="<?= Url::to(['/users/settings']) ?>">Личный кабинет</a>
             </div>
             <h1><?= $recipe ? Html::encode($recipe->name) : "Ваш новый рецепт" ?></h1>
         </div>
@@ -103,12 +104,18 @@ foreach ($data as $item) {
                     <div class="inputbox_label">
                         <div class="inputbox_label_2col">
                             <div class="inputbox_label_left">Вводный текст:</div>
-                            <div class="inputbox_label_right"><img src="/img/wsw.jpg" width="155" height="19" alt=""/></div>
+                            <!--<div class="inputbox_label_right"><img src="/img/wsw.jpg" width="155" height="19" alt=""/></div>-->
                         </div>
                     </div>
 
                     <?= $form->field($model, 'introductoryText', ['options' => ['class' => 'inputbox_input']])
-                        ->textarea(['cols' => 2, 'rows' => 2, 'class' => 'textarea_base', 'placeholder' => 'Напишите пару предложений о рецепте и его особенностях'])
+                        ->textarea([
+                            'id' => 'introductoryTextArea',
+                            'cols' => 2,
+                            'rows' => 2,
+                            'class' => 'textarea_base',
+                            'placeholder' => 'Напишите пару предложений о рецепте и его особенностях'
+                        ])
                         ->label(false) ?>
 
                 </div>
@@ -178,7 +185,7 @@ foreach ($data as $item) {
                     </div>
                 </div>
                 <div class="p40"></div>
-            <?php for ($n = 0; $n < (($model->ingredientSection && is_array($model->ingredientSection) && count($model->ingredientSection)) ? count($model->ingredientSection) : 1); $n++): ?>
+                <?php for ($n = 0; $n < (($model->ingredientSection && is_array($model->ingredientSection) && count($model->ingredientSection)) ? count($model->ingredientSection) : 1); $n++): ?>
                 <div class="add_ing_box" data-num="<?= $n ?>">
                     <div class="cb">
                         <h3>Ингредиенты</h3>
@@ -249,7 +256,7 @@ foreach ($data as $item) {
                             <div class="inputbox_label">
                                 <div class="inputbox_label_2col">
                                     <div class="inputbox_label_left">Шаг <?= $i ?>:</div>
-                                    <div class="inputbox_label_right"><img src="/img/wsw.jpg" width="155" height="19" alt=""/></div>
+                                    <!--<div class="inputbox_label_right"><img src="/img/wsw.jpg" width="155" height="19" alt=""/></div>-->
                                 </div>
                             </div>
                             <div class="inputbox_input">
@@ -295,12 +302,18 @@ foreach ($data as $item) {
                     <div class="inputbox_label">
                         <div class="inputbox_label_2col">
                             <div class="inputbox_label_left">Хозяйке на заметку:</div>
-                            <div class="inputbox_label_right"><img src="img/wsw.jpg" width="155" height="19" alt=""/></div>
+                            <!--<div class="inputbox_label_right"><img src="img/wsw.jpg" width="155" height="19" alt=""/></div>-->
                         </div>
                     </div>
 
                     <?= $form->field($model, 'notes', ['options' => ['class' => 'inputbox_input']])
-                        ->textarea(['cols' => 2, 'rows' => 2, 'class' => 'textarea_base', 'placeholder' => 'Напишите какой-нибудь совет, тем, кто будет готовить ваш рецепт'])
+                        ->textarea([
+                            'id' => 'notesArea',
+                            'cols' => 2,
+                            'rows' => 2,
+                            'class' => 'textarea_base',
+                            'placeholder' => 'Напишите какой-нибудь совет, тем, кто будет готовить ваш рецепт'
+                        ])
                         ->label(false) ?>
 
                 </div>
@@ -331,8 +344,8 @@ foreach ($data as $item) {
         <div class="swith_bottom">
             <div class="radiobox_input">
                 <div class="checkbox_outer">
-                    <input type="checkbox" id="filter_product_country8" name="filter_product_country8" value="8" class="checkbox"<?= $model->commentsNotify ? ' checked' : '' ?>>
-                    <label id="filter_product_country_label8" for="filter_product_country8">
+                    <input type="checkbox" id="commentsNotifyVisibleInput" name="commentsNotifyVisibleInput" value="1" class="checkbox"<?= $model->commentsNotify ? ' checked' : '' ?>>
+                    <label id="commentsNotifyVisibleInput_label" for="commentsNotifyVisibleInput">
                         Получать комментарии к рецепту на почту
                     </label>
                 </div>

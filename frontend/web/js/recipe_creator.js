@@ -1,6 +1,6 @@
 var RecipeCreator = {} || RecipeCreator;
 RecipeCreator = (function () {
-    var $recipeForm = $('#recipe-form'),
+    var $recipeForm = $('#recipeForm'),
         $mainPhotoInput = $('#main-photo-num'),
         $holidayInput = $('#holiday-input');
 
@@ -198,7 +198,10 @@ RecipeCreator = (function () {
             var $lastStep = $recipeForm.find('.add_steps_box').last(),
                 stepNumber = Number($lastStep.attr('data-num')) + 1,
                 $stepBox = $lastStep.clone();
-            console.log($lastStep);
+
+            // wysiwyg remove
+            $stepBox.find('textarea').removeAttr('style');
+            $stepBox.find('.inputbox_input > div[id^=cke_]').remove();
 
             $stepBox.attr('data-num', stepNumber);
             $stepBox.find('.inputbox_label_left').first().html('Шаг ' + stepNumber + ':');
@@ -212,6 +215,9 @@ RecipeCreator = (function () {
             setBigUploadBoxEmpty($stepBox.find('.uploadbox_small'));
             $lastStep.after($stepBox);
 
+            // wysiwyg init
+            NaPlite.public.SetCKEditor('recipeform-stepdescription-' + stepNumber);
+
             $('html, body').animate({
                 scrollTop: $stepBox.offset().top
             }, 800);
@@ -219,6 +225,15 @@ RecipeCreator = (function () {
 
         // Submit формы
         $recipeForm.on('click', '[data-button=submitForm]', function (e) {
+            // Переводим с wysiwyg в textarea's
+            var introductoryText = CKEDITOR.instances['introductoryTextArea'].ui.editor.getData();
+            $('#introductoryTextArea').val(introductoryText);
+            var notes = CKEDITOR.instances['notesArea'].ui.editor.getData();
+            $('#notesArea').val(notes);
+            $.each($('textarea[name*=stepDescription]'), function (k, area) {
+                $(area).val(CKEDITOR.instances[$(area).attr('id')].ui.editor.getData());
+            });
+
             // Проверка фото рецепта
             if (!$recipeForm.find('input[name*=photos]').filter(function() {
                     return this.value.length !== 0;
@@ -256,11 +271,19 @@ RecipeCreator = (function () {
                 return;
             }
 
-            $('#commentsNotify').val($("#filter_product_country8").is(':checked') ? 1 : 0);
+            $('#commentsNotify').val($("#commentsNotifyVisibleInput").is(':checked') ? 1 : 0);
 
             $recipeForm.yiiActiveForm('submitForm');
         });
     };
+    
+    function initWysiwyg() {
+        NaPlite.public.SetCKEditor('introductoryTextArea');
+        NaPlite.public.SetCKEditor('notesArea');
+        $.each($('textarea[name*=stepDescription]'), function (k, area) {
+            NaPlite.public.SetCKEditor($(area).attr('id'));
+        });
+    }
 
     function addIngredientRow(sectionNum) {
         var $lastIngredientRow = $recipeForm.find('.add_ing_inputs').last();
@@ -325,6 +348,7 @@ RecipeCreator = (function () {
 
     function init() {
         Listen();
+        initWysiwyg();
     }
 
     return {

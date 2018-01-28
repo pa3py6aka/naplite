@@ -1,6 +1,7 @@
 <?php
 
 use core\access\Rbac;
+use core\helpers\ContentHelper;
 use core\helpers\IngredientHelper;
 use core\helpers\Pluralize;
 use core\helpers\RecipeHelper;
@@ -30,12 +31,12 @@ $this->title = Html::encode($recipe->name);
                 <?php foreach ($recipe->category->parents as $parent) {
                     if (!$parent->isRoot()): ?>
                         <span><i class="fa fa-circle"></i></span>
-                        <a href="<?= Url::to(['/category/view', 'id' => $parent->slug]) ?>"><?= $parent->name ?></a>
+                        <a href="<?= $parent->url ?>"><?= $parent->name ?></a>
                     <?php endif;
                 }
                 ?>
                 <span><i class="fa fa-circle"></i></span>
-                <a href="<?= Url::to(['/category/view', 'id' => $recipe->category->slug]) ?>"><?= $recipe->category->name ?></a>
+                <a href="<?= $recipe->category->url ?>"><?= $recipe->category->name ?></a>
             </div>
         </div>
         <div class="hrecipe">
@@ -58,7 +59,7 @@ $this->title = Html::encode($recipe->name);
             <div class="recipe_content">
                 <div class="recipe_content_left">
                     <div class="recipe_content_left_text">
-                        <?= nl2br(Html::encode($recipe->introductory_text)) ?>
+                        <?= ContentHelper::output($recipe->introductory_text) ?>
                     </div>
                     <div class="recipe_ing">
                         <div class="recipe_ing_th">
@@ -140,7 +141,7 @@ $this->title = Html::encode($recipe->name);
                                     <span class="instruction_number"><?= $n ?></span>
                                 </span>
                                 <?php endif; ?>
-                                <?= nl2br(Html::encode($step->description)) ?>
+                                <?= ContentHelper::output($step->description) ?>
                             </li>
                             <?php $n++; ?>
                         <?php endforeach; ?>

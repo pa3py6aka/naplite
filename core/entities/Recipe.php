@@ -5,6 +5,7 @@ namespace core\entities;
 use core\access\Rbac;
 use core\entities\queries\RecipeQuery;
 use core\entities\User\User;
+use core\helpers\ContentHelper;
 use core\jobs\MailJob;
 use lhs\Yii2SaveRelationsBehavior\SaveRelationsBehavior;
 use Yii;
@@ -160,6 +161,16 @@ class Recipe extends ActiveRecord
             self::STATUS_BLOCKED => 'Заблокирован',
             self::STATUS_ACTIVE => 'Опубликован',
         ];
+    }
+
+    public function beforeSave($insert)
+    {
+        if (parent::beforeSave($insert)) {
+            $this->introductory_text = ContentHelper::optimize($this->introductory_text);
+            $this->notes = ContentHelper::optimize($this->notes);
+            return true;
+        }
+        return false;
     }
 
     public function afterSave($insert, $changedAttributes)
