@@ -175,32 +175,10 @@ $this->title = Html::encode($recipe->name);
             </div>
         </div>
 
-        <?= $this->render('comment-form', ['commentModel' => $commentModel, 'n' => 1]) ?>
-
-        <?php if (count($recipe->recipeComments)): ?>
-        <ul class="comments">
-            <?php foreach ($recipe->recipeComments as $comment): ?>
-            <li class="comment">
-                <div class="comment_left">
-                    <a href="<?= Url::to(['/users/view', 'id' => $comment->author_id]) ?>">
-                        <img src="<?= $comment->author->avatarUrl ?>" alt=""/>
-                    </a>
-                </div>
-                <div class="comment_right">
-                    <div class="comment_name"><a href="javascript:void(0)"><b><?= $comment->author->fullName ?></b></a><span class="date">, <?= Yii::$app->formatter->asRelativeTime($comment->created_at) ?></span></div>
-                    <div class="comment_text">
-                        <?= nl2br(Html::encode($comment->content)) ?>
-                    </div>
-                </div>
-                <div class="comment_reply"><a href="javascript:void(0)" class="<?= Yii::$app->user->can(Rbac::ROLE_USER) ? 'replyToComment' : 'loginButton' ?>"><i class="fa fa-comment-o"></i>Ответить</a></div>
-            </li>
-            <?php endforeach; ?>
-        </ul>
-        <div class="p40"></div>
-
-        <?= $this->render('comment-form', ['commentModel' => $commentModel, 'n' => 2]) ?>
-
-        <?php endif; ?>
+        <?= $this->render('@frontend/views/common/comments-block', [
+            'commentModel' => $commentModel,
+            'comments' => $recipe->recipeComments,
+        ]) ?>
     </div>
     <div class="textbox">
         <div class="th_2col th_button">

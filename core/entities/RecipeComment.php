@@ -4,6 +4,7 @@ namespace core\entities;
 
 use core\entities\User\User;
 use yii\behaviors\TimestampBehavior;
+use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 
 /**
@@ -14,6 +15,7 @@ use yii\db\ActiveRecord;
  * @property int $author_id
  * @property int $reply_to
  * @property string $content
+ *
  * @property int $created_at
  * @property int $updated_at
  *
@@ -33,10 +35,31 @@ class RecipeComment extends ActiveRecord
         return $comment;
     }
 
+    public function beforeSave($insert)
+    {
+        if (parent::beforeSave($insert)) {
+            $this->content = str_replace('<p>&nbsp;</p>', '', $this->content);
+            return true;
+        }
+        return false;
+    }
+
+    public function afterSave($insert, $changedAttributes)
+    {
+        Recipe::updateAllCounters(['comments_count' => 1], ['id' => $this->recipe_id]);
+        parent::afterSave($insert, $changedAttributes);
+    }
+
+    public function afterDelete()
+    {
+        Recipe::updateAllCounters(['comments_count' => -1], ['id' => $this->recipe_id]);
+        parent::afterDelete();
+    }
+
     /**
      * @inheritdoc
      */
-    public static function tableName()
+    public static function tableName(): string
     {
         return '{{%recipe_comments}}';
     }
@@ -44,7 +67,7 @@ class RecipeComment extends ActiveRecord
     /**
      * @inheritdoc
      */
-    public function behaviors()
+    public function behaviors(): array
     {
         return [
             TimestampBehavior::className(),
@@ -54,7 +77,7 @@ class RecipeComment extends ActiveRecord
     /**
      * @inheritdoc
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             [['recipe_id', 'author_id', 'content'], 'required'],
@@ -69,7 +92,7 @@ class RecipeComment extends ActiveRecord
     /**
      * @inheritdoc
      */
-    public function attributeLabels()
+    public function attributeLabels(): array
     {
         return [
             'id' => 'ID',
@@ -82,26 +105,17 @@ class RecipeComment extends ActiveRecord
         ];
     }
 
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getAuthor()
+    public function getAuthor(): ActiveQuery
     {
         return $this->hasOne(User::className(), ['id' => 'author_id']);
     }
 
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getRecipe()
+    public function getRecipe(): ActiveQuery
     {
         return $this->hasOne(Recipe::className(), ['id' => 'recipe_id']);
     }
 
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getReplyTo()
+    public function getReplyTo(): ActiveQuery
     {
         return $this->hasOne(User::className(), ['id' => 'reply_to']);
     }

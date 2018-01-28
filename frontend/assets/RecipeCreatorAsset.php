@@ -16,5 +16,6 @@ class RecipeCreatorAsset extends AssetBundle
 
     public $depends = [
         'yii\web\YiiAsset',
+        CKEditorAsset::class
     ];
 }

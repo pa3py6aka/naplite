@@ -45,6 +45,9 @@ return [
                 ],
             ],
         ],
+        'assetManager' => [
+            'appendTimestamp' => true,
+        ],
         'errorHandler' => [
             'errorAction' => 'site/error',
         ],
@@ -60,7 +63,7 @@ return [
         'rules' => [
             [
                 'allow' => true,
-                'roles' => [\core\access\Rbac::ROLE_ADMIN],
+                'roles' => [\core\access\Rbac::ROLE_MODERATOR],
             ],
         ],
     ],

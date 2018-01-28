@@ -2,8 +2,10 @@
 
 namespace core\entities;
 
+use core\access\Rbac;
 use core\entities\queries\RecipeQuery;
 use core\entities\User\User;
+use core\jobs\MailJob;
 use lhs\Yii2SaveRelationsBehavior\SaveRelationsBehavior;
 use Yii;
 use yii\behaviors\TimestampBehavior;
@@ -30,6 +32,7 @@ use yii\helpers\Url;
  * @property int $rate [int(11)]
  * @property int $comments_count [int(11)]
  * @property bool $comments_notify [tinyint(1)]
+ * @property int $status [smallint(6)]
  * @property int $created_at
  * @property int $updated_at
  *
@@ -51,6 +54,9 @@ class Recipe extends ActiveRecord
     const COMPLEXITY_EASY = 1;
     const COMPLEXITY_MIDDLE = 2;
     const COMPLEXITY_HARD = 3;
+
+    const STATUS_BLOCKED = 0;
+    const STATUS_ACTIVE = 5;
 
     public $complexityName;
 
@@ -85,6 +91,7 @@ class Recipe extends ActiveRecord
         $recipe->recipePhotos = $photos;
         $recipe->recipeHolidays = $holidays;
         $recipe->recipeSteps = $steps;
+        $recipe->status = self::STATUS_ACTIVE;
 
         return $recipe;
     }
@@ -147,7 +154,26 @@ class Recipe extends ActiveRecord
             Url::to(['recipes/view', 'id' => $this->id]);
     }
 
+    public static function statusesArray(): array
+    {
+        return [
+            self::STATUS_BLOCKED => 'Заблокирован',
+            self::STATUS_ACTIVE => 'Опубликован',
+        ];
+    }
 
+    public function afterSave($insert, $changedAttributes)
+    {
+        if ($insert) {
+            if (!Yii::$app->user->can(Rbac::ROLE_MODERATOR)) {
+                Yii::$app->queue->push(new MailJob([
+                    'mailType' => MailJob::TYPE_NEW_RECIPE,
+                    'recipeId' => $this->id,
+                ]));
+            }
+        }
+        parent::afterSave($insert, $changedAttributes);
+    }
 
     public function afterFind()
     {

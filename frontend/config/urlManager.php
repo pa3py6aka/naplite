@@ -13,6 +13,13 @@ return [
         '<_c:category>/<slug:[a-z0-9_-]+>' => '<_c>/view',
         '<_c:articles>/category/<slug:[a-z0-9_-]+>' => '<_c>/index',
 
+        // Не забудьте добавить нужные экшены(доступные по адресу /forum/<action>) в core\helpers\BlogHelper::USED_ACTIONS
+        'forum/create' => 'blog/create',
+        'forum/<category:[a-z0-9_-]+>' => 'blog/index',
+        'forum' => 'blog/index',
+        'forum/<category:[a-z0-9_-]+>/<post:[a-z0-9_-]+>' => 'blog/view',
+        'forum/<category:[a-z0-9_-]+>/<post:[a-z0-9_-]+>/edit' => 'blog/edit',
+
         '<_c:[\w\-]+>' => '<_c>/index',
         '<_c:[\w\-]+>/<id:\d+>' => '<_c>/view',
         '<_c:[\w\-]+>/<id:\d+>/<_a:[\w\-]+>' => '<_c>/<_a>',

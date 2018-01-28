@@ -37,6 +37,25 @@ NaPlite = (function () {
             $('html, body').animate({
                 scrollTop: $el.offset().top
             }, 800);
+        },
+        SetCKEditor: function (id) {
+            CKEDITOR.replace(id, {
+                "height":120,
+                "contentsCss": "/css/wysiwyg.css",
+                "bodyClass": "wysiwyg-style",
+                "toolbarGroups":[
+                    //{"name":"undo"},
+                    {"name":"basicstyles","groups":["basicstyles"]},
+                    {"name": "paragraph","groups":["list"]},
+                    //{"name":"colors"},
+                    {"name":"links","groups":["insert"]}
+                    //{"name":"others","groups":["others","about"]}
+                ],
+                "removeButtons":"Subscript,Superscript,Flash,Table,HorizontalRule,Smiley,SpecialChar,PageBreak,Iframe,Link,Unlink,Anchor",
+                "removePlugins":"elementspath",
+                "resize_enabled":false,
+                "extraPlugins": "emojione"
+            });
         }
     };
 
@@ -58,7 +77,7 @@ NaPlite = (function () {
             showModal('forgotPasswordModal');
         });
 
-        $('[data-link=readSeoText]').on('click', function (e) {
+        /*$('[data-link=readSeoText]').on('click', function (e) {
             var $seoBlock = $('#categorySeoText');
             if ($seoBlock.hasClass('mini')) {
                 $seoBlock.removeClass('mini', 1000);
@@ -67,7 +86,7 @@ NaPlite = (function () {
                 $seoBlock.addClass('mini', 1000);
                 $(this).html('<i class="fa fa-refresh"></i>Читать далее');
             }
-        });
+        });*/
 
         /* Пока только для категорий */
         $(document).on('change', 'select[name=sort-selector]', function (e) {
@@ -119,6 +138,16 @@ NaPlite = (function () {
         // Страница списка статей
         $('#articlesCategory').on('click', '[data-link=search-articles]', function (e) {
             $('#search-articles-form').submit();
+        });
+
+        // Создание поста
+        $('#blogForm').on('click', '[data-button=submitForm]', function (e) {
+            $('#blogForm').yiiActiveForm('submitForm');
+        });
+
+        // Поиск по форуму
+        $('#blogsListPage').on('click', '[data-button=submit-blog-search]', function (e) {
+            $('#searchBlogsForm').submit();
         });
     };
 

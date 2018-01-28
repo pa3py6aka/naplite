@@ -258,7 +258,7 @@ RecipeCreator = (function () {
 
             $('#commentsNotify').val($("#filter_product_country8").is(':checked') ? 1 : 0);
 
-            $('#recipeForm').yiiActiveForm('submitForm');
+            $recipeForm.yiiActiveForm('submitForm');
         });
     };
 

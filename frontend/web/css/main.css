@@ -1051,6 +1051,14 @@ select::-ms-expand{display:none;}
 .article_prev_text p:nth-child(2) {margin-top:0;}
 .top_articles {position:relative;}
 .slider-block .item img {width:100%;}
-
+#blogsListPage .blog_prev:last-child {border:0 !important;}
+.li-last-no-border li:last-child {border:0 !important;}
+span.cke_button__emojione_icon {
+	background-image: url("/img/smile.png") !important;
+	background-position: 0px !important;
+	background-repeat: no-repeat;
+	background-size: auto;
+}
+.comment_text p {margin:0;}
 
 

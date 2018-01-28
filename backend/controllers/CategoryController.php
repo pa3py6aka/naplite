@@ -4,10 +4,12 @@ namespace backend\controllers;
 
 
 use backend\forms\CategorySearch;
+use core\access\Rbac;
 use core\entities\Category;
 use core\forms\manage\CategoryForm;
 use core\services\manage\CategoryManageService;
 use Yii;
+use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -25,6 +27,15 @@ class CategoryController extends Controller
     public function behaviors()
     {
         return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'rules' => [
+                    [
+                        'allow' => true,
+                        'roles' => [Rbac::ROLE_ADMIN]
+                    ]
+                ],
+            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [

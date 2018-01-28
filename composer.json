@@ -1,8 +1,8 @@
 {
-    "name": "NaPlite",
+    "name": "Na-Plite",
     "description": "A food blog based on Yii2 framework",
     "keywords": ["yii2", "food blog"],
-    "homepage": "http://naplite.ru/",
+    "homepage": "http://na-plite.ru/",
     "type": "project",
     "support": {
         "programmer": "http://weblancer.net/users/alexsava"
@@ -23,7 +23,11 @@
         "yiisoft/yii2-jui": "^2.0",
         "kartik-v/yii2-widgets": "*",
         "kartik-v/yii2-field-range": "*",
-        "vova07/yii2-imperavi-widget": "*"
+        "vova07/yii2-imperavi-widget": "*",
+        "zelenin/yii2-slug-behavior": "~1.5.1",
+        "mihaildev/yii2-ckeditor": "*",
+        "yiisoft/yii2-queue": "^2.0",
+        "yiisoft/yii2-redis": "^2.0"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.0.0",

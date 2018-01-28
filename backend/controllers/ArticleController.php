@@ -2,6 +2,7 @@
 
 namespace backend\controllers;
 
+use core\access\Rbac;
 use core\forms\manage\ArticleManageForm;
 use core\repositories\ArticleRepository;
 use core\services\manage\ArticleManageService;
@@ -9,6 +10,7 @@ use Yii;
 use core\entities\Article\Article;
 use backend\forms\ArticleSearch;
 use yii\base\Module;
+use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -41,6 +43,15 @@ class ArticleController extends Controller
     public function behaviors()
     {
         return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'rules' => [
+                    [
+                        'allow' => true,
+                        'roles' => [Rbac::ROLE_ADMIN]
+                    ]
+                ],
+            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [

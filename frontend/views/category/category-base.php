@@ -20,7 +20,7 @@ $this->title = $category->getHeadingTile();
 ?>
 <div class="content_left">
     <div class="th_parent">
-        <div class="breadcump"><a href="/">Главная</a> / <a href="<?= Url::to(['/recipes/index']) ?>">Рецепты</a></div>
+        <div class="breadcump sub-cat"><a href="/">Главная</a> / <a href="<?= Url::to(['/recipes/index']) ?>">Рецепты</a></div>
         <div class="th_parent_top">
             <div class="th_parent_top_ico"><img src="<?= $category->getIcon() ?>" width="50" height="40" alt=""/></div>
             <div class="th_parent_top_text"><h1><?= $category->getHeadingTile() ?></h1></div>

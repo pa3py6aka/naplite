@@ -107,6 +107,30 @@ class RecipeController extends Controller
         return $this->redirect(['index']);
     }
 
+    public function actionBlock($id)
+    {
+        $recipe = $this->findModel($id);
+        $recipe->status = Recipe::STATUS_BLOCKED;
+        if ($recipe->save()) {
+            Yii::$app->session->setFlash('warning', 'Рецепт заблокирован');
+        } else {
+            Yii::$app->session->setFlash('error', 'Ошибка записи в базу');
+        }
+        return $this->redirect(['view', 'id' => $id]);
+    }
+
+    public function actionPublish($id)
+    {
+        $recipe = $this->findModel($id);
+        $recipe->status = Recipe::STATUS_ACTIVE;
+        if ($recipe->save()) {
+            Yii::$app->session->setFlash('success', 'Рецепт опубликован');
+        } else {
+            Yii::$app->session->setFlash('error', 'Ошибка записи в базу');
+        }
+        return $this->redirect(['view', 'id' => $id]);
+    }
+
     /**
      * @return array
      */

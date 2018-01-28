@@ -24,10 +24,6 @@ RecipeView = (function () {
         $('[data-link=goToComments]').on('click', function () {
             NaPlite.public.scrollTo($('#commentsBlock'));
         });
-
-        $(document).on('click', '[data-link=addComment]', function (e) {
-            $('#commentForm_' + $(this).attr('data-n')).yiiActiveForm('submitForm');
-        });
     };
 
     function init() {

@@ -3,6 +3,7 @@
 namespace core\entities\queries;
 
 
+use core\entities\Recipe;
 use paulzi\nestedsets\NestedSetsQueryTrait;
 use yii\db\ActiveQuery;
 
@@ -17,6 +18,6 @@ class RecipeQuery extends ActiveQuery
 
     public function active()
     {
-        return $this;
+        return $this->andWhere(['status' => Recipe::STATUS_ACTIVE]);
     }
 }

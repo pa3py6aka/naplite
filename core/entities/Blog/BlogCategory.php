@@ -2,6 +2,7 @@
 
 namespace core\entities\Blog;
 
+use core\helpers\BlogHelper;
 use core\validators\SlugValidator;
 use Yii;
 use yii\db\ActiveRecord;
@@ -27,7 +28,15 @@ class BlogCategory extends ActiveRecord
             [['name', 'slug'], 'string', 'max' => 255],
             [['slug'], 'unique'],
             ['slug', SlugValidator::class],
+            ['slug', 'validateForActions']
         ];
+    }
+
+    public function validateForActions($attribute, $params, $validator)
+    {
+        if (in_array($this->slug, BlogHelper::USED_ACTIONS)) {
+            $this->addError('slug', 'Нельзя использовать этот slug, он используется в системе');
+        }
     }
 
     public function attributeLabels(): array

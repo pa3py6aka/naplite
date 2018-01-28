@@ -20,6 +20,7 @@ class Yii extends \yii\BaseYii
  * @property \yii\web\UrlManager $backendUrlManager
  * @property \yii\web\UrlManager $frontendUrlManager
  * @property \core\components\YiiUser $user
+ * @property \yii\queue\Queue $queue
  */
 abstract class BaseApplication extends yii\base\Application
 {

@@ -39,7 +39,7 @@ AppAsset::register($this);
                     <li class="space"></li>
                     <li><a href="#"><i class="fa fa-female"></i>Диеты</a></li>
                     <li class="space"></li>
-                    <li><a href="<?= Url::to(['/forum/index']) ?>"><i class="fa fa-comments"></i><span class="hidden1260">Кулинарный</span> Форум</a></li>
+                    <li><a href="<?= Url::to(['/blog/index']) ?>"><i class="fa fa-comments"></i><span class="hidden1260">Кулинарный</span> Форум</a></li>
                     <li class="space"></li>
                     <li><a href="#"><i class="fa fa-balance-scale"></i>Таблица мер<span class="hidden1260"> и весов</span></a></li>
                 </ul>

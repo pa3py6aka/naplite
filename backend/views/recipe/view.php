@@ -23,6 +23,15 @@ $this->params['breadcrumbs'][] = $this->title;
             'class' => 'btn btn-primary btn-flat',
             'target' => '_blank',
         ]) ?>
+        &nbsp;
+        <?= $model->status == Recipe::STATUS_ACTIVE ?
+            Html::a('Заблокировать', ['block', 'id' => $model->id], [
+                'class' => 'btn btn-danger btn-flat',
+            ]) :
+            Html::a('Опубликовать', ['publish', 'id' => $model->id], [
+                'class' => 'btn btn-success btn-flat',
+            ]) ?>
+        &nbsp;
         <?= Html::a('Удалить', ['delete', 'id' => $model->id], [
             'class' => 'btn btn-danger btn-flat',
             'data' => [

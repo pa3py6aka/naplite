@@ -26,10 +26,19 @@ class UserRepository
         return new ActiveDataProvider([
             'query' => Recipe::find()
                 ->active()
-                ->where(['author_id' => $id]),
+                ->andWhere(['author_id' => $id]),
             'pagination' => ['pageSize' => 1, 'defaultPageSize' => 1],
             'sort' => ['defaultOrder' => ['id' => SORT_DESC]]
         ]);
+    }
+
+    public static function findByRoleName($roleName): array
+    {
+        return User::find()
+            ->alias('u')
+            ->innerJoin('{{%auth_assignments}} a', 'a.user_id = u.id')
+            ->andWhere(['a.item_name' => $roleName])
+            ->all();
     }
 
     public function save(User $user)

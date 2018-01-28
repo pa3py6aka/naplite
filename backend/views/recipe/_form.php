@@ -1,5 +1,6 @@
 <?php
 
+use core\entities\Recipe;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
@@ -34,13 +35,11 @@ use yii\widgets\ActiveForm;
 
         <?= $form->field($model, 'notes')->textarea(['rows' => 6]) ?>
 
-        <?= $form->field($model, 'created_at')->textInput() ?>
-
-        <?= $form->field($model, 'updated_at')->textInput() ?>
+        <?= $form->field($model, 'status')->dropDownList(Recipe::statusesArray()) ?>
 
     </div>
     <div class="box-footer">
-        <?= Html::submitButton('Save', ['class' => 'btn btn-success btn-flat']) ?>
+        <?= Html::submitButton('Сохранить', ['class' => 'btn btn-success btn-flat']) ?>
     </div>
     <?php ActiveForm::end(); ?>
 </div>

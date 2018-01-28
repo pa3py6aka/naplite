@@ -39,7 +39,7 @@ class CategoryRepository
         return new ActiveDataProvider([
             'query' => Recipe::find()
                 ->active()
-                ->where(['category_id' => $categoriesIds]),
+                ->andWhere(['category_id' => $categoriesIds]),
             'pagination' => ['pageSize' => 1, 'defaultPageSize' => 1],
             'sort' => ['defaultOrder' => ['id' => SORT_DESC]]
         ]);

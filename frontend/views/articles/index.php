@@ -81,7 +81,7 @@ $this->title = "Статьи по кулинарным темам";
                 <?= Html::endForm() ?>
             </div>
         </div>
-        <ul class="article_prev">
+        <ul class="article_prev li-last-no-border">
             <?php foreach ($articlesProvider->models as $article) {
                 echo $this->render('article-item', ['article' => $article]);
             } ?>

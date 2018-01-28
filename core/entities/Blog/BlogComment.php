@@ -35,6 +35,27 @@ class BlogComment extends ActiveRecord
         return $comment;
     }
 
+    public function beforeSave($insert)
+    {
+        if (parent::beforeSave($insert)) {
+            $this->content = str_replace('<p>&nbsp;</p>', '', $this->content);
+            return true;
+        }
+        return false;
+    }
+
+    public function afterSave($insert, $changedAttributes)
+    {
+        Blog::updateAllCounters(['comments_count' => 1], ['id' => $this->blog_id]);
+        parent::afterSave($insert, $changedAttributes);
+    }
+
+    public function afterDelete()
+    {
+        Blog::updateAllCounters(['comments_count' => -1], ['id' => $this->blog_id]);
+        parent::afterDelete();
+    }
+
     public static function tableName(): string
     {
         return '{{%blog_comments}}';

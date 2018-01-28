@@ -21,6 +21,7 @@ class m180124_185524_create_blog_tables extends Migration
         $this->createTable('{{%blogs}}', [
             'id' => $this->primaryKey(),
             'author_id' => $this->integer()->notNull(),
+            'category_id' => $this->integer()->notNull(),
             'title' => $this->string()->notNull(),
             'content' => $this->text()->notNull(),
             'views' => $this->integer()->unsigned()->notNull()->defaultValue(0),
@@ -31,6 +32,8 @@ class m180124_185524_create_blog_tables extends Migration
         ], $tableOptions);
         $this->createIndex('idx-blogs-author_id', '{{%blogs}}', 'author_id');
         $this->addForeignKey('fk-blogs-author_id', '{{%blogs}}', 'author_id', '{{%users}}', 'id', 'CASCADE', 'CASCADE');
+        $this->createIndex('idx-blogs-category_id', '{{%blogs}}', 'category_id');
+        $this->addForeignKey('fk-blogs-category_id', '{{%blogs}}', 'category_id', '{{%blog_categories}}', 'id', 'CASCADE', 'CASCADE');
 
         $this->createTable('{{%blog_comments}}', [
             'id' => $this->primaryKey(),

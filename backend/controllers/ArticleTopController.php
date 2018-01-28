@@ -4,12 +4,29 @@ namespace backend\controllers;
 
 
 use backend\forms\ArticleSearch;
+use core\access\Rbac;
 use core\entities\Article\ArticleTop;
 use Yii;
+use yii\filters\AccessControl;
 use yii\web\Controller;
 
 class ArticleTopController extends Controller
 {
+    public function behaviors()
+    {
+        return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'rules' => [
+                    [
+                        'allow' => true,
+                        'roles' => [Rbac::ROLE_ADMIN]
+                    ]
+                ],
+            ],
+        ];
+    }
+
     public function actionIndex()
     {
         $topArticles = ArticleTop::find()->orderBy(['sort' => SORT_ASC])->all();
