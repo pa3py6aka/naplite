@@ -18,6 +18,7 @@ use Yii;
 use yii\base\Module;
 use yii\base\UserException;
 use yii\filters\AccessControl;
+use yii\filters\VerbFilter;
 use yii\validators\ImageValidator;
 use yii\web\Controller;
 use yii\web\ForbiddenHttpException;
@@ -41,13 +42,21 @@ class RecipesController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'only' => ['new', 'upload', 'rate', 'edit'],
+                'only' => ['new', 'upload', 'rate', 'edit', 'save-to-user'],
                 'rules' => [
                     [
-                        'actions' => ['new', 'upload', 'rate', 'edit'],
+                        'actions' => ['new', 'upload', 'rate', 'edit', 'save-to-user'],
                         'allow' => true,
                         'roles' => [Rbac::ROLE_USER],
                     ],
+                ],
+            ],
+            'verbs' => [
+                'class' => VerbFilter::className(),
+                'actions' => [
+                    'upload' => ['post'],
+                    'rate' => ['post'],
+                    'save-to-user' => ['post'],
                 ],
             ],
         ];
@@ -145,6 +154,21 @@ class RecipesController extends Controller
         }
 
         return ['result' => false];
+    }
+
+    public function actionSaveToUser()
+    {
+        Yii::$app->response->format = Response::FORMAT_JSON;
+        $recipeId = (int) Yii::$app->request->post('recipeId');
+        $userId = Yii::$app->user->id;
+
+        try {
+            $result = $this->service->saveToUser($userId, $recipeId);
+        } catch (\DomainException $e) {
+            return ['result' => false, 'error' => $e->getMessage()];
+        }
+
+        return ['result' => 'success', 'html' => $result ? '<i class="fa fa-minus"></i>Убрать из избранных' : '<i class="fa fa-plus"></i>Сохранить рецепт'];
     }
 
     public function actionUpload()

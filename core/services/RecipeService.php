@@ -8,6 +8,7 @@ use core\entities\IngredientSection;
 use core\entities\Photo;
 use core\entities\Recipe;
 use core\entities\RecipeHoliday;
+use core\entities\User\UserRecipe;
 use core\forms\RecipeForm;
 use core\components\PhotoSaver;
 use core\repositories\RecipeRepository;
@@ -147,6 +148,21 @@ class RecipeService
         });
 
         $this->setMainPhoto($mainPhoto, $form, $recipe);
+    }
+
+    public function saveToUser($userId, $recipeId): bool
+    {
+        if ($userRecipe = $this->repository->getUserRecipe($userId, $recipeId)) {
+            $userRecipe->delete();
+            return false;
+        }
+
+        $userRecipe = new UserRecipe([
+            'user_id' => $userId,
+            'recipe_id' => $recipeId,
+        ]);
+        $this->repository->saveUserRecipe($userRecipe);
+        return true;
     }
 
     private function getTime($hours, $minutes): int

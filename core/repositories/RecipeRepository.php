@@ -6,6 +6,7 @@ namespace core\repositories;
 use core\entities\IngredientSection;
 use core\entities\Recipe;
 use core\entities\RecipeHoliday;
+use core\entities\User\UserRecipe;
 
 class RecipeRepository
 {
@@ -17,9 +18,21 @@ class RecipeRepository
         return $recipe;
     }
 
+    public function getUserRecipe($userId, $recipeId): ?UserRecipe
+    {
+        return UserRecipe::find()->where(['user_id' => $userId, 'recipe_id' => $recipeId])->limit(1)->one();
+    }
+
     public function save(Recipe $recipe): void
     {
         if (!$recipe->save(false)) {
+            throw new \RuntimeException('Ошибка записи в базу.');
+        }
+    }
+
+    public function saveUserRecipe(UserRecipe $userRecipe): void
+    {
+        if (!$userRecipe->save(false)) {
             throw new \RuntimeException('Ошибка записи в базу.');
         }
     }

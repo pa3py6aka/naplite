@@ -24,6 +24,32 @@ RecipeView = (function () {
         $('[data-link=goToComments]').on('click', function () {
             NaPlite.public.scrollTo($('#commentsBlock'));
         });
+
+        $('[data-link=save-recipe-link]').on('click', function () {
+            var $link = $(this);
+            var $icon = $link.find('i');
+            if ($icon.hasClass('fa-spinner')) {return;}
+            var curClass = $icon.hasClass('fa-plus') ? 'fa-plus' : 'fa-minus';
+            var recipeId = $link.attr('data-recipe-id');
+            $.ajax('/recipes/save-to-user', {
+                method: "post",
+                dataType: "json",
+                data: {recipeId: recipeId},
+                beforeSend: function () {
+                    $icon.removeClass(curClass);
+                    $icon.addClass('fa-spinner');
+                },
+                success: function(data, textStatus, jqXHR) {
+                    if (data.result === 'success') {
+                        $link.html(data.html);
+                    }
+                },
+                complete: function () {
+                    $icon.removeClass('fa-spinner');
+                    $icon.addClass(curClass);
+                }
+            });
+        });
     };
 
     function init() {
