@@ -34,7 +34,7 @@ $this->title = Html::encode($blog->title);
             <span><i class="fa fa-circle"></i></span>
             <a href="<?= Url::to(['/blog/index']) ?>">Кулинарный форум</a>
             <span><i class="fa fa-circle"></i></span>
-            <a href="<?= Url::to(['/blog/index', 'slug' => $blog->category->slug]) ?>"><?= $blog->category->name ?></a>
+            <a href="<?= Url::to(['/blog/index', 'category' => $blog->category->slug]) ?>"><?= $blog->category->name ?></a>
         </div>
         <div class="post_page_content">
             <div class="post_page_top">
