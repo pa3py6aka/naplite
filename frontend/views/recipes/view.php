@@ -99,6 +99,15 @@ $this->title = Html::encode($recipe->name);
                                 <span class="recipe_stat_bottom_right"><?= RecipeHelper::hoursFromMinutes($recipe->cooking_time) ?></span>
                             </span>
                         </li>
+                        <?php if ($recipe->preparation_time): ?>
+                            <li>
+                                <span class="recipe_stat_top">Время подготовки:</span>
+                                <span class="recipe_stat_bottom">
+                                <span class="recipe_stat_bottom_left"><i class="fa fa-clock-o"></i></span>
+                                <span class="recipe_stat_bottom_right"><?= RecipeHelper::hoursFromMinutes($recipe->preparation_time) ?></span>
+                            </span>
+                            </li>
+                        <?php endif; ?>
                         <li>
                             <span class="recipe_stat_top">Порций:</span>
                             <span class="recipe_stat_bottom">
