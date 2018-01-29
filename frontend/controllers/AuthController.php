@@ -136,7 +136,7 @@ class AuthController extends Controller
             $this->roleManager->assign($user->id, Rbac::ROLE_USER);
             Yii::$app->user->login($user, Yii::$app->params['user.rememberMeDuration']);
             Yii::$app->session->setFlash("confirm-success", "Ваш адрес e-mail успешно подтверждён!");
-            return $this->goHome();
+            return $this->redirect(['/users/settings']);
         }
         throw new UserException("Ошибка сохранения в базу, обратитесь в службу поддержки!");
     }
