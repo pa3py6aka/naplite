@@ -139,7 +139,7 @@ $this->title = Html::encode($recipe->name);
                         <a href="javascript:void(0)" data-link="weights-search-modal" class="b_gray">
                             <i class="fa fa-calendar"></i>Таблица мер и весов
                         </a>
-                        <a href="#" class="b_gray"><i class="fa fa-comment"></i>Обсудить с автором</a>
+                        <a href="javascript:void(0)" class="b_gray" data-link="goToComments"><i class="fa fa-comment"></i>Обсудить с автором</a>
                     </div>
                 </div>
             </div>
