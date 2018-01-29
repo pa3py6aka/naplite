@@ -9,6 +9,7 @@ use yii\base\Model;
 class SettingsForm extends Model
 {
     public $recipeIntroductoryTextMaxLength;
+    public $photoReportText;
 
     public function init()
     {
@@ -28,6 +29,7 @@ class SettingsForm extends Model
     {
         return [
             ['recipeIntroductoryTextMaxLength', 'integer'],
+            ['photoReportText', 'string'],
         ];
     }
 
@@ -35,6 +37,7 @@ class SettingsForm extends Model
     {
         return [
             'recipeIntroductoryTextMaxLength' => 'Максимальный размер вводного текста в рецепте',
+            'photoReportText' => 'Текст при добавлении фотоотчёта',
         ];
     }
 }

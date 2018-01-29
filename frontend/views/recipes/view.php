@@ -18,6 +18,7 @@ use yii\widgets\ActiveForm;
 /* @var $this \yii\web\View */
 /* @var $recipe \core\entities\Recipe */
 /* @var $commentModel \core\forms\CommentForm */
+/* @var $photoReports \core\entities\PhotoReport[] */
 
 RecipeViewAsset::register($this);
 $this->title = Html::encode($recipe->name);
@@ -184,7 +185,7 @@ $this->title = Html::encode($recipe->name);
         <div class="th_2col th_button">
             <div class="th_2col_left"><h3>Обсуждение рецепта</h3></div>
             <div class="th_2col_right th_2col_links">
-                <a href="javascript:void(0)" class="icobox">
+                <a href="javascript:void(0)" class="icobox<?= Yii::$app->user->isGuest ? ' loginButton' : '' ?>"<?= Yii::$app->user->isGuest ? '' : ' data-link="create-photo-report-link"' ?>>
                     <span class="icobox_left"><i class="fa fa-camera"></i></span>
                     <span class="icobox_right">Добавить фотоотчет</span>
                 </a>
@@ -200,65 +201,42 @@ $this->title = Html::encode($recipe->name);
         <div class="th_2col th_button">
             <div class="th_2col_left"><h2>Фотоотчеты к рецепту</h2></div>
             <div class="th_2col_right th_2col_links">
-                <a href="#" class="icobox">
+                <a href="javascript:void(0)" class="icobox<?= Yii::$app->user->isGuest ? ' loginButton' : '' ?>"<?= Yii::$app->user->isGuest ? '' : ' data-link="create-photo-report-link"' ?>>
                     <span class="icobox_left"><i class="fa fa-camera"></i></span>
                     <span class="icobox_right">Добавить фотоотчет</span>
                 </a>
             </div>
         </div>
         <ul class="photoreport">
-            <li>
-                <a href="#">
-							<span class="photoreport_stat">
-								<span class="userpick_photo"><img src="/img/photo.jpg" alt=""/></span>
-								<span class="userpick_name">Татьяна Левтерова</span>
-							</span>
-                    <img src="/img/recipe_image_small.jpg" width="300" height="200" alt=""/>
-                </a>
-            </li>
-            <li>
-                <a href="#">
-							<span class="photoreport_stat">
-								<span class="userpick_photo"><img src="/img/photo.jpg" alt=""/></span>
-								<span class="userpick_name">Татьяна Левтерова</span>
-							</span>
-                    <img src="/img/recipe_image_small.jpg" width="300" height="200" alt=""/>
-                </a>
-            </li>
-            <li>
-                <a href="#">
-							<span class="photoreport_stat">
-								<span class="userpick_photo"><img src="/img/photo.jpg" alt=""/></span>
-								<span class="userpick_name">Татьяна Левтерова</span>
-							</span>
-                    <img src="/img/recipe_image_small.jpg" width="300" height="200" alt=""/>
-                </a>
-            </li>
-            <li>
-                <a href="#">
-							<span class="photoreport_stat">
-								<span class="userpick_photo"><img src="/img/photo.jpg" alt=""/></span>
-								<span class="userpick_name">Татьяна Левтерова</span>
-							</span>
-                    <img src="/img/recipe_image_small.jpg" width="300" height="200" alt=""/>
-                </a>
-            </li>
-            <li>
-                <a href="#">
-							<span class="photoreport_stat">
-								<span class="userpick_photo"><img src="/img/photo.jpg" alt=""/></span>
-								<span class="userpick_name">Татьяна Левтерова</span>
-							</span>
-                    <img src="/img/recipe_image_small.jpg" width="300" height="200" alt=""/>
-                </a>
-            </li>
+            <?php if (!count($photoReports)): ?>
+                <div class="no-counts">
+                    Фотоотчёты к рецепту пока отсутствуют
+                </div>
+            <?php else: ?>
+                <?php foreach ($photoReports as $photoReport): ?>
+                    <li>
+                        <a href="<?= $photoReport->getImageUrl(false) ?>"  data-lightbox="image-<?= $photoReport->id ?>">
+                            <span class="photoreport_stat">
+                                <span class="userpick_photo"><img src="<?= $photoReport->user->avatarUrl ?>" alt="<?= $photoReport->user->fullName ?>"/></span>
+                                <span class="userpick_name"><?= $photoReport->user->fullName ?></span>
+                            </span>
+                            <img src="<?= $photoReport->imageUrl ?>" width="300" height="200" alt="<?= Html::encode($recipe->name) ?>"/>
+                        </a>
+                    </li>
+                <?php endforeach; ?>
+            <?php endif; ?>
         </ul>
         <div class="cb"></div>
         <div class="p40"></div>
-        <div class="cb tac"><a href="#" class="b_white"><i class="fa fa-list"></i>Смотреть все фотоотчеты</a></div>
+        <?php if (count($photoReports)): ?>
+            <div class="cb tac">
+                <a href="#" class="b_white"><i class="fa fa-list"></i>Смотреть все фотоотчеты</a>
+            </div>
+        <?php endif; ?>
     </div>
 </div>
 <div class="content_right">
+    <?php //ToDo сделать вывод баннера актуального праздника на данный момент ?>
     <?= BannerWidget::widget(['type' => BannerWidget::TYPE_RIGHT]) ?>
     <div class="p40"></div>
 
@@ -267,3 +245,5 @@ $this->title = Html::encode($recipe->name);
 
     <?= SocialBlockWidget::widget() ?>
 </div>
+
+<?= $this->render('@frontend/views/photo-reports/new-report-modal', ['recipeId' => $recipe->id]) ?>

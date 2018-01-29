@@ -49,9 +49,10 @@ use yii\helpers\Url;
  * @property User $author
  * @property Category $category
  * @property Kitchen $kitchen
+ * @property PhotoReport[] $photoReports
  */
 class Recipe extends ActiveRecord
-{
+{public $ssd;
     const COMPLEXITY_EASY = 1;
     const COMPLEXITY_MIDDLE = 2;
     const COMPLEXITY_HARD = 3;
@@ -268,77 +269,55 @@ class Recipe extends ActiveRecord
         ];
     }
 
-    /**
-     * @return \yii\db\ActiveQuery
-     */
     public function getIngredientSections(): ActiveQuery
     {
         return $this->hasMany(IngredientSection::className(), ['recipe_id' => 'id']);
     }
 
-    /**
-     * @return \yii\db\ActiveQuery
-     */
     public function getRecipeComments(): ActiveQuery
     {
         return $this->hasMany(RecipeComment::className(), ['recipe_id' => 'id']);
     }
 
-    /**
-     * @return \yii\db\ActiveQuery
-     */
     public function getRecipePhotos(): ActiveQuery
     {
         return $this->hasMany(Photo::className(), ['recipe_id' => 'id'])
             ->orderBy(['sort' => SORT_ASC]);
     }
 
-    /**
-     * @return \yii\db\ActiveQuery
-     */
     public function getRecipeSteps(): ActiveQuery
     {
         return $this->hasMany(RecipeStep::className(), ['recipe_id' => 'id']);
     }
 
-    /**
-     * @return \yii\db\ActiveQuery
-     */
     public function getAuthor(): ActiveQuery
     {
         return $this->hasOne(User::className(), ['id' => 'author_id']);
     }
 
-    /**
-     * @return \yii\db\ActiveQuery
-     */
     public function getCategory(): ActiveQuery
     {
         return $this->hasOne(Category::className(), ['id' => 'category_id']);
     }
 
-    /**
-     * @return \yii\db\ActiveQuery
-     */
     public function getKitchen(): ActiveQuery
     {
         return $this->hasOne(Kitchen::className(), ['id' => 'kitchen_id']);
     }
 
-    /**
-     * @return \yii\db\ActiveQuery
-     */
     public function getRecipeHolidays(): ActiveQuery
     {
         return $this->hasMany(RecipeHoliday::className(), ['recipe_id' => 'id']);
     }
 
-    /**
-     * @return \yii\db\ActiveQuery
-     */
     public function getHolidays(): ActiveQuery
     {
         return $this->hasMany(Holiday::className(), ['id' => 'holiday_id'])->viaTable('{{%recipe_holidays}}', ['recipe_id' => 'id']);
+    }
+
+    public function getPhotoReports(): ActiveQuery
+    {
+        return $this->hasMany(PhotoReport::className(), ['recipe_id' => 'id']);
     }
 
     /**

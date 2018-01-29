@@ -2,7 +2,6 @@
 namespace frontend\controllers;
 
 use core\entities\Recipe;
-use Yii;
 use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 

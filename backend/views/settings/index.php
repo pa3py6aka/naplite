@@ -15,6 +15,8 @@ $this->title = "Настройки сайта";
 
         <?= $form->field($model, 'recipeIntroductoryTextMaxLength')->input('number') ?>
 
+        <?= $form->field($model, 'photoReportText')->textarea(['rows' => 4]) ?>
+
         <?= Html::submitButton("Сохранить", ['class' => 'btn btn-flat btn-success']) ?>
 
     </div>

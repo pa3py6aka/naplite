@@ -109,6 +109,7 @@ class RecipesController extends Controller
     {
         $recipe = $this->repository->get($id);
         $commentForm = new CommentForm();
+        $photoReports = $recipe->getPhotoReports()->with('user')->orderBy(['id' => SORT_DESC])->limit(5)->all();
 
         if ($commentForm->load(Yii::$app->request->post()) && $commentForm->validate()) {
             /* @var $commentService CommentService */
@@ -120,6 +121,7 @@ class RecipesController extends Controller
         return $this->render('view', [
             'recipe' => $recipe,
             'commentModel' => $commentForm,
+            'photoReports' => $photoReports,
         ]);
     }
 

@@ -13,6 +13,7 @@ class SettingsManager
     /* @note Don't change keys in this array!!! */
     private $default = [
         'recipeIntroductoryTextMaxLength' => 500,
+        'photoReportText' => 'Добавьте свой фотоотчёт о приготовленном блюде по данному рецепту'
     ];
 
     public function __construct()

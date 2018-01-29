@@ -41,8 +41,11 @@ class PhotoSaver
         $this->create300x200($image, $small);
     }
 
-    public function create300x200($image, Image $manager)
+    public function create300x200($image, Image $manager = null)
     {
+        if ($manager === null) {
+            $manager = $this->intervention->make($image);
+        }
         $name = pathinfo($image, PATHINFO_BASENAME);
         $path = pathinfo($image, PATHINFO_DIRNAME) . '/';
 
@@ -79,7 +82,7 @@ class PhotoSaver
     public function addWatermark($image)
     {
         $this->intervention->make($image)
-            ->insert(__DIR__ . '/watermark.png', 'bottom-left', 10, 10)
+            ->insert(__DIR__ . '/watermark.png', 'bottom-right', 10, 10)
             ->save($image, 90);
         $this->optimizer->optimize($image);
     }

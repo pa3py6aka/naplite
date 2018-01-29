@@ -50,6 +50,33 @@ RecipeView = (function () {
                 }
             });
         });
+
+        $('[data-link="create-photo-report-link"]').on('click', function () {
+            $(".modalbox").hide();
+            $("#newPhotoReportModal").fadeIn();
+        });
+        $('#newPhotoReportModal').on('click', '.file-upload-block', function () {
+            $('#photo-report-file-input').click();
+        });
+        $('#photo-report-file-input').on('change', function (evt) {
+            var tgt = evt.target || window.event.srcElement,
+                files = tgt.files;
+
+            if (FileReader && files && files.length) {
+                var fr = new FileReader();
+                var $btnBlock = $('#newPhotoReportModal').find('.file-upload-block');
+                var btnWidth = $btnBlock.width();
+                fr.onload = function () {
+                    $('#newPhotoReportModal')
+                        .find('.photo-report-modal-image')
+                        .width(btnWidth)
+                        .attr('src', fr.result)
+                        .removeClass('hidden');
+                    $btnBlock.html('Выбрать другую').width(btnWidth);
+                };
+                fr.readAsDataURL(files[0]);
+            }
+        });
     };
 
     function init() {
