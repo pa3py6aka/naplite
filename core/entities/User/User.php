@@ -6,6 +6,7 @@ namespace core\entities\User;
 use core\components\Subscriber;
 use core\entities\Recipe;
 use core\entities\RecipeComment;
+use core\entities\User\queries\UserQuery;
 use lhs\Yii2SaveRelationsBehavior\SaveRelationsBehavior;
 use Yii;
 use yii\base\NotSupportedException;
@@ -267,7 +268,7 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public static function findIdentity($id)
     {
-        return static::findOne(['id' => $id, 'status' => self::STATUS_ACTIVE]);
+        return static::find()->andWhere(['id' => $id])->active()->limit(1)->one();
     }
 
     /**
@@ -286,7 +287,7 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public static function findByUsername($username)
     {
-        return static::findOne(['username' => $username, 'status' => self::STATUS_ACTIVE]);
+        return static::find()->andWhere(['username' => $username])->active()->limit(1)->one();
     }
 
     /**
@@ -295,15 +296,14 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public static function findByUsernameOrEmail($usernameOrEmail)
     {
-        return static::find()->where([
-            'and',
-            [
+        return static::find()
+            ->andWhere([
                 'or',
                 ['username' => $usernameOrEmail],
                 ['email' => $usernameOrEmail],
-            ],
-            ['status' => self::STATUS_ACTIVE]
-        ])->one();
+            ])
+            ->active()
+            ->one();
     }
 
     public static function findByNetworkIdentity($network, $identity)
@@ -323,10 +323,20 @@ class User extends ActiveRecord implements IdentityInterface
             return null;
         }
 
-        return static::findOne([
-            'password_reset_token' => $token,
-            'status' => self::STATUS_ACTIVE,
-        ]);
+        return static::find()
+            ->andWhere(['password_reset_token' => $token])
+            ->active()
+            ->limit(1)
+            ->one();
+    }
+
+    /**
+     * @inheritdoc
+     * @return UserQuery the active query used by this AR class.
+     */
+    public static function find()
+    {
+        return new UserQuery(get_called_class());
     }
 
     /**
