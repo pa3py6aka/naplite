@@ -41,7 +41,7 @@ AppAsset::register($this);
                     <li class="space"></li>
                     <li><a href="<?= Url::to(['/blog/index']) ?>"><i class="fa fa-comments"></i><span class="hidden1260">Кулинарный</span> Форум</a></li>
                     <li class="space"></li>
-                    <li><a href="#"><i class="fa fa-balance-scale"></i>Таблица мер<span class="hidden1260"> и весов</span></a></li>
+                    <li><a href="javascript:void(0)" data-link="weights-search-modal"><i class="fa fa-balance-scale"></i>Таблица мер<span class="hidden1260"> и весов</span></a></li>
                 </ul>
             </div>
             <div class="top_panel_right">
@@ -106,12 +106,12 @@ AppAsset::register($this);
             <span class="adaptive_top_menu">
 				<ul>
 					<li><a href="<?= Url::to(['/recipes/index']) ?>">Рецепты</a></li>
-					<li><a href="#">Статьи</a></li>
+					<li><a href="<?= Url::to(['/articles/index']) ?>">Статьи</a></li>
 					<li><a href="#">Кухни мира</a></li>
 					<li><a href="#">Ингредиенты</a></li>
 					<li><a href="#">Диеты</a></li>
-					<li><a href="#">Кулинарный Форум</a></li>
-					<li><a href="#">Таблица мер и весов</a></li>
+					<li><a href="<?= Url::to(['/blog/index']) ?>">Кулинарный Форум</a></li>
+					<li><a href="javascript:void(0)" data-link="weights-search-modal">Таблица мер и весов</a></li>
 					<li class="adaptive_top_menu_space"></li>
 					<li>
 						<ul class="not_logged">
@@ -333,6 +333,7 @@ AppAsset::register($this);
 </div>
 
 <?= $this->render('message-modal') ?>
+<?= $this->render('@frontend/views/weights/weights-modal') ?>
 <?= ModalAlertWidget::widget() ?>
 
 <?php if (Yii::$app->user->isGuest) {

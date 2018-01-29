@@ -10,6 +10,9 @@ NaPlite = (function () {
                          '<div class="box-uploader-progress"></div>' +
                      '</div>');
         },
+        getSpinLoader: function () {
+            return '<div class="overlay"><img src="/img/spin.gif" class="fa fa-spin"></div>';
+        },
         pluralize: function (iNumber, aEndings) {
             var sEnding, i;
             iNumber = iNumber % 100;
@@ -149,7 +152,48 @@ NaPlite = (function () {
         $('#blogsListPage').on('click', '[data-button=submit-blog-search]', function (e) {
             $('#searchBlogsForm').submit();
         });
+
+        // Таблица мер и весов
+        $('[data-link=weights-search-modal]').on('click', function (e) {
+            showModal('weightsModal');
+            //$('#weightsSearchForm').find('input[name=search]').val('');
+            loadWeights();
+        });
+        $('[data-link=weights-search-link]').on('click', function () {
+            loadWeights();
+        });
+        $('#weightsSearchForm').submit(function(e) {
+            e.preventDefault();
+            loadWeights();
+        });
     };
+
+    function loadWeights() {
+        var $modal = $('#weightsModal'),
+            $contentBlock = $modal.find('#weightsSearchContent'),
+            $form = $('#weightsSearchForm');
+
+        $.ajax({
+            url: '/weights/load',
+            method: "post",
+            dataType: "html",
+            data: $form.serialize(),
+            beforeSend: function () {
+                if (!$contentBlock.find('.overlay').length) {
+                    $contentBlock.prepend(Public.getSpinLoader());
+                }
+            },
+            success: function(data, textStatus, jqXHR) {
+                $contentBlock.html(data);
+            },
+            complete: function () {
+                $contentBlock.find('.overlay').remove();
+            }
+        });
+        if (!$contentBlock.find('.overlay').length) {
+            $contentBlock.prepend(Public.getSpinLoader());
+        }
+    }
 
     function showModal(id) {
         $(".modalbox").hide();

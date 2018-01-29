@@ -127,7 +127,9 @@ $this->title = Html::encode($recipe->name);
                         <a href="<?= Url::to(['/recipes/print', 'id' => $recipe->id]) ?>" class="b_gray" target="_blank">
                             <i class="fa fa-print"></i>Распечатать рецепт
                         </a>
-                        <a href="#" class="b_gray"><i class="fa fa-calendar"></i>Таблица мер и весов</a>
+                        <a href="javascript:void(0)" data-link="weights-search-modal" class="b_gray">
+                            <i class="fa fa-calendar"></i>Таблица мер и весов
+                        </a>
                         <a href="#" class="b_gray"><i class="fa fa-comment"></i>Обсудить с автором</a>
                     </div>
                 </div>
