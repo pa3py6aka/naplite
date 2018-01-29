@@ -20,6 +20,8 @@ return [
         'forum/<category:[a-z0-9_-]+>/<post:[a-z0-9_-]+>' => 'blog/view',
         'forum/<category:[a-z0-9_-]+>/<post:[a-z0-9_-]+>/edit' => 'blog/edit',
 
+        'id<id:\d+>' => 'users/view',
+
         '<_c:[\w\-]+>' => '<_c>/index',
         '<_c:[\w\-]+>/<id:\d+>' => '<_c>/view',
         '<_c:[\w\-]+>/<id:\d+>/<_a:[\w\-]+>' => '<_c>/<_a>',
