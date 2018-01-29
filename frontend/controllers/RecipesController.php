@@ -171,6 +171,12 @@ class RecipesController extends Controller
         return ['result' => 'success', 'html' => $result ? '<i class="fa fa-minus"></i>Убрать из избранных' : '<i class="fa fa-plus"></i>Сохранить рецепт'];
     }
 
+    public function actionPrint($id)
+    {
+        $recipe = $this->repository->get($id);
+        return $this->renderPartial('print', ['recipe' => $recipe]);
+    }
+
     public function actionUpload()
     {
         Yii::$app->response->format = Response::FORMAT_JSON;
