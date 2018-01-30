@@ -3,13 +3,11 @@
 use core\entities\Article\Article;
 use core\helpers\BlogHelper;
 use core\helpers\ContentHelper;
+use widgets\ArticlesWidget;
 use widgets\BannerWidget;
 use widgets\BestChefsWidget;
-use widgets\BlogCategoriesWidget;
-use widgets\ForumBlockWidget;
 use widgets\SocialBlockWidget;
 use yii\helpers\Html;
-use yii\helpers\HtmlPurifier;
 use yii\helpers\Url;
 
 /* @var $this \yii\web\View */
@@ -53,6 +51,9 @@ $this->title = Html::encode($article->title);
             </div>
         </div>
     </div>
+
+    <?= ArticlesWidget::widget(['currentArticleId' => $article->id]) ?>
+
     <div class="textbox" id="comments">
         <div class="comment_th">
             <h3>Комментарии пользователей</h3>
@@ -62,8 +63,6 @@ $this->title = Html::encode($article->title);
             'comments' => $article->comments,
         ]) ?>
     </div>
-
-    <?= ForumBlockWidget::widget() ?>
 </div>
 <div class="content_right">
     <?= BannerWidget::widget(['type' => BannerWidget::TYPE_RIGHT]) ?>
