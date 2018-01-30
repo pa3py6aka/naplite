@@ -3,7 +3,7 @@
 namespace core\forms\manage;
 
 
-use core\entities\Category;
+use core\entities\Recipe\Category;
 use core\validators\SlugValidator;
 use Yii;
 use yii\base\Model;

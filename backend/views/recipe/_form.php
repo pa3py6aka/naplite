@@ -1,11 +1,11 @@
 <?php
 
-use core\entities\Recipe;
+use core\entities\Recipe\Recipe;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
-/* @var $model core\entities\Recipe */
+/* @var $model \core\entities\Recipe\Recipe */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 

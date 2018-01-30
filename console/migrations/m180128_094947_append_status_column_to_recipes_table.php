@@ -14,7 +14,7 @@ class m180128_094947_append_status_column_to_recipes_table extends Migration
     {
         $this->addColumn('{{%recipes}}', 'status', $this->smallInteger()
             ->notNull()
-            ->defaultValue(\core\entities\Recipe::STATUS_ACTIVE)
+            ->defaultValue(\core\entities\Recipe\Recipe::STATUS_ACTIVE)
             ->after('comments_notify'));
     }
 

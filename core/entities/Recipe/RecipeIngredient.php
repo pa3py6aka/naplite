@@ -1,7 +1,8 @@
 <?php
 
-namespace core\entities;
+namespace core\entities\Recipe;
 
+use core\entities\Recipe\IngredientSection;
 use Yii;
 use yii\db\ActiveRecord;
 
@@ -16,14 +17,14 @@ use yii\db\ActiveRecord;
  *
  * @property IngredientSection $section
  */
-class Ingredient extends ActiveRecord
+class RecipeIngredient extends ActiveRecord
 {
     /**
      * @inheritdoc
      */
     public static function tableName()
     {
-        return '{{%ingredients}}';
+        return '{{%recipe_ingredients}}';
     }
 
     /**

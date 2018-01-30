@@ -13,7 +13,7 @@ use widgets\TopArticlesSliderWidget;
 use yii\helpers\Html;
 use yii\helpers\Url;
 
-/* @var $recipes \core\entities\Recipe[]|array */
+/* @var $recipes \core\entities\Recipe\Recipe[]|array */
 
 $this->title = 'На плите! Кулинарные рецепты на любой вкус';
 ?>

@@ -1,5 +1,5 @@
 <?php
-/* @var $recipe \core\entities\Recipe */
+/* @var $recipe \core\entities\Recipe\Recipe */
 
 use core\helpers\RecipeHelper;
 use yii\helpers\Html;

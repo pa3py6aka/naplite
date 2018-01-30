@@ -4,7 +4,7 @@ namespace frontend\controllers;
 
 
 use core\access\Rbac;
-use core\entities\PhotoReport;
+use core\entities\Recipe\PhotoReport;
 use core\forms\PhotoReportCreateForm;
 use core\services\TransactionManager;
 use Yii;

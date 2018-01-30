@@ -4,13 +4,13 @@ namespace core\helpers;
 
 
 use core\entities\Article\ArticleCategory;
-use core\entities\Category;
+use core\entities\Recipe\Category;
 use yii\helpers\Html;
 
 class CategoryHelper
 {
     /**
-     * @param Category|ArticleCategory $category
+     * @param \core\entities\Recipe\Category|ArticleCategory $category
      * @return string
      */
     public static function getBreadCrumbs($category): string

@@ -1,6 +1,6 @@
 <?php
 
-use core\entities\Recipe;
+use core\entities\Recipe\Recipe;
 use core\forms\manage\CategoryForm;
 use kartik\date\DatePicker;
 use yii\helpers\Html;

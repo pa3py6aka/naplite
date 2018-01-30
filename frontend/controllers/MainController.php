@@ -1,7 +1,7 @@
 <?php
 namespace frontend\controllers;
 
-use core\entities\Recipe;
+use core\entities\Recipe\Recipe;
 use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 

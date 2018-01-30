@@ -4,7 +4,7 @@ use yii\helpers\Html;
 
 
 /* @var $this yii\web\View */
-/* @var $model core\entities\Recipe */
+/* @var $model \core\entities\Recipe\Recipe */
 
 $this->title = 'Create Recipe';
 $this->params['breadcrumbs'][] = ['label' => 'Recipes', 'url' => ['index']];

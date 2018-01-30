@@ -5,10 +5,10 @@ namespace backend\forms;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use core\entities\Recipe;
+use core\entities\Recipe\Recipe;
 
 /**
- * RecipeSearch represents the model behind the search form of `core\entities\Recipe`.
+ * RecipeSearch represents the model behind the search form of `core\entities\Recipe\Recipe`.
  */
 class RecipeSearch extends Recipe
 {

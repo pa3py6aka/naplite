@@ -1,6 +1,6 @@
 <?php
 
-namespace core\entities;
+namespace core\entities\Recipe;
 
 use core\entities\queries\CategoryQuery;
 use paulzi\nestedsets\NestedSetsBehavior;

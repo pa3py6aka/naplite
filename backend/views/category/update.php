@@ -1,7 +1,7 @@
 <?php
 
 /* @var $this yii\web\View */
-/* @var $category core\entities\Category */
+/* @var $category \core\entities\Recipe\Category */
 /* @var $model core\forms\manage\CategoryForm */
 
 $this->title = 'Редактирование категории: ' . $category->name;

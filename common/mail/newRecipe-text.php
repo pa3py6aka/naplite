@@ -1,7 +1,7 @@
 <?php
 
 /* @var $this yii\web\View */
-/* @var $recipe \core\entities\Recipe */
+/* @var $recipe \core\entities\Recipe\Recipe */
 
 $adminLink = Yii::$app->backendUrlManager->createAbsoluteUrl(['recipe/view', 'id' => $recipe->id]);
 ?>

@@ -8,8 +8,8 @@ use core\entities\Article\Article;
 use core\entities\Article\ArticleComment;
 use core\entities\Blog\Blog;
 use core\entities\Blog\BlogComment;
-use core\entities\Recipe;
-use core\entities\RecipeComment;
+use core\entities\Recipe\Recipe;
+use core\entities\Recipe\RecipeComment;
 use core\forms\CommentForm;
 use Yii;
 

@@ -5,7 +5,7 @@ namespace backend\controllers;
 
 use backend\forms\CategorySearch;
 use core\access\Rbac;
-use core\entities\Category;
+use core\entities\Recipe\Category;
 use core\forms\manage\CategoryForm;
 use core\services\manage\CategoryManageService;
 use Yii;
@@ -135,7 +135,7 @@ class CategoryController extends Controller
 
     /**
      * @param integer $id
-     * @return Category the loaded model
+     * @return \core\entities\Recipe\Category the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)

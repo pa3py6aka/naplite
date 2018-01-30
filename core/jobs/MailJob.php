@@ -4,7 +4,7 @@ namespace core\jobs;
 
 
 use core\access\Rbac;
-use core\entities\Recipe;
+use core\entities\Recipe\Recipe;
 use core\repositories\UserRepository;
 use Yii;
 use yii\base\BaseObject;

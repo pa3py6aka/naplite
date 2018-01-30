@@ -3,15 +3,15 @@
 namespace core\repositories;
 
 
-use core\entities\Category;
-use core\entities\Recipe;
+use core\entities\Recipe\Category;
+use core\entities\Recipe\Recipe;
 use yii\data\ActiveDataProvider;
 
 class CategoryRepository
 {
     /**
      * @param $id
-     * @return Category
+     * @return \core\entities\Recipe\Category
      */
     public function get($id): Category
     {

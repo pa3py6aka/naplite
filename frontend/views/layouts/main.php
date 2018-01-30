@@ -159,7 +159,7 @@ AppAsset::register($this);
         <a href="#" class="top_menu_adaptive"><i class="fa fa-bars"></i>&nbsp;Открыть список рецептов</a>
         <ul>
             <li class="top_menu_arrow_left hidden1260"></li>
-            <?php foreach (\core\entities\Category::find()->where(['depth' => 1])->all() as $k => $category): ?>
+            <?php foreach (\core\entities\Recipe\Category::find()->where(['depth' => 1])->all() as $k => $category): ?>
                 <li<?= $k >8 ? ' class="hidden880"' : '' ?>><a href="<?= Url::to(['/category/view', 'slug' => $category->slug]) ?>"><?= $category->name ?></a></li>
             <?php endforeach; ?>
             <li class="top_menu_arrow_right hidden1260"></li>

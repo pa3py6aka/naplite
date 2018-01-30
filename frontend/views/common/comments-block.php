@@ -2,7 +2,7 @@
 
 /* @var $this \yii\web\View */
 /* @var $commentModel \core\forms\CommentForm */
-/* @var $comments \core\entities\RecipeComment[]|\core\entities\Blog\BlogComment[] */
+/* @var $comments \core\entities\Recipe\RecipeComment[]|\core\entities\Blog\BlogComment[] */
 
 
 use core\access\Rbac;

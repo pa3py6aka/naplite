@@ -1,7 +1,8 @@
 <?php
 
-namespace core\entities;
+namespace core\entities\Recipe;
 
+use core\entities\Recipe\Recipe;
 use core\entities\User\User;
 use core\helpers\ContentHelper;
 use yii\behaviors\TimestampBehavior;

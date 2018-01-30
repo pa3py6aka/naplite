@@ -3,9 +3,9 @@
 namespace core\repositories;
 
 
-use core\entities\IngredientSection;
-use core\entities\Recipe;
-use core\entities\RecipeHoliday;
+use core\entities\Recipe\IngredientSection;
+use core\entities\Recipe\Recipe;
+use core\entities\Recipe\RecipeHoliday;
 use core\entities\User\UserRecipe;
 
 class RecipeRepository

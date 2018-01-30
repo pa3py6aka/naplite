@@ -1,11 +1,11 @@
 <?php
 
-use core\entities\Category;
+use core\entities\Recipe\Category;
 use yii\helpers\Html;
 use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
-/* @var $category core\entities\Category */
+/* @var $category \core\entities\Recipe\Category */
 
 $this->title = $category->name;
 $this->params['breadcrumbs'][] = ['label' => 'Категории', 'url' => ['index']];

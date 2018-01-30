@@ -3,7 +3,7 @@
 namespace backend\controllers;
 
 use Yii;
-use core\entities\Recipe;
+use core\entities\Recipe\Recipe;
 use backend\forms\RecipeSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;

@@ -1,7 +1,7 @@
 <?php
 /* @var $recipesProvider \yii\data\ActiveDataProvider */
 
-use core\entities\Recipe;
+use core\entities\Recipe\Recipe;
 use core\helpers\RecipeHelper;
 use widgets\Pager;
 use yii\helpers\Html;

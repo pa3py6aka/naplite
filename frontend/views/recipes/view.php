@@ -16,9 +16,9 @@ use yii\helpers\Url;
 use yii\widgets\ActiveForm;
 
 /* @var $this \yii\web\View */
-/* @var $recipe \core\entities\Recipe */
+/* @var $recipe \core\entities\Recipe\Recipe */
 /* @var $commentModel \core\forms\CommentForm */
-/* @var $photoReports \core\entities\PhotoReport[] */
+/* @var $photoReports \core\entities\Recipe\PhotoReport[] */
 
 RecipeViewAsset::register($this);
 $this->title = Html::encode($recipe->name);

@@ -3,10 +3,10 @@
 namespace core\forms;
 
 
-use core\entities\Category;
+use core\entities\Recipe\Category;
 use core\entities\Holiday;
 use core\entities\Kitchen;
-use core\entities\Recipe;
+use core\entities\Recipe\Recipe;
 use core\helpers\Pluralize;
 use yii\base\Model;
 

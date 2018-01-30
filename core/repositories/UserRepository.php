@@ -3,7 +3,7 @@
 namespace core\repositories;
 
 
-use core\entities\Recipe;
+use core\entities\Recipe\Recipe;
 use core\entities\User\User;
 use yii\data\ActiveDataProvider;
 

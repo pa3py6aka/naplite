@@ -1,5 +1,5 @@
 <?php
-/* @var $category \core\entities\Category */
+/* @var $category \core\entities\Recipe\Category */
 
 use core\entities\Holiday;
 use core\helpers\CategoryHelper;

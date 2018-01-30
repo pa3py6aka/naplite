@@ -1,7 +1,7 @@
 <?php
 
 use core\entities\Kitchen;
-use core\entities\Recipe;
+use core\entities\Recipe\Recipe;
 use core\forms\manage\CategoryForm;
 use frontend\assets\RecipeCreatorAsset;
 use yii\helpers\ArrayHelper;
@@ -13,7 +13,7 @@ use yii\widgets\ActiveForm;
 
 /* @var $this \yii\web\View */
 /* @var $model \core\forms\RecipeForm */
-/* @var $recipe null|Recipe */
+/* @var $recipe null|\core\entities\Recipe\Recipe */
 
 RecipeCreatorAsset::register($this);
 $this->title = $recipe ? "Редактирование рецепта" : "Добавление рецепта";

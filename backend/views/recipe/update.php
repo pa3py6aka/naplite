@@ -3,7 +3,7 @@
 use yii\helpers\Html;
 
 /* @var $this yii\web\View */
-/* @var $model core\entities\Recipe */
+/* @var $model \core\entities\Recipe\Recipe */
 
 $this->title = 'Update Recipe: ' . $model->name;
 $this->params['breadcrumbs'][] = ['label' => 'Recipes', 'url' => ['index']];

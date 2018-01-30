@@ -3,14 +3,14 @@
 namespace core\entities\queries;
 
 
-use core\entities\Recipe;
+use core\entities\Recipe\Recipe;
 use paulzi\nestedsets\NestedSetsQueryTrait;
 use yii\db\ActiveQuery;
 
 /**
- * This is the ActiveQuery class for [[\core\entities\Recipe]].
+ * This is the ActiveQuery class for [[\core\entities\Recipe\Recipe]].
  *
- * @see \core\entities\Recipe
+ * @see \core\entities\Recipe\Recipe
  */
 class RecipeQuery extends ActiveQuery
 {

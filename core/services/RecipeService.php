@@ -3,11 +3,11 @@
 namespace core\services;
 
 
-use core\entities\Ingredient;
-use core\entities\IngredientSection;
-use core\entities\Photo;
-use core\entities\Recipe;
-use core\entities\RecipeHoliday;
+use core\entities\Recipe\RecipeIngredient;
+use core\entities\Recipe\IngredientSection;
+use core\entities\Recipe\Photo;
+use core\entities\Recipe\Recipe;
+use core\entities\Recipe\RecipeHoliday;
 use core\entities\User\UserRecipe;
 use core\forms\RecipeForm;
 use core\components\PhotoSaver;
@@ -226,7 +226,7 @@ class RecipeService
             ]);
             $ingredientSection->save();
             foreach ($section['ingredients'] as $item) {
-                $ingredient = new Ingredient([
+                $ingredient = new RecipeIngredient([
                     'section_id' => $ingredientSection->id,
                     'name' => $item['name'],
                     'quantity' => $item['quantity'],

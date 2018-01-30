@@ -4,8 +4,8 @@ namespace frontend\controllers;
 
 
 use core\access\Rbac;
-use core\entities\Recipe;
-use core\entities\RecipeUserRate;
+use core\entities\Recipe\Recipe;
+use core\entities\Recipe\RecipeUserRate;
 use core\forms\CommentForm;
 use core\forms\RecipeForm;
 use core\repositories\NotFoundException;

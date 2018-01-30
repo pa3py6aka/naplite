@@ -1,7 +1,9 @@
 <?php
 
-namespace core\entities;
+namespace core\entities\Recipe;
 
+use core\entities\Recipe\Recipe;
+use core\entities\Recipe\RecipeIngredient;
 use lhs\Yii2SaveRelationsBehavior\SaveRelationsBehavior;
 use Yii;
 use yii\db\ActiveRecord;
@@ -14,7 +16,7 @@ use yii\db\ActiveRecord;
  * @property string $name
  *
  * @property Recipe $recipe
- * @property Ingredient[] $ingredients
+ * @property RecipeIngredient[] $ingredients
  */
 class IngredientSection extends ActiveRecord
 {
@@ -83,6 +85,6 @@ class IngredientSection extends ActiveRecord
      */
     public function getIngredients()
     {
-        return $this->hasMany(Ingredient::className(), ['section_id' => 'id']);
+        return $this->hasMany(RecipeIngredient::className(), ['section_id' => 'id']);
     }
 }

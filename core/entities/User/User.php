@@ -4,8 +4,8 @@ namespace core\entities\User;
 
 
 use core\components\Subscriber;
-use core\entities\Recipe;
-use core\entities\RecipeComment;
+use core\entities\Recipe\Recipe;
+use core\entities\Recipe\RecipeComment;
 use core\entities\User\queries\UserQuery;
 use lhs\Yii2SaveRelationsBehavior\SaveRelationsBehavior;
 use Yii;

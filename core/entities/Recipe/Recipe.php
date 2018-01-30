@@ -1,9 +1,18 @@
 <?php
 
-namespace core\entities;
+namespace core\entities\Recipe;
 
 use core\access\Rbac;
+use core\entities\Recipe\Category;
+use core\entities\Holiday;
+use core\entities\Kitchen;
+use core\entities\Recipe\Photo;
+use core\entities\Recipe\PhotoReport;
 use core\entities\queries\RecipeQuery;
+use core\entities\Recipe\IngredientSection;
+use core\entities\Recipe\RecipeComment;
+use core\entities\Recipe\RecipeHoliday;
+use core\entities\Recipe\RecipeStep;
 use core\entities\User\User;
 use core\helpers\ContentHelper;
 use core\jobs\MailJob;
@@ -52,7 +61,7 @@ use yii\helpers\Url;
  * @property PhotoReport[] $photoReports
  */
 class Recipe extends ActiveRecord
-{public $ssd;
+{
     const COMPLEXITY_EASY = 1;
     const COMPLEXITY_MIDDLE = 2;
     const COMPLEXITY_HARD = 3;

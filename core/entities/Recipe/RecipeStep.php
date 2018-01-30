@@ -1,7 +1,8 @@
 <?php
 
-namespace core\entities;
+namespace core\entities\Recipe;
 
+use core\entities\Recipe\Recipe;
 use core\helpers\ContentHelper;
 use Yii;
 use yii\db\ActiveQuery;

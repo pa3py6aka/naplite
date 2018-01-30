@@ -3,7 +3,7 @@
 namespace core\helpers;
 
 
-use core\entities\Recipe;
+use core\entities\Recipe\Recipe;
 use yii\helpers\Html;
 
 class RecipeHelper

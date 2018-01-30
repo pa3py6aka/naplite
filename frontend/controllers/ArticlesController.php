@@ -4,7 +4,7 @@ namespace frontend\controllers;
 
 
 use core\entities\Article\ArticleCategory;
-use core\entities\Category;
+use core\entities\Recipe\Category;
 use core\forms\CommentForm;
 use core\repositories\ArticleCategoryRepository;
 use core\repositories\ArticleRepository;

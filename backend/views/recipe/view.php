@@ -1,13 +1,13 @@
 <?php
 
-use core\entities\Recipe;
+use core\entities\Recipe\Recipe;
 use core\helpers\Pluralize;
 use core\helpers\RecipeHelper;
 use yii\helpers\Html;
 use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
-/* @var $model core\entities\Recipe */
+/* @var $model \core\entities\Recipe\Recipe */
 
 $this->title = $model->name;
 $this->params['breadcrumbs'][] = ['label' => 'Рецепты', 'url' => ['index']];

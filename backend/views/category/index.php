@@ -1,6 +1,6 @@
 <?php
 
-use core\entities\Category;
+use core\entities\Recipe\Category;
 use yii\grid\ActionColumn;
 use yii\helpers\Html;
 use yii\grid\GridView;

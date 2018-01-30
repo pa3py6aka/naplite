@@ -1,9 +1,9 @@
 <?php
-/* @var $category \core\entities\Category */
+/* @var $category \core\entities\Recipe\Category */
 /* @var $this \yii\web\View */
 /* @var $recipesProvider \yii\data\ActiveDataProvider */
 
-use core\entities\Recipe;
+use core\entities\Recipe\Recipe;
 use core\helpers\Pluralize;
 use core\helpers\RecipeHelper;
 use widgets\ArticlesWidget;

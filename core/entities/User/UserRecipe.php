@@ -2,7 +2,7 @@
 
 namespace core\entities\User;
 
-use core\entities\Recipe;
+use core\entities\Recipe\Recipe;
 use Yii;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
