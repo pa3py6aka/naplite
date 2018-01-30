@@ -1,6 +1,7 @@
 <?php
 $menu = Yii::$app->user->can(\core\access\Rbac::ROLE_ADMIN) ?
     [
+        ['label' => 'Пользователи', 'icon' => 'user', 'url' => ['/user/index'], 'active' => $this->context->id == 'user'],
         ['label' => 'Меню рецептов', 'options' => ['class' => 'header']],
         ['label' => 'Рецепты', 'icon' => 'cutlery', 'url' => ['/recipe/index'], 'active' => $this->context->id == 'recipe'],
         ['label' => 'Кухни мира', 'icon' => 'globe', 'url' => ['/kitchen/index'], 'active' => $this->context->id == 'kitchen'],
@@ -27,6 +28,7 @@ $menu = Yii::$app->user->can(\core\access\Rbac::ROLE_ADMIN) ?
     ]
     :
     [
+        ['label' => 'Пользователи', 'icon' => 'user', 'url' => ['/user/index'], 'active' => $this->context->id == 'user'],
         ['label' => 'Рецепты', 'icon' => 'cutlery', 'url' => ['/recipe/index'], 'active' => $this->context->id == 'recipe'],
     ];
 

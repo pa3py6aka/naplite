@@ -6,12 +6,17 @@ use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use core\entities\User\User;
+use yii\helpers\ArrayHelper;
 
 /**
  * UserSearch represents the model behind the search form of `core\entities\User\User`.
  */
 class UserSearch extends User
 {
+    public $date_from;
+    public $date_to;
+    public $role;
+
     /**
      * @inheritdoc
      */
@@ -19,8 +24,8 @@ class UserSearch extends User
     {
         return [
             [['id', 'experience_id', 'recipes', 'rate', 'status', 'created_at', 'updated_at'], 'integer'],
-            [['email', 'username', 'country', 'city', 'about', 'avatar', 'email_confirm_token', 'auth_key', 'password_hash', 'password_reset_token'], 'safe'],
-            //['author', 'string'],
+            [['email', 'username', 'country', 'city', 'about', 'avatar', 'email_confirm_token', 'auth_key', 'password_hash', 'password_reset_token', 'role'], 'safe'],
+            [['date_from', 'date_to'], 'date', 'format' => 'php:d.m.Y'],
         ];
     }
 
@@ -42,8 +47,7 @@ class UserSearch extends User
      */
     public function search($params)
     {
-        $query = User::find();
-            //->joinWith('');
+        $query = User::find()->alias('u');
 
         // add conditions that should always apply here
 
@@ -55,8 +59,7 @@ class UserSearch extends User
         $this->load($params);
 
         if (!$this->validate()) {
-            // uncomment the following line if you do not want to return any records when validation fails
-            // $query->where('0=1');
+            $query->where('0=1');
             return $dataProvider;
         }
 
@@ -67,9 +70,12 @@ class UserSearch extends User
             'recipes' => $this->recipes,
             'rate' => $this->rate,
             'status' => $this->status,
-            'created_at' => $this->created_at,
-            'updated_at' => $this->updated_at,
         ]);
+
+        if (!empty($this->role)) {
+            $query->innerJoin('{{%auth_assignments}} a', 'a.user_id = u.id');
+            $query->andWhere(['a.item_name' => $this->role]);
+        }
 
         $query->andFilterWhere(['like', 'email', $this->email])
             ->andFilterWhere(['like', 'username', $this->username])
@@ -80,8 +86,15 @@ class UserSearch extends User
             ->andFilterWhere(['like', 'email_confirm_token', $this->email_confirm_token])
             ->andFilterWhere(['like', 'auth_key', $this->auth_key])
             ->andFilterWhere(['like', 'password_hash', $this->password_hash])
-            ->andFilterWhere(['like', 'password_reset_token', $this->password_reset_token]);
+            ->andFilterWhere(['like', 'password_reset_token', $this->password_reset_token])
+            ->andFilterWhere(['>=', 'u.created_at', $this->date_from ? strtotime($this->date_from . ' 00:00:00') : null])
+            ->andFilterWhere(['<=', 'u.created_at', $this->date_to ? strtotime($this->date_to . ' 23:59:59') : null]);;
 
         return $dataProvider;
+    }
+
+        public function rolesList(): array
+    {
+        return ArrayHelper::map(\Yii::$app->authManager->getRoles(), 'name', 'description');
     }
 }

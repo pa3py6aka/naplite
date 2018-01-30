@@ -14,6 +14,8 @@ class ChangePasswordForm extends Model
 
     private $_user;
 
+    const SCENARIO_MANAGE = 'manage';
+
     public function __construct(User $user, array $config = [])
     {
         $this->_user = $user;
@@ -48,5 +50,12 @@ class ChangePasswordForm extends Model
             'newPassword' => 'Новый пароль',
             'confirmPassword' => 'Подтверждение пароля',
         ];
+    }
+
+    public function scenarios()
+    {
+        $scenarios = parent::scenarios();
+        $scenarios[self::SCENARIO_MANAGE] = ['newPassword', 'confirmPassword'];
+        return $scenarios;
     }
 }

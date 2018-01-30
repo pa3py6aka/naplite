@@ -196,11 +196,11 @@ class User extends ActiveRecord implements IdentityInterface
 
     /**
      * @inheritdoc
-
+     */
     public function rules()
     {
         return [
-            [['email', 'experience_id', 'auth_key', 'password_hash'], 'required'],
+            /*[['email', 'experience_id', 'auth_key', 'password_hash'], 'required'],
             [['experience_id', 'recipes', 'rate', 'status'], 'integer'],
             [['about'], 'string'],
             [['email', 'password_hash', 'password_reset_token'], 'string', 'max' => 255],
@@ -210,31 +210,39 @@ class User extends ActiveRecord implements IdentityInterface
             [['email'], 'unique'],
             [['password_reset_token'], 'unique'],
             [['experience_id'], 'exist', 'skipOnError' => true, 'targetClass' => Experience::className(), 'targetAttribute' => ['experience_id' => 'id']],
+            */
+
+            ['email' , 'email'],
+            ['username', 'string'],
+            ['country_id', 'integer'],
+            ['city', 'string'],
+            ['about', 'string'],
         ];
-    }*/
+    }
 
     /**
      * @inheritdoc
      */
-    public function attributeLabels()
+    public function attributeLabels(): array
     {
         return [
             'id' => 'ID',
             'email' => 'Email',
-            'username' => 'Username',
-            'country' => 'Country',
-            'city' => 'City',
-            'experience_id' => 'Experience ID',
-            'recipes' => 'Recipes',
-            'about' => 'About',
-            'avatar' => 'Avatar',
-            'rate' => 'Rate',
-            'status' => 'Status',
+            'username' => 'Имя',
+            'fullName' => 'Имя',
+            'country_id' => 'Страна',
+            'city' => 'Город',
+            'experience_id' => 'Опыт',
+            'recipes_count' => 'Кол-во рецептов',
+            'about' => 'Обо мне',
+            'avatar' => 'Фото',
+            'rate' => 'Рейтинг',
+            'status' => 'Статус',
             'auth_key' => 'Auth Key',
             'password_hash' => 'Password Hash',
             'password_reset_token' => 'Password Reset Token',
-            'created_at' => 'Created At',
-            'updated_at' => 'Updated At',
+            'created_at' => 'Дата регистрации',
+            'updated_at' => 'Дата обновления',
         ];
     }
 
