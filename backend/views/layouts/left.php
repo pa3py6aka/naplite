@@ -18,6 +18,10 @@ $menu = Yii::$app->user->can(\core\access\Rbac::ROLE_ADMIN) ?
         ['label' => 'Блоги', 'icon' => 'file-audio-o', 'url' => ['/blog/index'], 'active' => $this->context->id == 'blog'],
         ['label' => 'Категории', 'icon' => 'folder', 'url' => ['/blog-category/index'], 'active' => $this->context->id == 'blog-category'],
 
+        ['label' => 'Меню ингредиентов', 'options' => ['class' => 'header']],
+        ['label' => 'Ингредиенты', 'icon' => 'shopping-bag', 'url' => ['/ingredient/index'], 'active' => $this->context->id == 'ingredient'],
+        ['label' => 'Категории', 'icon' => 'folder', 'url' => ['/ingredient-category/index'], 'active' => $this->context->id == 'ingredient-category'],
+
         ['label' => 'Разное', 'options' => ['class' => 'header']],
         ['label' => 'Таблица мер и весов', 'icon' => 'balance-scale', 'url' => ['/weight/index'], 'active' => $this->context->id == 'weight'],
         ['label' => 'Настройки сайта', 'icon' => 'cogs', 'url' => ['/settings/index'], 'active' => $this->context->id == 'settings'],

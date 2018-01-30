@@ -3,8 +3,6 @@
 namespace core\entities\Recipe;
 
 use core\entities\Holiday;
-use core\entities\Recipe\Recipe;
-use Yii;
 use yii\db\ActiveRecord;
 
 /**

@@ -2,10 +2,7 @@
 
 namespace core\entities\Recipe;
 
-use core\entities\Recipe\Recipe;
-use core\entities\Recipe\RecipeIngredient;
 use lhs\Yii2SaveRelationsBehavior\SaveRelationsBehavior;
-use Yii;
 use yii\db\ActiveRecord;
 
 /**

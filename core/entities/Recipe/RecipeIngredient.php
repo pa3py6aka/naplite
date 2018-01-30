@@ -2,8 +2,6 @@
 
 namespace core\entities\Recipe;
 
-use core\entities\Recipe\IngredientSection;
-use Yii;
 use yii\db\ActiveRecord;
 
 /**
