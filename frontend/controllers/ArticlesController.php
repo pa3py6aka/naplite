@@ -33,7 +33,7 @@ class ArticlesController extends Controller
             $category = ArticleCategory::find()->where(['id' => 1])->limit(1)->one();
         }
 
-        $search = Yii::$app->request->post('search', '');
+        $search = Yii::$app->request->get('search', '');
         $articlesProvider = $this->repository->getProvider($category, $search);
 
         return $this->render('index', [

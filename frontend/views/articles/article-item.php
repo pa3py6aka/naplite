@@ -1,8 +1,9 @@
 <?php
-/* @var $article \core\entities\Article\Article */
 
+use core\helpers\ContentHelper;
 use yii\helpers\Html;
-use yii\helpers\HtmlPurifier;
+
+/* @var $article \core\entities\Article\Article */
 
 ?>
 <li>
@@ -11,6 +12,6 @@ use yii\helpers\HtmlPurifier;
     </div>
     <div class="article_prev_text">
         <a href="<?= $article->getUrl() ?>"><?= Html::encode($article->title) ?></a>
-        <?= HtmlPurifier::process($article->prev_text) ?>
+        <?= ContentHelper::output($article->prev_text) ?>
     </div>
 </li>

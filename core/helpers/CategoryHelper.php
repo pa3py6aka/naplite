@@ -4,13 +4,14 @@ namespace core\helpers;
 
 
 use core\entities\Article\ArticleCategory;
+use core\entities\Ingredient\IngredientCategory;
 use core\entities\Recipe\Category;
 use yii\helpers\Html;
 
 class CategoryHelper
 {
     /**
-     * @param \core\entities\Recipe\Category|ArticleCategory $category
+     * @param Category|ArticleCategory|IngredientCategory $category
      * @return string
      */
     public static function getBreadCrumbs($category): string
@@ -22,7 +23,7 @@ class CategoryHelper
             } else {
                 $html[] = $parent instanceof Category ?
                     Html::a('Рецепты', ['/recipes/index']) :
-                    Html::a('Статьи', ['/articles/index']);
+                    ($parent instanceof ArticleCategory ? Html::a('Статьи', ['/articles/index']) : Html::a('Ингредиенты', ['/ingredients/index']));
             }
         }
         if (!$category->isRoot()) {
@@ -30,7 +31,7 @@ class CategoryHelper
         } else {
             $html[] = $category instanceof Category ?
                 Html::a('Рецепты', ['/recipes/index']) :
-                Html::a('Статьи', ['/articles/index']);
+                ($category instanceof ArticleCategory ? Html::a('Статьи', ['/articles/index']) : Html::a('Ингредиенты', ['/ingredients/index']));
         }
 
         return implode(' / ' , $html);

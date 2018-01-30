@@ -24,7 +24,10 @@ class IngredientsBlockWidget extends Widget
 
         if ($this->currentIngredientId && isset($ingredients[$this->currentIngredientId])) {
             unset($ingredients[$this->currentIngredientId]);
-            $ingredient = Ingredient::find()->where(['not', ['id' => array_keys($ingredients)]])->limit(1)->one();
+            $ingredient = Ingredient::find()
+                ->where(['not', ['id' => array_merge(array_keys($ingredients), [$this->currentIngredientId])]])
+                ->limit(1)
+                ->one();
             if ($ingredient) {
                 array_push($ingredients, $ingredient);
             }

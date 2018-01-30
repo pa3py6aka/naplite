@@ -12,7 +12,7 @@ return [
         '<_a:signup|login|logout>' => 'auth/<_a>',
         '<_c:category>/<slug:[a-z0-9_-]+>' => '<_c>/view',
 
-        '<_c:articles>/category/<category:[a-z0-9_-]+>' => '<_c>/index',
+        '<_c:articles|ingredients>/category/<category:[a-z0-9_-]+>' => '<_c>/index',
         '<_c:articles>/<slug:[a-z0-9_-]+>' => '<_c>/view',
 
         // Не забудьте добавить нужные экшены(доступные по адресу /forum/<action>) в core\helpers\BlogHelper::USED_ACTIONS

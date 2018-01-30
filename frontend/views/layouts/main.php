@@ -35,7 +35,7 @@ AppAsset::register($this);
                     <li class="space"></li>
                     <li><a href="#"><i class="fa fa-globe"></i>Кухни<span class="hidden1260"> мира</span></a></li>
                     <li class="space"></li>
-                    <li><a href="#"><i class="fa fa-shopping-bag"></i>Ингредиенты</a></li>
+                    <li><a href="<?= Url::to(['/ingredients/index']) ?>"><i class="fa fa-shopping-bag"></i>Ингредиенты</a></li>
                     <li class="space"></li>
                     <li><a href="#"><i class="fa fa-female"></i>Диеты</a></li>
                     <li class="space"></li>
@@ -108,7 +108,7 @@ AppAsset::register($this);
 					<li><a href="<?= Url::to(['/recipes/index']) ?>">Рецепты</a></li>
 					<li><a href="<?= Url::to(['/articles/index']) ?>">Статьи</a></li>
 					<li><a href="#">Кухни мира</a></li>
-					<li><a href="#">Ингредиенты</a></li>
+					<li><a href="<?= Url::to(['/ingredients/index']) ?>">Ингредиенты</a></li>
 					<li><a href="#">Диеты</a></li>
 					<li><a href="<?= Url::to(['/blog/index']) ?>">Кулинарный Форум</a></li>
 					<li><a href="javascript:void(0)" data-link="weights-search-modal">Таблица мер и весов</a></li>

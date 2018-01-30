@@ -69,7 +69,7 @@ $this->title = "Статьи по кулинарным темам";
         <div class="th_2col">
             <div class="th_2col_left"><h2>Новые статьи</h2></div>
             <div class="th_2col_right">
-                <?= Html::beginForm(['/articles/index'], 'post', ['id' => 'search-articles-form', 'class' => 'pjax']) ?>
+                <?= Html::beginForm(['/articles/index'], 'get', ['id' => 'search-articles-form', 'class' => 'pjax']) ?>
                     <div class="content_search">
                         <div class="content_search_left">
                             <input name="search" type="text" class="input_base" placeholder="Поиск статьи" value="<?= $search ?>"/>

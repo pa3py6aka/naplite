@@ -166,6 +166,11 @@ NaPlite = (function () {
             e.preventDefault();
             loadWeights();
         });
+
+        // Страница списка ингредиентов
+        $('#ingredientsCategory').on('click', '[data-link=search-ingredients]', function (e) {
+            $('#search-ingredients-form').submit();
+        });
     };
 
     function loadWeights() {

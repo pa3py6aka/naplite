@@ -25,7 +25,11 @@ class ArticlesWidget extends Widget
 
         if ($this->currentArticleId && isset($articles[$this->currentArticleId])) {
             unset($articles[$this->currentArticleId]);
-            $article = Article::find()->active()->where(['not', ['id' => array_keys($articles)]])->limit(1)->one();
+            $article = Article::find()
+                ->active()
+                ->where(['not', ['id' => array_merge(array_keys($articles), [$this->currentArticleId])]])
+                ->limit(1)
+                ->one();
             if ($article) {
                 array_push($articles, $article);
             }
