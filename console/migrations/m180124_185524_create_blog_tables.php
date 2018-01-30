@@ -45,8 +45,8 @@ class m180124_185524_create_blog_tables extends Migration
             'created_at' => $this->integer()->notNull(),
             'updated_at' => $this->integer()->notNull(),
         ], $tableOptions);
-        $this->createIndex('idx-blog_comments-recipe_id', '{{%blog_comments}}', 'blog_id');
-        $this->addForeignKey('fk-blog_comments-recipe_id', '{{%blog_comments}}', 'blog_id', '{{%blogs}}', 'id', 'CASCADE', 'CASCADE');
+        $this->createIndex('idx-blog_comments-blog_id', '{{%blog_comments}}', 'blog_id');
+        $this->addForeignKey('fk-blog_comments-blog_id', '{{%blog_comments}}', 'blog_id', '{{%blogs}}', 'id', 'CASCADE', 'CASCADE');
         $this->addForeignKey('fk-blog_comments-author_id', '{{%blog_comments}}', 'author_id', '{{%users}}', 'id', 'CASCADE', 'CASCADE');
         $this->addForeignKey('fk-blog_comments-reply_to', '{{%blog_comments}}', 'reply_to', '{{%users}}', 'id', 'SET NULL', 'CASCADE');
     }

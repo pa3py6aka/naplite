@@ -29,6 +29,11 @@ class ArticleCategoryRepository
         return $category;
     }
 
+    public static function getCategories(): array
+    {
+        return ArticleCategory::find()->all();
+    }
+
     public function getArticleProviderByCategory(ArticleCategory $category): ActiveDataProvider
     {
         $categories = $category->getDescendants()->all();

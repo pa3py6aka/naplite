@@ -73,7 +73,7 @@ class ArticleCategory extends ActiveRecord
 
     public function getUrl(): string
     {
-        return Url::to(['/articles/index', 'slug' => $this->slug]);
+        return Url::to(['/articles/index', 'category' => $this->slug]);
     }
 
     public function afterSave($insert, $changedAttributes)

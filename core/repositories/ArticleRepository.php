@@ -17,6 +17,14 @@ class ArticleRepository
         return $article;
     }
 
+    public function getBySlug($slug): Article
+    {
+        if (!$article = Article::find()->where(['slug' => $slug])->limit(1)->one()) {
+            throw new NotFoundException('Статья не найдена.');
+        }
+        return $article;
+    }
+
     public function getProvider(ArticleCategory $category, $search = null): ActiveDataProvider
     {
         $query = Article::find()->active();
@@ -40,7 +48,7 @@ class ArticleRepository
 
     public function save(Article $article)
     {
-        if (!$article->save(false)) {
+        if (!$article->save()) {
             throw new \RuntimeException('Ошибка записи в базу.');
         }
     }

@@ -3,6 +3,9 @@
 namespace core\services;
 
 
+use Codeception\Exception\ConfigurationException;
+use core\entities\Article\Article;
+use core\entities\Article\ArticleComment;
 use core\entities\Blog\Blog;
 use core\entities\Blog\BlogComment;
 use core\entities\Recipe;
@@ -21,11 +24,21 @@ class CommentService
 
     /**
      * @param CommentForm $form
-     * @param Recipe|Blog $entity
+     * @param Recipe|Blog|Article $entity
+     * @throws ConfigurationException
      */
     public function addComment(CommentForm $form, $entity): void
     {
-        $commentEntity = $entity instanceof Recipe ? RecipeComment::class : BlogComment::class;
+        if ($entity instanceof Recipe) {
+            $commentEntity = RecipeComment::class;
+        } else if ($entity instanceof Blog) {
+            $commentEntity = BlogComment::class;
+        } else if ($entity instanceof Article) {
+            $commentEntity = ArticleComment::class;
+        } else {
+            throw new ConfigurationException("Неверная сущность");
+        }
+
         $comment = $commentEntity::create(
             $entity->id,
             Yii::$app->user->id,
@@ -33,14 +46,6 @@ class CommentService
             $form->replyTo ?: null
         );
 
-        $comment->save();//print_r($comment->getErrors());exit;
-        /*$this->transaction->wrap(function () use ($form, $entity) {
-
-           / ($comment->save()) {
-               $commentEntity = $entity instanceof Recipe ? RecipeComment::class : BlogComment::class;
-               $entity->comments_count = $commentEntity::find()->where(['recipe_id' => $recipe->id])->count();
-               $recipe->save(false);
-           }
-        });*/
+        $comment->save();
     }
 }

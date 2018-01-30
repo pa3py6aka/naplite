@@ -3,6 +3,8 @@
 namespace core\helpers;
 
 
+use core\entities\Blog\Blog;
+use core\repositories\ArticleCategoryRepository;
 use core\repositories\BlogRepository;
 use yii\helpers\Url;
 
@@ -12,11 +14,14 @@ class BlogHelper
         'create',
     ];
 
-    public static function getOptionsWithLinks()
+    public static function getOptionsWithLinks($for = Blog::class)
     {
         $html = [];
-        foreach (BlogRepository::getCategories() as $category) {
-            $html[] = '<option value="' . Url::to(['/blog/index', 'slug' => $category->slug]) . '">' . $category->name . '</option>';
+        $categories = $for == Blog::class ? BlogRepository::getCategories() : ArticleCategoryRepository::getCategories();
+        $controller = $for == Blog::class ? 'blog' : 'articles';
+
+        foreach ($categories as $category) {
+            $html[] = '<option value="' . Url::to(['/' . $controller . '/index', 'category' => $category->slug]) . '">' . $category->name . '</option>';
         }
         return implode("\n", $html);
     }

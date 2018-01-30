@@ -65,7 +65,6 @@ class BlogController extends Controller
         $this->repository->updateViews($blog);
 
         $commentForm = new CommentForm();
-
         if ($commentForm->load(Yii::$app->request->post()) && $commentForm->validate()) {
             /* @var $commentService CommentService */
             $commentService = Yii::$container->get(CommentService::class);

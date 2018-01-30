@@ -6,9 +6,11 @@ use core\entities\Article\queries\ArticleQuery;
 use core\entities\User\User;
 use Yii;
 use yii\behaviors\TimestampBehavior;
+use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 use yii\helpers\Url;
 use yii\web\UploadedFile;
+use Zelenin\yii\behaviors\Slug;
 
 /**
  * This is the model class for table "{{%articles}}".
@@ -20,11 +22,13 @@ use yii\web\UploadedFile;
  * @property string $prev_text
  * @property string $content
  * @property string $image
+ * @property string $slug [varchar(255)]
  * @property int $created_at
  * @property int $updated_at
  *
  * @property User $author
  * @property ArticleCategory $category
+ * @property ArticleComment[] $comments
  */
 class Article extends ActiveRecord
 {
@@ -91,8 +95,8 @@ class Article extends ActiveRecord
     public function getUrl($forCP = false)
     {
         return $forCP ?
-            Yii::$app->frontendUrlManager->createAbsoluteUrl(['/articles/view', 'id' => $this->id]) :
-            Url::to(['/articles/view', 'id' => $this->id]);
+            Yii::$app->frontendUrlManager->createAbsoluteUrl(['/articles/view', 'slug' => $this->slug]) :
+            Url::to(['/articles/view', 'slug' => $this->slug]);
     }
 
     public function afterDelete()
@@ -115,7 +119,13 @@ class Article extends ActiveRecord
     public function behaviors()
     {
         return [
-            TimestampBehavior::className()
+            TimestampBehavior::className(),
+            'slug' => [
+                'class' => Slug::class,
+                'slugAttribute' => 'slug',
+                'attribute' => 'title',
+                'transliterateOptions' => 'Russian-Latin/BGN; Any-Latin; Latin-ASCII; NFD; [:Nonspacing Mark:] Remove; NFC;'
+            ]
         ];
     }
 
@@ -125,7 +135,7 @@ class Article extends ActiveRecord
     public function rules()
     {
         return [
-            [['author_id', 'category_id', 'title', 'prev_text', 'content'], 'required'],
+            //[['author_id', 'category_id', 'title', 'prev_text', 'content'], 'required'],
             [['author_id', 'category_id'], 'integer'],
             [['title', 'prev_text', 'content'], 'string'],
             [['image'], 'string', 'max' => 40],
@@ -152,20 +162,19 @@ class Article extends ActiveRecord
         ];
     }
 
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getAuthor()
+    public function getAuthor(): ActiveQuery
     {
         return $this->hasOne(User::className(), ['id' => 'author_id']);
     }
 
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getCategory()
+    public function getCategory(): ActiveQuery
     {
         return $this->hasOne(ArticleCategory::className(), ['id' => 'category_id']);
+    }
+
+    public function getComments(): ActiveQuery
+    {
+        return $this->hasMany(ArticleComment::className(), ['article_id' => 'id']);
     }
 
     /**
