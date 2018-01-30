@@ -1,25 +1,25 @@
 <?php
-/* @var */
+/* @var $ingredients \core\entities\Ingredient\Ingredient[] */
+
+use core\helpers\ContentHelper;
+use yii\helpers\Html;
+use yii\helpers\Url;
 
 ?>
 <div class="textbox">
     <h2>Кулинарные ингредиенты</h2>
     <ul class="ingredients">
+        <?php foreach ($ingredients as $ingredient): ?>
         <li>
-            <a href="#" class="ingredients_photo"><img src="/img/article_prev.jpg" width="231" height="148" alt=""/></a>
-            <a href="#">Турнепс</a>
-            тали появляться круглые чуть сплюснутые корнеплоды фиолетово-белого цвета. На ценнике почему-то написано «репа», хотя это самый натуральный турнепс.
+            <a href="<?= $ingredient->getUrl() ?>" class="ingredients_photo">
+                <img src="<?= $ingredient->getImageUrl() ?>" width="231" height="148" alt="<?= Html::encode($ingredient->title) ?>"/>
+            </a>
+            <a href="<?= $ingredient->getUrl() ?>"><?= Html::encode($ingredient->title) ?></a>
+            <?= ContentHelper::output($ingredient->prev_text) ?>
         </li>
-        <li>
-            <a href="#" class="ingredients_photo"><img src="/img/article_prev.jpg" width="231" height="148" alt=""/></a>
-            <a href="#">Турнепс</a>
-            тали появляться круглые чуть сплюснутые корнеплоды фиолетово-белого цвета. На ценнике почему-то написано «репа», хотя это самый натуральный турнепс.
-        </li>
-        <li>
-            <a href="#" class="ingredients_photo"><img src="/img/article_prev.jpg" width="231" height="148" alt=""/></a>
-            <a href="#">Турнепс</a>
-            тали появляться круглые чуть сплюснутые корнеплоды фиолетово-белого цвета. На ценнике почему-то написано «репа», хотя это самый натуральный турнепс.
-        </li>
+        <?php endforeach; ?>
     </ul>
-    <div class="tac"><a href="#" class="b_white"><i class="fa fa-refresh"></i>Узнать больше о рецептах</a></div>
+    <div class="tac">
+        <a href="<?= Url::to(['/ingredients/index']) ?>" class="b_white"><i class="fa fa-refresh"></i>Узнать больше об ингредиентах</a>
+    </div>
 </div>
