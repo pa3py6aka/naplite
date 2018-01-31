@@ -3,13 +3,9 @@
 namespace core\services\manage;
 
 
-use core\entities\Article\Article;
 use core\entities\Ingredient\Ingredient;
-use core\forms\manage\ArticleManageForm;
 use core\forms\manage\IngredientManageForm;
-use core\repositories\ArticleRepository;
 use core\repositories\IngredientRepository;
-use Yii;
 use yii\web\UploadedFile;
 
 class IngredientManageService

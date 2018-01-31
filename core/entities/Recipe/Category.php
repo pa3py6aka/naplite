@@ -2,7 +2,7 @@
 
 namespace core\entities\Recipe;
 
-use core\entities\queries\CategoryQuery;
+use core\entities\Recipe\queries\CategoryQuery;
 use paulzi\nestedsets\NestedSetsBehavior;
 use Yii;
 use yii\db\ActiveRecord;

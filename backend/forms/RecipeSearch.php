@@ -42,15 +42,19 @@ class RecipeSearch extends Recipe
      * Creates data provider instance with search query applied
      *
      * @param array $params
+     * @param bool $forCollection
      *
      * @return ActiveDataProvider
      */
-    public function search($params)
+    public function search($params, $forCollection = false)
     {
-        $query = Recipe::find()
-            ->alias('r')
-            ->joinWith('author u')
-            ->with('category');
+        $query = Recipe::find()->alias('r')->with('category');
+        if (!$forCollection) {
+            $query->joinWith('author u');
+        } else {
+            $query->with('collectionRecipes');
+        }
+
 
         // add conditions that should always apply here
 
@@ -74,25 +78,25 @@ class RecipeSearch extends Recipe
 
         // grid filtering conditions
         $query->andFilterWhere([
-            'id' => $this->id,
-            'author_id' => $this->author_id,
-            'category_id' => $this->category_id,
-            'kitchen_id' => $this->kitchen_id,
-            'main_photo_id' => $this->main_photo_id,
-            'cooking_time' => $this->cooking_time,
-            'preparation_time' => $this->preparation_time,
-            'persons' => $this->persons,
-            'complexity' => $this->complexity,
+            'r.id' => $this->id,
+            'r.author_id' => $this->author_id,
+            'r.category_id' => $this->category_id,
+            'r.kitchen_id' => $this->kitchen_id,
+            'r.main_photo_id' => $this->main_photo_id,
+            'r.cooking_time' => $this->cooking_time,
+            'r.preparation_time' => $this->preparation_time,
+            'r.persons' => $this->persons,
+            'r.complexity' => $this->complexity,
             'r.rate' => $this->rate,
-            'comments_count' => $this->comments_count,
-            'comments_notify' => $this->comments_notify,
+            'r.comments_count' => $this->comments_count,
+            'r.comments_notify' => $this->comments_notify,
             //'r.created_at' => $this->created_at,
             //'r.updated_at' => $this->updated_at,
         ]);
 
-        $query->andFilterWhere(['like', 'name', $this->name])
-            ->andFilterWhere(['like', 'introductory_text', $this->introductory_text])
-            ->andFilterWhere(['like', 'notes', $this->notes])
+        $query->andFilterWhere(['like', 'r.name', $this->name])
+            ->andFilterWhere(['like', 'r.introductory_text', $this->introductory_text])
+            ->andFilterWhere(['like', 'r.notes', $this->notes])
             ->andFilterWhere(['like', 'u.username', $this->author])
             ->andFilterWhere(['>=', 'r.created_at', $this->date_from ? strtotime($this->date_from . ' 00:00:00') : null])
             ->andFilterWhere(['<=', 'r.created_at', $this->date_to ? strtotime($this->date_to . ' 23:59:59') : null]);

@@ -1,6 +1,6 @@
 <?php
 
-namespace core\entities\queries;
+namespace core\entities\Recipe\queries;
 
 
 use paulzi\nestedsets\NestedSetsQueryTrait;

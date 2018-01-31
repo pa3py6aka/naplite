@@ -5,7 +5,9 @@ namespace core\entities\Recipe;
 use core\access\Rbac;
 use core\entities\Holiday;
 use core\entities\Kitchen;
-use core\entities\queries\RecipeQuery;
+use core\entities\Recipe\Collection\Collection;
+use core\entities\Recipe\Collection\CollectionRecipe;
+use core\entities\Recipe\queries\RecipeQuery;
 use core\entities\User\User;
 use core\helpers\ContentHelper;
 use core\jobs\MailJob;
@@ -42,7 +44,10 @@ use yii\helpers\Url;
  * @property string|null $mainPhoto
  * @property string $url
  *
+ * @property CollectionRecipe[] $collectionRecipes
+ * @property Collection[] $collections
  * @property IngredientSection[] $ingredientSections
+ * @property PhotoReport[] $photoReports
  * @property RecipeComment[] $recipeComments
  * @property Photo[] $recipePhotos
  * @property RecipeHoliday[] $recipeHolidays
@@ -51,7 +56,6 @@ use yii\helpers\Url;
  * @property User $author
  * @property Category $category
  * @property Kitchen $kitchen
- * @property PhotoReport[] $photoReports
  */
 class Recipe extends ActiveRecord
 {
@@ -271,9 +275,26 @@ class Recipe extends ActiveRecord
         ];
     }
 
+    public function getCollectionRecipes(): ActiveQuery
+    {
+        return $this->hasMany(CollectionRecipe::className(), ['recipe_id' => 'id'])
+            ->indexBy('collection_id');
+    }
+
+    public function getCollections(): ActiveQuery
+    {
+        return $this->hasMany(Collection::className(), ['id' => 'collection_id'])
+            ->viaTable('{{%collections_recipes}}', ['recipe_id' => 'id']);
+    }
+
     public function getIngredientSections(): ActiveQuery
     {
         return $this->hasMany(IngredientSection::className(), ['recipe_id' => 'id']);
+    }
+
+    public function getPhotoReports(): ActiveQuery
+    {
+        return $this->hasMany(PhotoReport::className(), ['recipe_id' => 'id']);
     }
 
     public function getRecipeComments(): ActiveQuery
@@ -317,14 +338,9 @@ class Recipe extends ActiveRecord
         return $this->hasMany(Holiday::className(), ['id' => 'holiday_id'])->viaTable('{{%recipe_holidays}}', ['recipe_id' => 'id']);
     }
 
-    public function getPhotoReports(): ActiveQuery
-    {
-        return $this->hasMany(PhotoReport::className(), ['recipe_id' => 'id']);
-    }
-
     /**
      * @inheritdoc
-     * @return RecipeQuery the active query used by this AR class.
+     * @return \core\entities\Recipe\queries\RecipeQuery the active query used by this AR class.
      */
     public static function find()
     {
