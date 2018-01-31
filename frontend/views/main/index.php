@@ -1,8 +1,5 @@
 <?php
 
-/* @var $this yii\web\View */
-
-use core\helpers\RecipeHelper;
 use widgets\ArticlesWidget;
 use widgets\BannerWidget;
 use widgets\ForumBlockWidget;
@@ -10,27 +7,23 @@ use widgets\IngredientsBlockWidget;
 use widgets\RecipeThemesWidget;
 use widgets\SocialBlockWidget;
 use widgets\TopArticlesSliderWidget;
-use yii\helpers\Html;
-use yii\helpers\Url;
 
+/* @var $this yii\web\View */
 /* @var $recipes \core\entities\Recipe\Recipe[]|array */
+/* @var $collections \core\entities\Recipe\Collection\Collection[] */
 
 $this->title = 'На плите! Кулинарные рецепты на любой вкус';
 ?>
 <div class="content_left">
     <ul class="adaptive_categories">
-        <li><a href="#"><span><b>Новогодние блюда</b></span><img src="/img/banner-ny.jpg" width="240" height="170" alt=""/></a></li>
-        <li><a href="#"><span><b>Закуски</b></span><img src="/img/banner_snacks.jpg" width="240" height="170" alt=""/></a></li>
-        <li><a href="#"><span><b>Мясные блюда</b></span><img src="/img/banner-meat.jpg" width="240" height="170" alt=""/></a></li>
-        <li><a href="#"><span><b>Рыба и морепродукты</b></span><img src="/img/banner-fish.jpg" width="240" height="170" alt=""/></a></li>
-        <li><a href="#"><span><b>Салаты</b></span><img src="/img/banner_salads.jpg" width="240" height="170" alt=""/></a></li>
-        <li><a href="#"><span><b>Супы</b></span><img src="/img/banner_soups.jpg" width="240" height="170" alt=""/></a></li>
-        <li><a href="#"><span><b>Вторые блюда</b></span><img src="/img/banner_seconds.jpg" width="240" height="170" alt=""/></a></li>
-        <li><a href="#"><span><b>Выпечка</b></span><img src="/img/banner-cakes.jpg" width="240" height="170" alt=""/></a></li>
-        <li><a href="#"><span><b>Десерты</b></span><img src="/img/banner-dessert.jpg" width="240" height="170" alt=""/></a></li>
-        <li><a href="#"><span><b>Соусы</b></span><img src="/img/banner_sauces.jpg" width="240" height="170" alt=""/></a></li>
-        <li><a href="#"><span><b>Напитки</b></span><img src="/img/banner-drinks.jpg" width="240" height="170" alt=""/></a></li>
-        <li><a href="#"><span><b>Соления и заготовки</b></span><img src="/img/banner-pickles.jpg" width="240" height="170" alt=""/></a></li>
+        <?php foreach ($collections as $collection): ?>
+            <li>
+                <a href="<?= $collection->getUrl() ?>">
+                    <span><b><?= $collection->title ?></b></span>
+                    <img src="<?= $collection->getImageUrl() ?>" width="240" height="170" alt="<?= $collection->title ?>"/>
+                </a>
+            </li>
+        <?php endforeach; ?>
     </ul>
     <div class="cb"></div>
     <ul class="catalogue_ul">

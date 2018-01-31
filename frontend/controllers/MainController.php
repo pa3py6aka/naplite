@@ -1,7 +1,9 @@
 <?php
 namespace frontend\controllers;
 
+use core\entities\Recipe\Collection\Collection;
 use core\entities\Recipe\Recipe;
+use core\repositories\CollectionRepository;
 use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 
@@ -14,15 +16,20 @@ class MainController extends Controller
      */
     public function actionIndex()
     {
-        $recipesQuery = Recipe::find()->orderBy(['id' => SORT_DESC]);
+        $recipesQuery = Recipe::find()->with('mainPhotoEntity', 'author')->orderBy(['id' => SORT_DESC]);
         $provider = new ActiveDataProvider([
             'query' => $recipesQuery,
             'sort' => ['defaultOrder' => ['id' => SORT_DESC]],
             'pagination' => ['pageSize' => 9],
         ]);
 
+        /* @var $collectionRepository CollectionRepository */
+        $collectionRepository = \Yii::$container->get(CollectionRepository::class);
+        $collections = $collectionRepository->getBySort(12);
+
         return $this->render('index', [
             'recipes' => $provider->getModels(),
+            'collections' => $collections,
         ]);
     }
 }

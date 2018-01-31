@@ -50,6 +50,7 @@ use yii\helpers\Url;
  * @property PhotoReport[] $photoReports
  * @property RecipeComment[] $recipeComments
  * @property Photo[] $recipePhotos
+ * @property Photo|null $mainPhotoEntity
  * @property RecipeHoliday[] $recipeHolidays
  * @property Holiday[] $holidays
  * @property RecipeStep[] $recipeSteps
@@ -145,7 +146,7 @@ class Recipe extends ActiveRecord
     public function getMainPhoto($small = false): ?string
     {
         if ($this->main_photo_id) {
-            if ($photo = Photo::findOne($this->main_photo_id)) {
+            if ($photo = $this->mainPhotoEntity) {
                 return Yii::$app->params['frontendHostInfo'] . '/photos/' . ($small ? 'sm_' : '') . $photo->file;
             }
         }
@@ -306,6 +307,11 @@ class Recipe extends ActiveRecord
     {
         return $this->hasMany(Photo::className(), ['recipe_id' => 'id'])
             ->orderBy(['sort' => SORT_ASC]);
+    }
+
+    public function getMainPhotoEntity(): ActiveQuery
+    {
+        return $this->hasOne(Photo::className(), ['id' => 'main_photo_id']);
     }
 
     public function getRecipeSteps(): ActiveQuery

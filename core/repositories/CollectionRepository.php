@@ -16,6 +16,11 @@ class CollectionRepository
         return $collection;
     }
 
+    public function getBySort($count = 7)
+    {
+        return Collection::find()->orderBy(['sort' => SORT_ASC])->limit($count)->all();
+    }
+
     public function getBySlug($slug): Collection
     {
         if (!$collection = Collection::find()->where(['slug' => $slug])->limit(1)->one()) {
