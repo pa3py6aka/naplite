@@ -21,6 +21,7 @@ use Zelenin\yii\behaviors\Slug;
  * @property string $image
  * @property int $category_id
  * @property int $sort
+ * @property bool $status [tinyint(1)]
  *
  * @property Category $category
  * @property CollectionRecipe[] $collectionsRecipes
@@ -28,6 +29,9 @@ use Zelenin\yii\behaviors\Slug;
  */
 class Collection extends ActiveRecord
 {
+    const STATUS_ACTIVE = 1;
+    const STATUS_HIDDEN = 0;
+
     public static function create($title, $description, $categoryId = null): Collection
     {
         $collection = new self();
@@ -35,6 +39,7 @@ class Collection extends ActiveRecord
         $collection->description = $description;
         $collection->category_id = $categoryId;
         $collection->sort = self::find()->max('sort') + 1;
+        $collection->status = self::STATUS_ACTIVE;
         return $collection;
     }
 

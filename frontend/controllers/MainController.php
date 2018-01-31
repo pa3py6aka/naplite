@@ -1,7 +1,6 @@
 <?php
 namespace frontend\controllers;
 
-use core\entities\Recipe\Collection\Collection;
 use core\entities\Recipe\Recipe;
 use core\repositories\CollectionRepository;
 use yii\data\ActiveDataProvider;

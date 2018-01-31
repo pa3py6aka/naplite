@@ -36,7 +36,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         return $collection->category_id ? $collection->category->title : 'Ручная';
                     },
                 ],
-                ['class' => 'yii\grid\ActionColumn'],
+                ['class' => \core\grid\manage\CollectionActionsColumn::class],
             ],
         ]); ?>
     </div>

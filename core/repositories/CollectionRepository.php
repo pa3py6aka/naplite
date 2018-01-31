@@ -18,7 +18,7 @@ class CollectionRepository
 
     public function getBySort($count = 7)
     {
-        return Collection::find()->orderBy(['sort' => SORT_ASC])->limit($count)->all();
+        return Collection::find()->where(['status' => Collection::STATUS_ACTIVE])->orderBy(['sort' => SORT_ASC])->limit($count)->all();
     }
 
     public function getBySlug($slug): Collection

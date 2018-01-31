@@ -47,6 +47,7 @@ class CollectionController extends Controller
                 'actions' => [
                     'append' => ['POST'],
                     'un-select' => ['POST'],
+                    'set-status' => ['POST']
                 ],
             ],
         ];
@@ -160,6 +161,13 @@ class CollectionController extends Controller
         } else {
             Yii::$app->session->setFlash('error', 'Рецепт не найден в подборке');
         }
+        return $this->redirect(Yii::$app->request->referrer);
+    }
+
+    public function actionSetStatus($id, $to)
+    {
+        $collection = $this->repository->get($id);
+        $collection->updateAttributes(['status' => $to ? 1 : 0]);
         return $this->redirect(Yii::$app->request->referrer);
     }
 }
