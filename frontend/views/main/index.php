@@ -15,16 +15,18 @@ use widgets\TopArticlesSliderWidget;
 $this->title = 'На плите! Кулинарные рецепты на любой вкус';
 ?>
 <div class="content_left">
-    <ul class="adaptive_categories">
-        <?php foreach ($collections as $collection): ?>
-            <li>
-                <a href="<?= $collection->getUrl() ?>">
-                    <span><b><?= $collection->title ?></b></span>
-                    <img src="<?= $collection->getImageUrl() ?>" width="240" height="170" alt="<?= $collection->title ?>"/>
-                </a>
-            </li>
-        <?php endforeach; ?>
-    </ul>
+    <?php if (count($collections)): ?>
+        <ul class="adaptive_categories">
+            <?php foreach ($collections as $collection): ?>
+                <li>
+                    <a href="<?= $collection->getUrl() ?>">
+                        <span><b><?= $collection->title ?></b></span>
+                        <img src="<?= $collection->getImageUrl() ?>" width="240" height="170" alt="<?= $collection->title ?>"/>
+                    </a>
+                </li>
+            <?php endforeach; ?>
+        </ul>
+    <?php endif; ?>
     <div class="cb"></div>
     <ul class="catalogue_ul">
         <?= TopArticlesSliderWidget::widget() ?>

@@ -2,7 +2,7 @@
 /* @var $collections \core\entities\Recipe\Collection\Collection[] */
 
 ?>
-<div class="right_banners">
+<div class="right_banners sidebar-collection">
     <?php foreach ($collections as $collection): ?>
         <a href="<?= $collection->getUrl() ?>">
             <span><b><?= $collection->title ?></b></span>
