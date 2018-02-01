@@ -5,7 +5,7 @@ use core\entities\Holiday;
 use core\helpers\CategoryHelper;
 use widgets\ArticlesWidget;
 use widgets\BannerWidget;
-use widgets\RecipesCollectionWidget;
+use widgets\SidebarCollectionsWidget;
 use widgets\RecipeThemesWidget;
 use widgets\SocialBlockWidget;
 use yii\helpers\Url;
@@ -98,7 +98,7 @@ use yii\widgets\Pjax;
     <?= SocialBlockWidget::widget() ?>
     <div class="p40"></div>
 
-    <?= RecipesCollectionWidget::widget() ?>
+    <?= SidebarCollectionsWidget::widget() ?>
     <div class="p40"></div>
 
     <?= RecipeThemesWidget::widget() ?>

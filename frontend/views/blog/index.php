@@ -5,7 +5,7 @@ use widgets\BannerWidget;
 use widgets\BestChefsWidget;
 use widgets\BlogCategoriesWidget;
 use widgets\Pager;
-use widgets\RecipesCollectionWidget;
+use widgets\SidebarCollectionsWidget;
 use widgets\SocialBlockWidget;
 use yii\helpers\Html;
 use yii\helpers\Url;
@@ -80,5 +80,5 @@ if ($category) {
     <?= SocialBlockWidget::widget() ?>
     <div class="p40"></div>
 
-    <?= RecipesCollectionWidget::widget() ?>
+    <?= SidebarCollectionsWidget::widget() ?>
 </div>

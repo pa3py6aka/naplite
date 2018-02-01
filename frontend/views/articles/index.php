@@ -8,7 +8,7 @@ use core\helpers\CategoryHelper;
 use widgets\BannerWidget;
 use widgets\IngredientsBlockWidget;
 use widgets\Pager;
-use widgets\RecipesCollectionWidget;
+use widgets\SidebarCollectionsWidget;
 use widgets\RecipeThemesWidget;
 use widgets\SocialBlockWidget;
 use widgets\TopArticlesSliderWidget;
@@ -101,7 +101,7 @@ $this->title = "Статьи по кулинарным темам";
     <?= SocialBlockWidget::widget() ?>
     <div class="p40"></div>
 
-    <?= RecipesCollectionWidget::widget() ?>
+    <?= SidebarCollectionsWidget::widget() ?>
     <div class="p40"></div>
 
     <?= RecipeThemesWidget::widget() ?>

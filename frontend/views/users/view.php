@@ -4,7 +4,7 @@ use core\helpers\Pluralize;
 use core\helpers\UserHelper;
 use widgets\BannerWidget;
 use widgets\ForumBlockWidget;
-use widgets\RecipesCollectionWidget;
+use widgets\SidebarCollectionsWidget;
 use widgets\SocialBlockWidget;
 use yii\helpers\Html;
 use yii\helpers\Url;
@@ -96,6 +96,6 @@ $this->title = $user->fullName . ' | ' . Yii::$app->name;
     <?= SocialBlockWidget::widget() ?>
     <div class="p40"></div>
 
-    <?= RecipesCollectionWidget::widget() ?>
+    <?= SidebarCollectionsWidget::widget() ?>
 </div>
 

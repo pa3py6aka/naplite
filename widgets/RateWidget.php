@@ -3,7 +3,7 @@
 namespace widgets;
 
 
-use core\entities\RecipeUserRate;
+use core\entities\Recipe\RecipeUserRate;
 use Yii;
 use yii\base\Widget;
 

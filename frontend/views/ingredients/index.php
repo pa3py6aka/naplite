@@ -5,7 +5,7 @@ use core\helpers\ContentHelper;
 use widgets\ArticlesWidget;
 use widgets\BannerWidget;
 use widgets\Pager;
-use widgets\RecipesCollectionWidget;
+use widgets\SidebarCollectionsWidget;
 use widgets\RecipeThemesWidget;
 use widgets\SocialBlockWidget;
 use yii\helpers\Html;
@@ -86,7 +86,7 @@ $this->title = "Кулинарные ингридиенты";
     <?= SocialBlockWidget::widget() ?>
     <div class="p40"></div>
 
-    <?= RecipesCollectionWidget::widget() ?>
+    <?= SidebarCollectionsWidget::widget() ?>
     <div class="p40"></div>
 
     <?= RecipeThemesWidget::widget() ?>
