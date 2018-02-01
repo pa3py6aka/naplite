@@ -6,6 +6,7 @@ namespace frontend\controllers;
 use core\access\Rbac;
 use core\entities\Recipe\Recipe;
 use core\entities\Recipe\RecipeUserRate;
+use core\entities\User\UserRecipe;
 use core\forms\CommentForm;
 use core\forms\RecipeForm;
 use core\repositories\NotFoundException;
@@ -110,6 +111,12 @@ class RecipesController extends Controller
         $recipe = $this->repository->get($id);
         $commentForm = new CommentForm();
         $photoReports = $recipe->getPhotoReports()->with('user')->orderBy(['id' => SORT_DESC])->limit(5)->all();
+        if (!Yii::$app->user->isGuest) {
+            $isFavorite = UserRecipe::find()->where(['recipe_id' => $id, 'user_id' => Yii::$app->user->id])->exists();
+        } else {
+            $isFavorite = false;
+        }
+
 
         if ($commentForm->load(Yii::$app->request->post()) && $commentForm->validate()) {
             /* @var $commentService CommentService */
@@ -122,6 +129,7 @@ class RecipesController extends Controller
             'recipe' => $recipe,
             'commentModel' => $commentForm,
             'photoReports' => $photoReports,
+            'isFavorite' => $isFavorite,
         ]);
     }
 
@@ -170,7 +178,11 @@ class RecipesController extends Controller
             return ['result' => false, 'error' => $e->getMessage()];
         }
 
-        return ['result' => 'success', 'html' => $result ? '<i class="fa fa-minus"></i>Убрать из избранных' : '<i class="fa fa-plus"></i>Сохранить рецепт'];
+        return [
+            'result' => 'success',
+            'html' => $result ? '<i class="fa fa-minus"></i>Убрать из избранных' : '<i class="fa fa-plus"></i>Сохранить рецепт',
+            'count' => Recipe::find()->select(['favorites_count'])->where(['id' => $recipeId])->scalar(),
+        ];
     }
 
     public function actionPrint($id)

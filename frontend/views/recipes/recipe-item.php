@@ -27,7 +27,7 @@ use yii\helpers\Html;
                 </a>
                 <a href="#" class="stat_ico">
                     <span class="stat_ico_left"><i class="fa fa-heart-o"></i></span>
-                    <span class="stat_ico_right">0</span>
+                    <span class="stat_ico_right"><?= $recipe->favorites_count ?></span>
                     <span class="stat_rasp"></span>
                 </a>
                 <a href="#" class="stat_ico">

@@ -36,6 +36,7 @@ use yii\helpers\Url;
  * @property string $notes
  * @property int $rate [int(11)]
  * @property int $comments_count [int(11)]
+ * @property int $favorites_count [int(11) unsigned]
  * @property bool $comments_notify [tinyint(1)]
  * @property int $status [smallint(6)]
  * @property int $created_at

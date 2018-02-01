@@ -152,17 +152,21 @@ class RecipeService
 
     public function saveToUser($userId, $recipeId): bool
     {
-        if ($userRecipe = $this->repository->getUserRecipe($userId, $recipeId)) {
-            $userRecipe->delete();
-            return false;
-        }
+        return $this->transaction->wrap(function () use ($userId, $recipeId) {
+            if ($userRecipe = $this->repository->getUserRecipe($userId, $recipeId)) {
+                $userRecipe->delete();
+                $this->repository->updateFavoritesCount($recipeId);
+                return false;
+            }
 
-        $userRecipe = new UserRecipe([
-            'user_id' => $userId,
-            'recipe_id' => $recipeId,
-        ]);
-        $this->repository->saveUserRecipe($userRecipe);
-        return true;
+            $userRecipe = new UserRecipe([
+                'user_id' => $userId,
+                'recipe_id' => $recipeId,
+            ]);
+            $this->repository->saveUserRecipe($userRecipe);
+            $this->repository->updateFavoritesCount($recipeId);
+            return true;
+        });
     }
 
     private function getTime($hours, $minutes): int

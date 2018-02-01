@@ -19,6 +19,7 @@ use yii\widgets\ActiveForm;
 /* @var $recipe \core\entities\Recipe\Recipe */
 /* @var $commentModel \core\forms\CommentForm */
 /* @var $photoReports \core\entities\Recipe\PhotoReport[] */
+/* @var $isFavorite bool */
 
 RecipeViewAsset::register($this);
 $this->title = Html::encode($recipe->name);
@@ -131,8 +132,8 @@ $this->title = Html::encode($recipe->name);
                         </li>
                     </ul>
                     <div class="recipe_stat_buttons">
-                        <a href="javascript:void(0)" class="b_gray" data-link="save-recipe-link" data-recipe-id="<?= $recipe->id ?>">
-                            <i class="fa fa-plus"></i>Сохранить рецепт
+                        <a href="javascript:void(0)" class="b_gray<?= Yii::$app->user->isGuest ? ' loginButton' : '' ?>"<?= !Yii::$app->user->isGuest ? ' data-link="save-recipe-link" data-recipe-id="' . $recipe->id . '"' : '' ?>>
+                            <i class="fa fa-<?= $isFavorite ? 'minus' : 'plus' ?>"></i><?= $isFavorite ? 'Убрать из избранных' : 'Сохранить рецепт' ?>
                         </a>
                         <a href="<?= Url::to(['/recipes/print', 'id' => $recipe->id]) ?>" class="b_gray" target="_blank">
                             <i class="fa fa-print"></i>Распечатать рецепт
@@ -173,10 +174,16 @@ $this->title = Html::encode($recipe->name);
                     <?= RateWidget::widget(['recipe' => $recipe]) ?>
                 </div>
                 <div class="recipe_page_bottom_center hidden1150-table-cell">
-                    <a href="javascript:void(0)" <?= Yii::$app->user->isGuest ? 'class="loginButton"' : 'data-link="goToComments"' ?>><span><b>Задайте вопрос:</b></span><span><i class="fa fa-comment-o"></i><?= $recipe->comments_count ?></span></a>
+                    <a href="javascript:void(0)" <?= Yii::$app->user->isGuest ? 'class="loginButton"' : 'data-link="goToComments"' ?>>
+                        <span><b>Задайте вопрос:</b></span>
+                        <span><i class="fa fa-comment-o"></i><?= $recipe->comments_count ?></span>
+                    </a>
                 </div>
                 <div class="recipe_page_bottom_right">
-                    <a href="javascript:void(0)"><span><b>Сохраните рецепт:</b></span><span><i class="fa fa-heart-o"></i>0</span></a>
+                    <a href="javascript:void(0)"<?= Yii::$app->user->isGuest ? ' class="loginButton"' : ' data-link="save-recipe-link" data-recipe-id="' . $recipe->id . '"' ?>>
+                        <span><b>Сохраните рецепт:</b></span>
+                        <span data-role="count"><i class="fa fa-heart-o"></i><?= $recipe->favorites_count ?></span>
+                    </a>
                 </div>
             </div>
         </div>

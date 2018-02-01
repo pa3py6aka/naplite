@@ -44,6 +44,12 @@ class RecipeRepository
         }
     }
 
+    public function updateFavoritesCount(int $recipeID): void
+    {
+        $count = UserRecipe::find()->where(['recipe_id' => $recipeID])->count();
+        Recipe::updateAll(['favorites_count' => $count], ['id' => $recipeID]);
+    }
+
     public function removeIngredientSections($recipeId): void
     {
         IngredientSection::deleteAll(['recipe_id' => $recipeId]);

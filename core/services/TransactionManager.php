@@ -9,8 +9,9 @@ class TransactionManager
     {
         $transaction = \Yii::$app->db->beginTransaction();
         try {
-            $function();
+            $result = $function();
             $transaction->commit();
+            return $result;
         } catch (\Exception $e) {
             $transaction->rollBack();
             throw $e;

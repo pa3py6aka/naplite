@@ -29,7 +29,7 @@ RecipeView = (function () {
             var $link = $(this);
             var $icon = $link.find('i');
             if ($icon.hasClass('fa-spinner')) {return;}
-            var curClass = $icon.hasClass('fa-plus') ? 'fa-plus' : 'fa-minus';
+            var curClass = $icon.hasClass('fa-plus') ? 'fa-plus' : ($icon.hasClass('fa-heart-o') ? 'fa-heart-o' : 'fa-minus');
             var recipeId = $link.attr('data-recipe-id');
             $.ajax('/recipes/save-to-user', {
                 method: "post",
@@ -41,7 +41,12 @@ RecipeView = (function () {
                 },
                 success: function(data, textStatus, jqXHR) {
                     if (data.result === 'success') {
-                        $link.html(data.html);
+                        if (curClass === 'fa-heart-o') {
+                            $('.recipe_stat_buttons').find('[data-link=save-recipe-link]').html(data.html);
+                        } else {
+                            $link.html(data.html);
+                        }
+                        $('span[data-role=count]').html('<i class="fa fa-heart-o"></i>' + data.count);
                     }
                 },
                 complete: function () {
