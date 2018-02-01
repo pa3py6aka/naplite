@@ -17,6 +17,14 @@ $this->title = "Настройки сайта";
 
         <?= $form->field($model, 'photoReportText')->textarea(['rows' => 4]) ?>
 
+        <?= $form->field($model, 'widgetVK')->textarea(['rows' => 4])
+                ->hint('<a href="https://vk.com/dev/Community" target="_blank">https://vk.com/dev/Community</a>') ?>
+
+        <?= $form->field($model, 'instagramLogin')->textInput() ?>
+
+        <?= $form->field($model, 'widgetFB')->textarea(['rows' => 4])
+                ->hint('<a href="https://developers.facebook.com/docs/plugins/page-plugin" target="_blank">https://developers.facebook.com/docs/plugins/page-plugin</a>') ?>
+
         <?= Html::submitButton("Сохранить", ['class' => 'btn btn-flat btn-success']) ?>
 
     </div>

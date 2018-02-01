@@ -171,6 +171,16 @@ NaPlite = (function () {
         $('#ingredientsCategory').on('click', '[data-link=search-ingredients]', function (e) {
             $('#search-ingredients-form').submit();
         });
+
+        // Social block widget
+        $(".socials_plugin").on('click', '.socials_tabs > a', function (e) {
+            var $block = $(".socials_plugin"),
+                sn = $(this).attr('data-sn');
+            $block.find('.socials_tabs > a').removeClass('socials_tabs_active');
+            $(this).addClass('socials_tabs_active');
+            $block.find('.socials_content').hide();
+            $block.find('.socials_content[data-sn=' + sn + ']').show();
+        });
     };
 
     function loadWeights() {

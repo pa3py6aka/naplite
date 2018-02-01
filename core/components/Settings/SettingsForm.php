@@ -11,6 +11,10 @@ class SettingsForm extends Model
     public $recipeIntroductoryTextMaxLength;
     public $photoReportText;
 
+    public $widgetVK;
+    public $instagramLogin;
+    public $widgetFB;
+
     public function init()
     {
         $settings = Yii::$app->settings->getAll();
@@ -30,6 +34,7 @@ class SettingsForm extends Model
         return [
             ['recipeIntroductoryTextMaxLength', 'integer'],
             ['photoReportText', 'string'],
+            [['widgetVK', 'instagramLogin', 'widgetFB'], 'string'],
         ];
     }
 
@@ -38,6 +43,9 @@ class SettingsForm extends Model
         return [
             'recipeIntroductoryTextMaxLength' => 'Максимальный размер вводного текста в рецепте',
             'photoReportText' => 'Текст при добавлении фотоотчёта',
+            'widgetVK' => 'Код виджета VKontakte',
+            'instagramLogin' => 'Ник в инстаграм',
+            'widgetFB' => 'Код виджета Facebook',
         ];
     }
 }

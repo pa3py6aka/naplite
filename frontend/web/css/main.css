@@ -1099,4 +1099,6 @@ span.cke_button__emojione_icon {
 .file-upload-block {margin-bottom:30px;border:1px #f63d3d solid;border-radius:3px;background:linear-gradient(#ffec93, #fed671);text-align:center;cursor:pointer;padding-top:20px;padding-bottom:20px;}
 .photo-report-modal-image {width:100%;}
 .sidebar-collection > a:last-child {margin-bottom:0;}
+.socials_content {background: #ffffff !important;padding-top:0 !important;}
+.socials_tabs_active::after {z-index:10;}
 
