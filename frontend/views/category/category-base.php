@@ -6,6 +6,7 @@
 use core\entities\Recipe\Recipe;
 use core\helpers\Pluralize;
 use core\helpers\RecipeHelper;
+use core\helpers\SortHelper;
 use widgets\ArticlesWidget;
 use widgets\BannerWidget;
 use widgets\RecipeThemesWidget;
@@ -71,10 +72,10 @@ $this->title = $category->getHeadingTile();
         <ul class="sort_panel_th_bottom">
             <li><b>Сортировать:</b></li>
             <li class="<?= $recipesProvider->sort->getAttributeOrder('id') !== null ? 'sort_panel_th_bottom_active' : '' ?>">
-                <a href="<?= $recipesProvider->sort->createUrl('id') ?>" class="pjax"><i class="fa fa-clock-o"></i>По дате</a>
+                <a href="<?= SortHelper::getUrl($recipesProvider->sort, 'id') ?>" class="pjax"><i class="fa fa-clock-o"></i>По дате</a>
             </li>
             <li class="<?= $recipesProvider->sort->getAttributeOrder('rate') !== null ? 'sort_panel_th_bottom_active' : '' ?>">
-                <a href="<?= $recipesProvider->sort->createUrl('rate') ?>" class="pjax"><i class="fa fa-star-o"></i>По популярности</a>
+                <a href="<?= SortHelper::getUrl($recipesProvider->sort, 'rate') ?>" class="pjax"><i class="fa fa-star-o"></i>По популярности</a>
             </li>
         </ul>
     </div>
