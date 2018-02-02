@@ -145,6 +145,11 @@ $this->title = Html::encode($recipe->name);
                     </div>
                 </div>
             </div>
+
+            <?php if (Yii::$app->settings->get('bannerBeforeSteps_show')) {
+                echo Yii::$app->settings->get('bannerBeforeSteps');
+            } ?>
+
             <div class="recipe_steps">
                 <div class="recipe_steps_left">
                     <h2>Рецепт приготовления</h2>

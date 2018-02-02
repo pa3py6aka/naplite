@@ -42,6 +42,12 @@ use yii\widgets\Pjax;
     <?php endif; ?>
     <div class="cb"></div>
 
+    <?php if (Yii::$app->settings->get('bannerDirectAfterCategories_show')): ?>
+        <div class="direct">
+            <?= Yii::$app->settings->get('bannerDirectAfterCategories') ?>
+        </div>
+    <?php endif; ?>
+
     <?php Pjax::begin([
         'linkSelector' => '.pjax'
     ]) ?>

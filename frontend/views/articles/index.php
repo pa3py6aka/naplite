@@ -40,27 +40,13 @@ $this->title = "Статьи по кулинарным темам";
 
         <?= TopArticlesSliderWidget::widget() ?>
 
+        <?php if (Yii::$app->settings->get('bannerDirectAfterCategories_show')): ?>
         <li class="recipe_prev fix_top_articles">
             <div class="direct">
-                <a href="#">
-                    <div class="direct_th">Яндекс.Браузер</div>
-                    <div class="direct_link">getyabrowser.com</div>
-                    <div class="direct_descr">Без проблем откроет сервисы Яндекса</div>
-                </a>
-                <div class="direct_rasp"></div>
-                <a href="#">
-                    <div class="direct_th">Яндекс.Браузер</div>
-                    <div class="direct_link">getyabrowser.com</div>
-                    <div class="direct_descr">Без проблем откроет сервисы Яндекса</div>
-                </a>
-                <div class="direct_rasp"></div>
-                <a href="#">
-                    <div class="direct_th">Яндекс.Браузер</div>
-                    <div class="direct_link">getyabrowser.com</div>
-                    <div class="direct_descr">Без проблем откроет сервисы Яндекса</div>
-                </a>
+                <?= Yii::$app->settings->get('bannerDirectAfterCategories') ?>
             </div>
         </li>
+        <?php endif; ?>
     </ul>
     <div class="cb"></div>
 
@@ -87,6 +73,10 @@ $this->title = "Статьи по кулинарным темам";
             } ?>
         </ul>
     </div>
+
+    <?php if (Yii::$app->settings->get('bannerPagenator_show')) {
+        echo Yii::$app->settings->get('bannerPagenator');
+    } ?>
 
     <?= Pager::widget(['pagination' => $articlesProvider->pagination]) ?>
     <div class="p40"></div>

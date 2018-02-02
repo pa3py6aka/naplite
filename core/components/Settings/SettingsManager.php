@@ -29,7 +29,7 @@ class SettingsManager
         'bannerPagenator' => '',
         'bannerBeforeSteps' => '',
         'bannerDirectUnderMenu' => '',
-        'bannerDirectAfterCategories' => '',
+        'bannerDirectAfterCategories' => self::DIRECT_AFTER_CATEGORIES,
         'bannerFooter' => '',
 
         'bannerSimple1_show' => 1,
@@ -78,7 +78,7 @@ class SettingsManager
         }
     }
 
-    private CONST FOOTER = <<<HTML
+    private const FOOTER = <<<HTML
 <div class="footer_col">
                 <b><a href="#">Закуски</a></b>
                 <a href="#">Бутерброды</a>
@@ -217,4 +217,25 @@ class SettingsManager
                 <a href="#">Способы нарезки</a>
             </div>
 HTML;
+
+    private const DIRECT_AFTER_CATEGORIES = <<<HTML
+<a href="#">
+                    <div class="direct_th">Яндекс.Браузер</div>
+                    <div class="direct_link">getyabrowser.com</div>
+                    <div class="direct_descr">Без проблем откроет сервисы Яндекса</div>
+                </a>
+                <div class="direct_rasp"></div>
+                <a href="#">
+                    <div class="direct_th">Яндекс.Браузер</div>
+                    <div class="direct_link">getyabrowser.com</div>
+                    <div class="direct_descr">Без проблем откроет сервисы Яндекса</div>
+                </a>
+                <div class="direct_rasp"></div>
+                <a href="#">
+                    <div class="direct_th">Яндекс.Браузер</div>
+                    <div class="direct_link">getyabrowser.com</div>
+                    <div class="direct_descr">Без проблем откроет сервисы Яндекса</div>
+                </a>
+HTML;
+
 }

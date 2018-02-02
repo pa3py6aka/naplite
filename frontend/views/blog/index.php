@@ -59,6 +59,11 @@ if ($category) {
             <?php endforeach; ?>
         </div>
     </div>
+
+    <?php if (Yii::$app->settings->get('bannerPagenator_show')) {
+        echo Yii::$app->settings->get('bannerPagenator');
+    } ?>
+
     <?= Pager::widget(['pagination' => $provider->pagination]) ?>
 </div>
 <div class="content_right">

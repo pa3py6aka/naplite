@@ -13,4 +13,8 @@ use yii\helpers\Html;
     <?php endforeach; ?>
 </ul>
 
+<?php if (Yii::$app->settings->get('bannerPagenator_show')) {
+    echo Yii::$app->settings->get('bannerPagenator');
+} ?>
+
 <?= Pager::widget(['pagination' => $recipesProvider->pagination]) ?>

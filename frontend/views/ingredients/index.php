@@ -73,6 +73,10 @@ $this->title = "Кулинарные ингридиенты";
         </ul>
     </div>
 
+    <?php if (Yii::$app->settings->get('bannerPagenator_show')) {
+        echo Yii::$app->settings->get('bannerPagenator');
+    } ?>
+
     <?= Pager::widget(['pagination' => $ingredientsProvider->pagination]) ?>
     <div class="p40"></div>
     <?php Pjax::end() ?>

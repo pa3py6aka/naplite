@@ -176,6 +176,11 @@ AppAsset::register($this);
         </ul>
     </div>
 </div>
+
+<?php if (Yii::$app->settings->get('bannerDirectUnderMenu_show')) {
+    echo Yii::$app->settings->get('bannerDirectUnderMenu');
+} ?>
+
 <div class="wrap">
     <div class="content">
         <?= $content ?>
