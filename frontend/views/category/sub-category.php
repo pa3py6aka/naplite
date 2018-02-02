@@ -1,5 +1,4 @@
 <?php
-/* @var $category \core\entities\Recipe\Category */
 
 use core\entities\Holiday;
 use core\helpers\CategoryHelper;
@@ -13,6 +12,9 @@ use yii\widgets\Pjax;
 
 /* @var $this \yii\web\View */
 /* @var $recipesProvider \yii\data\ActiveDataProvider */
+/* @var $category \core\entities\Recipe\Category */
+
+$this->title = $category->getHeadingTile();
 
 ?>
 <div class="content_left">

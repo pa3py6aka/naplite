@@ -50,7 +50,7 @@ $this->title .= Yii::$app->name . '| Поиск рецепта';
 
     <div class="sort_panel_th">
         <ul class="sort_panel_th_bottom">
-            <?php if ($provider->totalCount > 1): ?>
+            <?php if ($provider && $provider->totalCount > 1): ?>
             <li><b>Сортировать:</b></li>
             <li class="<?= $provider->sort->getAttributeOrder('id') !== null ? 'sort_panel_th_bottom_active' : '' ?>">
                 <a href="<?= SortHelper::getUrl($provider->sort, 'id') ?>" class="pjax"><i class="fa fa-clock-o"></i>По дате</a>
@@ -62,7 +62,9 @@ $this->title .= Yii::$app->name . '| Поиск рецепта';
         </ul>
     </div>
 
-    <?= $this->render('@frontend/views/recipes/recipes-block', ['recipesProvider' => $provider]) ?>
+    <?php if ($provider): ?>
+        <?= $this->render('@frontend/views/recipes/recipes-block', ['recipesProvider' => $provider]) ?>
+    <?php endif; ?>
 
     <?php Pjax::end() ?>
 

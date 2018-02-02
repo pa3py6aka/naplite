@@ -65,7 +65,7 @@ AppAsset::register($this);
 							</span>
 							<ul>
 								<li><a href="<?= Yii::$app->user->identity->pageUrl ?>"><i class="fa fa-user"></i>Личная страница</a></li>
-								<li><a href="#"><i class="fa fa-book"></i>Кулинарная книга</a></li>
+								<li><a href="<?= Url::to(['/users/cookbook']) ?>"><i class="fa fa-book"></i>Кулинарная книга</a></li>
 								<!--<li><a href="#"><i class="fa fa-envelope"></i>Сообщения</a></li>-->
 								<li><a href="#"><i class="fa fa-cutlery"></i>Мои рецепты</a></li>
 								<li><a href="#"><i class="fa fa-comment"></i>Мои посты</a></li>
@@ -135,7 +135,7 @@ AppAsset::register($this);
                                         </span>
                                         <ul>
                                             <li><a href="<?= Yii::$app->user->identity->pageUrl ?>"><i class="fa fa-user"></i>Личная страница</a></li>
-                                            <li><a href="#"><i class="fa fa-book"></i>Кулинарная книга</a></li>
+                                            <li><a href="<?= Url::to(['/users/cookbook']) ?>"><i class="fa fa-book"></i>Кулинарная книга</a></li>
                                             <!--<li><a href="#"><i class="fa fa-envelope"></i>Сообщения</a></li>-->
                                             <li><a href="#"><i class="fa fa-cutlery"></i>Мои рецепты</a></li>
                                             <li><a href="#"><i class="fa fa-comment"></i>Мои посты</a></li>

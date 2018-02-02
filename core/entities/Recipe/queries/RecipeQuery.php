@@ -16,8 +16,8 @@ class RecipeQuery extends ActiveQuery
 {
     use NestedSetsQueryTrait;
 
-    public function active()
+    public function active($alias = null)
     {
-        return $this->andWhere(['status' => Recipe::STATUS_ACTIVE]);
+        return $this->andWhere([($alias ? $alias . '.' : '') . 'status' => Recipe::STATUS_ACTIVE]);
     }
 }

@@ -3,6 +3,7 @@
 namespace core\repositories;
 
 
+use core\entities\Recipe\Category;
 use core\entities\Recipe\IngredientSection;
 use core\entities\Recipe\Recipe;
 use core\entities\Recipe\RecipeHoliday;
@@ -38,6 +39,45 @@ class RecipeRepository
     public function getUserRecipe($userId, $recipeId): ?UserRecipe
     {
         return UserRecipe::find()->where(['user_id' => $userId, 'recipe_id' => $recipeId])->limit(1)->one();
+    }
+
+    public function getUserFavoriteRecipes($userId, Category $category = null): ActiveDataProvider
+    {
+        $query = Recipe::find()
+            ->alias('r')
+            ->leftJoin(UserRecipe::tableName() . ' ur', 'ur.recipe_id=r.id')
+            ->andWhere(['ur.user_id' => $userId])
+            ->active('r');
+
+        if ($category && $category->depth > 0) {
+            $categories = $category->getDescendants()->all();
+            $categoriesIds = [$category->id];
+            foreach ($categories as $child) {
+                $categoriesIds[] = $child->id;
+            }
+            $query->andWhere(['r.category_id' => $categoriesIds]);
+        }
+
+        return new ActiveDataProvider([
+            'query' => $query,
+            'pagination' => ['pageSize' => 3, 'defaultPageSize' => 3], //ToDO: Количество рецептов в кулинарной книге юзера
+            'sort' => ['defaultOrder' => ['id' => SORT_DESC]]
+        ]);
+    }
+
+    public function getUserRecipes($userId): ActiveDataProvider
+    {
+        $query = Recipe::find()
+            ->alias('r')
+            ->leftJoin(UserRecipe::tableName() . ' ur', 'ur.user_id=r.id')
+            ->active()
+            ->andWhere(['r.author_id' => $userId]);
+
+        return new ActiveDataProvider([
+            'query' => $query,
+            'pagination' => ['pageSize' => 3, 'defaultPageSize' => 3], //ToDO: Количество рецептов пользователя
+            'sort' => ['defaultOrder' => ['id' => SORT_DESC]]
+        ]);
     }
 
     public function save(Recipe $recipe): void

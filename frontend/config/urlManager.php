@@ -26,6 +26,7 @@ return [
         'forum/<category:[a-z0-9_-]+>/<post:[a-z0-9_-]+>/edit' => 'blog/edit',
 
         'id<id:\d+>' => 'users/view',
+        'users/cookbook/<category:[a-z0-9_-]+>' => 'users/cookbook',
 
         '<_c:[\w\-]+>' => '<_c>/index',
         '<_c:[\w\-]+>/<id:\d+>' => '<_c>/view',

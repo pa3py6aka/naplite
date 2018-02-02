@@ -4,8 +4,12 @@ namespace frontend\controllers;
 
 
 use core\access\Rbac;
+use core\entities\Recipe\Category;
+use core\entities\Recipe\Recipe;
 use core\forms\User\ChangePasswordForm;
 use core\forms\User\UserSettingsForm;
+use core\repositories\CategoryRepository;
+use core\repositories\RecipeRepository;
 use core\repositories\UserRepository;
 use core\services\UserService;
 use Yii;
@@ -18,14 +22,22 @@ use yii\widgets\ActiveForm;
 
 class UsersController extends Controller
 {
-    private $repository;
+    private $userRepository;
     private $service;
+    private $recipeRepository;
 
-    public function __construct($id, Module $module, UserRepository $repository, UserService $service, array $config = [])
+    public function __construct(
+        $id,
+        Module $module,
+        UserRepository $userRepository,
+        UserService $service,
+        RecipeRepository $recipeRepository,
+        array $config = [])
     {
         parent::__construct($id, $module, $config);
-        $this->repository = $repository;
+        $this->userRepository = $userRepository;
         $this->service = $service;
+        $this->recipeRepository = $recipeRepository;
     }
 
     public function behaviors()
@@ -33,10 +45,9 @@ class UsersController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'only' => ['settings'],
+                'except' => ['view'],
                 'rules' => [
                     [
-                        'actions' => ['settings', 'change-password-validation'],
                         'allow' => true,
                         'roles' => [Rbac::ROLE_USER],
                     ],
@@ -53,8 +64,8 @@ class UsersController extends Controller
 
     public function actionView($id)
     {
-        $user = $this->repository->get($id);
-        $recipesProvider = $this->repository->getRecipesProviderByUserId($id);
+        $user = $this->userRepository->get($id);
+        $recipesProvider = $this->userRepository->getRecipesProviderByUserId($id);
 
         return $this->render('view', [
             'user' => $user,
@@ -84,7 +95,7 @@ class UsersController extends Controller
         if ($changePasswordForm->load(Yii::$app->request->post()) && $changePasswordForm->validate()) {
             try {
                 $user->setPassword($changePasswordForm->newPassword);
-                $this->repository->save($user);
+                $this->userRepository->save($user);
                 Yii::$app->session->setFlash('success', [['Сохранено', 'Новый пароль установлен']]);
             } catch (\DomainException $e) {
                 Yii::$app->session->setFlash('error', [['Ошибка', $e->getMessage()]]);
@@ -95,6 +106,26 @@ class UsersController extends Controller
             'user' => $user,
             'model' => $form,
             'changePasswordModel' => $changePasswordForm,
+        ]);
+    }
+
+    public function actionCookbook($category = null)
+    {
+        $userId = Yii::$app->user->id;
+        $category = $category ? (new CategoryRepository())->getBySlug($category) : null;
+        $provider = $this->recipeRepository->getUserFavoriteRecipes($userId, $category);
+        $userCategories = Category::find()
+            ->alias('c')
+            ->leftJoin('{{%recipes}} r', 'r.category_id=c.id')
+            ->leftJoin('{{%user_recipes}} ur', 'ur.recipe_id=r.id')
+            ->andWhere(['ur.user_id' => $userId, 'r.status' => Recipe::STATUS_ACTIVE])
+            ->all();
+
+        return $this->render('cookbook', [
+            'provider' => $provider,
+            'category' => $category,
+            'userId' => $userId,
+            'userCategories' => $userCategories,
         ]);
     }
 

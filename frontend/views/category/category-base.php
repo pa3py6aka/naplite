@@ -1,4 +1,5 @@
 <?php
+
 /* @var $category \core\entities\Recipe\Category */
 /* @var $this \yii\web\View */
 /* @var $recipesProvider \yii\data\ActiveDataProvider */
@@ -14,7 +15,6 @@ use widgets\SocialBlockWidget;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\widgets\Pjax;
-
 
 $this->title = $category->getHeadingTile();
 
