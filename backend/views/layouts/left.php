@@ -17,7 +17,7 @@ $menu = Yii::$app->user->can(\core\access\Rbac::ROLE_ADMIN) ?
         ['label' => 'Топ-блок', 'icon' => 'star-o', 'url' => ['/article-top/index'], 'active' => $this->context->id == 'article-top'],
 
         ['label' => 'Меню блога', 'options' => ['class' => 'header']],
-        ['label' => 'Блоги', 'icon' => 'file-audio-o', 'url' => ['/blog/index'], 'active' => $this->context->id == 'blog'],
+        ['label' => 'Посты', 'icon' => 'file-audio-o', 'url' => ['/blog/index'], 'active' => $this->context->id == 'blog'],
         ['label' => 'Категории', 'icon' => 'folder', 'url' => ['/blog-category/index'], 'active' => $this->context->id == 'blog-category'],
 
         ['label' => 'Меню ингредиентов', 'options' => ['class' => 'header']],
@@ -37,6 +37,7 @@ $menu = Yii::$app->user->can(\core\access\Rbac::ROLE_ADMIN) ?
         ['label' => 'Пользователи', 'icon' => 'user', 'url' => ['/user/index'], 'active' => $this->context->id == 'user'],
         ['label' => 'Рецепты', 'icon' => 'cutlery', 'url' => ['/recipe/index'], 'active' => $this->context->id == 'recipe'],
         ['label' => 'Фотоотчёты', 'icon' => 'photo', 'url' => ['/photo-report/index'], 'active' => $this->context->id == 'photo-report'],
+        ['label' => 'Посты', 'icon' => 'file-audio-o', 'url' => ['/blog/index'], 'active' => $this->context->id == 'blog'],
     ];
 
 
