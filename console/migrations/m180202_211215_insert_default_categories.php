@@ -13,6 +13,7 @@ class m180202_211215_insert_default_categories extends Migration
     public function safeUp()
     {
         $this->execute(file_get_contents(__DIR__ . '/dump/categories.sql'));
+        $this->execute('UPDATE {{%categories}} SET rgt=380 WHERE id=1');
     }
 
     /**
