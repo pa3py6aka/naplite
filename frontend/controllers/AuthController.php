@@ -92,6 +92,7 @@ class AuthController extends Controller
                             ['html' => 'emailConfirmation-html', 'text' => 'emailConfirmation-text'],
                             ['user' => $user]
                         )
+                            ->setFrom([Yii::$app->params['supportEmail'] => Yii::$app->name . ' robot'])
                             ->setTo($user->email)
                             ->setSubject('Подтверждение регистрации на сайте ' . Yii::$app->name)
                             ->send();
