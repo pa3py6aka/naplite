@@ -80,16 +80,11 @@ NaPlite = (function () {
             showModal('forgotPasswordModal');
         });
 
-        /*$('[data-link=readSeoText]').on('click', function (e) {
-            var $seoBlock = $('#categorySeoText');
-            if ($seoBlock.hasClass('mini')) {
-                $seoBlock.removeClass('mini', 1000);
-                $(this).html('<i class="fa fa-refresh"></i>Скрыть');
-            } else {
-                $seoBlock.addClass('mini', 1000);
-                $(this).html('<i class="fa fa-refresh"></i>Читать далее');
-            }
-        });*/
+        $('[data-link=goToSearch]').on('click', function () {
+            var $form = $('#mainSearchForm');
+            Public.scrollTo($form);
+            $form.find('input[name=q]').focus();
+        });
 
         /* Пока только для категорий */
         $(document).on('change', 'select[name=sort-selector]', function (e) {
@@ -144,9 +139,15 @@ NaPlite = (function () {
         });
 
         // Создание поста
-        $('#blogForm').on('click', '[data-button=submitForm]', function (e) {
-            $('#blogForm').yiiActiveForm('submitForm');
+        var $blogForm = $('#blogForm');
+        $blogForm.on('click', '[data-button=submitForm]', function (e) {
+            var contentText = CKEDITOR.instances['new-post-content-area'].ui.editor.getData();
+            $('#new-post-content-area').val(contentText);
+            $blogForm.yiiActiveForm('submitForm');
         });
+        if ($blogForm.length) {
+            Public.SetCKEditor('new-post-content-area');
+        }
 
         // Поиск по форуму
         $('#blogsListPage').on('click', '[data-button=submit-blog-search]', function (e) {

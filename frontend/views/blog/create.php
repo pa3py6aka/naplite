@@ -7,7 +7,12 @@
 use core\entities\Blog\BlogCategory;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
+use yii\helpers\Url;
 use yii\widgets\ActiveForm;
+
+$this->title = "Новый пост в форум";
+
+\frontend\assets\CKEditorAsset::register($this);
 
 ?>
 <div class="content_left">
@@ -16,7 +21,7 @@ use yii\widgets\ActiveForm;
             <div class="breadcump">
                 <a href="/">Главная</a>
                 <span><i class="fa fa-circle"></i></span>
-                <a href="#">Личный кабинет</a>
+                <a href="<?= Url::to(['/blog/index']) ?>">Форум</a>
             </div>
             <h1><?= $blog ? Html::encode($blog->title) : "Ваш новый пост" ?></h1>
         </div>
@@ -42,12 +47,12 @@ use yii\widgets\ActiveForm;
                 <div class="inputbox_label">
                     <div class="inputbox_label_2col">
                         <div class="inputbox_label_left">Текст поста:</div>
-                        <div class="inputbox_label_right"><img src="/img/wsw.jpg" width="155" height="19" alt=""/></div>
+                        <!--<div class="inputbox_label_right"><img src="/img/wsw.jpg" width="155" height="19" alt=""/></div>-->
                     </div>
                 </div>
 
                 <?= $form->field($model, 'content', ['options' => ['class' => 'inputbox_input']])
-                    ->textarea(['cols' => 2, 'rows' => 2, 'class' => 'textarea_base', 'placeholder' => 'Напишите текст Вашего поста'])
+                    ->textarea(['id' => 'new-post-content-area', 'cols' => 2, 'rows' => 2, 'class' => 'textarea_base', 'placeholder' => 'Напишите текст Вашего поста'])
                     ->label(false) ?>
 
             </div>

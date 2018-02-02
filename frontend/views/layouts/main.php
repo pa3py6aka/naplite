@@ -29,7 +29,7 @@ AppAsset::register($this);
         <div class="top_panel">
             <div class="top_panel_left">
                 <ul>
-                    <li><a href="<?= Url::to(['/recipes/index']) ?>"><i class="fa fa-cutlery"></i>Рецепты</a></li>
+                    <li><a href="<?= Url::to(['/category/view']) ?>"><i class="fa fa-cutlery"></i>Рецепты</a></li>
                     <li class="space"></li>
                     <li><a href="<?= Url::to(['/articles/index']) ?>"><i class="fa fa-info-circle"></i>Статьи</a></li>
                     <li class="space"></li>
@@ -82,9 +82,9 @@ AppAsset::register($this);
         <div class="top_bottom">
             <div class="top_bottom_left"><a href="/"><img src="/img/logo.png" width="282" height="64" alt=""/></a></div>
             <div class="top_bottom_center">
-                <form action="sdfgsdfg.php" method="post">
+                <form action="sdfgsdfg.php" method="post" id="mainSearchForm">
                     <div class="top_bottom_center_inner">
-                        <div class="top_bottom_center_inner_left"><input type="text" placeholder="Поиск рецепта..." /></div>
+                        <div class="top_bottom_center_inner_left"><input name="q" type="text" placeholder="Поиск рецепта..." /></div>
                         <div class="top_bottom_center_inner_right"><a href="#"><i class="fa fa-search"></i><span class="hidden740">Найти</span><span class="hidden1260"> рецепт</span></a></div>
                     </div>
                 </form>
@@ -105,7 +105,7 @@ AppAsset::register($this);
             <a href="#"><i class="fa fa-bars"></i></a>
             <span class="adaptive_top_menu">
 				<ul>
-					<li><a href="<?= Url::to(['/recipes/index']) ?>">Рецепты</a></li>
+					<li><a href="<?= Url::to(['/category/view']) ?>">Рецепты</a></li>
 					<li><a href="<?= Url::to(['/articles/index']) ?>">Статьи</a></li>
 					<li><a href="#">Кухни мира</a></li>
 					<li><a href="<?= Url::to(['/ingredients/index']) ?>">Ингредиенты</a></li>

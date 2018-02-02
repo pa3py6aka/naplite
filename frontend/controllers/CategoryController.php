@@ -17,12 +17,12 @@ class CategoryController extends Controller
         $this->repository = $repository;
     }
 
-    public function actionView($slug)
+    public function actionView($slug = 'root')
     {
         $category = $this->repository->getBySlug($slug);
         $recipesProvider = $this->repository->getRecipesProviderByCategory($category);
 
-        if ($category->depth == 1) {
+        if ($category->depth <= 1) {
             return $this->render('category-base', [
                 'category' => $category,
                 'recipesProvider' => $recipesProvider,

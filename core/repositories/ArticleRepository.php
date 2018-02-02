@@ -41,7 +41,7 @@ class ArticleRepository
 
         return new ActiveDataProvider([
             'query' => $query,
-            'pagination' => ['pageSize' => 1, 'defaultPageSize' => 1],
+            'pagination' => ['pageSize' => 3, 'defaultPageSize' => 3], //ToDO: Количество статей на странице
             'sort' => ['defaultOrder' => ['id' => SORT_DESC]]
         ]);
     }

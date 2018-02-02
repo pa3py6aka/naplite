@@ -7,6 +7,7 @@ use widgets\IngredientsBlockWidget;
 use widgets\RecipeThemesWidget;
 use widgets\SocialBlockWidget;
 use widgets\TopArticlesSliderWidget;
+use yii\helpers\Url;
 
 /* @var $this yii\web\View */
 /* @var $recipes \core\entities\Recipe\Recipe[]|array */
@@ -35,15 +36,15 @@ $this->title = 'На плите! Кулинарные рецепты на люб
     <div class="th_2col">
         <div class="th_2col_left"><h2>Новые рецепты</h2></div>
         <div class="th_2col_right th_2col_links">
-            <a href="#" class="icobox">
+            <a href="<?= Url::to(['/category/view']) ?>" class="icobox">
                 <span class="icobox_left"><i class="fa fa-folder-open"></i></span>
                 <span class="icobox_right">Рубрикатор рецептов</span>
             </a>
-            <a href="#" class="icobox">
+            <a href="javascript:void(0)" class="icobox">
                 <span class="icobox_left"><i class="fa fa-cubes"></i></span>
                 <span class="icobox_right">Подобрать рецепт</span>
             </a>
-            <a href="#" class="icobox">
+            <a href="javascript:void(0)" class="icobox" data-link="goToSearch">
                 <span class="icobox_left"><i class="fa fa-search"></i></span>
                 <span class="icobox_right">Поиск<span class="hidden1260"> рецептов</span></span>
             </a>
@@ -55,7 +56,7 @@ $this->title = 'На плите! Кулинарные рецепты на люб
         <?php endforeach; ?>
     </ul>
     <div class="cb tac">
-        <a href="javascript:void(0)" class="b_brown b_shadow"><i class="fa fa-refresh"></i>Показать больше рецептов</a>
+        <a href="<?= Url::to(['/category/view']) ?>" class="b_brown b_shadow"><i class="fa fa-refresh"></i>Показать больше рецептов</a>
     </div>
     <div class="p40"></div>
 

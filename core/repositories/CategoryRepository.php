@@ -31,16 +31,20 @@ class CategoryRepository
 
     public function getRecipesProviderByCategory(Category $category): ActiveDataProvider
     {
-        $categories = $category->getDescendants()->all();
-        $categoriesIds = [$category->id];
-        foreach ($categories as $child) {
-            $categoriesIds[] = $child->id;
+        $query = Recipe::find()->active()->with('author');
+
+        if ($category->depth > 0) {
+            $categories = $category->getDescendants()->all();
+            $categoriesIds = [$category->id];
+            foreach ($categories as $child) {
+                $categoriesIds[] = $child->id;
+            }
+            $query->andWhere(['category_id' => $categoriesIds]);
         }
+
         return new ActiveDataProvider([
-            'query' => Recipe::find()
-                ->active()
-                ->andWhere(['category_id' => $categoriesIds]),
-            'pagination' => ['pageSize' => 1, 'defaultPageSize' => 1],
+            'query' => $query,
+            'pagination' => ['pageSize' => 3, 'defaultPageSize' => 3], //ToDO: Количество рецептов на странице
             'sort' => ['defaultOrder' => ['id' => SORT_DESC]]
         ]);
     }

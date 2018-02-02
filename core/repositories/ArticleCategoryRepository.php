@@ -34,22 +34,6 @@ class ArticleCategoryRepository
         return ArticleCategory::find()->all();
     }
 
-    public function getArticleProviderByCategory(ArticleCategory $category): ActiveDataProvider
-    {
-        $categories = $category->getDescendants()->all();
-        $categoriesIds = [$category->id];
-        foreach ($categories as $child) {
-            $categoriesIds[] = $child->id;
-        }
-        return new ActiveDataProvider([
-            'query' => Article::find()
-                ->active()
-                ->where(['category_id' => $categoriesIds]),
-            'pagination' => ['pageSize' => 1, 'defaultPageSize' => 1],
-            'sort' => ['defaultOrder' => ['id' => SORT_DESC]]
-        ]);
-    }
-
     public function save(ArticleCategory $category): void
     {
         if (!$category->save()) {

@@ -36,21 +36,6 @@ class IngredientCategoryRepository
         return IngredientCategory::find()->all();
     }
 
-    public function getIngredientProviderByCategory(IngredientCategory $category): ActiveDataProvider
-    {
-        $categories = $category->getDescendants()->all();
-        $categoriesIds = [$category->id];
-        foreach ($categories as $child) {
-            $categoriesIds[] = $child->id;
-        }
-        return new ActiveDataProvider([
-            'query' => Ingredient::find()
-                ->where(['category_id' => $categoriesIds]),
-            'pagination' => ['pageSize' => 1, 'defaultPageSize' => 1],
-            'sort' => ['defaultOrder' => ['id' => SORT_DESC]]
-        ]);
-    }
-
     public function save(IngredientCategory $category): void
     {
         if (!$category->save()) {

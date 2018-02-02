@@ -56,6 +56,9 @@ class Category extends ActiveRecord
 
     public function getHeadingTile()
     {
+        if ($this->depth == 0) {
+            return "Рецепты";
+        }
         return $this->title ?: $this->name;
     }
 
@@ -76,7 +79,7 @@ class Category extends ActiveRecord
                 }
             }
         }
-        return Yii::$app->params['frontendHostInfo'] . '/img/bg_dashed.png';
+        return Yii::$app->params['frontendHostInfo'] . '/img/ico-cutlery.png';
     }
 
     private function getIconName($slug = null)

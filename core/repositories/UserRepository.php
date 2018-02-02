@@ -27,7 +27,7 @@ class UserRepository
             'query' => Recipe::find()
                 ->active()
                 ->andWhere(['author_id' => $id]),
-            'pagination' => ['pageSize' => 1, 'defaultPageSize' => 1],
+            'pagination' => ['pageSize' => 3, 'defaultPageSize' => 3], //ToDO: Количество рецептов на странице у пользователя
             'sort' => ['defaultOrder' => ['id' => SORT_DESC]]
         ]);
     }

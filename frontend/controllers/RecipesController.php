@@ -63,6 +63,11 @@ class RecipesController extends Controller
         ];
     }
 
+    public function actionIndex()
+    {
+        return $this->render('');
+    }
+
     public function actionNew()
     {
         $form = new RecipeForm();
@@ -131,11 +136,6 @@ class RecipesController extends Controller
             'photoReports' => $photoReports,
             'isFavorite' => $isFavorite,
         ]);
-    }
-
-    public function actionIndex()
-    {
-        throw new UserException("Страница не найдена в вёрстке");
     }
 
     public function actionRate()
