@@ -18,7 +18,7 @@ class WeightSearch extends Weight
     public function rules()
     {
         return [
-            [['id', 'glass250', 'glass200', 'spoon_big', 'spoon_tea', 'piece'], 'integer'],
+            [['id', 'glass250', 'glass200', 'spoon_big', 'spoon_tea', 'piece'], 'safe'],
             [['name'], 'safe'],
         ];
     }
@@ -52,11 +52,10 @@ class WeightSearch extends Weight
 
         $this->load($params);
 
-        if (!$this->validate()) {
-            // uncomment the following line if you do not want to return any records when validation fails
-            // $query->where('0=1');
+        /*if (!$this->validate()) {
+            $query->where('0=1');
             return $dataProvider;
-        }
+        }*/
 
         // grid filtering conditions
         $query->andFilterWhere([
