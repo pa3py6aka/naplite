@@ -3,7 +3,7 @@
 namespace core\services\manage;
 
 
-use core\entities\Category;
+use core\entities\Recipe\Category;
 use core\forms\manage\CategoryForm;
 use core\repositories\CategoryRepository;
 

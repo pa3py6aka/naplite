@@ -4,7 +4,6 @@ namespace backend\forms;
 
 
 use core\entities\Article\ArticleCategory;
-use core\entities\Category;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 
