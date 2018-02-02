@@ -37,7 +37,7 @@ class ModalAlertWidget extends Widget
         }
     }
 
-    private function showModal(string $message, string $title)
+    private function showModal(string $message, $title = '')
     {
         $js = <<<JS
     NaPlite.public.messageModal('{$title}', '{$message}');
