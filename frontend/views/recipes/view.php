@@ -226,15 +226,7 @@ $this->title = Html::encode($recipe->name);
                 </div>
             <?php else: ?>
                 <?php foreach ($photoReports as $photoReport): ?>
-                    <li>
-                        <a href="<?= $photoReport->getImageUrl(false) ?>"  data-lightbox="image-<?= $photoReport->id ?>">
-                            <span class="photoreport_stat">
-                                <span class="userpick_photo"><img src="<?= $photoReport->user->avatarUrl ?>" alt="<?= $photoReport->user->fullName ?>"/></span>
-                                <span class="userpick_name"><?= $photoReport->user->fullName ?></span>
-                            </span>
-                            <img src="<?= $photoReport->imageUrl ?>" width="300" height="200" alt="<?= Html::encode($recipe->name) ?>"/>
-                        </a>
-                    </li>
+                    <?= $this->render('@frontend/views/photo-reports/report-item', ['report' => $photoReport]) ?>
                 <?php endforeach; ?>
             <?php endif; ?>
         </ul>

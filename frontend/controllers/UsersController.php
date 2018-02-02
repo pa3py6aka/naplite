@@ -10,6 +10,7 @@ use core\forms\User\ChangePasswordForm;
 use core\forms\User\UserSettingsForm;
 use core\repositories\BlogRepository;
 use core\repositories\CategoryRepository;
+use core\repositories\PhotoReportsRepository;
 use core\repositories\RecipeRepository;
 use core\repositories\UserRepository;
 use core\services\UserService;
@@ -46,7 +47,7 @@ class UsersController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'except' => ['view', 'recipes', 'cookbook', 'posts'],
+                'except' => ['view', 'recipes', 'cookbook', 'posts', 'photos'],
                 'rules' => [
                     [
                         'allow' => true,
@@ -159,6 +160,17 @@ class UsersController extends Controller
         $provider = (new BlogRepository())->getUserBlogs($id);
 
         return $this->render('posts', [
+            'user' => $user,
+            'provider' => $provider,
+        ]);
+    }
+
+    public function actionPhotos($id)
+    {
+        $user = $this->userRepository->get($id);
+        $provider = (new PhotoReportsRepository())->getUserPhotos($id);
+
+        return $this->render('photos', [
             'user' => $user,
             'provider' => $provider,
         ]);
