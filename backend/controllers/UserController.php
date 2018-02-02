@@ -26,17 +26,6 @@ class UserController extends Controller
     public function behaviors()
     {
         return [
-            'access' => [
-                'class' => AccessControl::className(),
-                'only' => ['assign'],
-                'rules' => [
-                    [
-                        'actions' => ['assign'],
-                        'allow' => true,
-                        'roles' => [Rbac::ROLE_ADMIN],
-                    ],
-                ],
-            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [

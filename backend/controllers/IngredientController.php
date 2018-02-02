@@ -2,6 +2,7 @@
 
 namespace backend\controllers;
 
+use core\access\Rbac;
 use core\forms\manage\IngredientManageForm;
 use core\repositories\IngredientRepository;
 use core\services\manage\IngredientManageService;
@@ -9,6 +10,7 @@ use Yii;
 use core\entities\Ingredient\Ingredient;
 use backend\forms\IngredientSearch;
 use yii\base\Module;
+use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -40,6 +42,15 @@ class IngredientController extends Controller
     public function behaviors()
     {
         return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'rules' => [
+                    [
+                        'allow' => true,
+                        'roles' => [Rbac::ROLE_ADMIN]
+                    ]
+                ],
+            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
