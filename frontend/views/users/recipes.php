@@ -17,7 +17,7 @@ use yii\widgets\Pjax;
 /* @var $user \core\entities\User\User */
 /* @var $userCategories \core\entities\Recipe\Category[] */
 
-$this->title = $user->fullName . ' | Кулинарная книга';
+$this->title = $user->fullName . ' | Рецепты';
 $this->title .= $category ? ' | ' .$category->getHeadingTile() : '';
 ?>
 <div class="content_left">
@@ -27,7 +27,7 @@ $this->title .= $category ? ' | ' .$category->getHeadingTile() : '';
         </div>
         <div class="th_parent_top">
             <div class="th_parent_top_ico"><i class="fa fa-book"></i></div>
-            <div class="th_parent_top_text"><h1>Кулинарная книга</h1></div>
+            <div class="th_parent_top_text"><h1>Рецепты автора</h1></div>
         </div>
     </div>
     <div class="cb"></div>
@@ -65,7 +65,7 @@ $this->title .= $category ? ' | ' .$category->getHeadingTile() : '';
                         <?php foreach ($userCategories as $userCategory): ?>
                             <option
                                     value="<?= Url::to([
-                                        '/users/cookbook',
+                                        '/users/recipes',
                                         'id' => $user->id,
                                         'category' => $userCategory->slug,
                                     ]) ?>"

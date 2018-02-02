@@ -45,7 +45,7 @@ class UsersController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'except' => ['view'],
+                'except' => ['view', 'recipes', 'cookbook'],
                 'rules' => [
                     [
                         'allow' => true,
@@ -109,22 +109,45 @@ class UsersController extends Controller
         ]);
     }
 
-    public function actionCookbook($category = null)
+    public function actionCookbook($id, $category = null)
     {
-        $userId = Yii::$app->user->id;
+        $user = $this->userRepository->get($id);
         $category = $category ? (new CategoryRepository())->getBySlug($category) : null;
-        $provider = $this->recipeRepository->getUserFavoriteRecipes($userId, $category);
+        $provider = $this->recipeRepository->getUserFavoriteRecipes($user->id, $category);
         $userCategories = Category::find()
             ->alias('c')
             ->leftJoin('{{%recipes}} r', 'r.category_id=c.id')
             ->leftJoin('{{%user_recipes}} ur', 'ur.recipe_id=r.id')
-            ->andWhere(['ur.user_id' => $userId, 'r.status' => Recipe::STATUS_ACTIVE])
+            ->andWhere(['ur.user_id' => $user->id, 'r.status' => Recipe::STATUS_ACTIVE])
             ->all();
 
         return $this->render('cookbook', [
             'provider' => $provider,
             'category' => $category,
-            'userId' => $userId,
+            'user' => $user,
+            'userCategories' => $userCategories,
+        ]);
+    }
+
+    public function actionRecipes($id, $category = null)
+    {
+        $user = $this->userRepository->get($id);
+        $category = $category ? (new CategoryRepository())->getBySlug($category) : null;
+        $provider = $this->recipeRepository->getUserRecipes($user->id, $category);
+
+        $userCategories = Category::find()
+            ->alias('c')
+            ->leftJoin('{{%recipes}} r', 'r.category_id=c.id')
+            ->andWhere(['r.author_id' => $user->id]);
+        if (Yii::$app->user->id != $user->id) {
+            $userCategories->andWhere(['r.status' => Recipe::STATUS_ACTIVE]);
+        }
+        $userCategories = $userCategories->all();
+
+        return $this->render('recipes', [
+            'provider' => $provider,
+            'category' => $category,
+            'user' => $user,
             'userCategories' => $userCategories,
         ]);
     }

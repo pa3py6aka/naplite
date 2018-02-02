@@ -8,6 +8,7 @@ use core\entities\Recipe\IngredientSection;
 use core\entities\Recipe\Recipe;
 use core\entities\Recipe\RecipeHoliday;
 use core\entities\User\UserRecipe;
+use Yii;
 use yii\data\ActiveDataProvider;
 
 class RecipeRepository
@@ -45,6 +46,7 @@ class RecipeRepository
     {
         $query = Recipe::find()
             ->alias('r')
+            ->with('author')
             ->leftJoin(UserRecipe::tableName() . ' ur', 'ur.recipe_id=r.id')
             ->andWhere(['ur.user_id' => $userId])
             ->active('r');
@@ -65,17 +67,28 @@ class RecipeRepository
         ]);
     }
 
-    public function getUserRecipes($userId): ActiveDataProvider
+    public function getUserRecipes($userId, Category $category = null): ActiveDataProvider
     {
         $query = Recipe::find()
-            ->alias('r')
-            ->leftJoin(UserRecipe::tableName() . ' ur', 'ur.user_id=r.id')
-            ->active()
-            ->andWhere(['r.author_id' => $userId]);
+            ->with('author')
+            ->andWhere(['author_id' => $userId]);
+
+        if (Yii::$app->user->id != $userId) {
+            $query->active();
+        }
+
+        if ($category && $category->depth > 0) {
+            $categories = $category->getDescendants()->all();
+            $categoriesIds = [$category->id];
+            foreach ($categories as $child) {
+                $categoriesIds[] = $child->id;
+            }
+            $query->andWhere(['category_id' => $categoriesIds]);
+        }
 
         return new ActiveDataProvider([
             'query' => $query,
-            'pagination' => ['pageSize' => 3, 'defaultPageSize' => 3], //ToDO: Количество рецептов пользователя
+            'pagination' => ['pageSize' => 3, 'defaultPageSize' => 3], //ToDO: Количество рецептов юзера
             'sort' => ['defaultOrder' => ['id' => SORT_DESC]]
         ]);
     }

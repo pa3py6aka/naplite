@@ -1101,4 +1101,9 @@ span.cke_button__emojione_icon {
 .sidebar-collection > a:last-child {margin-bottom:0;}
 .socials_content {background: #ffffff !important;padding-top:0 !important;}
 .socials_tabs_active::after {z-index:10;}
-
+.direct a {color:#322d2b;text-decoration:none;display:inline-block;}
+.direct_rasp {display:inline-block;width:20px;}
+@media screen and (max-device-width:768px), screen and (max-width:768px) {
+	.direct a {display:block;}
+	.direct_rasp {display:block;}
+}
