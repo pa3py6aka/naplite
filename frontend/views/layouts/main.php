@@ -82,12 +82,19 @@ AppAsset::register($this);
         <div class="top_bottom">
             <div class="top_bottom_left"><a href="/"><img src="/img/logo.png" width="282" height="64" alt=""/></a></div>
             <div class="top_bottom_center">
-                <form action="sdfgsdfg.php" method="post" id="mainSearchForm">
+                <?= Html::beginForm(['/search/index'], 'get', ['id' => 'mainSearchForm']) ?>
                     <div class="top_bottom_center_inner">
-                        <div class="top_bottom_center_inner_left"><input name="q" type="text" placeholder="Поиск рецепта..." /></div>
-                        <div class="top_bottom_center_inner_right"><a href="#"><i class="fa fa-search"></i><span class="hidden740">Найти</span><span class="hidden1260"> рецепт</span></a></div>
+                        <div class="top_bottom_center_inner_left">
+                            <input name="q" type="text" placeholder="Поиск рецепта..." value="<?= Yii::$app->request->get('q', '') ?>"/>
+                        </div>
+                        <div class="top_bottom_center_inner_right">
+                            <a href="javascript:void(0)" data-link="main-search-link" data-type="main">
+                                <i class="fa fa-search"></i>
+                                <span class="hidden740">Найти</span><span class="hidden1260"> рецепт</span>
+                            </a>
+                        </div>
                     </div>
-                </form>
+                <?= Html::endForm() ?>
             </div>
             <div class="top_bottom_right">
                 Добавьте свой рецепт!
@@ -146,12 +153,19 @@ AppAsset::register($this);
         </div>
     </div>
     <div class="top_adaptive_bottom">
-        <form action="sdfgsdfg.php" method="post">
+        <?= Html::beginForm(['/search/index'], 'get', ['id' => 'mainSearchFormAdaptive']) ?>
             <div class="top_bottom_center_inner">
-                <div class="top_bottom_center_inner_left"><input type="text" placeholder="Поиск рецепта..." /></div>
-                <div class="top_bottom_center_inner_right"><a href="#"><i class="fa fa-search"></i><span class="hidden740">Найти</span><span class="hidden1260"> рецепт</span></a></div>
+                <div class="top_bottom_center_inner_left">
+                    <input name="q" type="text" placeholder="Поиск рецепта..." value="<?= Yii::$app->request->get('q', '') ?>"/>
+                </div>
+                <div class="top_bottom_center_inner_right">
+                    <a href="javascript:void(0)" data-link="main-search-link" data-type="adaptive">
+                        <i class="fa fa-search"></i>
+                        <span class="hidden740">Найти</span><span class="hidden1260"> рецепт</span>
+                    </a>
+                </div>
             </div>
-        </form>
+        <?= Html::endForm() ?>
     </div>
 </div>
 <div class="top_menu_outer">

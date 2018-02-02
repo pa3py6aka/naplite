@@ -86,6 +86,11 @@ NaPlite = (function () {
             $form.find('input[name=q]').focus();
         });
 
+        $('[data-link="main-search-link"]').on('click', function () {
+            var $form = $(this).attr('data-type') === 'main' ? $('#mainSearchForm') : $('#mainSearchFormAdaptive');
+            $form.submit();
+        });
+
         /* Пока только для категорий */
         $(document).on('change', 'select[name=sort-selector]', function (e) {
             var url = $(this).val(),

@@ -7,6 +7,7 @@ use core\entities\Recipe\IngredientSection;
 use core\entities\Recipe\Recipe;
 use core\entities\Recipe\RecipeHoliday;
 use core\entities\User\UserRecipe;
+use yii\data\ActiveDataProvider;
 
 class RecipeRepository
 {
@@ -16,6 +17,22 @@ class RecipeRepository
             throw new NotFoundException('Рецепт не найден.');
         }
         return $recipe;
+    }
+
+    public function findRecipes(string $search): ActiveDataProvider
+    {
+        $query = Recipe::find()->active()->andWhere([
+            'or',
+            ['like', 'name', $search],
+            ['like', 'introductory_text', $search],
+            ['like', 'notes', $search]
+        ]);
+
+        return new ActiveDataProvider([
+            'query' => $query,
+            'pagination' => ['pageSize' => 3, 'defaultPageSize' => 3], //ToDO: Количество рецептов на странице поиска
+            'sort' => ['defaultOrder' => ['id' => SORT_DESC]]
+        ]);
     }
 
     public function getUserRecipe($userId, $recipeId): ?UserRecipe
