@@ -36,13 +36,13 @@ $this->title = $user->fullName . ' | ' . Yii::$app->name;
                         </div>
                         <span class="userpage_city"><?= UserHelper::getResidency($user) ?></span>
                         <span class="userpage_stat">
-									<span class="userpage_stat_left"><i class="fa fa-graduation-cap"></i><?= $user->experience->name ?></span>
-									<span class="userpage_stat_right">
-                                        <a href="javascript:void(0)" class="link_red" data-link="to-recipes-block">
-                                            <?= Pluralize::get($recipesProvider->totalCount, 'рецепт', 'рецепта', 'рецептов') ?>
-                                        </a>
-                                    </span>
-								</span>
+                            <span class="userpage_stat_left"><i class="fa fa-graduation-cap"></i><?= $user->experience->name ?></span>
+                            <span class="userpage_stat_right">
+                                <a href="javascript:void(0)" class="link_red" data-link="to-recipes-block">
+                                    <?= Pluralize::get($recipesProvider->totalCount, 'рецепт', 'рецепта', 'рецептов') ?>
+                                </a>
+                            </span>
+                        </span>
                         <span class="userpage_about_user"><?= Html::encode($user->about) ?></span>
                     </div>
                     <div class="userpage_info_left_inner_right">
@@ -55,14 +55,16 @@ $this->title = $user->fullName . ' | ' . Yii::$app->name;
             <div class="userpage_info_right">
                 <ul>
                     <li><b class="f16">Личная страница</b></li>
-                    <li><a href="javascript:void(0)">Все рецепты автора</a></li>
-                    <li><a href="javascript:void(0)">Кулинарная книга</a></li>
-                    <li><a href="javascript:void(0)">Публикации в форуме</a></li>
+                    <li><a href="<?= Url::to(['/users/recipes', 'id' => $user->id]) ?>">Все рецепты автора</a></li>
+                    <li><a href="<?= Url::to(['/users/cookbook', 'id' => $user->id]) ?>">Кулинарная книга</a></li>
+                    <li><a href="<?= Url::to(['/users/posts', 'id' => $user->id]) ?>">Публикации в форуме</a></li>
+                    <li><a href="<?= Url::to(['/users/photos', 'id' => $user->id]) ?>">Фотоотчёты</a></li>
                 </ul>
+                <!-- ToDo: Добавление в друзья и личные сообщения
                 <div class="content_buttons_box">
                     <a href="javascript:void(0)" class="b_gray"><i class="fa fa-plus-circle"></i>Добавить в друзья</a>
                     <a href="javascript:void(0)" class="b_gray"><i class="fa fa-envelope"></i>Написать письмо</a>
-                </div>
+                </div>-->
             </div>
         </div>
     </div>
