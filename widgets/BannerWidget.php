@@ -3,6 +3,7 @@
 namespace widgets;
 
 
+use Yii;
 use yii\base\InvalidConfigException;
 use yii\base\Widget;
 use yii\helpers\Html;
@@ -10,6 +11,7 @@ use yii\helpers\Html;
 class BannerWidget extends Widget
 {
     public $type;
+    public $bannerId;
 
     const TYPE_RIGHT = 'right_banner';
 
@@ -22,13 +24,16 @@ class BannerWidget extends Widget
 
     public function run()
     {
-        $width = $this->type == self::TYPE_RIGHT ? '240' : '';
-        $height = $this->type == self::TYPE_RIGHT ? '400' : '';
+        //echo $this->bannerId . '_show<br>';
+        //echo Yii::$app->settings->get($this->bannerId . '_show');exit;
+        if (!Yii::$app->settings->get($this->bannerId . '_show')) {
+            return '';
+        }
 
         return Html::a(
-            Html::img('/img/banner-naplite.jpg', ['width' => $width, 'height' => $height]),
+            Yii::$app->settings->get($this->bannerId),
             'javascript:void(0)',
             ['class' => $this->type]
-        );
+        ) . '<div class="p40"></div>';
     }
 }

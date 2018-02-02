@@ -244,8 +244,7 @@ $this->title = Html::encode($recipe->name);
 </div>
 <div class="content_right">
     <?php //ToDo сделать вывод баннера актуального праздника на данный момент ?>
-    <?= BannerWidget::widget(['type' => BannerWidget::TYPE_RIGHT]) ?>
-    <div class="p40"></div>
+    <?= BannerWidget::widget(['type' => BannerWidget::TYPE_RIGHT, 'bannerId' => 'bannerSimple1']) ?>
 
     <?= BestChefsWidget::widget() ?>
     <div class="p40"></div>

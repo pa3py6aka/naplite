@@ -164,7 +164,7 @@ $this->title = "Настройки аккаунта";
             <li><a href="javascript:void(0)" class="right_menu_active">Настройки</a></li>
         </ul>
     </div>
-    <?= BannerWidget::widget(['type' => BannerWidget::TYPE_RIGHT]) ?>
+    <?= BannerWidget::widget(['type' => BannerWidget::TYPE_RIGHT, 'bannerId' => 'bannerSimple1']) ?>
 </div>
 
 <?= $this->render('change-password-modal', ['model' => $changePasswordModel]) ?>

@@ -184,7 +184,8 @@ AppAsset::register($this);
 <div class="footer">
     <div class="wrap">
         <div class="footer_top">
-            <div class="footer_col">
+            <?= Yii::$app->settings->get('footer') ?>
+            <!--<div class="footer_col">
                 <b><a href="#">Закуски</a></b>
                 <a href="#">Бутерброды</a>
                 <a href="#">Горячие</a>
@@ -320,10 +321,10 @@ AppAsset::register($this);
                 <a href="#">Правила разделки тушек</a>
                 <a href="#">Правила очистки овощей</a>
                 <a href="#">Способы нарезки</a>
-            </div>
+            </div>-->
         </div>
         <div class="footer_bottom">
-            <div class="footer_bottom_left">&copy;2017 na-plite.ru</div>
+            <div class="footer_bottom_left">&copy;2018<?= date('Y') > 2018 ? ' - ' . date('Y') : '' ?> na-plite.ru</div>
             <div class="footer_bottom_center"><a href="#">Обратная связь с администрацией</a></div>
             <div class="footer_bottom_right">
                 Разработка сайта &mdash; <a href="http://www.alexey-popov.com/" target="_blank">Алексей Попов</a>

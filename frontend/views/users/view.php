@@ -90,8 +90,7 @@ $this->title = $user->fullName . ' | ' . Yii::$app->name;
     <?= ForumBlockWidget::widget() ?>
 </div>
 <div class="content_right">
-    <?= BannerWidget::widget(['type' => BannerWidget::TYPE_RIGHT]) ?>
-    <div class="p40"></div>
+    <?= BannerWidget::widget(['type' => BannerWidget::TYPE_RIGHT, 'bannerId' => 'bannerSimple1']) ?>
 
     <?= SocialBlockWidget::widget() ?>
     <div class="p40"></div>

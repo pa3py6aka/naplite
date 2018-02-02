@@ -72,8 +72,7 @@ $this->title = Html::encode($blog->title);
 
     <?= BlogCategoriesWidget::widget(['activeCategory' => $blog->category]) ?>
 
-    <?= BannerWidget::widget(['type' => BannerWidget::TYPE_RIGHT]) ?>
-    <div class="p40"></div>
+    <?= BannerWidget::widget(['type' => BannerWidget::TYPE_RIGHT, 'bannerId' => 'bannerSimple1']) ?>
 
     <?= BestChefsWidget::widget() ?>
     <div class="p40"></div>

@@ -66,14 +66,12 @@ $this->title = 'На плите! Кулинарные рецепты на люб
     <?= IngredientsBlockWidget::widget() ?>
 </div>
 <div class="content_right">
-    <?= BannerWidget::widget(['type' => BannerWidget::TYPE_RIGHT]) ?>
-    <div class="p40 hidden740"></div>
+    <?= BannerWidget::widget(['type' => BannerWidget::TYPE_RIGHT, 'bannerId' => 'bannerSimple1']) ?>
 
     <?= SocialBlockWidget::widget() ?>
     <div class="p40"></div>
 
-    <?= BannerWidget::widget(['type' => BannerWidget::TYPE_RIGHT]) ?>
-    <div class="p40"></div>
+    <?= BannerWidget::widget(['type' => BannerWidget::TYPE_RIGHT, 'bannerId' => 'bannerSimple2']) ?>
 
     <?= RecipeThemesWidget::widget() ?>
 </div>

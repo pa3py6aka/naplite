@@ -46,8 +46,7 @@ $this->title = Html::encode($ingredient->title);
 
 </div>
 <div class="content_right">
-    <?= BannerWidget::widget(['type' => BannerWidget::TYPE_RIGHT]) ?>
-    <div class="p40"></div>
+    <?= BannerWidget::widget(['type' => BannerWidget::TYPE_RIGHT, 'bannerId' => 'bannerSimple1']) ?>
 
     <?= BestChefsWidget::widget() ?>
     <div class="p40"></div>
