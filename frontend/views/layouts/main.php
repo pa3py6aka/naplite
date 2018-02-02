@@ -68,7 +68,7 @@ AppAsset::register($this);
 								<li><a href="<?= Url::to(['/users/cookbook', 'id' => Yii::$app->user->id]) ?>"><i class="fa fa-book"></i>Кулинарная книга</a></li>
 								<!--<li><a href="#"><i class="fa fa-envelope"></i>Сообщения</a></li>-->
 								<li><a href="<?= Url::to(['/users/recipes', 'id' => Yii::$app->user->id]) ?>"><i class="fa fa-cutlery"></i>Мои рецепты</a></li>
-								<li><a href="#"><i class="fa fa-comment"></i>Мои посты</a></li>
+								<li><a href="<?= Url::to(['/users/posts', 'id' => Yii::$app->user->id]) ?>"><i class="fa fa-comment"></i>Мои посты</a></li>
 								<li><a href="#"><i class="fa fa-photo"></i>Мои фотоотчеты</a></li>
 								<li><a href="<?= Url::to(['/users/settings']) ?>"><i class="fa fa-gear"></i>Настройки</a></li>
 								<li><a href="<?= Url::to(['/auth/logout']) ?>" data-method="post"><i class="fa fa-sign-out"></i>Выйти</a></li>
@@ -138,7 +138,7 @@ AppAsset::register($this);
                                             <li><a href="<?= Url::to(['/users/cookbook', 'id' => Yii::$app->user->id]) ?>"><i class="fa fa-book"></i>Кулинарная книга</a></li>
                                             <!--<li><a href="#"><i class="fa fa-envelope"></i>Сообщения</a></li>-->
                                             <li><a href="<?= Url::to(['/users/recipes', 'id' => Yii::$app->user->id]) ?>"><i class="fa fa-cutlery"></i>Мои рецепты</a></li>
-                                            <li><a href="#"><i class="fa fa-comment"></i>Мои посты</a></li>
+                                            <li><a href="<?= Url::to(['/users/posts', 'id' => Yii::$app->user->id]) ?>"><i class="fa fa-comment"></i>Мои посты</a></li>
                                             <li><a href="#"><i class="fa fa-photo"></i>Мои фотоотчеты</a></li>
                                             <li><a href="<?= Url::to(['/users/settings']) ?>"><i class="fa fa-gear"></i>Настройки</a></li>
                                             <li><a href="<?= Url::to(['/auth/logout']) ?>" data-method="post"><i class="fa fa-sign-out"></i>Выйти</a></li>

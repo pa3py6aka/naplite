@@ -8,6 +8,7 @@ use core\entities\Recipe\Category;
 use core\entities\Recipe\Recipe;
 use core\forms\User\ChangePasswordForm;
 use core\forms\User\UserSettingsForm;
+use core\repositories\BlogRepository;
 use core\repositories\CategoryRepository;
 use core\repositories\RecipeRepository;
 use core\repositories\UserRepository;
@@ -45,7 +46,7 @@ class UsersController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'except' => ['view', 'recipes', 'cookbook'],
+                'except' => ['view', 'recipes', 'cookbook', 'posts'],
                 'rules' => [
                     [
                         'allow' => true,
@@ -149,6 +150,17 @@ class UsersController extends Controller
             'category' => $category,
             'user' => $user,
             'userCategories' => $userCategories,
+        ]);
+    }
+
+    public function actionPosts($id)
+    {
+        $user = $this->userRepository->get($id);
+        $provider = (new BlogRepository())->getUserBlogs($id);
+
+        return $this->render('posts', [
+            'user' => $user,
+            'provider' => $provider,
         ]);
     }
 

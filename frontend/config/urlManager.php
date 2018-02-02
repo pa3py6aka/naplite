@@ -26,8 +26,8 @@ return [
         'forum/<category:[a-z0-9_-]+>/<post:[a-z0-9_-]+>/edit' => 'blog/edit',
 
         'id<id:\d+>' => 'users/view',
-        'id<id:\d+>/<_a:recipes|cookbook>/<category:[a-z0-9_-]+>' => 'users/<_a>',
-        'id<id:\d+>/<_a:recipes|cookbook>' => 'users/<_a>',
+        'id<id:\d+>/<_a:recipes|cookbook|posts>/<category:[a-z0-9_-]+>' => 'users/<_a>',
+        'id<id:\d+>/<_a:recipes|cookbook|posts>' => 'users/<_a>',
 
         '<_c:[\w\-]+>' => '<_c>/index',
         '<_c:[\w\-]+>/<id:\d+>' => '<_c>/view',

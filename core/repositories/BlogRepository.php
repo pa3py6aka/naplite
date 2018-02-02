@@ -68,6 +68,19 @@ class BlogRepository
         ]);
     }
 
+    public function getUserBlogs($userId): ActiveDataProvider
+    {
+        $query = Blog::find()
+            ->with('author', 'category')
+            ->andWhere(['author_id' => $userId]);
+
+        return new ActiveDataProvider([
+            'query' => $query,
+            'pagination' => ['pageSize' => 3, 'defaultPageSize' => 3], //ToDO: Количество постов на странице пользователя
+            'sort' => ['defaultOrder' => ['id' => SORT_DESC]]
+        ]);
+    }
+
     public static function getLast($count = 5)
     {
         return Blog::find()
