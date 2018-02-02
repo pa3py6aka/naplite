@@ -41,7 +41,7 @@ class ArticleCategoryManageService
             $form->description
         );
 
-        if ($form->parentId !== $category->parent->id) {
+        if ($form->parentId != $category->parent->id) {
             $parent = $this->categories->get($form->parentId);
             $category->appendTo($parent);
         }
