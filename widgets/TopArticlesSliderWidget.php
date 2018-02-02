@@ -11,7 +11,11 @@ class TopArticlesSliderWidget extends Widget
 {
     public function run()
     {
-        return $this->render('slider-block', ['items' => $this->getItems()]);
+        $items = $this->getItems();
+        if (count($items)) {
+            return $this->render('slider-block', ['items' => $this->getItems()]);
+        }
+        return '';
     }
 
     private function getItems()

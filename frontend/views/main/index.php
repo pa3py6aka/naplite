@@ -29,9 +29,11 @@ $this->title = 'На плите! Кулинарные рецепты на люб
         </ul>
     <?php endif; ?>
     <div class="cb"></div>
+
     <ul class="catalogue_ul">
         <?= TopArticlesSliderWidget::widget() ?>
     </ul>
+
     <div class="cb"></div>
     <div class="th_2col">
         <div class="th_2col_left"><h2>Новые рецепты</h2></div>
