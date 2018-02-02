@@ -33,7 +33,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 [
                     'label' => 'Выборка',
                     'value' => function (Collection $collection) {
-                        return $collection->category_id ? $collection->category->title : 'Ручная';
+                        return $collection->category_id ? $collection->category->name : 'Ручная';
                     },
                 ],
                 ['class' => \core\grid\manage\CollectionActionsColumn::class],

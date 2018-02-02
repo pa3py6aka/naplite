@@ -4,6 +4,7 @@ namespace core\repositories;
 
 
 use core\entities\Recipe\Collection\Collection;
+use core\entities\Recipe\Recipe;
 use yii\data\ActiveDataProvider;
 
 class CollectionRepository
@@ -40,8 +41,20 @@ class CollectionRepository
 
     public function getRecipesProvider(Collection $collection): ActiveDataProvider
     {
+        if ($collection->category_id) {
+            $categories = $collection->category->getDescendants()->all();
+            $categoriesIds = [$collection->category_id];
+            foreach ($categories as $child) {
+                $categoriesIds[] = $child->id;
+            }
+            $query = Recipe::find()->active()->andWhere(['category_id' => $categoriesIds]);
+        } else {
+            $query = $collection->getRecipes();
+        }
+        $query->with('author');
+
         return new ActiveDataProvider([
-            'query' => $collection->getRecipes()->with('author'),
+            'query' => $query,
             'pagination' => ['pageSize' => 1, 'defaultPageSize' => 1],
             'sort' => ['defaultOrder' => ['id' => SORT_DESC]]
         ]);
