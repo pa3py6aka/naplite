@@ -234,7 +234,7 @@ $this->title = Html::encode($recipe->name);
         <div class="p40"></div>
         <?php if (count($photoReports)): ?>
             <div class="cb tac">
-                <a href="#" class="b_white"><i class="fa fa-list"></i>Смотреть все фотоотчеты</a>
+                <a href="<?= Url::to(['/photo-reports/index']) ?>" class="b_white"><i class="fa fa-list"></i>Смотреть все фотоотчеты</a>
             </div>
         <?php endif; ?>
     </div>

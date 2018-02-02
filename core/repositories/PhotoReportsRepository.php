@@ -32,6 +32,15 @@ class PhotoReportsRepository
         ]);
     }
 
+    public function getPhotos(): ActiveDataProvider
+    {
+        return new ActiveDataProvider([
+            'query' => PhotoReport::find(),
+            'pagination' => ['pageSize' => 3, 'defaultPageSize' => 3], //ToDO: Количество фото на странице
+            'sort' => ['defaultOrder' => ['id' => SORT_DESC]]
+        ]);
+    }
+
     public function save(PhotoReport $report)
     {
         if (!$report->save(false)) {

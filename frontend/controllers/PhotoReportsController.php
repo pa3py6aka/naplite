@@ -6,14 +6,24 @@ namespace frontend\controllers;
 use core\access\Rbac;
 use core\entities\Recipe\PhotoReport;
 use core\forms\PhotoReportCreateForm;
+use core\repositories\PhotoReportsRepository;
 use core\services\TransactionManager;
 use Yii;
+use yii\base\Module;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
 use yii\web\Controller;
 
 class PhotoReportsController extends Controller
 {
+    private $repository;
+
+    public function __construct($id, Module $module, PhotoReportsRepository $repository, array $config = [])
+    {
+        parent::__construct($id, $module, $config);
+        $this->repository = $repository;
+    }
+
     public function behaviors()
     {
         return [
@@ -35,6 +45,13 @@ class PhotoReportsController extends Controller
                 ],
             ],
         ];
+    }
+
+    public function actionIndex()
+    {
+        $provider = $this->repository->getPhotos();
+
+        return $this->render('index', ['provider' => $provider]);
     }
 
     public function actionCreate()
