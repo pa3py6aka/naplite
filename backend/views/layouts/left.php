@@ -4,6 +4,8 @@ $menu = Yii::$app->user->can(\core\access\Rbac::ROLE_ADMIN) ?
         ['label' => 'Пользователи', 'icon' => 'user', 'url' => ['/user/index'], 'active' => $this->context->id == 'user'],
         ['label' => 'Меню рецептов', 'options' => ['class' => 'header']],
         ['label' => 'Рецепты', 'icon' => 'cutlery', 'url' => ['/recipe/index'], 'active' => $this->context->id == 'recipe'],
+        ['label' => 'Подборки', 'icon' => 'server', 'url' => ['/collection/index'], 'active' => $this->context->id == 'collection'],
+        ['label' => 'Фотоотчёты', 'icon' => 'photo', 'url' => ['/photo-report/index'], 'active' => $this->context->id == 'photo-report'],
         ['label' => 'Кухни мира', 'icon' => 'globe', 'url' => ['/kitchen/index'], 'active' => $this->context->id == 'kitchen'],
         ['label' => 'Категории', 'icon' => 'folder', 'url' => ['/category/index'], 'active' => $this->context->id == 'category'],
         ['label' => 'Праздники', 'icon' => 'bookmark', 'url' => ['/holiday/index'], 'active' => $this->context->id == 'holiday'],
@@ -23,7 +25,6 @@ $menu = Yii::$app->user->can(\core\access\Rbac::ROLE_ADMIN) ?
         ['label' => 'Категории', 'icon' => 'folder', 'url' => ['/ingredient-category/index'], 'active' => $this->context->id == 'ingredient-category'],
 
         ['label' => 'Разное', 'options' => ['class' => 'header']],
-        ['label' => 'Подборки', 'icon' => 'server', 'url' => ['/collection/index'], 'active' => $this->context->id == 'collection'],
         ['label' => 'Таблица мер и весов', 'icon' => 'balance-scale', 'url' => ['/weight/index'], 'active' => $this->context->id == 'weight'],
         ['label' => 'Настройки сайта', 'icon' => 'cogs', 'url' => ['/settings/index'], 'active' => $this->context->id == 'settings'],
 
@@ -35,6 +36,7 @@ $menu = Yii::$app->user->can(\core\access\Rbac::ROLE_ADMIN) ?
     [
         ['label' => 'Пользователи', 'icon' => 'user', 'url' => ['/user/index'], 'active' => $this->context->id == 'user'],
         ['label' => 'Рецепты', 'icon' => 'cutlery', 'url' => ['/recipe/index'], 'active' => $this->context->id == 'recipe'],
+        ['label' => 'Фотоотчёты', 'icon' => 'photo', 'url' => ['/photo-report/index'], 'active' => $this->context->id == 'photo-report'],
     ];
 
 

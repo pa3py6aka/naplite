@@ -1,7 +1,7 @@
 <?php
 
-use core\entities\Recipe\Recipe;
-use core\forms\manage\CategoryForm;
+use backend\assets\LightBoxAsset;
+use core\entities\Recipe\PhotoReport;
 use kartik\date\DatePicker;
 use yii\helpers\Html;
 use yii\grid\GridView;
@@ -9,24 +9,17 @@ use yii\jui\AutoComplete;
 use yii\web\JsExpression;
 
 /* @var $this yii\web\View */
-/* @var $searchModel backend\forms\RecipeSearch */
+/* @var $searchModel backend\forms\PhotoReportSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Рецепты';
+$this->title = 'Фотоотчёты';
 $this->params['breadcrumbs'][] = $this->title;
 
-\frontend\assets\LightBoxAsset::register($this);
+LightBoxAsset::register($this);
 
 ?>
-<div class="recipe-index box box-primary">
-    <div class="box-header with-border">
-        <?= Html::a('Добавить рецепт', Yii::$app->frontendUrlManager->createAbsoluteUrl(['recipes/new']), [
-            'class' => 'btn btn-success btn-flat',
-            'target' => '_blank'
-        ]) ?>
-    </div>
+<div class="photo-report-index box box-primary">
     <div class="box-body table-responsive">
-        <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
         <?= GridView::widget([
             'dataProvider' => $dataProvider,
             'filterModel' => $searchModel,
@@ -36,22 +29,30 @@ $this->params['breadcrumbs'][] = $this->title;
 
                 //'id',
                 [
-                    'label' => 'Название',
-                    'attribute' => 'name',
-                    'value' => function (Recipe $recipe) {
-                        return Html::a(
-                            Html::encode($recipe->name),
-                            ['view', 'id' => $recipe->id]
-                        );
+                    'label' => 'Фото',
+                    'value' => function(PhotoReport $report) {
+                        $img = Html::img($report->getImageUrl(true, true), [
+                            'class' => 'img-responsive',
+                            'style' => 'height:150px;'
+                        ]);
+                        return Html::a($img, $report->getImageUrl(false, true), ['data-lightbox' => 'image-' . $report->id,]);
+                    },
+                    'format' => 'raw',
+                ],
+                [
+                    'label' => 'Рецепт',
+                    'attribute' => 'recipe',
+                    'value' => function (PhotoReport $report) {
+                        return Html::a(Html::encode($report->recipe->name), ['/recipe/view', 'id' => $report->recipe_id]);
                     },
                     'format' => 'raw',
                     'filter' => AutoComplete::widget([
                         'model' => $searchModel,
-                        'attribute' => 'name',
+                        'attribute' => 'recipe',
                         'clientOptions' => [
                             'source' => new JsExpression("function(request, response) {
                                 $.getJSON('/recipe/auto-complete', {
-                                    value: request.term
+                                    username: request.term
                                 }, response);
                             }")
                         ],
@@ -61,24 +62,15 @@ $this->params['breadcrumbs'][] = $this->title;
                     ]),
                 ],
                 [
-                    'label' => 'Категория',
-                    'attribute' => 'category_id',
-                    'value' => function (Recipe $recipe) {
-                        return Html::a($recipe->category->name, ['/category/view', 'id' => $recipe->category_id]);
-                    },
-                    'format' => 'raw',
-                    'filter' => CategoryForm::parentCategoriesList(false)
-                ],
-                [
                     'label' => 'Автор',
-                    'attribute' => 'author',
-                    'value' => function (Recipe $recipe) {
-                        return Html::a(Html::encode($recipe->author->fullName), ['/user/view', 'id' => $recipe->author_id]);
+                    'attribute' => 'user',
+                    'value' => function (PhotoReport $report) {
+                        return Html::a(Html::encode($report->user->fullName), ['/user/view', 'id' => $report->user_id]);
                     },
                     'format' => 'raw',
                     'filter' => AutoComplete::widget([
                         'model' => $searchModel,
-                        'attribute' => 'author',
+                        'attribute' => 'user',
                         'clientOptions' => [
                             'source' => new JsExpression("function(request, response) {
                                 $.getJSON('/user/auto-complete', {
@@ -107,21 +99,8 @@ $this->params['breadcrumbs'][] = $this->title;
                     ]),
                     'format' => 'datetime',
                 ],
-                // 'kitchen_id',
-                // 'main_photo_id',
-                // 'introductory_text:ntext',
-                // 'cooking_time:datetime',
-                // 'preparation_time:datetime',
-                // 'persons',
-                // 'complexity',
-                // 'notes:ntext',
-                'rate',
-                // 'comments_count',
-                // 'comments_notify',
-                // 'created_at',
-                // 'updated_at',
 
-                ['class' => 'yii\grid\ActionColumn'],
+                ['class' => 'yii\grid\ActionColumn', 'template' => '{delete}'],
             ],
         ]); ?>
     </div>

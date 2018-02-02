@@ -3,7 +3,7 @@
 namespace backend\forms;
 
 
-use core\entities\Category;
+use core\entities\Recipe\Category;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 
