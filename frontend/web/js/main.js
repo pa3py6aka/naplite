@@ -91,6 +91,18 @@ NaPlite = (function () {
             $form.submit();
         });
 
+        $('[data-link=readSeoText]').on('click', function () {
+            var $link = $(this);
+            var $textBlock = $link.parent().find('.th_parent_seo');
+            if ($textBlock.hasClass('mini')) {
+                $textBlock.removeClass('mini');
+                $link.html('<i class="fa fa-refresh"></i>Скрыть');
+            } else {
+                $textBlock.addClass('mini');
+                $link.html('<i class="fa fa-refresh"></i>Читать далее');
+            }
+        });
+
         /* Пока только для категорий */
         $(document).on('change', 'select[name=sort-selector]', function (e) {
             var url = $(this).val(),
