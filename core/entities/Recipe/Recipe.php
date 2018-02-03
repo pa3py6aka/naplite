@@ -191,6 +191,11 @@ class Recipe extends ActiveRecord
                     'recipeId' => $this->id,
                 ]));
             }
+        } else {
+            if (isset($changedAttributes['rate'])) {
+                $totalRate = Recipe::find()->active()->andWhere(['author_id' => $this->author_id])->sum('rate');
+                User::updateAll(['rate' => $totalRate], ['id' => $this->author_id]);
+            }
         }
         parent::afterSave($insert, $changedAttributes);
     }
