@@ -20,7 +20,9 @@ $this->title = 'Подборка рецептов по теме ' . $collection-
 <div class="content_left">
     <div class="th_parent">
         <div class="breadcump sub-cat">
-            <a href="/">Главная</a> / <a href="<?= Url::to(['/recipes/index']) ?>">Рецепты</a>
+            <a href="/">Главная</a>
+            <span><i class="fa fa-circle"></i></span>
+            <a href="<?= Url::to(['/recipes/index']) ?>">Подборки</a>
         </div>
         <div class="th_parent_top">
             <div class="th_parent_top_text"><h1><?= $collection->title ?></h1></div>

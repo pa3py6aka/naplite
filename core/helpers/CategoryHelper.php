@@ -34,6 +34,6 @@ class CategoryHelper
                 ($category instanceof ArticleCategory ? Html::a('Статьи', ['/articles/index']) : Html::a('Ингредиенты', ['/ingredients/index']));
         }
 
-        return implode(' / ' , $html);
+        return implode('<span><i class="fa fa-circle"></i></span>' , $html);
     }
 }

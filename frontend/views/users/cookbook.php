@@ -23,7 +23,9 @@ $this->title .= $category ? ' | ' .$category->getHeadingTile() : '';
 <div class="content_left">
     <div class="th_parent">
         <div class="breadcump sub-cat">
-            <a href="/">Главная</a> / <a href="<?= Url::to(['/users/view', 'id' => $user->id]) ?>"><?= $user->fullName ?></a>
+            <a href="/">Главная</a>
+            <span><i class="fa fa-circle"></i></span>
+            <a href="<?= Url::to(['/users/view', 'id' => $user->id]) ?>"><?= $user->fullName ?></a>
         </div>
         <div class="th_parent_top">
             <div class="th_parent_top_ico"><i class="fa fa-book"></i></div>

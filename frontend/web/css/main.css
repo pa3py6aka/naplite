@@ -1043,8 +1043,8 @@ select::-ms-expand{display:none;}
 .min-height-100 > li {min-height:100px;}
 .paginator_right > li.disabled i {padding-left:10px;padding-right:0;color:#ffffff;}
 .paginator_left > li.disabled i {color:#ffffff;}
+.breadcump {width:100%;}
 .breadcump.sub-cat {text-align:left;}
-.breadcump.sub-cat > a {display:inline;}
 .info_text {text-align:center;font-size:17px;line-height: 29px;}
 .article_prev_text li {padding:0;border:none;}
 .article_prev_text p {margin-bottom:3px;}
