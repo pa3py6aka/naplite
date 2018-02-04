@@ -26,9 +26,7 @@ class CategoryHelper
                     ($parent instanceof ArticleCategory ? Html::a('Статьи', ['/articles/index']) : Html::a('Ингредиенты', ['/ingredients/index']));
             }
         }
-        if (!$category->isRoot()) {
-            $html[] = Html::a($category->name, $category->url);
-        } else {
+        if ($category->isRoot()) {
             $html[] = $category instanceof Category ?
                 Html::a('Рецепты', ['/recipes/index']) :
                 ($category instanceof ArticleCategory ? Html::a('Статьи', ['/articles/index']) : Html::a('Ингредиенты', ['/ingredients/index']));
