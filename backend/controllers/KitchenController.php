@@ -10,6 +10,7 @@ use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\UploadedFile;
 
 /**
  * KitchenController implements the CRUD actions for Kitchen model.
@@ -77,6 +78,10 @@ class KitchenController extends Controller
         $model = new Kitchen();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            if ($model->imageUpload instanceof UploadedFile) {
+                $model->saveImage($model->imageUpload);
+                $model->save(false);
+            }
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('create', [
@@ -96,6 +101,10 @@ class KitchenController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            if ($model->imageUpload instanceof UploadedFile) {
+                $model->saveImage($model->imageUpload);
+                $model->save(false);
+            }
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('update', [

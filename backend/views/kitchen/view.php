@@ -1,5 +1,6 @@
 <?php
 
+use core\entities\Kitchen;
 use yii\helpers\Html;
 use yii\widgets\DetailView;
 
@@ -27,6 +28,16 @@ $this->params['breadcrumbs'][] = $this->title;
             'attributes' => [
                 'id',
                 'name',
+                'description:html',
+                [
+                    'label' => 'Картинка',
+                    'value' => function(Kitchen $kitchen) {
+                        return $kitchen->image ?
+                            Html::img($kitchen->getPhotoUrl(true), ['class' => 'img-responsive', 'style' => 'max-height: 300px;'])
+                            : 'Без картинки';
+                    },
+                    'format' => 'raw',
+                ],
             ],
         ]) ?>
     </div>
