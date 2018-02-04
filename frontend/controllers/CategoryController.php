@@ -3,6 +3,7 @@
 namespace frontend\controllers;
 
 
+use core\helpers\CategoryHelper;
 use core\repositories\CategoryRepository;
 use yii\base\Module;
 use yii\web\Controller;
@@ -21,6 +22,7 @@ class CategoryController extends Controller
     {
         $category = $this->repository->getBySlug($slug);
         $recipesProvider = $this->repository->getRecipesProviderByCategory($category);
+        $this->view->params['activeCategorySlug'] = CategoryHelper::getActiveSlug($category);
 
         if ($category->depth <= 1) {
             return $this->render('category-base', [

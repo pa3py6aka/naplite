@@ -36,4 +36,22 @@ class CategoryHelper
 
         return implode('<span><i class="fa fa-circle"></i></span>' , $html);
     }
+
+    /**
+     * Получаем slug активной категории для выделения в главном меню
+     * @param Category $category
+     * @return string
+     */
+    public static function getActiveSlug(Category $category): string
+    {
+        if ($category->depth < 2) {
+            return $category->slug;
+        }
+        foreach ($category->parents as $parent) {
+            if ($parent->depth == 1) {
+                return $parent->slug;
+            }
+        }
+        return $category->slug;
+    }
 }

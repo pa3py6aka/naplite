@@ -9,6 +9,7 @@ use core\entities\Recipe\RecipeUserRate;
 use core\entities\User\UserRecipe;
 use core\forms\CommentForm;
 use core\forms\RecipeForm;
+use core\helpers\CategoryHelper;
 use core\repositories\NotFoundException;
 use core\repositories\RecipeRepository;
 use core\services\CommentService;
@@ -114,6 +115,7 @@ class RecipesController extends Controller
     public function actionView($id)
     {
         $recipe = $this->repository->get($id);
+        $this->view->params['activeCategorySlug'] = CategoryHelper::getActiveSlug($recipe->category);
         $commentForm = new CommentForm();
         $photoReports = $recipe->getPhotoReports()->with('user')->orderBy(['id' => SORT_DESC])->limit(5)->all();
         if (!Yii::$app->user->isGuest) {
@@ -121,7 +123,6 @@ class RecipesController extends Controller
         } else {
             $isFavorite = false;
         }
-
 
         if ($commentForm->load(Yii::$app->request->post()) && $commentForm->validate()) {
             /* @var $commentService CommentService */

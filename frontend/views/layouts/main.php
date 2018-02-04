@@ -10,6 +10,7 @@ use frontend\assets\AppAsset;
 use yii\helpers\Url;
 
 AppAsset::register($this);
+
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
@@ -173,20 +174,15 @@ AppAsset::register($this);
         <a href="#" class="top_menu_adaptive"><i class="fa fa-bars"></i>&nbsp;Открыть список рецептов</a>
         <ul>
             <li class="top_menu_arrow_left hidden1260"></li>
+            <?php $activeSlug = isset($this->params['activeCategorySlug']) ? $this->params['activeCategorySlug'] : null ?>
             <?php foreach (\core\entities\Recipe\Category::find()->where(['depth' => 1])->all() as $k => $category): ?>
-                <li<?= $k >8 ? ' class="hidden880"' : '' ?>><a href="<?= Url::to(['/category/view', 'slug' => $category->slug]) ?>"><?= $category->name ?></a></li>
+                <li<?= $k > 8 ? ' class="hidden880"' : '' ?>>
+                    <a href="<?= Url::to(['/category/view', 'slug' => $category->slug]) ?>"<?= $activeSlug == $category->slug ? ' class="top_menu_active"' : '' ?>>
+                        <?= $category->name ?>
+                    </a>
+                </li>
             <?php endforeach; ?>
             <li class="top_menu_arrow_right hidden1260"></li>
-            <!-- <li><a href="#">Закуски</a></li>
-            <li><a href="#">Салаты</a></li>
-            <li><a href="#">Супы</a></li>
-            <li><a href="#">Вторые блюда</a></li>
-            <li><a href="#">Выпечка</a></li>
-            <li><a href="#">Десерты</a></li>
-            <li><a href="#">Соусы</a></li>
-            <li><a href="#">Напитки</a></li>
-            <li><a href="#">Заготовки</a></li>
-            <li class="hidden880"><a href="#">Разное</a></li> -->
         </ul>
     </div>
 </div>

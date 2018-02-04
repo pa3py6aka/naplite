@@ -4,15 +4,12 @@
 /* @var $this \yii\web\View */
 /* @var $recipesProvider \yii\data\ActiveDataProvider */
 
-use core\entities\Recipe\Recipe;
 use core\helpers\Pluralize;
-use core\helpers\RecipeHelper;
 use core\helpers\SortHelper;
 use widgets\ArticlesWidget;
 use widgets\BannerWidget;
 use widgets\RecipeThemesWidget;
 use widgets\SocialBlockWidget;
-use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\widgets\Pjax;
 
