@@ -4,7 +4,9 @@ namespace core\entities;
 
 use Yii;
 use yii\db\ActiveRecord;
+use yii\helpers\Url;
 use yii\web\UploadedFile;
+use Zelenin\yii\behaviors\Slug;
 
 /**
  * This is the model class for table "{{%kitchens}}".
@@ -13,12 +15,18 @@ use yii\web\UploadedFile;
  * @property string $name
  * @property string $description
  * @property string $image [varchar(40)]
+ * @property string $slug [varchar(255)]
  */
 class Kitchen extends ActiveRecord
 {
     public $imageUpload;
 
-    public function getPhotoUrl($forCP = false)
+    public function getUrl(): string
+    {
+        return Url::to(['/kitchens/view', 'slug' => $this->slug]);
+    }
+
+    public function getPhotoUrl($forCP = false): string
     {
         return ($forCP ? \Yii::$app->params['frontendHostInfo']: '') . '/uploads/ktch/' . $this->image;
     }
@@ -57,12 +65,30 @@ class Kitchen extends ActiveRecord
         return parent::beforeValidate();
     }
 
+    public function afterDelete()
+    {
+        $this->removeImages();
+        parent::afterDelete();
+    }
+
     /**
      * @inheritdoc
      */
     public static function tableName()
     {
         return '{{%kitchens}}';
+    }
+
+    public function behaviors()
+    {
+        return [
+            'slug' => [
+                'class' => Slug::class,
+                'slugAttribute' => 'slug',
+                'attribute' => 'name',
+                'transliterateOptions' => 'Russian-Latin/BGN; Any-Latin; Latin-ASCII; NFD; [:Nonspacing Mark:] Remove; NFC;'
+            ]
+        ];
     }
 
     /**

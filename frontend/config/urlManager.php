@@ -13,7 +13,7 @@ return [
         '<_c:category|collections>/<slug:[a-z0-9_-]+>' => '<_c>/view',
 
         '<_c:articles|ingredients>/category/<category:[a-z0-9_-]+>' => '<_c>/index',
-        '<_c:articles>/<slug:[a-z0-9_-]+>' => '<_c>/view',
+        '<_c:articles|kitchens>/<slug:[a-z0-9_-]+>' => '<_c>/view',
 
         'recipes/<id:\d+>' => 'recipes/view',
         'recipes' => 'category/view',

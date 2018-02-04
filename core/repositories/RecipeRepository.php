@@ -93,6 +93,20 @@ class RecipeRepository
         ]);
     }
 
+    public function getRecipesByKitchenId($kitchenId): ActiveDataProvider
+    {
+        $query = Recipe::find()
+            ->with('author')
+            ->active()
+            ->andWhere(['kitchen_id' => $kitchenId]);
+
+        return new ActiveDataProvider([
+            'query' => $query,
+            'pagination' => ['pageSize' => 3, 'defaultPageSize' => 3], //ToDO: Количество рецептов на странице кухни
+            'sort' => ['defaultOrder' => ['id' => SORT_DESC]]
+        ]);
+    }
+
     public function save(Recipe $recipe): void
     {
         if (!$recipe->save(false)) {
