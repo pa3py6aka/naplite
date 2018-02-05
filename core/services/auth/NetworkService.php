@@ -19,14 +19,15 @@ class NetworkService
     /**
      * @param $network
      * @param $identity
+     * @param array $attributes
      * @return User
      */
-    public function auth($network, $identity)
+    public function auth($network, $identity, $attributes = [])
     {
         if ($user = User::findByNetworkIdentity($network, $identity)) {
             return $user;
         }
-        $user = User::signupByNetwork($network, $identity);
+        $user = User::signupByNetwork($network, $identity, $attributes);
         if (!$user->save()) {
             throw new \DomainException("Ошибка сохранения нового пользователя.");
         }
