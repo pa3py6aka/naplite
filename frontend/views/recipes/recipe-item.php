@@ -11,6 +11,7 @@ use yii\helpers\Html;
             <span class="recipe_prev_image"><img src="<?= $recipe->mainPhoto ?>" alt=""/></span>
             <span class="recipe_prev_th"><b><?= Html::encode($recipe->name) ?></b></span>
         </a>
+        <?php /* ToDO: Отображение пользователя добавившего рецепт
         <span class="recipe_prev_user">
             <a href="<?= $recipe->author->pageUrl ?>" class="userpick">
                 <span class="userpick_photo"><img src="<?= $recipe->author->avatarUrl ?>" alt=""/></span>
@@ -18,6 +19,7 @@ use yii\helpers\Html;
                 <span class="userpick_date"><?= Yii::$app->formatter->asRelativeTime($recipe->created_at) ?></span>
             </a>
         </span>
+        */ ?>
         <span class="recipe_prev_stat">
             <span class="recipe_prev_stat_left">
                 <a href="#" class="stat_ico">
