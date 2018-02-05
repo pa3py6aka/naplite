@@ -53,10 +53,10 @@ class Photo extends ActiveRecord
     public function rules()
     {
         return [
-            [['recipe_id', 'file', 'sort'], 'required'],
+            //[['recipe_id', 'file', 'sort'], 'required'],
             [['recipe_id', 'sort'], 'integer'],
             [['file'], 'string', 'max' => 255],
-            [['recipe_id'], 'exist', 'skipOnError' => true, 'targetClass' => Recipe::className(), 'targetAttribute' => ['recipe_id' => 'id']],
+            //[['recipe_id'], 'exist', 'skipOnError' => true, 'targetClass' => Recipe::className(), 'targetAttribute' => ['recipe_id' => 'id']],
         ];
     }
 

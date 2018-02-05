@@ -71,11 +71,11 @@ class RecipeStep extends ActiveRecord
     public function rules(): array
     {
         return [
-            [['recipe_id', 'description', 'photo'], 'required'],
+            //[['recipe_id', 'description', 'photo'], 'required'],
             [['recipe_id'], 'integer'],
             [['description'], 'string'],
             [['photo'], 'string', 'max' => 255],
-            [['recipe_id'], 'exist', 'skipOnError' => true, 'targetClass' => Recipe::className(), 'targetAttribute' => ['recipe_id' => 'id']],
+            //[['recipe_id'], 'exist', 'skipOnError' => true, 'targetClass' => Recipe::className(), 'targetAttribute' => ['recipe_id' => 'id']],
         ];
     }
 

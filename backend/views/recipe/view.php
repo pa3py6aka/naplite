@@ -19,7 +19,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'class' => 'btn btn-primary btn-flat',
             'target' => '_blank',
         ]) ?>
-        <?= Html::a('Просмотреть на сайте', Yii::$app->frontendUrlManager->createAbsoluteUrl(['recipes/view', 'id' => $model->id]), [
+        <?= Html::a('Просмотреть на сайте', Yii::$app->frontendUrlManager->createAbsoluteUrl(['recipes/view', 'slug' => $model->slug]), [
             'class' => 'btn btn-primary btn-flat',
             'target' => '_blank',
         ]) ?>

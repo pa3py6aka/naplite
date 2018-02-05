@@ -64,11 +64,6 @@ class RecipesController extends Controller
         ];
     }
 
-    public function actionIndex()
-    {
-        return $this->render('');
-    }
-
     public function actionNew()
     {
         $form = new RecipeForm();
@@ -76,7 +71,7 @@ class RecipesController extends Controller
         if ($form->load(Yii::$app->request->post()) && $form->validate()) {
             try {
                 $recipe = $this->service->create($form);
-                return $this->redirect(['view', 'id' => $recipe->id]);
+                return $this->redirect(['view', 'slug' => $recipe->slug]);
             } catch (\DomainException $e) {
                 Yii::$app->session->setFlash('message', $e->getMessage());
             }
@@ -100,7 +95,7 @@ class RecipesController extends Controller
         if ($form->load(Yii::$app->request->post()) && $form->validate()) {
             try {
                 $this->service->edit($recipe, $form);
-                return $this->redirect(['view', 'id' => $recipe->id]);
+                return $this->redirect(['view', 'slug' => $recipe->slug]);
             } catch (\DomainException $e) {
                 Yii::$app->session->setFlash('message', $e->getMessage());
             }
@@ -112,14 +107,14 @@ class RecipesController extends Controller
         ]);
     }
 
-    public function actionView($id)
+    public function actionView($slug)
     {
-        $recipe = $this->repository->get($id);
+        $recipe = $this->repository->getBySlug($slug);
         $this->view->params['activeCategorySlug'] = CategoryHelper::getActiveSlug($recipe->category);
         $commentForm = new CommentForm();
         $photoReports = $recipe->getPhotoReports()->with('user')->orderBy(['id' => SORT_DESC])->limit(5)->all();
         if (!Yii::$app->user->isGuest) {
-            $isFavorite = UserRecipe::find()->where(['recipe_id' => $id, 'user_id' => Yii::$app->user->id])->exists();
+            $isFavorite = UserRecipe::find()->where(['recipe_id' => $recipe->id, 'user_id' => Yii::$app->user->id])->exists();
         } else {
             $isFavorite = false;
         }

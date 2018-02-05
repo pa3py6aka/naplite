@@ -21,6 +21,14 @@ class RecipeRepository
         return $recipe;
     }
 
+    public function getBySlug($slug): Recipe
+    {
+        if (!$recipe = Recipe::find()->where(['slug' => $slug])->limit(1)->one()) {
+            throw new NotFoundException('Рецепт не найден.');
+        }
+        return $recipe;
+    }
+
     public function findRecipes(string $search): ActiveDataProvider
     {
         $query = Recipe::find()->active()->andWhere([
@@ -109,7 +117,8 @@ class RecipeRepository
 
     public function save(Recipe $recipe): void
     {
-        if (!$recipe->save(false)) {
+        if (!$recipe->save()) {
+            print_r($recipe->errors);exit;
             throw new \RuntimeException('Ошибка записи в базу.');
         }
     }

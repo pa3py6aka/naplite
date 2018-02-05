@@ -18,6 +18,7 @@ use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Url;
+use Zelenin\yii\behaviors\Slug;
 
 /**
  * This is the model class for table "{{%recipes}}".
@@ -26,6 +27,7 @@ use yii\helpers\Url;
  * @property int $author_id
  * @property int $category_id
  * @property string $name
+ * @property string $slug [varchar(255)]
  * @property int $kitchen_id
  * @property int $main_photo_id
  * @property string $introductory_text
@@ -160,8 +162,8 @@ class Recipe extends ActiveRecord
     public function getUrl($absolute = false): string
     {
         return $absolute ?
-            Yii::$app->frontendUrlManager->createAbsoluteUrl(['recipes/view', 'id' => $this->id]) :
-            Url::to(['recipes/view', 'id' => $this->id]);
+            Yii::$app->frontendUrlManager->createAbsoluteUrl(['recipes/view', 'slug' => $this->slug]) :
+            Url::to(['recipes/view', 'slug' => $this->slug]);
     }
 
     public static function statusesArray(): array
@@ -230,6 +232,12 @@ class Recipe extends ActiveRecord
                     'ingredientSections',
                 ],
             ],
+            'slug' => [
+                'class' => Slug::class,
+                'slugAttribute' => 'slug',
+                'attribute' => 'name',
+                'transliterateOptions' => 'Russian-Latin/BGN; Any-Latin; Latin-ASCII; NFD; [:Nonspacing Mark:] Remove; NFC;'
+            ],
         ];
     }
 
@@ -246,13 +254,13 @@ class Recipe extends ActiveRecord
     public function rules(): array
     {
         return [
-            [['author_id', 'category_id', 'name', 'kitchen_id', 'introductory_text'], 'required'],
-            [['author_id', 'category_id', 'kitchen_id', 'main_photo_id', 'cooking_time', 'preparation_time', 'persons', 'complexity', 'created_at', 'updated_at'], 'integer'],
-            [['introductory_text', 'notes'], 'string'],
-            [['name'], 'string', 'max' => 255],
-            [['author_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['author_id' => 'id']],
-            [['category_id'], 'exist', 'skipOnError' => true, 'targetClass' => Category::className(), 'targetAttribute' => ['category_id' => 'id']],
-            [['kitchen_id'], 'exist', 'skipOnError' => true, 'targetClass' => Kitchen::className(), 'targetAttribute' => ['kitchen_id' => 'id']],
+            //[['author_id', 'category_id', 'name', 'kitchen_id', 'introductory_text'], 'required'],
+            //[['author_id', 'category_id', 'kitchen_id', 'main_photo_id', 'cooking_time', 'preparation_time', 'persons', 'complexity'], 'integer'],
+            //[['introductory_text', 'notes'], 'string'],
+            //[['name'], 'string', 'max' => 255],
+            //[['author_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['author_id' => 'id']],
+            //[['category_id'], 'exist', 'skipOnError' => true, 'targetClass' => Category::className(), 'targetAttribute' => ['category_id' => 'id']],
+            //[['kitchen_id'], 'exist', 'skipOnError' => true, 'targetClass' => Kitchen::className(), 'targetAttribute' => ['kitchen_id' => 'id']],
         ];
     }
 

@@ -16,7 +16,7 @@ return [
         '<_c:articles|ingredients>/category/<category:[a-z0-9_-]+>' => '<_c>/index',
         '<_c:articles|kitchens>/<slug:[a-z0-9_-]+>' => '<_c>/view',
 
-        'recipes/<id:\d+>' => 'recipes/view',
+        'recipes/<slug:[a-z0-9_-]+>' => 'recipes/view',
         'recipes' => 'category/view',
 
         // Не забудьте добавить нужные экшены(доступные по адресу /forum/<action>) в core\helpers\BlogHelper::USED_ACTIONS

@@ -30,10 +30,10 @@ class RecipeHoliday extends ActiveRecord
     public function rules()
     {
         return [
-            [['recipe_id', 'holiday_id'], 'required'],
+            //[['recipe_id', 'holiday_id'], 'required'],
             [['recipe_id', 'holiday_id'], 'integer'],
             [['recipe_id', 'holiday_id'], 'unique', 'targetAttribute' => ['recipe_id', 'holiday_id']],
-            [['holiday_id'], 'exist', 'skipOnError' => false, 'targetClass' => Holiday::className(), 'targetAttribute' => ['holiday_id' => 'id']],
+            //[['holiday_id'], 'exist', 'skipOnError' => false, 'targetClass' => Holiday::className(), 'targetAttribute' => ['holiday_id' => 'id']],
             //[['recipe_id'], 'exist', 'skipOnError' => false, 'targetClass' => Recipe::className(), 'targetAttribute' => ['recipe_id' => 'id']],
         ];
     }
