@@ -27,16 +27,25 @@ $this->title = Html::encode($ingredient->title);
         </div>
     </div>
     <div class="textbox">
-        <div class="breadcump">
-            <a href="/">Главная</a>
-            <span><i class="fa fa-circle"></i></span>
-            <a href="<?= Url::to(['/ingredients/index']) ?>">Ингредиенты</a>
-            <span><i class="fa fa-circle"></i></span>
-            <a href="<?= Url::to(['/ingredients/index', 'category' => $ingredient->category->slug]) ?>"><?= $ingredient->category->name ?></a>
+        <div class="tac">
+            <div class="breadcump">
+                <a href="/">Главная</a>
+                <span><i class="fa fa-circle"></i></span>
+                <a href="<?= Url::to(['/ingredients/index']) ?>">Ингредиенты</a>
+                <span><i class="fa fa-circle"></i></span>
+                <a href="<?= Url::to(['/ingredients/index', 'category' => $ingredient->category->slug]) ?>"><?= $ingredient->category->name ?></a>
+            </div>
+        </div>
+        <div class="hrecipe">
+            <h1 class="fn"><?= Html::encode($ingredient->title) ?></h1>
+            <?php if ($ingredient->image): ?>
+                <div class="recipe_photo">
+                    <div class="recipe_photo"><img src="<?= $ingredient->getImageUrl(false) ?>" width="860" height="560" alt=""/></div>
+                </div>
+            <?php endif; ?>
         </div>
         <div class="post_page_content">
             <div class="post_page_top">
-                <h1><?= Html::encode($ingredient->title) ?></h1>
                 <?= ContentHelper::output($ingredient->content) ?>
             </div>
         </div>

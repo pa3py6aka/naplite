@@ -30,24 +30,26 @@ $this->title = Html::encode($article->title);
         </div>
     </div>
     <div class="textbox">
-        <div class="breadcump">
-            <a href="/">Главная</a>
-            <span><i class="fa fa-circle"></i></span>
-            <a href="<?= Url::to(['/articles/index']) ?>">Статьи по кулинарии</a>
-            <span><i class="fa fa-circle"></i></span>
-            <a href="<?= Url::to(['/articles/index', 'category' => $article->category->slug]) ?>"><?= $article->category->name ?></a>
+        <div class="tac">
+            <div class="breadcump">
+                <a href="/">Главная</a>
+                <span><i class="fa fa-circle"></i></span>
+                <a href="<?= Url::to(['/articles/index']) ?>">Статьи по кулинарии</a>
+                <span><i class="fa fa-circle"></i></span>
+                <a href="<?= Url::to(['/articles/index', 'category' => $article->category->slug]) ?>"><?= $article->category->name ?></a>
+            </div>
+        </div>
+        <div class="hrecipe">
+            <h1 class="fn"><?= Html::encode($article->title) ?></h1>
+            <?php if ($article->image): ?>
+                <div class="recipe_photo">
+                    <div class="recipe_photo"><img src="<?= $article->getImageUrl(false) ?>" width="860" height="560" alt=""/></div>
+                </div>
+            <?php endif; ?>
         </div>
         <div class="post_page_content">
             <div class="post_page_top">
-                <h1><?= Html::encode($article->title) ?></h1>
                 <?= ContentHelper::output($article->content) ?>
-            </div>
-            <div class="post_page_stat">
-                <a href="<?= $article->author->pageUrl ?>" class="userpick">
-                    <span class="userpick_photo"><img src="<?= $article->author->avatarUrl ?>" alt=""/></span>
-                    <span class="userpick_name"><?= $article->author->fullName ?></span>
-                    <span class="userpick_date"><?= Yii::$app->formatter->asRelativeTime($article->created_at) ?></span>
-                </a>
             </div>
         </div>
     </div>
