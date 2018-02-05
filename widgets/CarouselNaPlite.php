@@ -45,7 +45,7 @@ class CarouselNaPlite extends Carousel
                     'class' => 'top_articles_box_arrows_left',
                     'data-slide' => 'prev',
                 ]) . "\n"
-                . '<span class="top_articles_box_arrows_center">' . (count($this->items)) . '/1</span>'
+                . '<span class="top_articles_box_arrows_center">1/' . (count($this->items)) . '</span>'
                 . Html::a($this->controls[1], '#' . $this->options['id'], [
                     'class' => 'top_articles_box_arrows_right',
                     'data-slide' => 'next',
