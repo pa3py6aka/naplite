@@ -21,7 +21,7 @@ $homeUrl = Yii::$app->urlManager->createAbsoluteUrl('/');
     <table style="clear:both;width:80%;clear:both;border-collapse:collapse;border-spacing:0;margin-left:45px;">
         <tr>
             <td style="background-color:#ffffff;padding:15px 0px 10px 40px;border:0px;width:300px;"><a href="<?= $homeUrl ?>"><img src="<?= Yii::$app->params['frontendHostInfo'] ?>/img/logo.png" width="282" height="64" alt=""/></a></td>
-            <td style="background-color:#1b1b1b;color:#ffffff;"><b></b></td>
+            <td style="background-color:#ffffff;color:#120910;"><b></b></td>
         </tr>
         <tr><td colspan="2" style="height:15px;"></td></tr>
         <?= nl2br($content) ?>
