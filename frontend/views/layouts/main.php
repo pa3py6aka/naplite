@@ -340,7 +340,7 @@ AppAsset::register($this);
         </div>
         <div class="footer_bottom">
             <div class="footer_bottom_left">&copy;2018<?= date('Y') > 2018 ? ' - ' . date('Y') : '' ?> na-plite.ru</div>
-            <div class="footer_bottom_center"><a href="#">Обратная связь с администрацией</a></div>
+            <div class="footer_bottom_center"><a href="<?= Url::to(['/site/contact']) ?>">Обратная связь с администрацией</a></div>
             <div class="footer_bottom_right">
                 Разработка сайта &mdash; <a href="http://www.alexey-popov.com/" target="_blank">Алексей Попов</a>
             </div>

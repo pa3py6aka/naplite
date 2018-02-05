@@ -10,6 +10,7 @@ return [
     'rules' => [
         '' => 'main/index',
         '<_a:signup|login|logout>' => 'auth/<_a>',
+        '<_a:contact>' => 'site/<_a>',
         '<_c:category|collections>/<slug:[a-z0-9_-]+>' => '<_c>/view',
 
         '<_c:articles|ingredients>/category/<category:[a-z0-9_-]+>' => '<_c>/index',

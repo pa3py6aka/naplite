@@ -8,6 +8,8 @@ use yii\base\Model;
 
 class SettingsForm extends Model
 {
+    public $contactEmail;
+
     public $recipeIntroductoryTextMaxLength;
     public $photoReportText;
 
@@ -52,6 +54,8 @@ class SettingsForm extends Model
     public function rules()
     {
         return [
+            ['contactEmail', 'required'],
+            ['contactEmail', 'email'],
             ['recipeIntroductoryTextMaxLength', 'integer'],
             ['photoReportText', 'string'],
             [['widgetVK', 'instagramLogin', 'widgetFB'], 'string'],
@@ -66,6 +70,7 @@ class SettingsForm extends Model
     public function attributeLabels()
     {
         return [
+            'contactEmail' => 'E-mail на который будут приходить сообщения с формы обратной связи',
             'recipeIntroductoryTextMaxLength' => 'Максимальный размер вводного текста в рецепте',
             'photoReportText' => 'Текст при добавлении фотоотчёта',
             'widgetVK' => 'Код виджета VKontakte',

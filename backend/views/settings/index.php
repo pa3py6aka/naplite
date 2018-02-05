@@ -13,6 +13,8 @@ $this->title = "Настройки сайта";
     <?php $form = ActiveForm::begin() ?>
     <div class="box-body table-responsive">
 
+        <?= $form->field($model, 'contactEmail')->input('email') ?>
+
         <?= $form->field($model, 'recipeIntroductoryTextMaxLength')->input('number') ?>
 
         <?= $form->field($model, 'photoReportText')->textarea(['rows' => 4]) ?>

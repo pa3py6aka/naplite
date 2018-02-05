@@ -12,6 +12,7 @@ class SettingsManager
 
     /* @note Don't change keys in this array!!! */
     private $default = [
+        'contactEmail' => 'contact@na-plite.ru',
         'recipeIntroductoryTextMaxLength' => 500,
         'photoReportText' => 'Добавьте свой фотоотчёт о приготовленном блюде по данному рецепту',
         'widgetVK' => "VK.Widgets.Group('vk_groups', {
