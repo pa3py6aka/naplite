@@ -81,7 +81,7 @@ NaPlite = (function () {
         });
 
         $('[data-link=goToSearch]').on('click', function () {
-            var $form = $('#mainSearchForm');
+            var $form = $('#mainSearchBlock');
             Public.scrollTo($form);
             $form.find('input[name=q]').focus();
         });

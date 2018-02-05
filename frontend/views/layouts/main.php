@@ -80,7 +80,7 @@ AppAsset::register($this);
                 </ul>
             </div>
         </div>
-        <div class="top_bottom">
+        <div class="top_bottom" id="mainSearchBlock">
             <div class="top_bottom_left"><a href="/"><img src="/img/logo.png" width="282" height="64" alt=""/></a></div>
             <div class="top_bottom_center">
                 <?= Html::beginForm(['/search/index'], 'get', ['id' => 'mainSearchForm']) ?>
