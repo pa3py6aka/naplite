@@ -8,6 +8,8 @@ use core\entities\Article\Article;
 use core\entities\Article\ArticleComment;
 use core\entities\Blog\Blog;
 use core\entities\Blog\BlogComment;
+use core\entities\Ingredient\Ingredient;
+use core\entities\Ingredient\IngredientComment;
 use core\entities\Recipe\Recipe;
 use core\entities\Recipe\RecipeComment;
 use core\forms\CommentForm;
@@ -24,7 +26,7 @@ class CommentService
 
     /**
      * @param CommentForm $form
-     * @param Recipe|Blog|Article $entity
+     * @param Recipe|Blog|Article|Ingredient $entity
      * @throws ConfigurationException
      */
     public function addComment(CommentForm $form, $entity): void
@@ -35,6 +37,8 @@ class CommentService
             $commentEntity = BlogComment::class;
         } else if ($entity instanceof Article) {
             $commentEntity = ArticleComment::class;
+        } else if ($entity instanceof Ingredient) {
+            $commentEntity = IngredientComment::class;
         } else {
             throw new ConfigurationException("Неверная сущность");
         }

@@ -19,6 +19,7 @@ use yii\web\UploadedFile;
  * @property string $image
  *
  * @property IngredientCategory $category
+ * @property IngredientComment[] $comments
  */
 class Ingredient extends ActiveRecord
 {
@@ -125,5 +126,10 @@ class Ingredient extends ActiveRecord
     public function getCategory(): ActiveQuery
     {
         return $this->hasOne(IngredientCategory::className(), ['id' => 'category_id']);
+    }
+
+    public function getComments(): ActiveQuery
+    {
+        return $this->hasMany(IngredientComment::className(), ['ingredient_id' => 'id']);
     }
 }

@@ -12,6 +12,7 @@ use frontend\assets\CKEditorAsset;
 $this->registerJsFile('/js/comments.js?v=' . filemtime(Yii::getAlias('@webroot/js/comments.js')), ['depends' => CKEditorAsset::class]);
 
 ?>
+
 <?= $this->render('comment-form', ['commentModel' => $commentModel, 'n' => 1]) ?>
 
 <?php if (count($comments)): ?>
@@ -39,6 +40,8 @@ $this->registerJsFile('/js/comments.js?v=' . filemtime(Yii::getAlias('@webroot/j
     </ul>
     <div class="p40"></div>
 
-    <?= $this->render('comment-form', ['commentModel' => $commentModel, 'n' => 2]) ?>
+    <?php if (count($comments) > 5): ?>
+        <?= $this->render('comment-form', ['commentModel' => $commentModel, 'n' => 2]) ?>
+    <?php endif; ?>
 
 <?php endif;

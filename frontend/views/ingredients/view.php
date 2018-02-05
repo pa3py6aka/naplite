@@ -53,6 +53,16 @@ $this->title = Html::encode($ingredient->title);
 
     <?= IngredientsBlockWidget::widget(['currentIngredientId' => $ingredient->id]) ?>
 
+    <div class="textbox" id="comments">
+        <div class="comment_th">
+            <h3>Комментарии пользователей</h3>
+        </div>
+        <?= $this->render('@frontend/views/common/comments-block', [
+            'commentModel' => $commentModel,
+            'comments' => $ingredient->comments,
+        ]) ?>
+    </div>
+
 </div>
 <div class="content_right">
     <?= BannerWidget::widget(['type' => BannerWidget::TYPE_RIGHT, 'bannerId' => 'bannerSimple1']) ?>

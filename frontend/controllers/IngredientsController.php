@@ -4,8 +4,10 @@ namespace frontend\controllers;
 
 
 use core\entities\Ingredient\IngredientCategory;
+use core\forms\CommentForm;
 use core\repositories\IngredientCategoryRepository;
 use core\repositories\IngredientRepository;
+use core\services\CommentService;
 use Yii;
 use yii\base\Module;
 use yii\web\Controller;
@@ -44,8 +46,17 @@ class IngredientsController extends Controller
     {
         $ingredient = $this->repository->get($id);
 
+        $commentForm = new CommentForm();
+        if ($commentForm->load(Yii::$app->request->post()) && $commentForm->validate()) {
+            /* @var $commentService CommentService */
+            $commentService = Yii::$container->get(CommentService::class);
+            $commentService->addComment($commentForm, $ingredient);
+            $commentForm = new CommentForm();
+        }
+
         return $this->render('view', [
             'ingredient' => $ingredient,
+            'commentModel' => $commentForm,
         ]);
     }
 }
