@@ -1,24 +1,25 @@
 var RecipeView = RecipeView || {};
 RecipeView = (function () {
     var Listen = function () {
-        $('#personsCount').on('change', function (e) {
-            var $input = $(this);
-            var count = Number($(this).val());
-            $input.prop('disabled', true);
-            $.each($('li.ingredient span.value'), function (k, item) {
-                var $item = $(item);
-                var defValue = Number($item.attr('data-default'));
-                var result = (defValue * count).toFixed(2);
-                if (result[result.length - 1] === '0') {
-                    result = result.substring(0, result.length - 1);
-                }
-                if (result[result.length - 2] === '.' && result[result.length - 1] === '0') {
-                    result = result.substring(0, result.length - 2);
-                }
-                $item.html(result);
-            });
-            $input.prop('disabled', false);
-            $('#portionsWord').html(NaPlite.public.pluralize(count, ['порцию', 'порции', 'порций']));
+        $('#personsCount').on('change', function() {
+            updateIngredientsQuantity();
+        });
+
+        $('.portions-selector').on('click', 'i', function () {
+            var direction = !$(this).index() ? 'up' : 'down';
+            var $input = $('#personsCount');
+            var count = Number($input.val());
+            var result;
+            if (direction === 'up') {
+                result = count + 1;
+            } else {
+                result = count - 1;
+            }
+            if (result < 0) {
+                result = 0;
+            }
+            $input.val(result);
+            updateIngredientsQuantity();
         });
 
         $('[data-link=goToComments]').on('click', function () {
@@ -83,6 +84,26 @@ RecipeView = (function () {
             }
         });
     };
+
+    function updateIngredientsQuantity() {
+        var $input = $('#personsCount');
+        var count = Number($input.val());
+        $input.prop('disabled', true);
+        $.each($('li.ingredient span.value'), function (k, item) {
+            var $item = $(item);
+            var defValue = Number($item.attr('data-default'));
+            var result = (defValue * count).toFixed(2);
+            if (result[result.length - 1] === '0') {
+                result = result.substring(0, result.length - 1);
+            }
+            if (result[result.length - 2] === '.' && result[result.length - 1] === '0') {
+                result = result.substring(0, result.length - 2);
+            }
+            $item.html(result);
+        });
+        $input.prop('disabled', false);
+        $('#portionsWord').html(NaPlite.public.pluralize(count, ['порцию', 'порции', 'порций']));
+    }
 
     function init() {
         Listen();

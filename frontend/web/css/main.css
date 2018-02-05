@@ -1109,3 +1109,15 @@ span.cke_button__emojione_icon {
 	.direct_rasp {display:block;}
 }
 .text-link {color:#f63d3d;text-decoration: none;}
+
+/* Выбор кол-ва порций */
+.portions-selector {position:absolute;left: -8px;top:0;}
+.portions-selector i {position:absolute;width:20px;height:20px;border:1px solid black;cursor:pointer;}
+.portions-selector i:hover, .portions-selector i:focus {background-color: #f0f7b0;}
+.portions-selector i:first-child {top:0;left:41px;border-bottom:none;}
+.portions-selector i:first-child:before {position: absolute;top: -4px;left:2px;}
+.portions-selector i:last-child {top:20px;left:41px;}
+.portions-selector i:last-child:before {position: absolute;top: -2px;left:2px;}
+#personsCount {font-weight:bold;font-size:17px;height:38px;text-align:center;border:1px solid black;}
+.recipe_ing_th H2 span:first-child {margin-right:20px;position:relative;}
+/* End --Выбор кол-ва порций */

@@ -67,7 +67,10 @@ $this->title = Html::encode($recipe->name);
                         <div class="recipe_ing_th">
                             <h2>
                                 Ингредиенты на
-                                <span><input type="text" value="<?= $recipe->persons ?>" id="personsCount" /></span>
+                                <span>
+                                    <input type="text" value="<?= $recipe->persons ?>" id="personsCount" />
+                                    <span class="portions-selector"><i class="fa fa-angle-up"></i><i class="fa fa-angle-down"></i></span>
+                                </span>
                                 <span id="portionsWord"><?= Pluralize::get($recipe->persons, 'порцию', 'порции', 'порций', true) ?></span>
                             </h2>
                         </div>
