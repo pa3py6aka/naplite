@@ -4,10 +4,9 @@
 /* @var $form \core\forms\ContactForm */
 
 ?>
-Новое сообщение с формы обратной связи с сайте <?= Yii::$app->name ?>:<br /><br />
-
-Тема: <?= $form->subject ?><br />
-email: <?= $form->email ?><br />
-Имя: <?= $form->name ?><br /><br />
+<h3>Новое сообщение с формы обратной связи</h3>
+Тема: <?= $form->subject ?>
+email: <?= $form->email ?>
+Имя: <?= $form->name ?>
 
 <?= $form->text ?>
