@@ -48,6 +48,13 @@ return [
         ],
         'assetManager' => [
             'appendTimestamp' => true,
+            'bundles' => [
+                'yii\bootstrap\BootstrapAsset' => [
+                    'basePath' => '@webroot/bootstrap',
+                    'baseUrl' => '@web/bootstrap',
+                    'css' => ['css/bootstrap.css'],
+                ],
+            ],//*/
         ],
         'errorHandler' => [
             'errorAction' => 'site/error',

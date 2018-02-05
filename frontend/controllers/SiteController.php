@@ -29,4 +29,9 @@ class SiteController extends Controller
             ],
         ];
     }
+
+    public function actionPrivatePolicy()
+    {
+        return $this->render('private-policy');
+    }
 }
