@@ -24,7 +24,7 @@ $homeUrl = Yii::$app->urlManager->createAbsoluteUrl('/');
             <td style="background-color:#1b1b1b;color:#ffffff;"><b>Кулинарный блог</b></td>
         </tr>
         <tr><td colspan="2" style="height:15px;"></td></tr>
-        <?= $content ?>
+        <?= nl2br($content) ?>
         <tr><td colspan="2" style="height:15px;"></td></tr>
         <tr>
             <td colspan="2" style="font-size:13px;line-height:20px;padding:0px 0px 15px 40px;">
