@@ -15,7 +15,7 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="recipe-view box box-primary">
     <div class="box-header">
-        <?= Html::a('Изменить',  Yii::$app->frontendUrlManager->createAbsoluteUrl(['recipes/edit', 'id' => $model->id]), [
+        <?= Html::a('Изменить',  Yii::$app->frontendUrlManager->createAbsoluteUrl(['recipes/edit', 'slug' => $model->slug]), [
             'class' => 'btn btn-primary btn-flat',
             'target' => '_blank',
         ]) ?>
