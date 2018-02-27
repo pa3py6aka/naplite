@@ -21,9 +21,11 @@ $model = new SignupForm();
 
                 <div class="modals_hr"></div>
                 <?php $form = \yii\widgets\ActiveForm::begin([
+                    'id' => 'reg-form',
                     'action' => ['/auth/signup'],
                     'enableAjaxValidation' => true,
                     'validationUrl' => ['/auth/signup-validation'],
+                    'options' => ['data' => ['type' => 'form']]
                 ]) ?>
                 <div class="modal_inputbox">
 
@@ -36,7 +38,9 @@ $model = new SignupForm();
                         ->label(false) ?>
 
                     <div class="radio_and_but">
-                        <button type="submit" class="radio_and_but_right blind-button"><a type="submit" class="b_red">Зарегистрироваться</a></button>
+                        <button type="submit" class="radio_and_but_right blind-button" data-type="submit-form-link" data-form-id="reg-form">
+                            <a type="submit" class="b_red">Зарегистрироваться</a>
+                        </button>
                     </div>
                 </div>
                 <?php \yii\widgets\ActiveForm::end() ?>

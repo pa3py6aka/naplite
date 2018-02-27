@@ -17,9 +17,11 @@ $model = new \core\forms\auth\LoginForm();
 
                 <div class="modals_hr"></div>
                 <?php $form = \yii\widgets\ActiveForm::begin([
+                    'id' => 'login-form',
                     'action' => ['/auth/login'],
                     'enableAjaxValidation' => true,
                     'validationUrl' => ['/auth/login-validation'],
+                    'options' => ['data' => ['type' => 'form']]
                 ]); ?>
                 <div class="modal_inputbox">
 
@@ -36,14 +38,15 @@ $model = new \core\forms\auth\LoginForm();
                             <div class="radiobox_input">
                                 <div class="checkbox_outer">
                                     <input type="checkbox" id="filter_product_country8" name="<?= $model->formName() ?>[rememberMe]" value="1" class="checkbox">
-                                    <?php //= \yii\helpers\Html::activeCheckbox($model, 'rememberMe', ['id' => 'filter_product_country8', 'class' => 'checkbox']) ?>
                                     <label id="filter_product_country_label8" for="filter_product_country8">
                                         Запомнить меня
                                     </label>
                                 </div>
                             </div>
                         </div>
-                        <button type="submit" class="radio_and_but_right blind-button"><a type="submit" class="b_red">Войти</a></button>
+                        <div class="radio_and_but_right">
+                            <a href="javascript:void(0)" class="b_red" data-type="submit-form-link" data-form-id="login-form">Войти</a>
+                        </div>
                     </div>
                 </div>
                 <?php \yii\widgets\ActiveForm::end() ?>

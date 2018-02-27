@@ -145,7 +145,7 @@ $this->title = "Настройки аккаунта";
                     </div>
                 </div>
                 <div class="add_recipe_bottom">
-                    <a href="javascript:void(0)" class="b_red" data-link="form-submit"><i class="fa fa-save"></i>Сохранить изменения</a>
+                    <a href="javascript:void(0)" class="b_red" data-link="form-submit" data-type="submit-form-link" data-form-id="userSettingsForm"><i class="fa fa-save"></i>Сохранить изменения</a>
                 </div>
             </div>
         </div>

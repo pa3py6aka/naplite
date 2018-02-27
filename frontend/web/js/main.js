@@ -80,6 +80,28 @@ NaPlite = (function () {
             showModal('forgotPasswordModal');
         });
 
+        $(document).on('click', '[data-type="submit-form-link"]', function () {
+            showPreloader($(this));
+            $('#' + $(this).attr('data-form-id')).submit();
+        });
+
+        var isSubmit = false;
+        $(document).on('beforeSubmit', '[data-type=form]', function (e) {
+            isSubmit = true;
+            //alert(1);
+            //showPreloader($(this));
+            return true;
+        }).on('ajaxBeforeSend', '[data-type=form]', function (e) {
+            //alert(2);
+            //showPreloader($(this));
+            return true;
+        }).on('ajaxComplete', '[data-type=form]', function (e) {
+            //alert(3);
+            if (!isSubmit) {
+                $(this).find('.overlay').remove();
+            }
+        });
+
         $('[data-link=goToSearch]').on('click', function () {
             var $form = $('#mainSearchBlock');
             Public.scrollTo($form);
@@ -200,6 +222,12 @@ NaPlite = (function () {
             $block.find('.socials_content[data-sn=' + sn + ']').show();
         });
     };
+
+    function showPreloader($el) {
+        if (!$el.find('.overlay').length) {
+            $el.prepend(Public.getSpinLoader());
+        }
+    }
 
     function loadWeights() {
         var $modal = $('#weightsModal'),
