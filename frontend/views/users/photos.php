@@ -30,7 +30,11 @@ $this->title = $user->fullName . ' | Фотоотчёты';
         <ul class="photoreport">
             <?php if (!count($provider->models)): ?>
                 <div class="no-counts">
-                    Пользователь не добавил ещё фото-отчётов
+                    <?php if (Yii::$app->user->id === $user->id): ?>
+                        <?= Yii::$app->settings->get('emptyBlockForPhotos') ?>
+                    <?php else: ?>
+                        Пользователь не добавил ещё фото-отчётов
+                    <?php endif; ?>
                 </div>
             <?php else: ?>
                 <?php foreach ($provider->models as $report): ?>

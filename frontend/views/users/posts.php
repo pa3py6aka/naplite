@@ -38,9 +38,20 @@ $this->title = $user->fullName . ' | Посты';
             <h2><?= $user->fullName ?> - посты</h2>
         </div>
         <div class="blog_main">
-            <?php foreach ($provider->models as $blog): ?>
-                <?= $this->render('@frontend/views/blog/blog-item', ['blog' => $blog]) ?>
-            <?php endforeach; ?>
+            <?php if (!count($provider->models)): ?>
+                <br />
+                <div class="no-counts">
+                    <?php if (Yii::$app->user->id === $user->id): ?>
+                        <?= Yii::$app->settings->get('emptyBlockForPosts') ?>
+                    <?php else: ?>
+                        Пользователь не создал ещё ни одного поста на форуме
+                    <?php endif; ?>
+                </div>
+            <?php else: ?>
+                <?php foreach ($provider->models as $blog): ?>
+                    <?= $this->render('@frontend/views/blog/blog-item', ['blog' => $blog]) ?>
+                <?php endforeach; ?>
+            <?php endif; ?>
         </div>
     </div>
 

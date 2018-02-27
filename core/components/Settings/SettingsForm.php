@@ -37,6 +37,11 @@ class SettingsForm extends Model
 
     public $footer;
 
+    public $emptyBlockForCookbook;
+    public $emptyBlockForPosts;
+    public $emptyBlockForPhotos;
+    public $emptyBlockForRecipes;
+
     public function init()
     {
         $settings = Yii::$app->settings->getAll();
@@ -64,6 +69,7 @@ class SettingsForm extends Model
             [['bannerSimple1_show', 'bannerSimple2_show', 'bannerCenterTop_show', 'bannerPagenator_show', 'bannerBeforeSteps_show'], 'boolean', 'falseValue' => 0, 'trueValue' => 1],
             [['bannerDirectUnderMenu_show', 'bannerDirectAfterCategories_show', 'bannerFooter_show'], 'boolean'],
             ['footer', 'string'],
+            [['emptyBlockForCookbook', 'emptyBlockForPosts', 'emptyBlockForPhotos', 'emptyBlockForRecipes'], 'string'],
         ];
     }
 
@@ -96,6 +102,11 @@ class SettingsForm extends Model
             'bannerFooter_show' => 'Показывать',
 
             'footer' => 'Код подвала',
+
+            'emptyBlockForCookbook' => 'Сообщение если кулинарная книга пуста',
+            'emptyBlockForPosts' => 'Сообщение если постов у пользователя нет',
+            'emptyBlockForPhotos' => 'Сообщение если фотоотчётов у пользователя нет',
+            'emptyBlockForRecipes' => 'Сообщение если рецептов у пользователя нет',
         ];
     }
 }

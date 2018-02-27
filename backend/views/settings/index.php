@@ -3,6 +3,8 @@
 /* @var $this \yii\web\View */
 /* @var $model \core\components\Settings\SettingsForm */
 
+use core\helpers\CommonVars;
+use vova07\imperavi\Widget;
 use yii\bootstrap\ActiveForm;
 use yii\helpers\Html;
 
@@ -52,6 +54,26 @@ $this->title = "Настройки сайта";
         <?= Html::activeCheckbox($model, 'bannerFooter_show') ?><br><br>
 
         <?= $form->field($model, 'footer')->textarea(['rows' => 10]) ?>
+
+        <?= $form->field($model, 'emptyBlockForCookbook')->widget(Widget::className(), [
+            'id' => 'redactor',
+            'settings' => CommonVars::IMPERAVI_SETTINGS,
+        ]); ?>
+
+        <?= $form->field($model, 'emptyBlockForRecipes')->widget(Widget::className(), [
+            'id' => 'redactor',
+            'settings' => CommonVars::IMPERAVI_SETTINGS,
+        ]); ?>
+
+        <?= $form->field($model, 'emptyBlockForPosts')->widget(Widget::className(), [
+            'id' => 'redactor',
+            'settings' => CommonVars::IMPERAVI_SETTINGS,
+        ]); ?>
+
+        <?= $form->field($model, 'emptyBlockForPhotos')->widget(Widget::className(), [
+            'id' => 'redactor',
+            'settings' => CommonVars::IMPERAVI_SETTINGS,
+        ]); ?>
     </div>
     <div class="box-footer">
         <?= Html::submitButton("Сохранить", ['class' => 'btn btn-flat btn-success']) ?>

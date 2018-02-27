@@ -63,7 +63,7 @@ $this->title .= $category ? ' | ' .$category->getHeadingTile() : '';
                 <div class="inputbox_label_left">Категории:</div>
                 <div class="inputbox_label_right">
                     <select name="occasion-selector" class="select_base" data-for-link="occasion-selector-link">
-                        <option value="<?= Url::to(['/users/cookbook']) ?>">Все рецепты</option>
+                        <option value="<?= Url::to(['/users/cookbook', 'id' => $user->id]) ?>">Все рецепты</option>
                         <?php foreach ($userCategories as $userCategory): ?>
                             <option
                                     value="<?= Url::to([
@@ -81,9 +81,19 @@ $this->title .= $category ? ' | ' .$category->getHeadingTile() : '';
         </div>
     </div>
 
-    <?= $this->render('@frontend/views/recipes/recipes-block', ['recipesProvider' => $provider]) ?>
-    <?php Pjax::end() ?>
+    <?php if (!count($provider->models)): ?>
+        <div class="no-counts">
+            <?php if (Yii::$app->user->id === $user->id): ?>
+                <?= Yii::$app->settings->get('emptyBlockForCookbook') ?>
+            <?php else: ?>
+                Пользователь не добавил ещё рецептов в свою кулинарную книгу
+            <?php endif; ?>
+        </div>
+    <?php else: ?>
+        <?= $this->render('@frontend/views/recipes/recipes-block', ['recipesProvider' => $provider]) ?>
+    <?php endif; ?>
 
+    <?php Pjax::end() ?>
     <div class="p40"></div>
 
     <?= ArticlesWidget::widget() ?>

@@ -43,6 +43,11 @@ class SettingsManager
         'bannerFooter_show' => 1,
 
         'footer' => self::FOOTER,
+
+        'emptyBlockForCookbook' => 'Вы ещё не добавили ни одного рецепта в избранное',
+        'emptyBlockForPosts' => 'Вы не написали ни одного поста в форум',
+        'emptyBlockForPhotos' => 'Вы не добавили ни одного фотоотчёта',
+        'emptyBlockForRecipes' => 'Вы не добавили ни одного рецепта',
     ];
 
     public function __construct()

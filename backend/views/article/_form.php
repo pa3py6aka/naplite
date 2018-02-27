@@ -1,6 +1,7 @@
 <?php
 
 use core\forms\manage\ArticleCategoryForm;
+use core\helpers\CommonVars;
 use vova07\imperavi\Widget;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
@@ -22,36 +23,12 @@ use yii\widgets\ActiveForm;
 
         <?= $form->field($model, 'prevText')->widget(Widget::className(), [
             'id' => 'redactor',
-            'settings' => [
-                'lang' => 'ru',
-                'minHeight' => 200,
-                'buttons' => ['html','formatting','bold','italic','deleted',
-                    'unorderedlist','orderedlist','outdent','indent',
-                    'image','file','link','alignment','horizontalrule'],
-                'plugins' => [
-                    'fontsize',
-                    'fontcolor',
-                    'clips',
-                    'fullscreen',
-                ],
-            ],
+            'settings' => CommonVars::IMPERAVI_SETTINGS,
         ]); ?>
 
         <?= $form->field($model, 'content')->widget(Widget::className(), [
             'id' => 'redactor',
-            'settings' => [
-                'lang' => 'ru',
-                'minHeight' => 300,
-                'buttons' => ['html','formatting','bold','italic','deleted',
-                    'unorderedlist','orderedlist','outdent','indent',
-                    'image','file','link','alignment','horizontalrule'],
-                'plugins' => [
-                    'fontsize',
-                    'fontcolor',
-                    'clips',
-                    'fullscreen',
-                ],
-            ],
+            'settings' => CommonVars::IMPERAVI_SETTINGS,
         ]); ?>
 
         <?= $form->field($model, 'image')->fileInput(['accept' => 'image/*']) ?>
