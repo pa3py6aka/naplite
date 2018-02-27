@@ -35,6 +35,7 @@ NaPlite = (function () {
         messageModal: function (title, text) {
             $(".modalbox").hide();
             $messageModal.find('H1').html(title).end().find('[data-for=text]').html(text).end().show();
+            setTimeout('$(".modalbox").fadeOut()', 4000);
         },
         scrollTo: function ($el) {
             $('html, body').animate({
