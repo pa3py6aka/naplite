@@ -103,9 +103,9 @@ NaPlite = (function () {
             if (!isSubmit) {
                 if ($(this).attr('id') === 'userSettingsForm') {
                     $('[data-form-id="userSettingsForm"]').find('.overlay').remove();
-                } else {
+                }/* else {
                     $(this).find('.overlay').remove();
-                }
+                }*/
             }
         });
 
