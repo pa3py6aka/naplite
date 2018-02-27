@@ -3,10 +3,11 @@
 /* @var $this yii\web\View */
 /* @var $form \core\forms\ContactForm */
 
-?>
-<h3>Новое сообщение с формы обратной связи</h3>
-Тема: <?= $form->subject ?>
-email: <?= $form->email ?>
-Имя: <?= $form->name ?>
+$this->title = "Новое сообщение с формы обратной связи";
 
+?>
+Тема: <?= $form->subject ?><br />
+email: <?= $form->email ?><br />
+Имя: <?= $form->name ?><br />
+<br />
 <?= $form->text ?>

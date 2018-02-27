@@ -9,31 +9,44 @@ $homeUrl = Yii::$app->urlManager->createAbsoluteUrl('/');
 
 ?>
 <?php $this->beginPage() ?>
-<!doctype html>
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!DOCTYPE html>
+<html>
+<head lang="ru">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=1024">
     <title><?= Html::encode($this->title) ?></title>
-    <?php $this->head() ?>
+    <link rel="shortcut icon" href="<?= Yii::$app->params['frontendHostInfo'] ?>/favicon.ico" type="image/x-icon" />
 </head>
-<body style="background-color:#eeeeee;font-family:Arial, San-Seriff;font-size:15px;color:#31312e;margin:40px 30px;">
-    <?php $this->beginBody() ?>
-    <table style="clear:both;width:80%;clear:both;border-collapse:collapse;border-spacing:0;margin-left:45px;">
+<body>
+<?php $this->beginBody() ?>
+<div style="width:100%;height:100%;background:#f6f6f6;">
+    <div style="max-width:650px;clear:both;">
+        <div style="clear:both;height:20px;">&nbsp;</div>
+        <div style="float:left;width:20px;min-width:50px;">&nbsp;</div>
+        <div style="float:left;padding:0px 30px 30px 0px;"><img src="<?= Yii::$app->params['frontendHostInfo'] ?>/img/logo.png" width="282" height="64" alt=""/></div>
+    </div>
+    <table style="width:650px;max-width:650px;border-collapse:collapse;clear:both;">
         <tr>
-            <td style="background-color:#ffffff;padding:15px 0px 10px 40px;border:0px;width:300px;"><a href="<?= $homeUrl ?>"><img src="<?= Yii::$app->params['frontendHostInfo'] ?>/img/logo.png" width="282" height="64" alt=""/></a></td>
-            <td style="background-color:#ffffff;color:#120910;"><b></b></td>
-        </tr>
-        <tr><td colspan="2" style="height:15px;"></td></tr>
-        <?= nl2br($content) ?>
-        <tr><td colspan="2" style="height:15px;"></td></tr>
-        <tr>
-            <td colspan="2" style="font-size:13px;line-height:20px;padding:0px 0px 15px 40px;">
-                Вы получили это письмо так как зарегистрированы на сайте <a href="<?= $homeUrl ?>" style="color:#704f35;">www.na-plite.ru</a><br />
-                Для того чтобы отписаться от всех сообщений кроме важных системных уведомлений нажмите здесь
+            <td style="width:50px;min-width:50px;">&nbsp;</td>
+            <td colspan="2">
+                <div style="background-color:#ffffff;padding:40px 65px;font-size:16px;font-family:Arial;color:#2e3e48;line-height:29px;border-radius:15px;border-bottom:5px solid #f0efec;">
+                    <h1 style="font-family:Arial;font-size:22px;margin:0px 0px 20px 0px;padding:0px;font-weight:600;">
+                        <?= Html::encode($this->title) ?>
+                    </h1>
+                    <?= $content ?>
+                </div>
             </td>
+            <td style="width:20px;min-width:20px;">&nbsp;</td>
+        </tr>
+        <tr>
+            <td style="width:20px;min-width:20px;">&nbsp;</td>
+            <td colspan="2" style="padding:40px 0px 50px 0px;font-size:14px;font-family:Arial;color:#aeaaa0;">
+                &copy; Na-Plite 2017.</td>
+            <td style="width:20px;min-width:20px;">&nbsp;</td>
         </tr>
     </table>
-    <?php $this->endBody() ?>
+</div>
+<?php $this->endBody() ?>
 </body>
 </html>
 <?php $this->endPage() ?>

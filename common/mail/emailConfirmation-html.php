@@ -5,9 +5,8 @@ use yii\helpers\Html;
 /* @var $user \core\entities\User\User */
 
 $confirmLink = Yii::$app->urlManager->createAbsoluteUrl(['auth/confirm', 'token' => $user->email_confirm_token]);
+$this->title = "Подтверждение регистрации";
 ?>
-<div class="password-reset">
-    <p>Здравствуйте, для завершения регистрации перейдите по следующей ссылке:</p>
+<p>Здравствуйте, для завершения регистрации перейдите по следующей ссылке:</p>
 
-    <p><?= Html::a(Html::encode($confirmLink), $confirmLink) ?></p>
-</div>
+<p><?= Html::a(Html::encode($confirmLink), $confirmLink) ?></p>
