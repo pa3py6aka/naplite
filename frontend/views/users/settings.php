@@ -28,7 +28,10 @@ $this->title = "Настройки аккаунта";
                 <div class="userpage_info_left_inner">
                     <div class="userpage_info_left_inner_left">
                         <div class="cb"><h1>Настройки</h1></div>
-                        <?php $form = ActiveForm::begin(['id' => 'userSettingsForm', 'options' => ['enctype' => 'multipart/form-data']]) ?>
+                        <?php $form = ActiveForm::begin([
+                            'id' => 'userSettingsForm',
+                            'options' => ['enctype' => 'multipart/form-data', 'data' => ['type' => 'form']],
+                        ]) ?>
                             <div class="userpage_userpickbox_adaptive">
                                 <div class="cb">
                                     <a href="javascript:void(0)" data-link="choose-avatar-link">
@@ -145,7 +148,7 @@ $this->title = "Настройки аккаунта";
                     </div>
                 </div>
                 <div class="add_recipe_bottom">
-                    <a href="javascript:void(0)" class="b_red" data-link="form-submit" data-type="submit-form-link" data-form-id="userSettingsForm"><i class="fa fa-save"></i>Сохранить изменения</a>
+                    <a href="javascript:void(0)" class="b_red" data-type="submit-form-link" data-form-id="userSettingsForm"><i class="fa fa-save"></i>Сохранить изменения</a>
                 </div>
             </div>
         </div>

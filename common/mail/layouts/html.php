@@ -41,7 +41,7 @@ $homeUrl = Yii::$app->urlManager->createAbsoluteUrl('/');
         <tr>
             <td style="width:20px;min-width:20px;">&nbsp;</td>
             <td colspan="2" style="padding:40px 0px 50px 0px;font-size:14px;font-family:Arial;color:#aeaaa0;">
-                &copy; Na-Plite 2017.</td>
+                &copy; 2018<?= date('Y') > 2018 ? ' - ' . date('Y') : '' ?> na-plite.ru</td>
             <td style="width:20px;min-width:20px;">&nbsp;</td>
         </tr>
     </table>

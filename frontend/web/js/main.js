@@ -88,7 +88,6 @@ NaPlite = (function () {
         var isSubmit = false;
         $(document).on('beforeSubmit', '[data-type=form]', function (e) {
             isSubmit = true;
-            //alert(1);
             //showPreloader($(this));
             return true;
         }).on('ajaxBeforeSend', '[data-type=form]', function (e) {
@@ -99,6 +98,14 @@ NaPlite = (function () {
             //alert(3);
             if (!isSubmit) {
                 $(this).find('.overlay').remove();
+            }
+        }).on('afterValidate', '[data-type=form]', function (e) {
+            if (!isSubmit) {
+                if ($(this).attr('id') === 'userSettingsForm') {
+                    $('[data-form-id="userSettingsForm"]').find('.overlay').remove();
+                } else {
+                    $(this).find('.overlay').remove();
+                }
             }
         });
 
