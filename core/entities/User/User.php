@@ -83,7 +83,7 @@ class User extends ActiveRecord implements IdentityInterface
     {
         $email = is_array($attributes) ? ArrayHelper::getValue($attributes, 'email') : null;
         $user = new User();
-        $user->email = $email ?: null;
+        $user->email = null;
         $user->created_at = time();
         $user->status = self::STATUS_ACTIVE;
         $user->subscribes = Subscriber::DEFAULT_SUBSCRIBES;
