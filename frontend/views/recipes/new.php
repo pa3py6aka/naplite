@@ -236,7 +236,7 @@ foreach ($data as $item) {
                         </div>
                         <div class="add_ing_inputs_box_rasp"></div>
                         <div class="add_ing_inputs_box_4">
-                            <a href="javascript:void(0)" data-button="removeIngredient"><i class="fa fa-ban"></i></a>
+                            <div data-button="removeIngredient" class="cursor"><i class="fa fa-ban"></i></div>
                         </div>
                     </div>
                     <?php endfor; ?>

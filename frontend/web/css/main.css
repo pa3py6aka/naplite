@@ -1109,6 +1109,7 @@ span.cke_button__emojione_icon {
 	.direct_rasp {display:block;}
 }
 .text-link {color:#f63d3d;text-decoration: none;}
+.cursor {cursor:pointer;}
 
 /* Выбор кол-ва порций */
 .portions-selector {position:absolute;left: -8px;top:0;}
