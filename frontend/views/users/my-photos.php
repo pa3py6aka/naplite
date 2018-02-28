@@ -1,15 +1,9 @@
 <?php
 
-use core\helpers\BlogHelper;
 use widgets\ArticlesWidget;
 use widgets\BannerWidget;
-use widgets\BestChefsWidget;
-use widgets\BlogCategoriesWidget;
 use widgets\Pager;
-use widgets\SidebarCollectionsWidget;
-use widgets\SocialBlockWidget;
-use yii\helpers\Html;
-use yii\helpers\Url;
+use widgets\UserRightMenuWidget;
 
 /* @var $this \yii\web\View */
 /* @var $user \core\entities\User\User */
@@ -22,10 +16,10 @@ $this->title = $user->fullName . ' | Фотоотчёты';
 
 ?>
 <div class="content_left" id="blogsListPage">
-    <?= $this->render('user-top-block', ['action' => 'photos', 'user' => $user]) ?>
+    <?= $this->render('adaptive-menu', ['userId' => $user->id]) ?>
     <div class="textbox">
         <div class="th_2col">
-            <h2>Фотоотчёты</h2>
+            <h2>Ваши фотоотчёты</h2>
         </div>
         <div class="p40"></div>
         <ul class="photoreport">
@@ -59,15 +53,6 @@ $this->title = $user->fullName . ' | Фотоотчёты';
 
 </div>
 <div class="content_right">
-
+    <?= UserRightMenuWidget::widget(['userId' => $user->id]) ?>
     <?= BannerWidget::widget(['type' => BannerWidget::TYPE_RIGHT, 'bannerId' => 'bannerSimple1']) ?>
-
-    <?= BestChefsWidget::widget() ?>
-    <div class="p40"></div>
-
-    <?= SocialBlockWidget::widget() ?>
-    <div class="p40"></div>
-
-    <?= SidebarCollectionsWidget::widget() ?>
-
 </div>

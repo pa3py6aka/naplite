@@ -21,24 +21,13 @@ $this->title = $user->fullName . ' | Кулинарная книга';
 $this->title .= $category ? ' | ' .$category->getHeadingTile() : '';
 ?>
 <div class="content_left">
-    <div class="th_parent">
-        <div class="breadcump sub-cat">
-            <a href="/">Главная</a>
-            <span><i class="fa fa-circle"></i></span>
-            <a href="<?= Url::to(['/users/view', 'id' => $user->id]) ?>"><?= $user->fullName ?></a>
-        </div>
-        <div class="th_parent_top">
-            <div class="th_parent_top_ico"><i class="fa fa-book"></i></div>
-            <div class="th_parent_top_text"><h1>Кулинарная книга</h1></div>
-        </div>
-    </div>
-    <div class="cb"></div>
+    <?= $this->render('user-top-block', ['action' => 'cookbook', 'user' => $user]) ?>
 
-    <?php if (Yii::$app->settings->get('bannerDirectAfterCategories_show')): ?>
+    <?php /*if (Yii::$app->settings->get('bannerDirectAfterCategories_show')): ?>
         <div class="direct">
             <?= Yii::$app->settings->get('bannerDirectAfterCategories') ?>
         </div>
-    <?php endif; ?>
+    <?php endif;*/ ?>
 
     <?php Pjax::begin([
         'linkSelector' => '.pjax'

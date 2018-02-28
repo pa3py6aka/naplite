@@ -3,7 +3,9 @@
 namespace core\helpers;
 
 
+use core\entities\User\User;
 use yii\helpers\HtmlPurifier;
+use yii\helpers\Url;
 
 class ContentHelper
 {
@@ -19,5 +21,29 @@ class ContentHelper
     public static function optimize($content)
     {
         return str_replace('<p>&nbsp;</p>', '', $content);
+    }
+
+    public static function breadcrumbsForUserPages($action, User $user)
+    {
+        switch ($action) {
+            case 'recipes':
+                $link = 'Рецепты автора';
+                break;
+            case 'cookbook':
+                $link = 'Кулинарная книга';
+                break;
+            case 'posts':
+                $link = 'Посты';
+                break;
+            case 'photos':
+                $link = 'Фотоотчёты';
+                break;
+            default: $link = 'Рецепты';
+        }
+        return $action != 'view' ? '<span><i class="fa fa-circle"></i></span>'
+                    //. '<a href=' . $user->pageUrl .'">' . $user->fullName . '</a>'
+                    //. '<span><i class="fa fa-circle"></i></span>'
+                    . '<a href="' . Url::to(['/users/' . $action, 'id' => $user->id]) . '">' . $link .'</a>'
+            : '';
     }
 }

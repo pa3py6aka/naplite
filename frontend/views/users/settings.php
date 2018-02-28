@@ -7,21 +7,17 @@
 
 use core\entities\User\Country;
 use widgets\BannerWidget;
+use widgets\UserRightMenuWidget;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
+use yii\helpers\Url;
 use yii\widgets\ActiveForm;
 
 $this->title = "Настройки аккаунта";
 
 ?>
 <div class="content_left" id="userSettingsPage">
-    <div class="blog_adaptive_menu">
-        <div class="blog_adaptive_menu_left">
-            <select class="select_base" name="sdfgerg">
-                <option value="1">Настройки</option>
-            </select>
-        </div>
-    </div>
+    <?= $this->render('adaptive-menu', ['userId' => $user->id]) ?>
     <div class="textbox_nop">
         <div class="userpage_info">
             <div class="userpage_info_left">
@@ -155,18 +151,7 @@ $this->title = "Настройки аккаунта";
     </div>
 </div>
 <div class="content_right">
-    <div class="right_menu">
-        <ul>
-            <li><a href="<?= $user->pageUrl ?>">Личная страница</a></li>
-            <li><a href="#">Кулинарная книга</a></li>
-            <!-- ToDo : Личные сообщения
-            <li><a href="#">Сообщения</a></li>-->
-            <li><a href="#">Мои рецепты</a></li>
-            <li><a href="#">Мои посты</a></li>
-            <li><a href="#">Мои фотоотчеты</a></li>
-            <li><a href="javascript:void(0)" class="right_menu_active">Настройки</a></li>
-        </ul>
-    </div>
+    <?= UserRightMenuWidget::widget(['userId' => $user->id]) ?>
     <?= BannerWidget::widget(['type' => BannerWidget::TYPE_RIGHT, 'bannerId' => 'bannerSimple1']) ?>
 </div>
 

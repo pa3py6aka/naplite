@@ -21,7 +21,8 @@ $this->title = $user->fullName . ' | Рецепты';
 $this->title .= $category ? ' | ' .$category->getHeadingTile() : '';
 ?>
 <div class="content_left">
-    <div class="th_parent">
+    <?= $this->render('user-top-block', ['action' => 'recipes', 'user' => $user]) ?>
+    <?php /*<div class="th_parent">
         <div class="breadcump sub-cat">
             <a href="/">Главная</a>
             <span><i class="fa fa-circle"></i></span>
@@ -32,13 +33,13 @@ $this->title .= $category ? ' | ' .$category->getHeadingTile() : '';
             <div class="th_parent_top_text"><h1>Рецепты автора</h1></div>
         </div>
     </div>
-    <div class="cb"></div>
+    <div class="cb"></div>*/ ?>
 
-    <?php if (Yii::$app->settings->get('bannerDirectAfterCategories_show')): ?>
+    <?php /* if (Yii::$app->settings->get('bannerDirectAfterCategories_show')): ?>
         <div class="direct">
             <?= Yii::$app->settings->get('bannerDirectAfterCategories') ?>
         </div>
-    <?php endif; ?>
+    <?php endif;*/ ?>
 
     <?php Pjax::begin([
         'linkSelector' => '.pjax'

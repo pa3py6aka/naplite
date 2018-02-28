@@ -4,10 +4,8 @@ use core\helpers\Pluralize;
 use core\helpers\UserHelper;
 use widgets\BannerWidget;
 use widgets\ForumBlockWidget;
-use widgets\SidebarCollectionsWidget;
-use widgets\SocialBlockWidget;
+use widgets\UserRightMenuWidget;
 use yii\helpers\Html;
-use yii\helpers\Url;
 use yii\widgets\Pjax;
 
 /* @var $this \yii\web\View */
@@ -18,19 +16,10 @@ $this->title = $user->fullName . ' | ' . Yii::$app->name;
 
 ?>
 <div class="content_left">
-    <?= $this->render('user-top-block', ['action' => 'view', 'user' => $user]) ?>
-
-    <?php /*
+    <?= $this->render('adaptive-menu', ['userId' => $user->id]) ?>
     <div class="textbox_nop">
         <div class="userpage_info">
             <div class="userpage_info_left">
-                <div class="breadcump">
-                    <a href="/">Главная</a>
-                    <span><i class="fa fa-circle"></i></span>
-                    <a href="<?= Url::to(['/forum/index']) ?>">Кулинарный форум</a>
-                    <span><i class="fa fa-circle"></i></span>
-                    <a href="#">Кулинары</a>
-                </div>
                 <div class="userpage_info_left_inner">
                     <div class="userpage_info_left_inner_left">
                         <h1><?= $user->fullName ?></h1>
@@ -55,23 +44,8 @@ $this->title = $user->fullName . ' | ' . Yii::$app->name;
                     </div>
                 </div>
             </div>
-            <div class="userpage_info_right">
-                <ul>
-                    <li><b class="f16">Личная страница</b></li>
-                    <li><a href="<?= Url::to(['/users/recipes', 'id' => $user->id]) ?>">Все рецепты автора</a></li>
-                    <li><a href="<?= Url::to(['/users/cookbook', 'id' => $user->id]) ?>">Кулинарная книга</a></li>
-                    <li><a href="<?= Url::to(['/users/posts', 'id' => $user->id]) ?>">Публикации в форуме</a></li>
-                    <li><a href="<?= Url::to(['/users/photos', 'id' => $user->id]) ?>">Фотоотчёты</a></li>
-                </ul>
-                <!-- ToDo: Добавление в друзья и личные сообщения
-                <div class="content_buttons_box">
-                    <a href="javascript:void(0)" class="b_gray"><i class="fa fa-plus-circle"></i>Добавить в друзья</a>
-                    <a href="javascript:void(0)" class="b_gray"><i class="fa fa-envelope"></i>Написать письмо</a>
-                </div>-->
-            </div>
         </div>
     </div>
-    */ ?>
 
     <span id="startRecipesBlock"></span>
     <?php if (!$recipesProvider->totalCount): ?>
@@ -96,11 +70,7 @@ $this->title = $user->fullName . ' | ' . Yii::$app->name;
     <?= ForumBlockWidget::widget() ?>
 </div>
 <div class="content_right">
+    <?= UserRightMenuWidget::widget(['userId' => $user->id]) ?>
     <?= BannerWidget::widget(['type' => BannerWidget::TYPE_RIGHT, 'bannerId' => 'bannerSimple1']) ?>
-
-    <?= SocialBlockWidget::widget() ?>
-    <div class="p40"></div>
-
-    <?= SidebarCollectionsWidget::widget() ?>
 </div>
 

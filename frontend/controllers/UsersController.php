@@ -69,7 +69,8 @@ class UsersController extends Controller
         $user = $this->userRepository->get($id);
         $recipesProvider = $this->userRepository->getRecipesProviderByUserId($id);
 
-        return $this->render('view', [
+        $view = Yii::$app->user->id === $user->id ? 'my-view' : 'view';
+        return $this->render($view, [
             'user' => $user,
             'recipesProvider' => $recipesProvider,
         ]);
@@ -123,7 +124,8 @@ class UsersController extends Controller
             ->andWhere(['ur.user_id' => $user->id, 'r.status' => Recipe::STATUS_ACTIVE])
             ->all();
 
-        return $this->render('cookbook', [
+        $view = Yii::$app->user->id === $user->id ? 'my-cookbook' : 'cookbook';
+        return $this->render($view, [
             'provider' => $provider,
             'category' => $category,
             'user' => $user,
@@ -146,7 +148,8 @@ class UsersController extends Controller
         }
         $userCategories = $userCategories->all();
 
-        return $this->render('recipes', [
+        $view = Yii::$app->user->id === $user->id ? 'my-recipes' : 'recipes';
+        return $this->render($view, [
             'provider' => $provider,
             'category' => $category,
             'user' => $user,
@@ -159,7 +162,8 @@ class UsersController extends Controller
         $user = $this->userRepository->get($id);
         $provider = (new BlogRepository())->getUserBlogs($id);
 
-        return $this->render('posts', [
+        $view = Yii::$app->user->id === $user->id ? 'my-posts' : 'posts';
+        return $this->render($view, [
             'user' => $user,
             'provider' => $provider,
         ]);
@@ -170,7 +174,8 @@ class UsersController extends Controller
         $user = $this->userRepository->get($id);
         $provider = (new PhotoReportsRepository())->getUserPhotos($id);
 
-        return $this->render('photos', [
+        $view = Yii::$app->user->id === $user->id ? 'my-photos' : 'photos';
+        return $this->render($view, [
             'user' => $user,
             'provider' => $provider,
         ]);

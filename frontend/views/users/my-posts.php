@@ -1,10 +1,8 @@
 <?php
 
 use widgets\BannerWidget;
-use widgets\BestChefsWidget;
 use widgets\Pager;
-use widgets\SidebarCollectionsWidget;
-use widgets\SocialBlockWidget;
+use widgets\UserRightMenuWidget;
 
 /* @var $this \yii\web\View */
 /* @var $user \core\entities\User\User */
@@ -16,10 +14,10 @@ $this->title = $user->fullName . ' | Посты';
 
 ?>
 <div class="content_left" id="blogsListPage">
-    <?= $this->render('user-top-block', ['action' => 'posts', 'user' => $user]) ?>
+    <?= $this->render('adaptive-menu', ['userId' => $user->id]) ?>
     <div class="textbox">
         <div class="th_2col">
-            <h2>Посты пользователя</h2>
+            <h2>Ваши посты</h2>
         </div>
         <div class="blog_main">
             <?php if (!count($provider->models)): ?>
@@ -46,13 +44,6 @@ $this->title = $user->fullName . ' | Посты';
     <?= Pager::widget(['pagination' => $provider->pagination]) ?>
 </div>
 <div class="content_right">
+    <?= UserRightMenuWidget::widget(['userId' => $user->id]) ?>
     <?= BannerWidget::widget(['type' => BannerWidget::TYPE_RIGHT, 'bannerId' => 'bannerSimple1']) ?>
-
-    <?= BestChefsWidget::widget() ?>
-    <div class="p40"></div>
-
-    <?= SocialBlockWidget::widget() ?>
-    <div class="p40"></div>
-
-    <?= SidebarCollectionsWidget::widget() ?>
 </div>
