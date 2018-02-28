@@ -28,6 +28,12 @@ $menu = Yii::$app->user->can(\core\access\Rbac::ROLE_ADMIN) ?
         ['label' => 'Таблица мер и весов', 'icon' => 'balance-scale', 'url' => ['/weight/index'], 'active' => $this->context->id == 'weight'],
         ['label' => 'Настройки сайта', 'icon' => 'cogs', 'url' => ['/settings/index'], 'active' => $this->context->id == 'settings'],
 
+        [
+            'label' => 'Выйти',
+            'url' => ['/site/logout'],
+            'template' => '<a href="{url}" data-method="POST"><i class="fa fa-sign-out"></i>{label}</a>'
+        ],
+
         ['label' => 'Menu Yii2', 'options' => ['class' => 'header'], 'visible' => YII_ENV_DEV],
         ['label' => 'Gii', 'icon' => 'file-code-o', 'url' => ['/gii'], 'visible' => YII_ENV_DEV],
         ['label' => 'Debug', 'icon' => 'dashboard', 'url' => ['/debug'], 'visible' => YII_ENV_DEV],
@@ -38,6 +44,11 @@ $menu = Yii::$app->user->can(\core\access\Rbac::ROLE_ADMIN) ?
         ['label' => 'Рецепты', 'icon' => 'cutlery', 'url' => ['/recipe/index'], 'active' => $this->context->id == 'recipe'],
         ['label' => 'Фотоотчёты', 'icon' => 'photo', 'url' => ['/photo-report/index'], 'active' => $this->context->id == 'photo-report'],
         ['label' => 'Посты', 'icon' => 'file-audio-o', 'url' => ['/blog/index'], 'active' => $this->context->id == 'blog'],
+        [
+            'label' => 'Выйти',
+            'url' => ['/site/logout'],
+            'template' => '<a href="{url}" data-method="POST"><i class="fa fa-sign-out"></i>{label}</a>'
+        ],
     ];
 
 
