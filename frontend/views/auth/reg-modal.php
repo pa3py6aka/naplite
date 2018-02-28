@@ -27,7 +27,7 @@ $model = new SignupForm();
                     'validationUrl' => ['/auth/signup-validation'],
                     'options' => ['data' => ['type' => 'form']]
                 ]) ?>
-                <div class="modal_inputbox">
+                <div class="modal_inputbox" style="width:86%;">
 
                     <?= $form->field($model, 'email', ['options' => ['class' => 'inputbox']])
                         ->input('email', ['class' => 'input_base', 'placeholder' => 'Ваш email'])
