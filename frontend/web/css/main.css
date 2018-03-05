@@ -1115,13 +1115,51 @@ span.cke_button__emojione_icon {
 .cursor {cursor:pointer;}
 
 	/* Выбор кол-ва порций */
-.portions-selector {position:absolute;left: -8px;top:0;}
-.portions-selector i {position:absolute;width:20px;height:20px;border:1px solid black;cursor:pointer;}
-.portions-selector i:hover, .portions-selector i:focus {background-color: #f0f7b0;}
+.portions-selector {position:absolute;left: -1px;top:-1px;}
+/*.portions-selector i {position:absolute;width:20px;height:20px;border:1px solid black;cursor:pointer;}
+.portions-selector i:hover, .portions-selector i:focus {background-color: #f0f7b0;}*/
 .portions-selector i:first-child {top:0;left:41px;border-bottom:none;}
 .portions-selector i:first-child:before {position: absolute;top: -4px;left:2px;}
 .portions-selector i:last-child {top:20px;left:41px;}
 .portions-selector i:last-child:before {position: absolute;top: -2px;left:2px;}
-#personsCount {font-weight:bold;font-size:17px;height:38px;text-align:center;border:1px solid black;}
-.recipe_ing_th H2 span:first-child {margin-right:20px;position:relative;}
+/*#personsCount {font-weight:bold;font-size:17px;height:38px;text-align:center;border:1px solid black;}*/
+.recipe_ing_th H2 span:first-child {position:relative;}
+
+
+#personsCount {
+	text-align: center;
+	border: 1px solid black;
+	height: 40px;
+	padding: 0px 5px 0px 5px;
+	font-size: 17px;
+	border-radius: 5px;
+	background-color: #f9f9f9 !important;
+	border: 0px;
+	box-shadow: inset 0px 1px 4px rgba(69,69,69,0.9);
+	color: #322d2b;
+	outline: none;
+}
+.recipe_ing_th H2 span:first-child {margin-right:28px;}
+.portions-selector i {
+	position: absolute;
+	width: 18px;
+	height: 18px;
+	border: 0px;
+	cursor: pointer;
+	background-color: #fafafa;
+	box-shadow: inset 0px 1px 22px rgba(69,69,69,0.16), 0px 2px 0px rgba(0,0,0,0.24);
+	color: #322d2b;
+	border-radius: 3px;
+	margin: 2px 0px;
+	box-sizing: border-box;
+	padding: 2px;
+	font-size: 23px;
+}
+.portions-selector i:hover, .portions-selector i:focus {
+	background-color: #d83535;
+	background: #ff5d5d;
+	color: #ffffff;
+	box-shadow: inset 0px 1px 22px rgba(197, 16, 16, 0.1), 0px 2px 0px rgba(197, 16, 16, 0.8);
+}
+
 /* End --Выбор кол-ва порций */
