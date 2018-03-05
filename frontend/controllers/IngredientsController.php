@@ -3,6 +3,7 @@
 namespace frontend\controllers;
 
 
+use core\entities\Ingredient\Ingredient;
 use core\entities\Ingredient\IngredientCategory;
 use core\forms\CommentForm;
 use core\repositories\IngredientCategoryRepository;
@@ -11,6 +12,7 @@ use core\services\CommentService;
 use Yii;
 use yii\base\Module;
 use yii\web\Controller;
+use yii\web\Response;
 
 class IngredientsController extends Controller
 {
@@ -58,5 +60,21 @@ class IngredientsController extends Controller
             'ingredient' => $ingredient,
             'commentModel' => $commentForm,
         ]);
+    }
+
+    public function actionAutoComplete()
+    {
+        Yii::$app->response->format = Response::FORMAT_JSON;
+        if (!Yii::$app->request->isAjax) {
+            return ['result' => 'error'];
+        }
+
+        $value = trim(Yii::$app->request->get('value'));
+        $result = Ingredient::find()
+            ->select(['title'])
+            ->where(['like', 'title', $value])
+            ->column();
+
+        return $result;
     }
 }

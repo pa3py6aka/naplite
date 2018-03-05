@@ -9,6 +9,7 @@ use yii\helpers\Html;
 use yii\helpers\Json;
 use yii\helpers\Url;
 use yii\jui\AutoComplete;
+use yii\web\JsExpression;
 use yii\widgets\ActiveForm;
 
 /* @var $this \yii\web\View */
@@ -202,11 +203,29 @@ foreach ($data as $item) {
                         <div class="add_ing_inputs">
                         <div class="add_ing_inputs_box_1">
                             <div class="inputbox_input">
-                                <?= Html::activeTextInput($model, 'ingredientName[' . $n . '][' . $i . ']', [
+                                <?php /*= Html::activeTextInput($model, 'ingredientName[' . $n . '][' . $i . ']', [
                                     'class' => 'input_base',
                                     'placeholder' => 'Название',
                                     'data' => ['num' => $i],
-                                ]) ?>
+                                ])*/ ?>
+                                <?php echo AutoComplete::widget([
+                                    'name' => $model->formName() . '[ingredientName][' . $n . '][' . $i . ']',
+                                    'id' => 'ing-' . $n . '-' . $i,
+                                    'value' => isset($model->ingredientName[$n][$i]) ? $model->ingredientName[$n][$i] : '',
+                                    'options' => [
+                                        'class' => 'input_base',
+                                        'placeholder' => 'Название',
+                                    ],
+                                    'clientOptions' => [
+                                        'source' => new JsExpression("function(request, response) {
+                                            $.getJSON('/ingredients/auto-complete', {
+                                                value: request.term
+                                            }, response);
+                                        }"),
+                                        'autoFill' => true,
+                                        'minLength' => '0'
+                                    ]]);
+                                ?>
                             </div>
                         </div>
                         <div class="add_ing_inputs_box_rasp"></div>

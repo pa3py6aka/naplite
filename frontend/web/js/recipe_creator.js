@@ -308,9 +308,17 @@ RecipeCreator = (function () {
             ingredientNum = Number($section.find('input[name*=ingredientName]').last().attr('data-num')) + 1;
         }
 
-        $nameInput.attr('id', 'recipeform-ingredientname-'+sectionNum+'-'+ingredientNum)
+        $nameInput.attr('id', 'ing-'+sectionNum+'-'+ingredientNum)
             .attr('name', 'RecipeForm[ingredientName]['+sectionNum+']['+ingredientNum+']')
-            .val('');
+            .val('')
+            .autocomplete({
+                source: function(request, response) {
+                    $.getJSON('/ingredients/auto-complete', {
+                        value: request.term
+                    }, response);
+                },
+                minLength: 0
+            });
         $quantityInput.attr('id', 'recipeform-ingredientquantity-'+sectionNum+'-'+ingredientNum)
             .attr('name', 'RecipeForm[ingredientQuantity]['+sectionNum+']['+ingredientNum+']')
             .val('');
