@@ -203,11 +203,6 @@ foreach ($data as $item) {
                         <div class="add_ing_inputs">
                         <div class="add_ing_inputs_box_1">
                             <div class="inputbox_input">
-                                <?php /*= Html::activeTextInput($model, 'ingredientName[' . $n . '][' . $i . ']', [
-                                    'class' => 'input_base',
-                                    'placeholder' => 'Название',
-                                    'data' => ['num' => $i],
-                                ])*/ ?>
                                 <?php echo AutoComplete::widget([
                                     'name' => $model->formName() . '[ingredientName][' . $n . '][' . $i . ']',
                                     'id' => 'ing-' . $n . '-' . $i,

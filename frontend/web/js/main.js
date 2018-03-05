@@ -229,6 +229,13 @@ NaPlite = (function () {
             $block.find('.socials_content').hide();
             $block.find('.socials_content[data-sn=' + sn + ']').show();
         });
+
+        $('.main-search-input').data("ui-autocomplete")._renderItem = function (ul, item) {
+            return $("<li></li>")
+                .data("item.autocomplete", item)
+                .append(item.label)
+                .appendTo(ul);
+        };
     };
 
     function showPreloader($el) {

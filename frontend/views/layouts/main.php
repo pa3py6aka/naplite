@@ -8,6 +8,8 @@ use widgets\ModalAlertWidget;
 use yii\helpers\Html;
 use frontend\assets\AppAsset;
 use yii\helpers\Url;
+use yii\jui\AutoComplete;
+use yii\web\JsExpression;
 
 AppAsset::register($this);
 
@@ -85,8 +87,27 @@ AppAsset::register($this);
             <div class="top_bottom_center">
                 <?= Html::beginForm(['/search/index'], 'get', ['id' => 'mainSearchForm']) ?>
                     <div class="top_bottom_center_inner">
-                        <div class="top_bottom_center_inner_left">
-                            <input name="q" type="text" placeholder="Поиск рецепта..." value="<?= Yii::$app->request->get('q', '') ?>"/>
+                        <div class="top_bottom_center_inner_left autocomplete-styled" id="main-search-block">
+                            <?php echo AutoComplete::widget([
+                                'name' => 'q',
+                                'value' => Yii::$app->request->get('q', ''),
+                                'options' => [
+                                    'class' => 'main-search-input',
+                                    'placeholder' => 'Поиск рецепта...',
+                                ],
+                                'clientOptions' => [
+                                    'source' => new JsExpression("function(request, response) {
+                                            $.getJSON('/search/auto-complete', {
+                                                value: request.term
+                                            }, response);
+                                        }"),
+                                    'autoFill' => true,
+                                    'minLength' => '1',
+                                    'appendTo' => '#main-search-block',
+                                ]
+                            ]);
+                            ?>
+                            <!--<input name="q" type="text" placeholder="Поиск рецепта..." value="<?= Yii::$app->request->get('q', '') ?>"/>-->
                         </div>
                         <div class="top_bottom_center_inner_right">
                             <a href="javascript:void(0)" data-link="main-search-link" data-type="main">
@@ -200,143 +221,6 @@ AppAsset::register($this);
     <div class="wrap">
         <div class="footer_top">
             <?= Yii::$app->settings->get('footer') ?>
-            <!--<div class="footer_col">
-                <b><a href="#">Закуски</a></b>
-                <a href="#">Бутерброды</a>
-                <a href="#">Горячие</a>
-                <a href="#">Мясные</a>
-                <a href="#">Из субпродуктов</a>
-                <a href="#">Из рыбы</a>
-                <a href="#">Из морепродуктов</a>
-                <a href="#">Из овощей</a>
-                <a href="#">Из фруктов</a>
-                <a href="#">С грибами</a>
-                <a href="#">Паштеты и террины</a>
-                <a href="#">Закусочные торты</a>
-                <a href="#">Закуски в лаваше</a>
-                <a href="#">Из сыра и творога</a>
-                <a href="#">Профитроли, тарталетки</a>
-                <a href="#">Холодец и заливное</a>
-                <a href="#">Закуски из яиц</a>
-                <p></p>
-                <b><a href="#">Напитки</a></b>
-                <a href="#">Алкогольные</a>
-                <a href="#">Безалкогольные</a>
-                <a href="#">Горячие</a>
-                <a href="#">Фруктовые</a>
-                <a href="#">Овощные</a>
-            </div>
-            <div class="footer_col">
-                <b><a href="#">Салаты</a></b>
-                <a href="#">Классические салаты</a>
-                <a href="#">Тёплые салаты</a>
-                <a href="#">Мясные салаты</a>
-                <a href="#">Из птицы</a>
-                <a href="#">С субпродуктами</a>
-                <a href="#">Из рыбы и морепродуктов</a>
-                <a href="#">Грибные</a>
-                <a href="#">Овощные</a>
-                <a href="#">С пастой (макаронами)</a>
-                <a href="#">С фасолью</a>
-                <a href="#">Фруктовые</a>
-                <a href="#">Прочие салаты</a>
-                <p></p>
-                <b><a href="#">Соусы</a></b>
-                <a href="#">Майонез</a>
-                <a href="#">Острые</a>
-                <a href="#">Сладкие</a>
-                <a href="#">На основе яиц и молока</a>
-                <a href="#">Томатные соусы</a>
-                <a href="#">Соусы с уксусом</a>
-                <a href="#">Дипы</a>
-                <a href="#">Ореховые соусы</a>
-                <a href="#">Соусы РУ</a>
-                <a href="#">Соусы из ягод и фруктов</a>
-                <a href="#">Грибные соусы</a>
-                <a href="#">Соусы для пасты</a>
-                <a href="#">Заправки</a>
-            </div>
-            <div class="footer_col">
-                <b><a href="#">Вторые блюда</a></b>
-                <a href="#">Из мяса</a>
-                <a href="#">Из птицы</a>
-                <a href="#">Из фарша</a>
-                <a href="#">Субпродукты</a>
-                <a href="#">Рыба и морепродукты</a>
-                <a href="#">Запеканки</a>
-                <a href="#">Домашняя колбаса</a>
-                <a href="#">В горшочках</a>
-                <a href="#">Пельмени, вареники</a>
-                <a href="#">Паста</a>
-                <a href="#">Клецки, галушки</a>
-                <a href="#">Овощи, грибы</a>
-                <a href="#">Каши</a>
-                <p></p>
-                <b><a href="#">Супы</a></b>
-                <a href="#">Борщи</a>
-                <a href="#">Мясные супы</a>
-                <a href="#">Рыбные супы</a>
-                <a href="#">Сырные супы</a>
-                <a href="#">Крем-супы</a>
-                <a href="#">Супы из морепродуктов</a>
-                <a href="#">Холодные супы</a>
-                <a href="#">Рассольники</a>
-                <a href="#">Грибные супы</a>
-                <a href="#">Супы с фасолью</a>
-            </div>
-            <div class="footer_col">
-                <b><a href="#">Заготовки</a></b>
-                <a href="#">Из овощей</a>
-                <a href="#">Из ягод, фруктов</a>
-                <a href="#">Заморозка</a>
-                <a href="#">Из мяса</a>
-                <a href="#">Компоты</a>
-                <a href="#">Маринование</a>
-                <p></p>
-                <b><a href="#">Десерты</a></b>
-                <a href="#">Желе и муссы</a>
-                <a href="#">Безе</a>
-                <a href="#">Мороженое</a>
-                <a href="#">Творожные</a>
-                <a href="#">С фруктами</a>
-                <a href="#">Конфеты</a>
-                <a href="#">Крем-брюлле</a>
-                <a href="#">Торты</a>
-                <a href="#">Из шоколада</a>
-                <a href="#">Мармелад</a>
-
-                <p></p>
-                <b><a href="#">Выпечка</a></b>
-                <a href="#">Тесто</a>
-                <a href="#">Сладкая выпечка</a>
-                <a href="#">Несладкая выпечка</a>
-                <a href="#">Блины, оладьи</a>
-                <a href="#">Выпечка из творога</a>
-                <a href="#">Из слоеного теста</a>
-            </div>
-            <div class="footer_col">
-                <b><a href="#">О проекте</a></b>
-                <a href="#">Реклама на сайте</a>
-                <a href="#">Рецепты блюд</a>
-                <a href="#">Статьи</a>
-                <a href="#">Кухни мира</a>
-                <a href="#">Ингредиенты</a>
-                <a href="#">Диеты для худеющих</a>
-                <a href="#">Кулинарный форум</a>
-                <p></p>
-                <b><a href="#">Мы в соц.сетях</a></b>
-                <a href="#">Инстраграмм</a>
-                <a href="#">Вконтакте</a>
-                <a href="#">Facebook</a>
-                <a href="#">Одноклассники</a>
-                <p></p>
-                <b><a href="#">Полезное кулинару</a></b>
-                <a href="#">Таблица мер и весов</a>
-                <a href="#">Описание частей мяса</a>
-                <a href="#">Правила разделки тушек</a>
-                <a href="#">Правила очистки овощей</a>
-                <a href="#">Способы нарезки</a>
-            </div>-->
         </div>
         <div class="footer_bottom">
             <div class="footer_bottom_left">&copy;2018<?= date('Y') > 2018 ? ' - ' . date('Y') : '' ?> na-plite.ru</div>

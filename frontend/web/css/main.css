@@ -1161,5 +1161,19 @@ span.cke_button__emojione_icon {
 	color: #ffffff;
 	box-shadow: inset 0px 1px 22px rgba(197, 16, 16, 0.1), 0px 2px 0px rgba(197, 16, 16, 0.8);
 }
-
 /* End --Выбор кол-ва порций */
+
+.ui-autocomplete img.thumb {
+	width: 66px;
+	margin-top: 2px;
+}
+.tcell {display:table-cell;vertical-align:top;}
+.autocomplete-styled .ui-state-active {border:none !important;}
+.autocomplete-styled .ui-menu-item:hover,
+.autocomplete-styled .ui-menu-item:focus,
+.autocomplete-styled .ui-menu-item:hover .tcell,
+.autocomplete-styled .ui-menu-item:focus .tcell {border: 1px solid #c2c2c2;}
+.ui-menu-item a {text-decoration: none;}
+.autocomplete-styled H4 {font-size: 13px;}
+.autocomplete-styled .ui-menu-item {font-size:11px;}
+.autocomplete-styled .ui-menu-item span {color:#f63d3d;}
