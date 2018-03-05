@@ -122,13 +122,13 @@ foreach ($data as $item) {
                 <div class="inputbox_3_col">
                     <div class="inputbox_3_col_box">
                         <div class="inputbox_label">Время приготовления:</div>
-                        <div class="inputbox_input">
+                        <div class="inputbox_input clock-block">
                             <div class="hours-block">
                                 <div class="time-control" data-direction="up" data-type="hours"><i class="fa fa-angle-up"></i></div>
                                 <?= Html::activeInput('text', $model, 'cookingTimeHours', ['class' => 'input_base']) ?>
                                 <div class="time-control" data-direction="down" data-type="hours"><i class="fa fa-angle-down"></i></div>
                             </div>
-                            <!--<div style="display:inline-block;width:7px;text-align:center"><div style="height:100%;margin:auto;">:</div></div>-->
+                            <div class="time-colon">:</div>
                             <div class="minutes-block">
                                 <div class="time-control" data-direction="up" data-type="minutes"><i class="fa fa-angle-up"></i></div>
                                 <?= Html::activeInput('text', $model, 'cookingTimeMinutes', ['class' => 'input_base input-small']) ?>
@@ -139,13 +139,13 @@ foreach ($data as $item) {
                     <div class="inputbox_2_col_rasp"></div>
                     <div class="inputbox_3_col_box">
                         <div class="inputbox_label">Нужна ли подготовка:</div>
-                        <div class="inputbox_input">
+                        <div class="inputbox_input clock-block">
                             <div class="hours-block">
                                 <div class="time-control" data-direction="up" data-type="hours"><i class="fa fa-angle-up"></i></div>
                                 <?= Html::activeInput('text', $model, 'preparationTimeHours', ['class' => 'input_base']) ?>
                                 <div class="time-control" data-direction="down" data-type="hours"><i class="fa fa-angle-down"></i></div>
                             </div>
-                            <!--<div style="display:inline-block;width:7px;text-align:center"><div style="height:100%;margin:auto;">:</div></div>-->
+                            <div class="time-colon">:</div>
                             <div class="minutes-block">
                                 <div class="time-control" data-direction="up" data-type="minutes"><i class="fa fa-angle-up"></i></div>
                                 <?= Html::activeInput('text', $model, 'preparationTimeMinutes', ['class' => 'input_base input-small']) ?>

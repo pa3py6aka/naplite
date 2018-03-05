@@ -275,6 +275,14 @@ RecipeCreator = (function () {
 
             $recipeForm.yiiActiveForm('submitForm');
         });
+
+        $(".hours-block,.minutes-block,.time-colon").on('mouseenter',function(){
+            var $el = $(this).hasClass('time-colon') ? $(this).parent().find('.time-control') : $(this).find('.time-control');
+            $el.addClass('active');
+        }).on('mouseleave',function(){
+            var $el = $(this).hasClass('time-colon') ? $(this).parent().find('.time-control') : $(this).find('.time-control');
+            $el.removeClass('active');
+        });
     };
     
     function initWysiwyg() {

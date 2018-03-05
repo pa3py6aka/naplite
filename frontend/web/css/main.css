@@ -1020,10 +1020,13 @@ select::-ms-expand{display:none;}
 .uploadbox_big .ico-main {position:absolute;top:35px;right:0;width:35px;height:33px;padding-top:3px;-moz-border-radius:0 0 0 5px;-webkit-border-radius:0 0 0 5px;}
 .uploadbox_big .ico-close i, .uploadbox_big .ico-main i{font-size:32px;}
 .ico-main.active i {color:#f63d3d;}
-.hours-block {display:inline-block;width:48px;}
-.minutes-block {display:inline-block;width:58px;}
-.time-control {width:100%;text-align:center;cursor:pointer;}
+.hours-block {display:table-cell;width:48px;}
+.minutes-block {display:table-cell;width:58px;}
+.clock-block {display:table;}
+.time-control {width:100%;text-align:center;cursor:pointer;visibility:hidden;}
+.time-control.active {visibility:visible;}
 .time-control:focus,.time-control:hover {color:#f63d3d !important;}
+.time-colon {display:table-cell;width:13px;text-align:center;vertical-align:middle;}
 #holiday-input {cursor:pointer;}
 @media screen and (min-device-width: 651px), screen and (min-width: 651px) {
 	#holidaysModal .modal_inputbox {min-width:300px;}
@@ -1111,7 +1114,7 @@ span.cke_button__emojione_icon {
 .text-link {color:#f63d3d;text-decoration: none;}
 .cursor {cursor:pointer;}
 
-/* Выбор кол-ва порций */
+	/* Выбор кол-ва порций */
 .portions-selector {position:absolute;left: -8px;top:0;}
 .portions-selector i {position:absolute;width:20px;height:20px;border:1px solid black;cursor:pointer;}
 .portions-selector i:hover, .portions-selector i:focus {background-color: #f0f7b0;}
