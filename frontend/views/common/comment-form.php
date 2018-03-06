@@ -33,6 +33,6 @@ use yii\widgets\ActiveForm;
     </div>
 <?php elseif (Yii::$app->user->isGuest && $n < 2): ?>
     <div class="comment_form" style="text-align:center;">
-        <strong>Для того чтобы оставлять комментарии, Вам необходимо <a href="javascript:void" class="loginButton text-link">войти</a> на сайт</strong>
+        <div class="errorbox">Для того чтобы оставлять комментарии, Вам необходимо <a href="javascript:void" class="loginButton text-link">войти</a> на сайт</div>
     </div>
 <?php endif; ?>
