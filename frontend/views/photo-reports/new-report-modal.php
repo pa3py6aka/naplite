@@ -28,8 +28,17 @@ $model->recipeId = $recipeId;
 
                 <div class="modal_inputbox">
 
-                    <img class="hidden photo-report-modal-image">
-                    <div class="file-upload-block">Добавьте фотографию отчёта</div>
+                    <div class="uploadbox_big">
+                        <a href="javascript:void(0)" class="upload-link">
+                            <i class="fa fa-photo"></i>
+                            <span>Добавьте фотографию</span>
+                            <div class="hidden default-text">Добавьте фотографию</div>
+                            <input type="file" class="hidden upload-file" accept="image/*">
+                        </a>
+                    </div>
+
+                    <!--<img class="hidden photo-report-modal-image">
+                    <div class="file-upload-block">Добавьте фотографию отчёта</div>-->
 
                     <div class="hidden">
                         <?= Html::activeFileInput($model, 'file', ['id' => 'photo-report-file-input']); ?>

@@ -61,7 +61,7 @@ RecipeView = (function () {
             $(".modalbox").hide();
             $("#newPhotoReportModal").fadeIn();
         });
-        $('#newPhotoReportModal').on('click', '.file-upload-block', function () {
+        $('#newPhotoReportModal').on('click', '.upload-link', function () {
             $('#photo-report-file-input').click();
         });
         $('#photo-report-file-input').on('change', function (evt) {
@@ -70,7 +70,7 @@ RecipeView = (function () {
 
             if (FileReader && files && files.length) {
                 var fr = new FileReader();
-                var $btnBlock = $('#newPhotoReportModal').find('.file-upload-block');
+                /*var $btnBlock = $('#newPhotoReportModal').find('.file-upload-block');
                 var btnWidth = $btnBlock.width();
                 fr.onload = function () {
                     $('#newPhotoReportModal')
@@ -79,6 +79,15 @@ RecipeView = (function () {
                         .attr('src', fr.result)
                         .removeClass('hidden');
                     $btnBlock.html('Выбрать другую').width(btnWidth);
+                };
+                fr.readAsDataURL(files[0]);*/
+                var $btnBlock = $('#newPhotoReportModal').find('.upload-link');
+                var btnWidth = $btnBlock.width();
+                fr.onload = function () {
+                    $btnBlock.find('img').remove();
+                    $btnBlock.find('i, span').hide();
+                    $btnBlock.prepend('<img src="' + fr.result + '" style="width:'+ btnWidth +'px;">');
+                    //$btnBlock.html('Выбрать другую').width(btnWidth);
                 };
                 fr.readAsDataURL(files[0]);
             }

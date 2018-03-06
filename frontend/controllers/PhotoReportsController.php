@@ -7,9 +7,11 @@ use core\access\Rbac;
 use core\entities\Recipe\PhotoReport;
 use core\forms\PhotoReportCreateForm;
 use core\repositories\PhotoReportsRepository;
+use core\repositories\RecipeRepository;
 use core\services\TransactionManager;
 use Yii;
 use yii\base\Module;
+use yii\base\UserException;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
 use yii\web\Controller;
@@ -58,6 +60,7 @@ class PhotoReportsController extends Controller
     {
         $form = new PhotoReportCreateForm();
         if ($form->load(Yii::$app->request->post())) {
+            $recipe = (new RecipeRepository())->get($form->recipeId);
             if (!$form->validate()) {
                 Yii::$app->session->setFlash('error', [['Ошибка', $form->getFirstError('file')]]);
             } else {
@@ -85,7 +88,9 @@ class PhotoReportsController extends Controller
                     Yii::$app->session->setFlash('error', [['Ошибка', 'При загрузке файла возникла непредвиденная ошибка<br />Мы уже работаем над этим.']]);
                 }
             }
+        } else {
+            throw new UserException("Ошибка при загрузке формы, попробуйте позже");
         }
-        return $this->redirect(['/recipes/view', 'id' => $form->recipeId]);
+        return $this->redirect($recipe->getUrl());
     }
 }
