@@ -38,6 +38,11 @@ class NetworkController extends Controller
         try {
             $user = $this->service->auth($network, $identity, $attributes);
             Yii::$app->user->login($user, Yii::$app->params['user.rememberMeDuration']);
+            if (!$user->username) {
+                return $this->redirect(['/users/settings']);
+            } else {
+                return $this->redirect(Yii::$app->request->referrer);
+            }
         } catch (\DomainException $e) {
             Yii::$app->errorHandler->logException($e);
             Yii::$app->session->setFlash('error', $e->getMessage());

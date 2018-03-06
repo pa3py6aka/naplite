@@ -38,7 +38,7 @@ $model = new SignupForm();
                         ->label(false) ?>
 
                     <div class="radio_and_but">
-                        <button type="submit" class="radio_and_but_right blind-button" data-type="submit-form-link" data-form-id="reg-form">
+                        <button type="submit" class="radio_and_but_right blind-button" data-form-id="reg-form">
                             <a type="submit" class="b_red">Зарегистрироваться</a>
                         </button>
                     </div>
