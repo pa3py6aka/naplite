@@ -7,8 +7,8 @@
                     <h1></h1>
                     <span data-for="text"></span>
                 </div>
-                <!--<div class="p20"></div>
-                <div class="cb"><img src="/img/shef.png" width="153" height="121" alt=""/></div>-->
+                <div class="p20"></div>
+                <div class="cb"><img src="/img/shef.png" width="153" height="121" alt=""/></div>
             </div>
         </div>
     </div>
