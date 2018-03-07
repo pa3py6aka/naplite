@@ -283,6 +283,22 @@ RecipeCreator = (function () {
             var $el = $(this).hasClass('time-colon') ? $(this).parent().find('.time-control') : $(this).find('.time-control');
             $el.removeClass('active');
         });
+
+        $('.arrows-input').on('mouseenter',function(){
+            $(this).find('.arrow').addClass('active');
+        }).on('mouseleave',function(){
+            $(this).find('.arrow').removeClass('active');
+        }).on('click', '.arrow', function () {
+            var $select = $('select[name*=persons]'),
+                current = Number($select.val()),
+                value = $(this).attr('data-direction') === 'up' ? current + 1 : current - 1;
+            if (value < 1) {
+                value = 1;
+            } else if (value > 10) {
+                value = 10;
+            }
+            $select.val(value);
+        });
     };
     
     function initWysiwyg() {

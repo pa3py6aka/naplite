@@ -158,9 +158,14 @@ foreach ($data as $item) {
                     <div class="inputbox_3_col_box">
                         <div class="inputbox_label">Количество персон:</div>
 
-                        <?= $form->field($model, 'persons', ['options' => ['class' => 'inputbox_input']])
+                        <div class="arrows-input inputbox_input">
+                            <div class="arrow" data-direction="up"><i class="fa fa-angle-up"></i></div>
+                            <?= Html::activeDropDownList($model, 'persons',$model->personsArray(), ['class' => 'select_base']) ?>
+                            <div class="arrow" data-direction="down"><i class="fa fa-angle-down"></i></div>
+                        </div>
+                        <?php /*= $form->field($model, 'persons', ['options' => ['class' => 'inputbox_input']])
                             ->dropDownList($model->personsArray(), ['class' => 'select_base'])
-                            ->label(false) ?>
+                            ->label(false)*/ ?>
 
                     </div>
                 </div>

@@ -1177,3 +1177,6 @@ span.cke_button__emojione_icon {
 .autocomplete-styled H4 {font-size: 13px;}
 .autocomplete-styled .ui-menu-item {font-size:11px;}
 .autocomplete-styled .ui-menu-item span {color:#f63d3d;}
+.arrows-input .arrow {text-align:center;visibility:hidden;cursor:pointer;}
+.arrows-input .arrow:hover, .arrows-input .arrow:focus {color:#f63d3d !important;}
+.arrows-input .arrow.active {visibility:visible;}
