@@ -61,17 +61,17 @@ $this->title = "Настройки сайта";
         ]); ?>
 
         <?= $form->field($model, 'emptyBlockForRecipes')->widget(Widget::className(), [
-            'id' => 'redactor',
+            'id' => 'redactor2',
             'settings' => CommonVars::IMPERAVI_SETTINGS,
         ]); ?>
 
         <?= $form->field($model, 'emptyBlockForPosts')->widget(Widget::className(), [
-            'id' => 'redactor',
+            'id' => 'redactor3',
             'settings' => CommonVars::IMPERAVI_SETTINGS,
         ]); ?>
 
         <?= $form->field($model, 'emptyBlockForPhotos')->widget(Widget::className(), [
-            'id' => 'redactor',
+            'id' => 'redactor4',
             'settings' => CommonVars::IMPERAVI_SETTINGS,
         ]); ?>
     </div>

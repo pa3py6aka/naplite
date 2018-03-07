@@ -9,6 +9,7 @@ class SettingsManager
 {
     private $settings;
     public $file = __DIR__ . '/settings.json';
+    public $emails = __DIR__ . '/emails.html';
 
     /* @note Don't change keys in this array!!! */
     private $default = [
