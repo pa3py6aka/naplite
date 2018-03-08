@@ -381,6 +381,17 @@ RecipeCreator = (function () {
     function init() {
         Listen();
         initWysiwyg();
+
+        $('#holiday-input').select2MultiCheckboxes({
+            templateSelection: function(selected, total) {
+                if (!selected.length) {
+                    return 'Укажите праздники';
+                }
+                return NaPlite.public.pluralize(selected.length, ['Выбран', 'Выбрано', 'Выбрано']) + ' ' + selected.length + ' ' + NaPlite.public.pluralize(selected.length, ['праздник', 'праздника', 'праздников']);
+            },
+            placeholder: "Укажите праздники",
+            dropdownCssClass: 'select_base'
+        });
     }
 
     return {

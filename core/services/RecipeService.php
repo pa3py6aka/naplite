@@ -138,7 +138,7 @@ class RecipeService
             foreach ($form->holidays as $id => $holiday) {
                 $recipeHoliday = new RecipeHoliday([
                     'recipe_id' => $recipe->id,
-                    'holiday_id' => $id
+                    'holiday_id' => $holiday
                 ]);
                 $this->repository->saveHoliday($recipeHoliday);
             }
@@ -191,7 +191,7 @@ class RecipeService
     {
         $result = [];
         foreach ($holidays as $id => $holiday) {
-            $result[] = ['holiday_id' => $id];
+            $result[] = ['holiday_id' => $holiday];
         }
         return $result;
     }

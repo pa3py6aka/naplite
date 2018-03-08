@@ -113,8 +113,8 @@ class RecipeForm extends Model
             ['holidays', 'required', 'message' => 'Выберите праздники'],
             ['holidays', 'each', 'rule' => ['integer']],
             ['holidays', 'each', 'rule' => ['exist', 'skipOnError' => false, 'targetClass' => Holiday::className(), 'targetAttribute' => 'id']],
-            ['holidaysInput', 'required', 'message' => 'Выберите праздники'],
-            ['holidaysInput', 'string'],
+            //['holidaysInput', 'required', 'message' => 'Выберите праздники'],
+            //['holidaysInput', 'string'],
 
             ['complexity', 'required', 'message' => 'Укажите сложность'],
             ['complexity', 'integer'],

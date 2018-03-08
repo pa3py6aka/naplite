@@ -1,5 +1,6 @@
 <?php
 
+use core\entities\Holiday;
 use core\entities\Kitchen;
 use core\entities\Recipe\Recipe;
 use core\forms\manage\CategoryForm;
@@ -163,21 +164,25 @@ foreach ($data as $item) {
                             <?= Html::activeDropDownList($model, 'persons',$model->personsArray(), ['class' => 'select_base']) ?>
                             <div class="arrow" data-direction="down"><i class="fa fa-angle-down"></i></div>
                         </div>
-                        <?php /*= $form->field($model, 'persons', ['options' => ['class' => 'inputbox_input']])
-                            ->dropDownList($model->personsArray(), ['class' => 'select_base'])
-                            ->label(false)*/ ?>
-
                     </div>
                 </div>
                 <div class="inputbox_2_col">
                     <div class="inputbox_2_col_box">
                         <div class="inputbox_label">Для какого праздника?</div>
 
-                        <?= $form->field($model, 'holidaysInput', ['options' => ['class' => 'inputbox_input']])
+                        <?= $form->field($model, 'holidays', ['options' => ['class' => 'inputbox_input']])
+                                ->dropDownList(ArrayHelper::map(Holiday::find()->asArray()->all(), 'id', 'name'), [
+                                    'class' => 'select_base',
+                                    'id' => 'holiday-input',
+                                    'multiple' => 'multiple',
+                                ])
+                                ->label(false) ?>
+
+                        <?php /*= $form->field($model, 'holidaysInput', ['options' => ['class' => 'inputbox_input']])
                             ->textInput(['class' => 'select_base', 'disabled' => false, 'id' => 'holiday-input'])
                             ->label(false) ?>
 
-                        <?= $this->render('holidays-modal', ['form' => $form, 'model' => $model]) ?>
+                        <?= $this->render('holidays-modal', ['form' => $form, 'model' => $model])*/ ?>
 
                     </div>
                     <div class="inputbox_2_col_rasp"></div>

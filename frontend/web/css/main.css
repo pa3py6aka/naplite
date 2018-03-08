@@ -1180,3 +1180,24 @@ span.cke_button__emojione_icon {
 .arrows-input .arrow {text-align:center;visibility:hidden;cursor:pointer;}
 .arrows-input .arrow:hover, .arrows-input .arrow:focus {color:#f63d3d !important;}
 .arrows-input .arrow.active {visibility:visible;}
+
+.select2-results__option .wrap:before{
+	font-family:fontAwesome;
+	color:#999;
+	content:"\f096";
+	width:25px;
+	height:25px;
+	padding-right: 10px;
+}
+.select2-results__option[aria-selected=true] .wrap:before{content:"\f14a";}
+.select2.select2-container {
+	display:table-cell;width:100%;box-sizing:border-box;height:40px;padding:0px 20px 0px 17px;font-size:17px;border-radius:5px;background-color:#f9f9f9 !important;border:0px;box-shadow:inset 0px 1px 4px rgba(69,69,69,0.9);color:#322d2b;outline: none;
+}
+span.select2-selection {background-color:#f9f9f9 !important;border:none !important;}
+.select2-selection__arrow {
+	background: url(../img/ico_arrow_select.svg) right center no-repeat;
+	height:100% !important;width:40px !important;
+}
+.select2-selection__arrow > b {border:none !important;}
+.select2-selection__clear {color:#f63d3d;margin-top: 2px;}
+.select2-container--default .select2-results>.select2-results__options {max-height: initial !important;}
