@@ -17,28 +17,31 @@ use yii\web\UploadedFile;
  * @property string $prev_text
  * @property string $content
  * @property string $image
+ * @property bool $show [tinyint(1)]
  *
  * @property IngredientCategory $category
  * @property IngredientComment[] $comments
  */
 class Ingredient extends ActiveRecord
 {
-    public static function create($categoryId, $title, $prevText, $content): Ingredient
+    public static function create($categoryId, $title, $prevText, $content, $show): Ingredient
     {
         $ingredient = new self();
         $ingredient->category_id = $categoryId;
         $ingredient->title = $title;
         $ingredient->prev_text = $prevText;
         $ingredient->content = $content;
+        $ingredient->show = $show;
         return $ingredient;
     }
 
-    public function edit($categoryId, $title, $prevText, $content): void
+    public function edit($categoryId, $title, $prevText, $content, $show): void
     {
         $this->category_id = $categoryId;
         $this->title = $title;
         $this->prev_text = $prevText;
         $this->content = $content;
+        $this->show = $show;
     }
 
     public function saveImage(UploadedFile $image): void

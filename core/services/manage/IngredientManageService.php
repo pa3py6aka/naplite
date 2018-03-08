@@ -23,7 +23,8 @@ class IngredientManageService
             $form->categoryId,
             $form->title,
             $form->prevText,
-            $form->content
+            $form->content,
+            $form->show
         );
         $this->repository->save($ingredient);
         if ($form->image instanceof UploadedFile) {
@@ -41,7 +42,8 @@ class IngredientManageService
             $form->categoryId,
             $form->title,
             $form->prevText,
-            $form->content
+            $form->content,
+            $form->show
         );
 
         if ($form->image instanceof UploadedFile) {

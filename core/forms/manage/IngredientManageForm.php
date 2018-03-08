@@ -17,6 +17,7 @@ class IngredientManageForm extends Model
     public $prevText;
     public $content;
     public $image;
+    public $show;
 
     const SCENARIO_CREATE = 'create';
 
@@ -27,6 +28,7 @@ class IngredientManageForm extends Model
             $this->categoryId = $ingredient->category_id;
             $this->prevText = $ingredient->prev_text;
             $this->content = $ingredient->content;
+            $this->show = $ingredient->show;
         }
         parent::__construct($config);
     }
@@ -41,13 +43,14 @@ class IngredientManageForm extends Model
             [['prevText', 'content'], 'string'],
             ['image', 'required', 'on' => self::SCENARIO_CREATE],
             ['image', 'image', 'extensions' => 'jpg, jpeg, png, gif'],
+            ['show', 'boolean'],
         ];
     }
 
     public function scenarios()
     {
         $scenarios = parent::scenarios();
-        $scenarios[self::SCENARIO_CREATE] = ['title', 'categoryId', 'prevText', 'content', 'image'];
+        $scenarios[self::SCENARIO_CREATE] = ['title', 'categoryId', 'prevText', 'content', 'image', 'show'];
         return $scenarios;
     }
 
@@ -65,6 +68,7 @@ class IngredientManageForm extends Model
             'prevText' => 'Превью-текст',
             'content' => 'Контент',
             'image' => 'Изображение',
+            'show' => 'Отображать на странице ингредиентов',
         ];
     }
 }

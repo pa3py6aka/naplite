@@ -18,6 +18,9 @@ use yii\widgets\ActiveForm;
 
         <?= $form->field($model, 'categoryId')->dropDownList(IngredientCategoryForm::parentCategoriesList()) ?>
 
+        <?= $form->field($model, 'show')->dropDownList([0 => 'Нет', 1 => 'Да'])
+            ->hint('Если не отображать, то ингредиент будет использоваться только для автокомплита в форме добавления рецепта') ?>
+
         <?= $form->field($model, 'prevText')->widget(Widget::className(), [
             'id' => 'redactor',
             'settings' => [
