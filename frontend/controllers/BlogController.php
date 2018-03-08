@@ -69,7 +69,7 @@ class BlogController extends Controller
             /* @var $commentService CommentService */
             $commentService = Yii::$container->get(CommentService::class);
             $commentService->addComment($commentForm, $blog);
-            $commentForm = new CommentForm();
+            return $this->redirect($blog->getUrl());
         }
 
         return $this->render('view', [

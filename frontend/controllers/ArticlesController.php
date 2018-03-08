@@ -52,7 +52,7 @@ class ArticlesController extends Controller
             /* @var $commentService CommentService */
             $commentService = Yii::$container->get(CommentService::class);
             $commentService->addComment($commentForm, $article);
-            $commentForm = new CommentForm();
+            return $this->redirect($article->getUrl());
         }
 
         return $this->render('view', [
