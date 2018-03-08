@@ -231,11 +231,18 @@ NaPlite = (function () {
         });
 
         $('.main-search-input').data("ui-autocomplete")._renderItem = function (ul, item) {
+            var html = item.label;
+            //item.label = $(html).find('h4').find('a').text();
+            item.value = $(html).find('h4').find('a').text();
             return $("<li></li>")
                 .data("item.autocomplete", item)
-                .append(item.label)
+                .append(html)
                 .appendTo(ul);
         };
+        $(".main-search-input").on("autocompleteselect", function( event, ui ) {
+            var url = $(ui.item.label).find('h4').find('a').attr('href');
+            document.location.href = url;
+        });
     };
 
     function showPreloader($el) {
