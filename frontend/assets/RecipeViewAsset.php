@@ -16,6 +16,7 @@ class RecipeViewAsset extends AssetBundle
 
     public $depends = [
         'yii\web\JqueryAsset',
-        LightBoxAsset::class,
+        //LightBoxAsset::class,
+        PhotoboxAsset::class,
     ];
 }

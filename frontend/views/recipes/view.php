@@ -162,7 +162,9 @@ $this->title = Html::encode($recipe->name);
                             <li class="instruction">
                                 <?php if ($step->photo): ?>
                                 <span class="relative">
-                                    <img src="<?= $step->photoUrl ?>" width="540" height="325" alt=""/>
+                                    <a href="<?= $step->getPhotoUrl() ?>" class="step-photo">
+                                        <img src="<?= $step->getPhotoUrl() ?>" width="540" height="325" alt=""/>
+                                    </a>
                                     <span class="instruction_number"><?= $n ?></span>
                                 </span>
                                 <?php endif; ?>

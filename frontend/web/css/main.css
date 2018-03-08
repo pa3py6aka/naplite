@@ -1201,3 +1201,7 @@ span.select2-selection {background-color:#f9f9f9 !important;border:none !importa
 .select2-selection__arrow > b {border:none !important;}
 .select2-selection__clear {color:#f63d3d;margin-top: 2px;}
 .select2-container--default .select2-results>.select2-results__options {max-height: initial !important;}
+
+.photoreport li > div {position:relative;}
+.photoreport li > div:hover .photoreport_stat{bottom:0px;opacity:1;visibility:visible;}
+

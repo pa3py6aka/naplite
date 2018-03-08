@@ -116,6 +116,9 @@ RecipeView = (function () {
 
     function init() {
         Listen();
+
+        $('.recipe_steps').photobox('.step-photo', {time:0});
+        $('.photoreport').photobox('.photo-report-image', {time:0});
     }
 
     return {
