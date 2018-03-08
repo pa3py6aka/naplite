@@ -119,7 +119,7 @@ class RecipesController extends Controller
             /* @var $commentService CommentService */
             $commentService = Yii::$container->get(CommentService::class);
             $commentService->addComment($commentForm, $recipe);
-            return $this->redirect($recipe->getUrl());
+            return $this->redirect($recipe->getUrl(false, 'comments'));
         }
 
         return $this->render('view', [

@@ -159,11 +159,11 @@ class Recipe extends ActiveRecord
         return null;
     }
 
-    public function getUrl($absolute = false): string
+    public function getUrl($absolute = false, $anchor = null): string
     {
         return $absolute ?
             Yii::$app->frontendUrlManager->createAbsoluteUrl(['recipes/view', 'slug' => $this->slug]) :
-            Url::to(['recipes/view', 'slug' => $this->slug]);
+            Url::to(array_merge(['recipes/view', 'slug' => $this->slug], $anchor ? ['#' => $anchor] : []));
     }
 
     public static function statusesArray(): array

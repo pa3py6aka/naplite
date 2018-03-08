@@ -92,11 +92,11 @@ class Article extends ActiveRecord
         return Yii::getAlias('@uploads') . '/art/';
     }
 
-    public function getUrl($forCP = false)
+    public function getUrl($forCP = false, $anchor = null)
     {
         return $forCP ?
             Yii::$app->frontendUrlManager->createAbsoluteUrl(['/articles/view', 'slug' => $this->slug]) :
-            Url::to(['/articles/view', 'slug' => $this->slug]);
+            Url::to(array_merge(['/articles/view', 'slug' => $this->slug], $anchor ? ['#' => $anchor] : []));
     }
 
     public function afterDelete()

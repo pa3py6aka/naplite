@@ -85,11 +85,11 @@ class Ingredient extends ActiveRecord
         return Yii::getAlias('@uploads') . '/ing/';
     }
 
-    public function getUrl($forCP = false): string
+    public function getUrl($forCP = false, $anchor = null): string
     {
         return $forCP ?
             Yii::$app->frontendUrlManager->createAbsoluteUrl(['/ingredients/view', 'id' => $this->id]) :
-            Url::to(['/ingredients/view', 'id' => $this->id]);
+            Url::to(array_merge(['/ingredients/view', 'id' => $this->id], $anchor ? ['#' => $anchor] : []));
     }
 
     public function afterDelete()

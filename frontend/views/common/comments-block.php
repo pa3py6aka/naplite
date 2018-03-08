@@ -16,7 +16,7 @@ $this->registerJsFile('/js/comments.js?v=' . filemtime(Yii::getAlias('@webroot/j
 <?= $this->render('comment-form', ['commentModel' => $commentModel, 'n' => 1]) ?>
 
 <?php if (count($comments)): ?>
-    <ul class="comments">
+    <ul class="comments" id="comments">
         <?php foreach ($comments as $comment): ?>
             <li class="comment">
                 <div class="comment_left">
