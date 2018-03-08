@@ -228,7 +228,7 @@ foreach ($data as $item) {
                                             }, response);
                                         }"),
                                         'autoFill' => true,
-                                        'minLength' => '0'
+                                        'minLength' => '3'
                                     ]]);
                                 ?>
                             </div>

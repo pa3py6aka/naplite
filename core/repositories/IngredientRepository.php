@@ -21,7 +21,7 @@ class IngredientRepository
 
     public function getProvider(IngredientCategory $category, $search = null): ActiveDataProvider
     {
-        $query = Ingredient::find();
+        $query = Ingredient::find()->andWhere(['show' => 1]);
         if (!$category->isRoot()) {
             $categoryIds[] = $category->id;
             foreach ($category->getDescendants()->all() as $child) {

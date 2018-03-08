@@ -333,7 +333,7 @@ RecipeCreator = (function () {
                         value: request.term
                     }, response);
                 },
-                minLength: 0
+                minLength: 3
             });
         $quantityInput.attr('id', 'recipeform-ingredientquantity-'+sectionNum+'-'+ingredientNum)
             .attr('name', 'RecipeForm[ingredientQuantity]['+sectionNum+']['+ingredientNum+']')
