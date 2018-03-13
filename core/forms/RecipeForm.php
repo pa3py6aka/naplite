@@ -110,7 +110,7 @@ class RecipeForm extends Model
             ['persons', 'required', 'message' => 'Укажите кол-во персон'],
             ['persons', 'integer', 'min' => 1, 'max' => 10],
 
-            ['holidays', 'required', 'message' => 'Выберите праздники'],
+            //['holidays', 'required', 'message' => 'Выберите праздники'],
             ['holidays', 'each', 'rule' => ['integer']],
             ['holidays', 'each', 'rule' => ['exist', 'skipOnError' => false, 'targetClass' => Holiday::className(), 'targetAttribute' => 'id']],
             //['holidaysInput', 'required', 'message' => 'Выберите праздники'],

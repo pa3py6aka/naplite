@@ -385,11 +385,11 @@ RecipeCreator = (function () {
         $('#holiday-input').select2MultiCheckboxes({
             templateSelection: function(selected, total) {
                 if (!selected.length) {
-                    return 'Укажите праздники';
+                    return 'Без привязки к празднику';
                 }
                 return NaPlite.public.pluralize(selected.length, ['Выбран', 'Выбрано', 'Выбрано']) + ' ' + selected.length + ' ' + NaPlite.public.pluralize(selected.length, ['праздник', 'праздника', 'праздников']);
             },
-            placeholder: "Укажите праздники",
+            placeholder: "Без привязки к празднику",
             dropdownCssClass: 'select_base'
         });
     }

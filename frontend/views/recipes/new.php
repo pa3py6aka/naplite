@@ -175,6 +175,7 @@ foreach ($data as $item) {
                                     'class' => 'select_base',
                                     'id' => 'holiday-input',
                                     'multiple' => 'multiple',
+                                    'prompt' => 'Без привязки к празднику',
                                 ])
                                 ->label(false) ?>
 

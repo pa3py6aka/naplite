@@ -135,12 +135,14 @@ class RecipeService
             $this->repository->save($recipe);
 
             RecipeHoliday::deleteAll(['recipe_id' => $recipe->id]);
-            foreach ($form->holidays as $id => $holiday) {
-                $recipeHoliday = new RecipeHoliday([
-                    'recipe_id' => $recipe->id,
-                    'holiday_id' => $holiday
-                ]);
-                $this->repository->saveHoliday($recipeHoliday);
+            if (is_array($form->holidays)) {
+                foreach ($form->holidays as $id => $holiday) {
+                    $recipeHoliday = new RecipeHoliday([
+                        'recipe_id' => $recipe->id,
+                        'holiday_id' => $holiday
+                    ]);
+                    $this->repository->saveHoliday($recipeHoliday);
+                }
             }
 
             $this->repository->removeIngredientSections($recipe->id);
@@ -189,6 +191,9 @@ class RecipeService
 
     private function getHolidaysArray($holidays): array
     {
+        if (!$holidays) {
+            return [];
+        }
         $result = [];
         foreach ($holidays as $id => $holiday) {
             $result[] = ['holiday_id' => $holiday];
