@@ -243,6 +243,8 @@ AppAsset::register($this);
 
     if (Yii::$app->request->get('login') == '1') {
         $this->registerJs('window.addEventListener("load", function(){$(".loginButton").click();});');
+    } else if (Yii::$app->request->get('signup') == 'show') {
+        $this->registerJs('window.addEventListener("load", function(){$(".regButton").click();});');
     }
 } ?>
 
