@@ -61,7 +61,7 @@ class RecipeService
         $holidays = $this->getHolidaysArray($form->holidays);
 
         $recipe = Recipe::create(
-            $form->categoryId,
+            $form->subCategoryId ?: $form->categoryId,
             $form->name,
             $form->kitchenId,
             $form->introductoryText,
@@ -118,7 +118,7 @@ class RecipeService
         }
 
         $recipe->edit(
-            $form->categoryId,
+            $form->subCategoryId ?: $form->categoryId,
             $form->name,
             $form->kitchenId,
             $form->introductoryText,

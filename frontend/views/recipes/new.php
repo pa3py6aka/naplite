@@ -59,19 +59,27 @@ foreach ($data as $item) {
                         <div class="inputbox_label">Категория рецепта:</div>
 
                         <?= $form->field($model, 'categoryId', ['options' => ['class' => 'inputbox_input']])
-                            ->dropDownList(CategoryForm::parentCategoriesList(false), ['class' => 'select_base', 'prompt' => 'Выберите'])
+                            ->dropDownList($model->rootCategoriesList(), ['id' => 'rootCategorySelector', 'class' => 'select_base', 'prompt' => 'Выберите'])
                             ->label(false) ?>
 
                     </div>
                     <div class="inputbox_2_col_rasp"></div>
                     <div class="inputbox_2_col_box">
-                        <div class="inputbox_label">Национальная кухня:</div>
+                        <div class="inputbox_label">Подкатегория:</div>
 
-                        <?= $form->field($model, 'kitchenId', ['options' => ['class' => 'inputbox_input']])
-                            ->dropDownList(ArrayHelper::map(Kitchen::find()->asArray()->all(), 'id', 'name'), ['class' => 'select_base', 'prompt' => 'Выберите'])
+                        <?= $form->field($model, 'subCategoryId', ['options' => ['class' => 'inputbox_input', 'id' => 'subCategoryField']])
+                            ->dropDownList($model::childCategoriesList($model->categoryId), ['id' => 'subCategorySelector', 'class' => 'select_base'])
                             ->label(false) ?>
 
                     </div>
+                </div>
+                <div class="inputbox">
+                    <div class="inputbox_label">Национальная кухня:</div>
+
+                    <?= $form->field($model, 'kitchenId', ['options' => ['class' => 'inputbox_input']])
+                        ->dropDownList(ArrayHelper::map(Kitchen::find()->asArray()->all(), 'id', 'name'), ['class' => 'select_base', 'prompt' => 'Выберите'])
+                        ->label(false) ?>
+
                 </div>
 
                 <?php if (is_array($model->photos)) {

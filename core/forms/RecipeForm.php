@@ -9,11 +9,13 @@ use core\entities\Kitchen;
 use core\entities\Recipe\Recipe;
 use core\helpers\Pluralize;
 use yii\base\Model;
+use yii\helpers\ArrayHelper;
 
 class RecipeForm extends Model
 {
     public $name;
     public $categoryId;
+    public $subCategoryId;
     public $kitchenId;
     public $mainPhoto;
     public $photos;
@@ -39,7 +41,22 @@ class RecipeForm extends Model
     {
         if ($recipe) {
             $this->name = $recipe->name;
-            $this->categoryId = $recipe->category_id;
+
+            $category = Category::findOne($recipe->category_id);
+            if ($category->depth == 1) {
+                $this->categoryId = $category->id;
+                $this->subCategoryId = null;
+            } else {
+                $this->subCategoryId = $category->id;
+                foreach ($category->parents as $parent) {
+                    if ($parent->depth == 1) {
+                        $this->categoryId = $parent->id;
+                        break;
+                    }
+                }
+            }
+            //$this->categoryId = $recipe->category_id;
+
             $this->kitchenId = $recipe->kitchen_id;
             foreach ($recipe->recipePhotos as $n => $photo) {
                 $this->photos[$n] = $photo->file;
@@ -86,6 +103,9 @@ class RecipeForm extends Model
             ['categoryId', 'required', 'message' => 'Выберите категорию'],
             ['categoryId', 'integer'],
             [['categoryId'], 'exist', 'skipOnError' => false, 'targetClass' => Category::className(), 'targetAttribute' => ['categoryId' => 'id']],
+
+            ['subCategoryId', 'string'],
+            [['subCategoryId'], 'exist', 'skipOnError' => false, 'targetClass' => Category::className(), 'targetAttribute' => ['subCategoryId' => 'id']],
 
             ['kitchenId', 'required', 'message' => 'Укажите кухню мира'],
             ['kitchenId', 'integer'],
@@ -161,6 +181,24 @@ class RecipeForm extends Model
     public function personsArray()
     {
         return [1=>1,2=>2,3=>3,4=>4,5=>5,6=>6,7=>7,8=>8,9=>9,10=>10];
+    }
+
+    public function rootCategoriesList()
+    {
+        $cats = ArrayHelper::map(Category::find()->where(['depth' => 1])->orderBy('lft')->asArray()->all(), 'id', 'name');
+        return $cats;
+    }
+
+    public static function childCategoriesList($id)
+    {
+        if (!$id) {
+            return [];
+        }
+        $root = Category::findOne($id);
+        $cats = ArrayHelper::map($root->getDescendants()->orderBy('lft')->asArray()->all(), 'id', function (array $category) {
+            return ($category['depth'] > 2 ? str_repeat('-- ', $category['depth'] - 2) . ' ' : '') . $category['name'];
+        });
+        return $cats;
     }
 
     private function getHours($minutes)

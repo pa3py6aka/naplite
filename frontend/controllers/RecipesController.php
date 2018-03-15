@@ -55,6 +55,7 @@ class RecipesController extends Controller
                     'upload' => ['post'],
                     'rate' => ['post'],
                     'save-to-user' => ['post'],
+                    'get-sub-categories' => ['post'],
                 ],
             ],
         ];
@@ -220,5 +221,11 @@ class RecipesController extends Controller
         }
 
         return ['result' => 'success', 'files' => $result];
+    }
+
+    public function actionGetSubCategories()
+    {
+        $id = (int) Yii::$app->request->post('id');
+        return $this->asJson(RecipeForm::childCategoriesList($id));
     }
 }

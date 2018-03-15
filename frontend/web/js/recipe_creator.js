@@ -299,6 +299,36 @@ RecipeCreator = (function () {
             }
             $select.val(value);
         });
+
+        // Выбор категории
+        $('#rootCategorySelector').on('change', function () {
+            var id = $(this).val(),
+                $subCategoryField = $('#subCategoryField'),
+                $subCategorySelector = $('#subCategorySelector');
+
+            $.ajax('/recipes/get-sub-categories', {
+                method: "post",
+                dataType: "json",
+                data: {'_csrf-frontend': yii.getCsrfToken(), id: id},
+                beforeSend: function () {
+                    if (!$subCategoryField.find('img.h-loader').length) {
+                        $subCategoryField.prepend('<img src="/img/ajax-loader-horizontal.gif" class="h-loader">');
+                        $subCategorySelector.hide();
+                    }
+                },
+                success: function(data, textStatus, jqXHR) {
+                    $subCategorySelector.html('');
+                    $subCategorySelector.append('<option>Не выбрана</option>');
+                    $.each(data, function (k, item) {
+                        $subCategorySelector.append('<option value="' + k + '">' + item + '</option>');
+                    });
+                },
+                complete: function () {
+                    $subCategoryField.find('img.h-loader').remove();
+                    $subCategorySelector.show();
+                }
+            });
+        });
     };
     
     function initWysiwyg() {
