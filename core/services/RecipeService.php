@@ -8,6 +8,7 @@ use core\entities\Recipe\IngredientSection;
 use core\entities\Recipe\Photo;
 use core\entities\Recipe\Recipe;
 use core\entities\Recipe\RecipeHoliday;
+use core\entities\Uom;
 use core\entities\User\UserRecipe;
 use core\forms\RecipeForm;
 use core\components\PhotoSaver;
@@ -241,6 +242,14 @@ class RecipeService
                     'quantity' => $item['quantity'],
                     'uom' => $item['uom'],
                 ]);
+                if ($uomEntity = Uom::find()->where([
+                    'or',
+                    ['name' => $item['uom']],
+                    ['f2' => $item['uom']],
+                    ['f5' => $item['uom']],
+                ])->limit(1)->one()) {
+                    $ingredient->uom_id = $uomEntity->id;
+                }
                 $ingredient->save();
             }
         }

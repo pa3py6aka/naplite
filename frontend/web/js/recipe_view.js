@@ -109,6 +109,9 @@ RecipeView = (function () {
                 result = result.substring(0, result.length - 2);
             }
             $item.html(result);
+
+            var $uomSpan = $item.parent().find('span.type');
+            $uomSpan.html(NaPlite.public.pluralize(result, [$uomSpan.attr('data-f1'), $uomSpan.attr('data-f2'), $uomSpan.attr('data-f5')]));
         });
         $input.prop('disabled', false);
         $('#portionsWord').html(NaPlite.public.pluralize(count, ['порцию', 'порции', 'порций']));

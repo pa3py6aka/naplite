@@ -8,7 +8,7 @@ use yii\helpers\Html;
 <li class="recipe_prev">
     <span class="recipe_prev_inner">
         <a href="<?= $recipe->url ?>" class="recipe_prev_top">
-            <span class="recipe_prev_image"><img src="<?= $recipe->mainPhoto ?>" alt=""/></span>
+            <span class="recipe_prev_image"><img src="<?= $recipe->getMainPhoto(true) ?>" alt=""/></span>
             <span class="recipe_prev_th"><b><?= Html::encode($recipe->name) ?></b></span>
         </a>
         <?php /* ToDO: Отображение пользователя добавившего рецепт

@@ -87,7 +87,12 @@ $this->title = Html::encode($recipe->name);
                                             >
                                                 <?= Html::encode($ingredient->quantity) ?>
                                             </span>
-											<span class="type"><?= Html::encode($ingredient->uom) ?></span>
+											<span
+                                                    class="type"
+                                                    data-f1="<?= $ingredient->getUomForm(1) ?>"
+                                                    data-f2="<?= $ingredient->getUomForm(2) ?>"
+                                                    data-f5="<?= $ingredient->getUomForm(5) ?>"
+                                            ><?= $ingredient->uom_id ? Pluralize::get($ingredient->quantity, $ingredient->getUomForm(1), $ingredient->getUomForm(2), $ingredient->getUomForm(5), true) : Html::encode($ingredient->uom) ?></span>
 										</span>
                                     </li>
                                 <?php endforeach; ?>

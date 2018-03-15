@@ -10,6 +10,8 @@ use yii\db\ActiveRecord;
  *
  * @property int $id
  * @property string $name
+ * @property string $f2 [varchar(50)]
+ * @property string $f5 [varchar(50)]
  */
 class Uom extends ActiveRecord
 {
@@ -28,7 +30,7 @@ class Uom extends ActiveRecord
     {
         return [
             [['name'], 'required'],
-            [['name'], 'string', 'max' => 50],
+            [['name', 'f2', 'f5'], 'string', 'max' => 50],
             [['name'], 'unique'],
         ];
     }
@@ -40,7 +42,9 @@ class Uom extends ActiveRecord
     {
         return [
             'id' => 'ID',
-            'name' => 'Название',
+            'name' => 'Форма 1',
+            'f2' => 'Форма 2',
+            'f5' => 'Форма 5',
         ];
     }
 }

@@ -2,7 +2,10 @@
 
 namespace core\entities\Recipe;
 
+use core\entities\Uom;
+use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
+use yii\helpers\Html;
 
 /**
  * This is the model class for table "{{%ingredients}}".
@@ -12,11 +15,30 @@ use yii\db\ActiveRecord;
  * @property string $name
  * @property double $quantity
  * @property string $uom
+ * @property int $uom_id [int(11)]
  *
  * @property IngredientSection $section
+ * @property Uom $uomEntity
  */
 class RecipeIngredient extends ActiveRecord
 {
+    public function getUomForm($form = 1)
+    {
+        if (!$this->uom_id) {
+            return Html::encode($this->uom);
+        }
+
+        switch ($form) {
+            case 1:
+                return $this->uomEntity->name;
+            case 2:
+                return $this->uomEntity->f2 ?: $this->uomEntity->name;
+            case 5:
+                return $this->uomEntity->f5 ?: $this->uomEntity->name;
+            default: return Html::encode($this->uom);
+        }
+    }
+
     /**
      * @inheritdoc
      */
@@ -54,11 +76,13 @@ class RecipeIngredient extends ActiveRecord
         ];
     }
 
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getSection()
+    public function getSection(): ActiveQuery
     {
         return $this->hasOne(IngredientSection::className(), ['id' => 'section_id']);
+    }
+
+    public function getUomEntity(): ActiveQuery
+    {
+        return $this->hasOne(Uom::className(), ['id' => 'uom_id']);
     }
 }
