@@ -84,7 +84,7 @@ class RecipesController extends Controller
     {
         $recipe = $this->repository->getBySlug($slug);
         if (!Yii::$app->user->can(Rbac::PERMISSION_MANAGE, ['user_id' => $recipe->id])) {
-            throw new ForbiddenHttpException("Вы не можете редактировать эту статью.");
+            throw new ForbiddenHttpException("Вы не можете редактировать этот рецепт.");
         }
 
         $form = new RecipeForm($recipe);
