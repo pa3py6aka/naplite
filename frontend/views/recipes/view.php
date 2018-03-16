@@ -139,23 +139,7 @@ $this->title = Html::encode($recipe->name);
                             </span>
                         </li>
                     </ul>
-                    <div class="recipe_stat_buttons">
-                        <?php if (Yii::$app->user->can(Rbac::PERMISSION_MANAGE, ['user_id' => $recipe->author_id])): ?>
-                            <a href="<?= Url::to(['/recipes/edit', 'slug' => $recipe->slug]) ?>" class="b_gray">
-                                <i class="fa fa-edit"></i>Редактировать
-                            </a>
-                        <?php endif; ?>
-                        <a href="javascript:void(0)" class="b_gray<?= Yii::$app->user->isGuest ? ' loginButton' : '' ?>"<?= !Yii::$app->user->isGuest ? ' data-link="save-recipe-link" data-recipe-id="' . $recipe->id . '"' : '' ?>>
-                            <i class="fa fa-<?= $isFavorite ? 'minus' : 'plus' ?>"></i><?= $isFavorite ? 'Убрать из избранных' : 'Сохранить рецепт' ?>
-                        </a>
-                        <a href="<?= Url::to(['/recipes/print', 'id' => $recipe->id]) ?>" class="b_gray" target="_blank">
-                            <i class="fa fa-print"></i>Распечатать рецепт
-                        </a>
-                        <a href="javascript:void(0)" data-link="weights-search-modal" class="b_gray">
-                            <i class="fa fa-calendar"></i>Таблица мер и весов
-                        </a>
-                        <a href="javascript:void(0)" class="b_gray" data-link="goToComments"><i class="fa fa-comment"></i>Обсудить с автором</a>
-                    </div>
+
                 </div>
             </div>
 
@@ -184,7 +168,26 @@ $this->title = Html::encode($recipe->name);
                         <?php endforeach; ?>
                     </ul>
                 </div>
-                <div class="recipe_steps_right"></div>
+                <?php //<div class="recipe_steps_right"> ?>
+                <div class="recipe_content_right">
+                    <div class="recipe_stat_buttons">
+                        <?php if (Yii::$app->user->can(Rbac::PERMISSION_MANAGE, ['user_id' => $recipe->author_id])): ?>
+                            <a href="<?= Url::to(['/recipes/edit', 'slug' => $recipe->slug]) ?>" class="b_gray">
+                                <i class="fa fa-edit"></i>Редактировать
+                            </a>
+                        <?php endif; ?>
+                        <a href="javascript:void(0)" class="b_gray<?= Yii::$app->user->isGuest ? ' loginButton' : '' ?>"<?= !Yii::$app->user->isGuest ? ' data-link="save-recipe-link" data-recipe-id="' . $recipe->id . '"' : '' ?>>
+                            <i class="fa fa-<?= $isFavorite ? 'minus' : 'plus' ?>"></i><?= $isFavorite ? 'Убрать из избранных' : 'Сохранить рецепт' ?>
+                        </a>
+                        <a href="<?= Url::to(['/recipes/print', 'id' => $recipe->id]) ?>" class="b_gray" target="_blank">
+                            <i class="fa fa-print"></i>Распечатать рецепт
+                        </a>
+                        <a href="javascript:void(0)" data-link="weights-search-modal" class="b_gray">
+                            <i class="fa fa-calendar"></i>Таблица мер и весов
+                        </a>
+                        <a href="javascript:void(0)" class="b_gray" data-link="goToComments"><i class="fa fa-comment"></i>Обсудить с автором</a>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="recipe_page_bottom">
