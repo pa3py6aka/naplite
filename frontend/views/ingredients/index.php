@@ -59,17 +59,21 @@ $this->title = "Кулинарные ингридиенты";
             </div>
         </div>
         <ul class="article_prev li-last-no-border">
-            <?php foreach ($ingredientsProvider->models as $ingredient): ?>
-                <li>
-                    <div class="article_prev_photo">
-                        <span><img src="<?= $ingredient->getImageUrl() ?>" width="231" height="148" alt=""/></span>
-                    </div>
-                    <div class="article_prev_text">
-                        <a href="<?= $ingredient->getUrl() ?>"><?= Html::encode($ingredient->title) ?></a>
-                        <?= ContentHelper::output($ingredient->prev_text) ?>
-                    </div>
-                </li>
-            <?php endforeach; ?>
+            <?php if ($ingredientsProvider->count): ?>
+                <?php foreach ($ingredientsProvider->models as $ingredient): ?>
+                    <li>
+                        <div class="article_prev_photo">
+                            <span><img src="<?= $ingredient->getImageUrl() ?>" width="231" height="148" alt=""/></span>
+                        </div>
+                        <div class="article_prev_text">
+                            <a href="<?= $ingredient->getUrl() ?>"><?= Html::encode($ingredient->title) ?></a>
+                            <?= ContentHelper::output($ingredient->prev_text) ?>
+                        </div>
+                    </li>
+                <?php endforeach; ?>
+            <?php else: ?>
+                <div class="not-found">Ничего не найдено</div>
+            <?php endif; ?>
         </ul>
     </div>
 
