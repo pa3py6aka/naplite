@@ -6,6 +6,7 @@ use core\access\Rbac;
 use Yii;
 use core\entities\Kitchen;
 use backend\forms\KitchenSearch;
+use yii\db\IntegrityException;
 use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -121,7 +122,11 @@ class KitchenController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+        try {
+            $this->findModel($id)->delete();
+        } catch (IntegrityException $e) {
+            Yii::$app->session->setFlash("error", "Нельзя удалить кухню которая уже используется хотя бы в одном рецепте на сайте");
+        }
 
         return $this->redirect(['index']);
     }

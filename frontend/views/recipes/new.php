@@ -304,7 +304,7 @@ foreach ($data as $item) {
                         <div class="add_steps_box_rasp"></div>
                         <div class="add_steps_box_right">
                             <div class="uploadbox_small">
-                                <?php if (isset($model->stepPhoto[$i])): ?>
+                                <?php if (isset($model->stepPhoto[$i]) && $model->stepPhoto[$i]): ?>
                                     <a href="javascript:void(0)" class="upload-link">
                                         <img src="/photos/<?= $model->stepPhoto[$i] ?>">
                                         <i class="fa fa-photo" style="display:none;"></i>
