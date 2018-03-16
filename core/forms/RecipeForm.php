@@ -158,7 +158,7 @@ class RecipeForm extends Model
 
             ['stepPhoto', 'each', 'rule' => ['string']],
 
-            ['notes', 'required', 'message' => 'Напишите совет'],
+            //['notes', 'required', 'message' => 'Напишите совет'],
             ['notes', 'string', 'min' => 10, 'max' => 5000],
 
             ['commentsNotify', 'boolean'],
