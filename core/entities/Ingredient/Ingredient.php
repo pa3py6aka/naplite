@@ -123,6 +123,7 @@ class Ingredient extends ActiveRecord
             'prev_text' => 'Превью',
             'content' => 'Контент',
             'image' => 'Картинка',
+            'show' => 'Показывать в списке ингредиентов',
         ];
     }
 

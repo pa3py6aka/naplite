@@ -42,6 +42,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     },
                     'format' => 'raw',
                 ],
+                'show:boolean',
                 'prev_text:html',
                 'content:html',
             ],
