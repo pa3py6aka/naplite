@@ -216,7 +216,7 @@ class RecipeService
                 ) {
                     $ingredientsToSave[] = [
                         'name' => $ingredient,
-                        'quantity' => (float) $form->ingredientQuantity[$sectionNum][$k],
+                        'quantity' => (float) str_replace(',', '.', $form->ingredientQuantity[$sectionNum][$k]),
                         'uom' => isset($form->ingredientUom[$sectionNum][$k]) ? $form->ingredientUom[$sectionNum][$k] : ''
                     ];
                     $notEmpty = true;

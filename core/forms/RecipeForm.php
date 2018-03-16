@@ -147,7 +147,8 @@ class RecipeForm extends Model
             ['ingredientName', 'each', 'rule' => ['each', 'rule' => ['string', 'min' => 2, 'max' => 255]]],
 
             ['ingredientQuantity', 'required'],
-            ['ingredientQuantity', 'each', 'rule' => ['each', 'rule' => ['match', 'pattern' => '/^[0-9]+((\.|,)[0-9]+)*$/uis']]],
+            //['ingredientQuantity', 'each', 'rule' => ['each', 'rule' => ['match', 'pattern' => '/^[0-9]+((\.|,)[0-9]+)*$/uis']]],
+            ['ingredientUom', 'each', 'rule' => ['each', 'rule' => ['string']]],
 
             ['ingredientUom', 'required'],
             ['ingredientUom', 'each', 'rule' => ['each', 'rule' => ['string', 'min' => 2, 'max' => 70]]],

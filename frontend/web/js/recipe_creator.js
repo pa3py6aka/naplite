@@ -318,7 +318,7 @@ RecipeCreator = (function () {
                 },
                 success: function(data, textStatus, jqXHR) {
                     $subCategorySelector.html('');
-                    $subCategorySelector.append('<option>Не выбрана</option>');
+                    $subCategorySelector.append('<option value>Не выбрана</option>');
                     $.each(data, function (k, item) {
                         $subCategorySelector.append('<option value="' + k + '">' + item + '</option>');
                     });
