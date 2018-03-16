@@ -121,7 +121,15 @@ $this->params['breadcrumbs'][] = $this->title;
                 // 'created_at',
                 // 'updated_at',
 
-                ['class' => 'yii\grid\ActionColumn'],
+                ['class' => 'yii\grid\ActionColumn', 'buttons' => [
+                    'update' => function ($url, $model, $key) {
+                        return Html::a(
+                            '<span class="glyphicon glyphicon-pencil"></span>',
+                            Yii::$app->frontendUrlManager->createAbsoluteUrl(['recipes/edit', 'slug' => $model->slug]),
+                            ['target' => '_blank']
+                        );
+                    },
+                ]],
             ],
         ]); ?>
     </div>
