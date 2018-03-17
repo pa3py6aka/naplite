@@ -21,6 +21,7 @@ $this->params['breadcrumbs'][] = '#' . $model->id;
                 'method' => 'post',
             ],
         ]) ?>
+        <?= Html::a('Добавить ещё', ['create'], ['class' => 'btn btn-primary btn-flat']) ?>
     </div>
     <div class="box-body table-responsive no-padding">
         <?= DetailView::widget([

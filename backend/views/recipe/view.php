@@ -75,7 +75,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     },
                     'format' => 'raw',
                 ],
-                'introductory_text:ntext',
+                'introductory_text:html',
                 [
                     'label' => 'Время приготовления',
                     'value' => function (Recipe $recipe) {
@@ -90,7 +90,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 ],
                 'persons',
                 'complexityName',
-                'notes:ntext',
+                'notes:html',
                 'rate',
                 'comments_count',
                 'comments_notify:boolean',
