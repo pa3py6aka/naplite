@@ -81,7 +81,7 @@ class PhotoReportsController extends Controller
                         if (!$report->save()) {
                             throw new \RuntimeException("Ошибка записи в базу");
                         }
-                        Yii::$app->session->setFlash('success', [['Фотоотчёт', 'Фотография успешно добавлена<br />в фотоотчёт по рецепту']]);
+                        Yii::$app->session->setFlash('success', [['Фотоотчёт', Yii::$app->settings->get('photoReportAddedMessage')]]);
                     });
                 } catch (\Error $e) {
                     Yii::error($e->getMessage());

@@ -2,9 +2,13 @@
 
 namespace backend\controllers;
 
+use core\forms\BlogForm;
+use core\repositories\BlogRepository;
+use core\services\BlogService;
 use Yii;
 use core\entities\Blog\Blog;
 use backend\forms\BlogSearch;
+use yii\base\Module;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -15,6 +19,16 @@ use yii\web\Response;
  */
 class BlogController extends Controller
 {
+    private $service;
+    private $repository;
+
+    public function __construct($id, Module $module, BlogService $service, BlogRepository $repository, array $config = [])
+    {
+        parent::__construct($id, $module, $config);
+        $this->service = $service;
+        $this->repository = $repository;
+    }
+
     /**
      * @inheritdoc
      */
@@ -26,6 +40,17 @@ class BlogController extends Controller
                 'actions' => [
                     'delete' => ['POST'],
                 ],
+            ],
+        ];
+    }
+
+    public function actions()
+    {
+        return [
+            'image-upload' => [
+                'class' => 'vova07\imperavi\actions\UploadFileAction',
+                'url' => Yii::$app->params['frontendHostInfo'] . '/uploads/i/', // Directory URL address, where files are stored.
+                'path' => '@frontend/web/uploads/i', // Or absolute path to directory where files are stored.
             ],
         ];
     }
@@ -64,15 +89,26 @@ class BlogController extends Controller
      */
     public function actionCreate()
     {
+        $form = new BlogForm();
         $model = new Blog();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($form->load(Yii::$app->request->post()) && $form->validate()) {
+            try {
+                $blog = $this->service->create($form);
+                return $this->redirect(['view', 'id' => $blog->id]);
+            } catch (\DomainException $e) {
+                Yii::$app->errorHandler->logException($e);
+                Yii::$app->session->setFlash('error', $e->getMessage());
+            }
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
-            return $this->render('create', [
-                'model' => $model,
-            ]);
+            Yii::trace($model->errors, 'ERRORS');
         }
+
+        return $this->render('create', [
+            'model' => $model,
+            'form' => $form,
+        ]);
     }
 
     /**

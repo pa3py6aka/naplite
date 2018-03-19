@@ -26,8 +26,11 @@ $menu = Yii::$app->user->can(\core\access\Rbac::ROLE_ADMIN) ?
 
         ['label' => 'Разное', 'options' => ['class' => 'header']],
         ['label' => 'Таблица мер и весов', 'icon' => 'balance-scale', 'url' => ['/weight/index'], 'active' => $this->context->id == 'weight'],
-        ['label' => 'Настройки сайта', 'icon' => 'cogs', 'url' => ['/settings/index']],
-        ['label' => 'Настройки e-mail', 'icon' => 'envelope', 'url' => ['/settings/emails']],
+        ['label' => 'Настройки', 'icon' => 'cogs', 'items' => [
+            ['label' => 'Основные настройки', 'icon' => 'circle-thin', 'url' => ['/settings/index']],
+            ['label' => 'Настройки e-mail', 'icon' => 'at', 'url' => ['/settings/emails']],
+            ['label' => 'Уведомления', 'icon' => 'info-circle', 'url' => ['/settings/notifications']],
+        ]],
 
         [
             'label' => 'Выйти',

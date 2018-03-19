@@ -4,8 +4,11 @@ namespace backend\controllers;
 
 
 use core\access\Rbac;
-use core\components\Settings\SettingsForm;
+use core\components\Settings\EmailSettingsForm;
+use core\components\Settings\MainSettingsForm;
+use core\components\Settings\NotificationsSettingsForm;
 use Yii;
+use yii\base\Model;
 use yii\filters\AccessControl;
 use yii\helpers\Json;
 use yii\web\Controller;
@@ -29,13 +32,9 @@ class SettingsController extends Controller
 
     public function actionIndex()
     {
-        $form = new SettingsForm();
-
-        if ($form->load(Yii::$app->request->post()) && $form->validate()) {
-            if (Yii::$app->settings->saveAll($form)) {
-                Yii::$app->session->setFlash("success", "Настройки успешно сохранены");
-                return $this->redirect(['index']);
-            }
+        $form = new MainSettingsForm();
+        if ($r = $this->saveForm($form, 'index')) {
+            return $r;
         }
 
         return $this->render('index', [
@@ -43,8 +42,21 @@ class SettingsController extends Controller
         ]);
     }
 
+    public function actionNotifications()
+    {
+        $form = new NotificationsSettingsForm();
+        if ($r = $this->saveForm($form, 'notifications')) {
+            return $r;
+        }
+
+        return $this->render('notifications', [
+            'model' => $form
+        ]);
+    }
+
     public function actionEmails()
     {
+        $form = new EmailSettingsForm();
         $value = Yii::$app->request->post('value');
         $current = file_get_contents(Yii::$app->settings->emails);
 
@@ -59,8 +71,24 @@ class SettingsController extends Controller
             Yii::$app->session->setFlash("success", "Шаблон сохранён");
         }
 
+        if ($r = $this->saveForm($form, 'emails')) {
+            return $r;
+        }
+
         return $this->render('emails', [
             'value' => $value ?: $current,
+            'mailForm' => $form,
         ]);
+    }
+
+    private function saveForm(Model $form, $view)
+    {
+        if ($form->load(Yii::$app->request->post()) && $form->validate()) {
+            if (Yii::$app->settings->saveForm($form)) {
+                Yii::$app->session->setFlash("success", "Настройки успешно сохранены");
+                return $this->redirect([$view]);
+            }
+        }
+        return null;
     }
 }

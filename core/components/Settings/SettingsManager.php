@@ -3,6 +3,7 @@
 namespace core\components\Settings;
 
 
+use yii\base\Model;
 use yii\helpers\Json;
 
 class SettingsManager
@@ -49,6 +50,11 @@ class SettingsManager
         'emptyBlockForPosts' => 'Вы не написали ни одного поста в форум',
         'emptyBlockForPhotos' => 'Вы не добавили ни одного фотоотчёта',
         'emptyBlockForRecipes' => 'Вы не добавили ни одного рецепта',
+        'emailConfirmBody' => "<p>Здравствуйте, для завершения регистрации перейдите по следующей ссылке:</p>\n\r<p><a href='{LINK}'>{LINK}</a></p>",
+        'passwordResetBody' => "<p>Перейдите по этой ссылке для восстановления пароля:</p>\n\r<p><a href='{LINK}'>{LINK}</a></p>",
+        'signupOkMessage' => "<h1>Поздравляем!</h1>\n\rВы успешно зарегистрировались, мы отправили <br />\n\rвам письмо на почту, для подтверждения <br />\n\rвашей регистрации.",
+        'signupConfirmMessage' => "<h1>Успешно!</h1>\n\rВаш адрес e-mail успешно подтверждён!",
+        'photoReportAddedMessage' => "Фотография успешно добавлена<br />\n\rв фотоотчёт по рецепту"
     ];
 
     public function __construct()
@@ -71,9 +77,16 @@ class SettingsManager
         return $this->settings;
     }
 
-    public function saveAll(SettingsForm $form)
+    /**
+     * @param Model $form
+     * @return bool|int
+     */
+    public function saveForm(Model $form)
     {
-        return file_put_contents($this->file, Json::encode($form->attributes));
+        foreach ($form->attributes as $param => $value) {
+            $this->settings[$param] = $value;
+        }
+        return file_put_contents($this->file, Json::encode($this->settings));
     }
 
     private function prepare()
