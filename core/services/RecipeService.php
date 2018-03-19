@@ -211,12 +211,12 @@ class RecipeService
             foreach ($ingredients as $k => $ingredient) {
                 if (
                     $ingredient
-                    && isset($form->ingredientQuantity[$sectionNum][$k])
-                    && (float) $form->ingredientQuantity[$sectionNum][$k]
+                    //&& isset($form->ingredientQuantity[$sectionNum][$k])
+                    //&& (float) $form->ingredientQuantity[$sectionNum][$k]
                 ) {
                     $ingredientsToSave[] = [
                         'name' => $ingredient,
-                        'quantity' => (float) str_replace(',', '.', $form->ingredientQuantity[$sectionNum][$k]),
+                        'quantity' => isset($form->ingredientQuantity[$sectionNum][$k]) ? (float) str_replace(',', '.', $form->ingredientQuantity[$sectionNum][$k]) : 0,
                         'uom' => isset($form->ingredientUom[$sectionNum][$k]) ? $form->ingredientUom[$sectionNum][$k] : ''
                     ];
                     $notEmpty = true;

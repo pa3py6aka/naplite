@@ -9,7 +9,9 @@ use core\access\Rbac;
 use core\helpers\ContentHelper;
 use frontend\assets\CKEditorAsset;
 
-$this->registerJsFile('/js/comments.js?v=' . filemtime(Yii::getAlias('@webroot/js/comments.js')), ['depends' => CKEditorAsset::class]);
+if (!Yii::$app->user->isGuest) {
+    $this->registerJsFile('/js/comments.js?v=' . filemtime(Yii::getAlias('@webroot/js/comments.js')), ['depends' => CKEditorAsset::class]);
+}
 
 ?>
 

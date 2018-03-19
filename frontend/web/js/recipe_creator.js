@@ -138,7 +138,7 @@ RecipeCreator = (function () {
         });
 
         $recipeForm.on('click', 'input[name*=ingredientUom]', function (e) {
-            $(this).autocomplete( "search", "" );
+            $(this).autocomplete("search", "");
         });
 
         // Удаление секций и ингредиентов
@@ -155,18 +155,30 @@ RecipeCreator = (function () {
         });
 
         // Добавление ингредиента
-        $recipeForm.on('change', 'input[name*=ingredientName],input[name*=ingredientQuantity]', function (e) {
-            var $section = $(this).parent().parent().parent().parent();
-            var hasEmpty = false;
-            $.each($section.find('input[name*=ingredientName],input[name*=ingredientQuantity]'), function (k, input) {
-                if (!$(input).val()) {
-                    hasEmpty = true;
-                }
-            });
-            if (!hasEmpty) {
-                var sectionNum = Number($section.attr('data-num'));
+        $recipeForm.on('focus', 'input[name*=ingredientName]', function (e) {
+            var isLast = $(this).parent().parent().parent().next().hasClass('add_ing_bottom');
+            if (isLast) {
+                var $section = $(this).parent().parent().parent().parent(),
+                    sectionNum = Number($section.attr('data-num'));
                 addIngredientRow(sectionNum);
             }
+        });
+
+        // Установка плюрализованного автокомплита для единиц измерения ингредиента
+        $recipeForm.on('change', 'input[name*=ingredientQuantity]', function (e) {
+            var val = Number($(this).val()),
+                $input = $(this).parent().parent().parent().find('input[name*=ingredientUom]'),
+                data;
+            val = val ? val : 1;
+            var f = NaPlite.public.pluralize(val, ['f1', 'f2', 'f5']);
+            if (f === 'f5') {
+                data = ingredientsUom.f5;
+            } else if (f === 'f2') {
+                data = ingredientsUom.f2;
+            } else {
+                data = ingredientsUom.f1;
+            }
+            $input.autocomplete("option", "source", data);
         });
 
         // Добавление секции инредиентов
@@ -180,6 +192,7 @@ RecipeCreator = (function () {
             $section.find('.add_ing_inputs').remove();
             $sectionNameInput.attr('id', 'recipeform-ingredientsection-' + sectionNum)
                 .attr('name', 'RecipeForm[ingredientSection][' + sectionNum + ']')
+                .attr('data-num', 0)
                 .val('');
 
             $lastSection.after($section);
@@ -249,12 +262,13 @@ RecipeCreator = (function () {
             var notEmpty = false;
             $.each($ingredientRows, function (k, row) {
                 var $row = $(row);
-                if ($row.find('input[name*=ingredientName]').val().length > 0 && $row.find('input[name*=ingredientQuantity]').val().length > 0) {
+                if ($row.find('input[name*=ingredientName]').val().length > 0/* && $row.find('input[name*=ingredientQuantity]').val().length > 0*/) {
                     notEmpty = true;
                 }
             });
             if (!notEmpty) {
-                NaPlite.public.messageModal('Ингредиенты', 'Вы не указали ни одного ингредиента<br>Укажите название и количество');
+                //NaPlite.public.messageModal('Ингредиенты', 'Вы не указали ни одного ингредиента<br>Укажите название и количество');
+                NaPlite.public.messageModal('Ингредиенты', 'Вы не указали ни одного ингредиента');
                 $('html, body').animate({
                     scrollTop: $('.add_ing_box').offset().top
                 }, 800);
@@ -352,10 +366,12 @@ RecipeCreator = (function () {
             ingredientNum = 0;
         } else {
             ingredientNum = Number($section.find('input[name*=ingredientName]').last().attr('data-num')) + 1;
+            console.log($section.find('input[name*=ingredientName]').last().attr('data-num'));
         }
 
         $nameInput.attr('id', 'ing-'+sectionNum+'-'+ingredientNum)
             .attr('name', 'RecipeForm[ingredientName]['+sectionNum+']['+ingredientNum+']')
+            .attr('data-num', ingredientNum)
             .val('')
             .autocomplete({
                 source: function(request, response) {
@@ -368,11 +384,12 @@ RecipeCreator = (function () {
         $quantityInput.attr('id', 'recipeform-ingredientquantity-'+sectionNum+'-'+ingredientNum)
             .attr('name', 'RecipeForm[ingredientQuantity]['+sectionNum+']['+ingredientNum+']')
             .val('');
+
         $uomInput.attr('id', 'uom-'+sectionNum+'-'+ingredientNum)
             .attr('name', 'RecipeForm[ingredientUom]['+sectionNum+']['+ingredientNum+']')
             .val('')
             .autocomplete({
-                source: ingredientsUom,
+                source: ingredientsUom.f1,
                 minLength: 0
             });
 

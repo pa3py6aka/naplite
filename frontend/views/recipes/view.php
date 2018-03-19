@@ -85,14 +85,14 @@ $this->title = Html::encode($recipe->name);
                                                 class="value"
                                                 data-default="<?= IngredientHelper::defaultValue(Html::encode($ingredient->quantity), $recipe->persons) ?>"
                                             >
-                                                <?= Html::encode($ingredient->quantity) ?>
+                                                <?= $ingredient->quantity ?: '' ?>
                                             </span>
 											<span
                                                     class="type"
                                                     data-f1="<?= $ingredient->getUomForm(1) ?>"
                                                     data-f2="<?= $ingredient->getUomForm(2) ?>"
                                                     data-f5="<?= $ingredient->getUomForm(5) ?>"
-                                            ><?= $ingredient->uom_id ? Pluralize::get($ingredient->quantity, $ingredient->getUomForm(1), $ingredient->getUomForm(2), $ingredient->getUomForm(5), true) : Html::encode($ingredient->uom) ?></span>
+                                            ><?= RecipeHelper::getUom($ingredient) ?></span>
 										</span>
                                     </li>
                                 <?php endforeach; ?>

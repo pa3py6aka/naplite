@@ -4,6 +4,7 @@ use core\entities\Holiday;
 use core\entities\Kitchen;
 use core\entities\Recipe\Recipe;
 use core\forms\manage\CategoryForm;
+use core\helpers\RecipeHelper;
 use frontend\assets\RecipeCreatorAsset;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
@@ -19,20 +20,27 @@ use yii\widgets\ActiveForm;
 
 RecipeCreatorAsset::register($this);
 $this->title = $recipe ? "Редактирование рецепта" : "Добавление рецепта";
-$data = \core\entities\Uom::find()
-    ->select(['name as value', 'name as label', 'id'])
+
+/*$data2 = \core\entities\Uom::find()
+    ->select(['name as value', 'name as label'])
     //->select(['name'])
     ->asArray()
     ->all();
-
 $jsData = [];
 foreach ($data as $item) {
     $jsData[] = $item['value'];
-}
+} */
+
+$data = RecipeHelper::getUomAutocompleteData();
 
 ?>
-<script type="text/javascript">
-    var ingredientsUom = <?= Json::encode($jsData) ?>;
+<script>
+    <?php //var ingredientsUom = <?= Json::encode($jsData); ?>
+    var ingredientsUom = {
+        f1: <?= Json::encode($data['js1']); ?>,
+        f2: <?= Json::encode($data['js2']); ?>,
+        f5: <?= Json::encode($data['js5']); ?>
+    };
 </script>
 <div class="content_left">
     <div class="textbox">
@@ -229,6 +237,7 @@ foreach ($data as $item) {
                                     'options' => [
                                         'class' => 'input_base',
                                         'placeholder' => 'Название',
+                                        'data-num' => $i
                                     ],
                                     'clientOptions' => [
                                         'source' => new JsExpression("function(request, response) {
@@ -260,11 +269,11 @@ foreach ($data as $item) {
                                         'placeholder' => 'Ед.',
                                     ],
                                     'clientOptions' => [
-                                        'source' => $data,
-                                        'autoFill'=>true,
-                                        'minLength'=>'0'
-                                    ]]);
-                                ?>
+                                        'source' => RecipeHelper::getPluralizedData(isset($model->ingredientQuantity[$n][$i]) && $model->ingredientQuantity[$n][$i] ? $model->ingredientQuantity[$n][$i] : 1, $data),
+                                        'autoFill' => true,
+                                        'minLength' => '0'
+                                    ]
+                                ]); ?>
                             </div>
                         </div>
                         <div class="add_ing_inputs_box_rasp"></div>

@@ -99,19 +99,21 @@ RecipeView = (function () {
         var count = Number($input.val());
         $input.prop('disabled', true);
         $.each($('li.ingredient span.value'), function (k, item) {
-            var $item = $(item);
-            var defValue = Number($item.attr('data-default'));
-            var result = (defValue * count).toFixed(2);
-            if (result[result.length - 1] === '0') {
-                result = result.substring(0, result.length - 1);
-            }
-            if (result[result.length - 2] === '.' && result[result.length - 1] === '0') {
-                result = result.substring(0, result.length - 2);
-            }
-            $item.html(result);
+            var $item = $(item),
+                defValue = Number($item.attr('data-default')),
+                result = (defValue * count).toFixed(2);
+            if (defValue) {
+                if (result[result.length - 1] === '0') {
+                    result = result.substring(0, result.length - 1);
+                }
+                if (result[result.length - 2] === '.' && result[result.length - 1] === '0') {
+                    result = result.substring(0, result.length - 2);
+                }
+                $item.html(result);
 
-            var $uomSpan = $item.parent().find('span.type');
-            $uomSpan.html(NaPlite.public.pluralize(result, [$uomSpan.attr('data-f1'), $uomSpan.attr('data-f2'), $uomSpan.attr('data-f5')]));
+                var $uomSpan = $item.parent().find('span.type');
+                $uomSpan.html(NaPlite.public.pluralize(result, [$uomSpan.attr('data-f1'), $uomSpan.attr('data-f2'), $uomSpan.attr('data-f5')]));
+            }
         });
         $input.prop('disabled', false);
         $('#portionsWord').html(NaPlite.public.pluralize(count, ['порцию', 'порции', 'порций']));

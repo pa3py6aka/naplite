@@ -81,7 +81,7 @@ class RecipeForm extends Model
                 $this->ingredientSection[$n] = $section->name;
                 foreach ($section->ingredients as $i => $ingredient) {
                     $this->ingredientName[$n][$i] = $ingredient->name;
-                    $this->ingredientQuantity[$n][$i] = $ingredient->quantity;
+                    $this->ingredientQuantity[$n][$i] = $ingredient->quantity ?: '';
                     $this->ingredientUom[$n][$i] = $ingredient->uom;
                 }
             }
@@ -117,7 +117,7 @@ class RecipeForm extends Model
             ['mainPhoto', 'integer'],
 
             ['introductoryText', 'required', 'message' => 'Напишите вводный текст'],
-            ['introductoryText', 'string', 'min' => 20, 'max' => \Yii::$app->settings->get('recipeIntroductoryTextMaxLength'), 'message' => 'Текст должен быть от 20 до 500 символов'],
+            ['introductoryText', 'string', 'min' => 20, 'max' => \Yii::$app->settings->get('recipeIntroductoryTextMaxLength'), 'message' => 'Текст должен быть от 20 до 500 символов', 'tooShort' => 'Текст должен быть от 20 до 500 символов', 'tooLong' => 'Текст должен быть от 20 до 500 символов'],
 
             [['cookingTimeHours', 'cookingTimeMinutes'], 'required', 'message' => 'Укажите время приготовления'],
             ['cookingTimeHours', 'integer', 'max' => 30],
@@ -146,11 +146,11 @@ class RecipeForm extends Model
             ['ingredientName', 'required'],
             ['ingredientName', 'each', 'rule' => ['each', 'rule' => ['string', 'min' => 2, 'max' => 255]]],
 
-            ['ingredientQuantity', 'required'],
+            //['ingredientQuantity', 'required'],
             //['ingredientQuantity', 'each', 'rule' => ['each', 'rule' => ['match', 'pattern' => '/^[0-9]+((\.|,)[0-9]+)*$/uis']]],
-            ['ingredientUom', 'each', 'rule' => ['each', 'rule' => ['string']]],
+            ['ingredientQuantity', 'each', 'rule' => ['each', 'rule' => ['string']]],
 
-            ['ingredientUom', 'required'],
+            //['ingredientUom', 'required'],
             ['ingredientUom', 'each', 'rule' => ['each', 'rule' => ['string', 'min' => 2, 'max' => 70]]],
 
             ['stepDescription', 'required'],
