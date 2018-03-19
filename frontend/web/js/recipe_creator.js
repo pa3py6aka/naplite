@@ -239,10 +239,10 @@ RecipeCreator = (function () {
         // Submit формы
         $recipeForm.on('click', '[data-button=submitForm]', function (e) {
             // Переводим с wysiwyg в textarea's
-            var introductoryText = CKEDITOR.instances['introductoryTextArea'].ui.editor.getData();
-            $('#introductoryTextArea').val(introductoryText);
-            var notes = CKEDITOR.instances['notesArea'].ui.editor.getData();
-            $('#notesArea').val(notes);
+            var introductoryText = CKEDITOR.instances['introductoryText'].ui.editor.getData();
+            $('#introductoryText').val(introductoryText);
+            var notes = CKEDITOR.instances['notes'].ui.editor.getData();
+            $('#notes').val(notes);
             $.each($('textarea[name*=stepDescription]'), function (k, area) {
                 $(area).val(CKEDITOR.instances[$(area).attr('id')].ui.editor.getData());
             });
@@ -346,8 +346,8 @@ RecipeCreator = (function () {
     };
     
     function initWysiwyg() {
-        NaPlite.public.SetCKEditor('introductoryTextArea');
-        NaPlite.public.SetCKEditor('notesArea');
+        NaPlite.public.SetCKEditor('introductoryText');
+        NaPlite.public.SetCKEditor('notes');
         $.each($('textarea[name*=stepDescription]'), function (k, area) {
             NaPlite.public.SetCKEditor($(area).attr('id'));
         });

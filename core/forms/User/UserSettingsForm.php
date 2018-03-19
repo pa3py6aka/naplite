@@ -37,6 +37,7 @@ class UserSettingsForm extends Model
     public function rules()
     {
         return [
+            ['username', 'trim'],
             ['username', 'required', 'message' => 'Укажите ваше имя'],
             ['username', 'string', 'min' => 2, 'max' => 50],
 
@@ -47,9 +48,11 @@ class UserSettingsForm extends Model
             ['country', 'required', 'message' => 'Выберите вашу страну'],
             ['country', 'integer'],
 
+            ['city', 'trim'],
             ['city', 'required', 'message' => 'Укажите ваш город'],
             ['city', 'string', 'min' => 2, 'max' => 50],
 
+            ['about', 'trim'],
             ['about', 'string', 'max' => 2000],
 
             ['subscribeCommentsNotify', 'boolean'],

@@ -26,9 +26,10 @@ class BlogForm extends Model
     {
         return [
             [['title', 'categoryId', 'content'], 'required'],
+            [['content', 'title'], 'trim'],
             ['title', 'string', 'max' => 255],
             ['categoryId', 'integer'],
-            ['content', 'string', 'max' => 5000],
+            ['content', 'string', 'max' => 7000],
         ];
     }
 

@@ -16,7 +16,8 @@ class CommentForm extends Model
         return [
             [[/*'recipeId',*/ 'content'], 'required', 'message' => 'Напишите ваш комментарий'],
             [[/*'recipeId',*/ 'replyTo'], 'integer'],
-            ['content', 'string', 'max' => 1000],
+            ['content', 'trim'],
+            ['content', 'string', 'max' => 3000],
         ];
     }
 

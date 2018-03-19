@@ -18,6 +18,7 @@ class ContactForm extends Model
             ['email', 'required', 'message' => 'Укажите ваш e-mail'],
             ['email', 'email'],
             [['name', 'subject', 'text'], 'string'],
+            [['name', 'subject', 'text'], 'trim'],
             ['text', 'required', 'message' => 'Напишите текст вашего сообщения']
         ];
     }

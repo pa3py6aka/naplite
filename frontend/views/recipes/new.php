@@ -128,7 +128,7 @@ $data = RecipeHelper::getUomAutocompleteData();
 
                     <?= $form->field($model, 'introductoryText', ['options' => ['class' => 'inputbox_input']])
                         ->textarea([
-                            'id' => 'introductoryTextArea',
+                            'id' => 'introductoryText',
                             'cols' => 2,
                             'rows' => 2,
                             'class' => 'textarea_base',
@@ -350,7 +350,7 @@ $data = RecipeHelper::getUomAutocompleteData();
 
                     <?= $form->field($model, 'notes', ['options' => ['class' => 'inputbox_input']])
                         ->textarea([
-                            'id' => 'notesArea',
+                            'id' => 'notes',
                             'cols' => 2,
                             'rows' => 2,
                             'class' => 'textarea_base',

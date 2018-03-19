@@ -8,6 +8,7 @@ use core\entities\Holiday;
 use core\entities\Kitchen;
 use core\entities\Recipe\Recipe;
 use core\helpers\Pluralize;
+use core\validators\CKEditorStringLengthValidator;
 use yii\base\Model;
 use yii\helpers\ArrayHelper;
 
@@ -97,6 +98,7 @@ class RecipeForm extends Model
     public function rules()
     {
         return [
+            ['name', 'trim'],
             ['name', 'required', 'message' => 'Напишите название рецепта'],
             ['name', 'string', 'min' => 2, 'max' => 255],
 
@@ -116,8 +118,10 @@ class RecipeForm extends Model
 
             ['mainPhoto', 'integer'],
 
+            ['introductoryText', 'trim'],
             ['introductoryText', 'required', 'message' => 'Напишите вводный текст'],
-            ['introductoryText', 'string', 'min' => 20, 'max' => \Yii::$app->settings->get('recipeIntroductoryTextMaxLength'), 'message' => 'Текст должен быть от 20 до 500 символов', 'tooShort' => 'Текст должен быть от 20 до 500 символов', 'tooLong' => 'Текст должен быть от 20 до 500 символов'],
+            //['introductoryText', 'string', 'min' => 20, 'max' => \Yii::$app->settings->get('recipeIntroductoryTextMaxLength'), 'message' => 'Текст должен быть от 20 до 500 символов', 'tooShort' => 'Текст должен быть от 20 до 500 символов', 'tooLong' => 'Текст должен быть от 20 до 500 символов'],
+            ['introductoryText', CKEditorStringLengthValidator::class, 'min' => 20, 'max' => 50],
 
             [['cookingTimeHours', 'cookingTimeMinutes'], 'required', 'message' => 'Укажите время приготовления'],
             ['cookingTimeHours', 'integer', 'max' => 30],
@@ -141,25 +145,31 @@ class RecipeForm extends Model
             ['complexity', 'in', 'range' => array_keys(Recipe::complexities())],
 
             //['ingredientSection', 'required'],
+            ['ingredientSection', 'each', 'rule' => ['trim']],
             ['ingredientSection', 'each', 'rule' => ['string', 'min' => 2, 'max' => 255]],
 
             ['ingredientName', 'required'],
+            ['ingredientName', 'each', 'rule' => ['each', 'rule' => ['trim']]],
             ['ingredientName', 'each', 'rule' => ['each', 'rule' => ['string', 'min' => 2, 'max' => 255]]],
 
             //['ingredientQuantity', 'required'],
             //['ingredientQuantity', 'each', 'rule' => ['each', 'rule' => ['match', 'pattern' => '/^[0-9]+((\.|,)[0-9]+)*$/uis']]],
+            ['ingredientQuantity', 'each', 'rule' => ['each', 'rule' => ['trim']]],
             ['ingredientQuantity', 'each', 'rule' => ['each', 'rule' => ['string']]],
 
             //['ingredientUom', 'required'],
-            ['ingredientUom', 'each', 'rule' => ['each', 'rule' => ['string', 'min' => 2, 'max' => 70]]],
+            ['ingredientUom', 'each', 'rule' => ['each', 'rule' => ['trim']]],
+            ['ingredientUom', 'each', 'rule' => ['each', 'rule' => ['string', 'min' => 1, 'max' => 70]]],
 
             ['stepDescription', 'required'],
+            ['stepDescription', 'each', 'rule' => ['trim']],
             ['stepDescription', 'each', 'rule' => ['string', 'min' => 10, 'max' => 20000]],
 
             ['stepPhoto', 'each', 'rule' => ['string']],
 
             //['notes', 'required', 'message' => 'Напишите совет'],
-            ['notes', 'string', 'min' => 10, 'max' => 5000],
+            ['notes', 'trim'],
+            ['notes', CKEditorStringLengthValidator::class, 'min' => 10, 'max' => 5000],
 
             ['commentsNotify', 'boolean'],
         ];
