@@ -48,6 +48,11 @@ $this->title = "Уведомления";
             'id' => 'redactor6',
             'settings' => CommonVars::IMPERAVI_SETTINGS,
         ]); ?>
+
+        <?= $form->field($model, 'photoReportText')->widget(Widget::className(), [
+            'id' => 'redactor7',
+            'settings' => CommonVars::IMPERAVI_SETTINGS,
+        ]); ?>
     </div>
     <div class="box-footer">
         <?= Html::submitButton("Сохранить", ['class' => 'btn btn-flat btn-success']) ?>

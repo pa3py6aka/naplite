@@ -12,12 +12,13 @@ class NotificationsSettingsForm extends CommonForm
     public $signupOkMessage;
     public $signupConfirmMessage;
     public $photoReportAddedMessage;
+    public $photoReportText;
 
     public function rules()
     {
         return [
             [['emptyBlockForCookbook', 'emptyBlockForPosts', 'emptyBlockForPhotos', 'emptyBlockForRecipes', 'signupOkMessage', 'signupConfirmMessage'], 'string'],
-            [['photoReportAddedMessage'], 'string'],
+            [['photoReportAddedMessage', 'photoReportText'], 'string'],
         ];
     }
 
@@ -31,6 +32,7 @@ class NotificationsSettingsForm extends CommonForm
             'signupOkMessage' => 'Сообщение об успешной регистрации',
             'signupConfirmMessage' => 'Сообщение после подтверждения адреса e-mail',
             'photoReportAddedMessage' => 'Сообщение об успешном добавлении фотоотчёта',
+            'photoReportText' => 'Текст при добавлении фотоотчёта',
         ];
     }
 }

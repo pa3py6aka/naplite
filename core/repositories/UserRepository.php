@@ -5,6 +5,7 @@ namespace core\repositories;
 
 use core\entities\Recipe\Recipe;
 use core\entities\User\User;
+use Yii;
 use yii\data\ActiveDataProvider;
 
 class UserRepository
@@ -27,7 +28,7 @@ class UserRepository
             'query' => Recipe::find()
                 ->active()
                 ->andWhere(['author_id' => $id]),
-            'pagination' => ['pageSize' => 3, 'defaultPageSize' => 3], //ToDO: Количество рецептов на странице у пользователя
+            'pagination' => ['pageSize' => Yii::$app->settings->get('recipesOnPage'), 'defaultPageSize' => Yii::$app->settings->get('recipesOnPage')],
             'sort' => ['defaultOrder' => ['id' => SORT_DESC]]
         ]);
     }

@@ -4,6 +4,7 @@ namespace backend\controllers;
 
 
 use core\access\Rbac;
+use core\components\Settings\BannerSettingsForm;
 use core\components\Settings\EmailSettingsForm;
 use core\components\Settings\MainSettingsForm;
 use core\components\Settings\NotificationsSettingsForm;
@@ -50,6 +51,18 @@ class SettingsController extends Controller
         }
 
         return $this->render('notifications', [
+            'model' => $form
+        ]);
+    }
+
+    public function actionBanners()
+    {
+        $form = new BannerSettingsForm();
+        if ($r = $this->saveForm($form, 'banners')) {
+            return $r;
+        }
+
+        return $this->render('banners', [
             'model' => $form
         ]);
     }

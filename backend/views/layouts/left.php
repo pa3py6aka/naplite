@@ -29,6 +29,7 @@ $menu = Yii::$app->user->can(\core\access\Rbac::ROLE_ADMIN) ?
         ['label' => 'Настройки', 'icon' => 'cogs', 'items' => [
             ['label' => 'Основные настройки', 'icon' => 'circle-thin', 'url' => ['/settings/index']],
             ['label' => 'Настройки e-mail', 'icon' => 'at', 'url' => ['/settings/emails']],
+            ['label' => 'Баннеры', 'icon' => 'newspaper-o', 'url' => ['/settings/banners']],
             ['label' => 'Уведомления', 'icon' => 'info-circle', 'url' => ['/settings/notifications']],
         ]],
 

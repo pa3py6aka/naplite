@@ -254,6 +254,8 @@ NaPlite = (function () {
             var url = $(ui.item.label).find('h4').find('a').attr('href');
             document.location.href = url;
         });
+
+        $(document).on('pjax:end', function() { Public.RecipeItemsAlignByHeight(); });
     };
 
     function showPreloader($el) {

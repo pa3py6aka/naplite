@@ -40,7 +40,7 @@ class RecipeRepository
 
         return new ActiveDataProvider([
             'query' => $query,
-            'pagination' => ['pageSize' => 3, 'defaultPageSize' => 3], //ToDO: Количество рецептов на странице поиска
+            'pagination' => ['pageSize' => Yii::$app->settings->get('recipesOnPage'), 'defaultPageSize' => Yii::$app->settings->get('recipesOnPage')],
             'sort' => ['defaultOrder' => ['id' => SORT_DESC]]
         ]);
     }
@@ -70,7 +70,7 @@ class RecipeRepository
 
         return new ActiveDataProvider([
             'query' => $query,
-            'pagination' => ['pageSize' => 3, 'defaultPageSize' => 3], //ToDO: Количество рецептов в кулинарной книге юзера
+            'pagination' => ['pageSize' => Yii::$app->settings->get('recipesOnPage'), 'defaultPageSize' => Yii::$app->settings->get('recipesOnPage')],
             'sort' => ['defaultOrder' => ['id' => SORT_DESC]]
         ]);
     }
@@ -96,7 +96,7 @@ class RecipeRepository
 
         return new ActiveDataProvider([
             'query' => $query,
-            'pagination' => ['pageSize' => 3, 'defaultPageSize' => 3], //ToDO: Количество рецептов юзера
+            'pagination' => ['pageSize' => Yii::$app->settings->get('recipesOnPage'), 'defaultPageSize' => Yii::$app->settings->get('recipesOnPage')],
             'sort' => ['defaultOrder' => ['id' => SORT_DESC]]
         ]);
     }
@@ -110,7 +110,7 @@ class RecipeRepository
 
         return new ActiveDataProvider([
             'query' => $query,
-            'pagination' => ['pageSize' => 3, 'defaultPageSize' => 3], //ToDO: Количество рецептов на странице кухни
+            'pagination' => ['pageSize' => Yii::$app->settings->get('recipesOnPage'), 'defaultPageSize' => Yii::$app->settings->get('recipesOnPage')],
             'sort' => ['defaultOrder' => ['id' => SORT_DESC]]
         ]);
     }

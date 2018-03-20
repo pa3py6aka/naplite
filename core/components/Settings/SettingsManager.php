@@ -16,7 +16,8 @@ class SettingsManager
     private $default = [
         'contactEmail' => 'contact@na-plite.ru',
         'recipeIntroductoryTextMaxLength' => 500,
-        'photoReportText' => 'Добавьте свой фотоотчёт о приготовленном блюде по данному рецепту',
+        'recipesOnPage' => 30,
+
         'widgetVK' => "VK.Widgets.Group('vk_groups', {
                 mode: 3,
                 width: 'auto',
@@ -54,7 +55,8 @@ class SettingsManager
         'passwordResetBody' => "<p>Перейдите по этой ссылке для восстановления пароля:</p>\n\r<p><a href='{LINK}'>{LINK}</a></p>",
         'signupOkMessage' => "<h1>Поздравляем!</h1>\n\rВы успешно зарегистрировались, мы отправили <br />\n\rвам письмо на почту, для подтверждения <br />\n\rвашей регистрации.",
         'signupConfirmMessage' => "<h1>Успешно!</h1>\n\rВаш адрес e-mail успешно подтверждён!",
-        'photoReportAddedMessage' => "Фотография успешно добавлена<br />\n\rв фотоотчёт по рецепту"
+        'photoReportAddedMessage' => "Фотография успешно добавлена<br />\n\rв фотоотчёт по рецепту",
+        'photoReportText' => 'Добавьте свой фотоотчёт о приготовленном блюде по данному рецепту',
     ];
 
     public function __construct()
