@@ -67,7 +67,8 @@ NaPlite = (function () {
             if ($items.length < 2) { return; }
             var max = 60;
             $.each($items, function (k, item) {
-                var h = $(item).height;
+                var h = $(item).height();
+                console.log(k + " -- " + h);
                 if (h > max) { max = h; }
             });
             $items.height(max);
