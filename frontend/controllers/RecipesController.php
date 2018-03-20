@@ -40,10 +40,10 @@ class RecipesController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'only' => ['new', 'upload', 'rate', 'edit', 'save-to-user'],
+                'only' => ['new', 'upload', 'rate', 'edit', 'save-to-user', 'crop'],
                 'rules' => [
                     [
-                        'actions' => ['new', 'upload', 'rate', 'edit', 'save-to-user'],
+                        'actions' => ['new', 'upload', 'rate', 'edit', 'save-to-user', 'crop'],
                         'allow' => true,
                         'roles' => [Rbac::ROLE_USER],
                     ],
@@ -56,6 +56,7 @@ class RecipesController extends Controller
                     'rate' => ['post'],
                     'save-to-user' => ['post'],
                     'get-sub-categories' => ['post'],
+                    'crop' => ['post'],
                 ],
             ],
         ];
@@ -201,12 +202,13 @@ class RecipesController extends Controller
             if (!$validator->validate($file, $error)) {
                 return ['result' => 'error', 'message' => $error];
             }
-            $name = md5(Yii::$app->user->id . Yii::$app->security->generateRandomString(64)) . "." . $file->extension;
-            $editName = pathinfo($name, PATHINFO_FILENAME) . '_e.' . pathinfo($name, PATHINFO_EXTENSION);
+            $fileName = md5(Yii::$app->user->id . Yii::$app->security->generateRandomString(64));
+            $name = $fileName . "." . $file->extension;
+            $editName = $fileName . '_e.' . $file->extension;
             $result[$num] = ['name' => $name, 'editName' => $editName];
 
             $path = Yii::getAlias('@tmp/');
-            if (!$file->saveAs($path . $name)) {
+            if (!$file->saveAs($path . $name) || !copy($path . $name, $path . $editName)) {
                 Yii::error("Ошибка при сохранении временного файла, файл " . $name . ", RecipesController->actionUpload()");
                 return ['result' => 'error', 'message' => "Ошибка при соранении файла"];
             }
@@ -221,6 +223,31 @@ class RecipesController extends Controller
         }
 
         return ['result' => 'success', 'files' => $result];
+    }
+
+    public function actionCrop()
+    {
+        Yii::$app->response->format = Response::FORMAT_JSON;
+        $x = (int) Yii::$app->request->post('x');
+        $y = (int) Yii::$app->request->post('y');
+        $width = (int) Yii::$app->request->post('width');
+        $height = (int) Yii::$app->request->post('height');
+        $url = Yii::$app->request->post('url');
+
+        $dir = pathinfo($url, PATHINFO_DIRNAME) . '/';
+        $path = Yii::getAlias('@frontend/web') . '/' . $dir;
+        $eNameBase = pathinfo($url, PATHINFO_FILENAME);
+        $ext = pathinfo($url, PATHINFO_EXTENSION);
+        $baseName = substr($eNameBase, 0, -2) . "." . $ext;
+        $eName = $eNameBase . "." . $ext;
+        if (!$url || !is_file($path . $eName)) {
+            return ['result' => 'error', 'error' => 'Файл ' . $eName . ' не найден'];
+        }
+
+        Yii::$app->photoSaver->crop($path . $eName, $width, $height, $x, $y, $path . $baseName);
+        Yii::$app->photoSaver->createRecipeImages($path . $baseName);
+
+        return ['result' => 'success', 'url' => '/tmp/' . $baseName . '?v=' . time()];
     }
 
     public function actionGetSubCategories()

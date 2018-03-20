@@ -19,6 +19,7 @@ use yii\widgets\ActiveForm;
 /* @var $recipe null|\core\entities\Recipe\Recipe */
 
 RecipeCreatorAsset::register($this);
+\frontend\assets\CropperAsset::register($this);
 $this->title = $recipe ? "Редактирование рецепта" : "Добавление рецепта";
 
 /*$data2 = \core\entities\Uom::find()
@@ -94,9 +95,10 @@ $data = RecipeHelper::getUomAutocompleteData();
                     foreach ($model->photos as $n => $photo): ?>
                         <div class="uploadbox_big">
                             <a href="javascript:void(0)" class="ico-main<?= $model->mainPhoto == $n ? ' active' : '' ?>" title="Сделать главной"><i class="fa fa-check-circle-o"></i></a>
+                            <?php //<a href="javascript:void(0)" class="ico-crop" title="Выбрать фрагмент"><i class="fa fa-crop"></i></a> ?>
                             <a href="javascript:void(0)" class="ico-close" title="Удалить фотографию"><i class="fa fa-close"></i></a>
                             <a href="javascript:void(0)" class="upload-link">
-                                <img src="/photos/<?= $photo ?>">
+                                <img src="/photos/<?= $photo ?>" data-base="<?= pathinfo($photo, PATHINFO_FILENAME) . '_e.' . pathinfo($photo, PATHINFO_EXTENSION) ?>">
                                 <i class="fa fa-photo" style="display:none;"></i>
                                 <span style="display:none;">Загрузите фото рецепта</span>
                                 <div class="hidden default-text">Загрузите фото рецепта</div>
@@ -390,6 +392,26 @@ $data = RecipeHelper::getUomAutocompleteData();
                     <label id="commentsNotifyVisibleInput_label" for="commentsNotifyVisibleInput">
                         Получать комментарии к рецепту на почту
                     </label>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modalbox" id="cropModal">
+    <div class="modal_outer adaptive_message" style="position:relative;">
+        <div class="modal_inner">
+            <div class="modal_scroll_box">
+                <a href="javascript:void(0)" class="ico_close modalClose"><i class="fa fa-close"></i></a>
+                <div class="cb" style="width:80% !important;">
+                    <img class="crop-image-base" style="max-width: 100%;">
+                </div>
+                <div class="modal_inputbox">
+                    <div class="radio_and_but">
+                        <button id="cropMakeLink" type="button" class="radio_and_but_right blind-button">
+                            <a href="javascript:void(0)" class="b_red">Сохранить</a>
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>

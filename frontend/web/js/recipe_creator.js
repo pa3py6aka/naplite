@@ -59,9 +59,10 @@ RecipeCreator = (function () {
                                 $appendTo.find('i, span').hide();
                                 if (!isSmallBox) {
                                     $appendTo.parent().prepend('<a href="javascript:void(0)" class="ico-close" title="Удалить фотографию"><i class="fa fa-close"></i></a>');
+                                    $appendTo.parent().prepend('<a href="javascript:void(0)" class="ico-crop" title="Выбрать фрагмент"><i class="fa fa-crop"></i></a>');
                                     $appendTo.parent().prepend('<a href="javascript:void(0)" class="ico-main" title="Сделать главной"><i class="fa fa-check-circle-o"></i></a>');
                                 }
-                                $appendTo.prepend('<img src="/tmp/' + names.name + '">');
+                                $appendTo.prepend('<img src="/tmp/' + names.name + '" data-base="/tmp/' + names.editName + '">');
                                 $appendTo.find('input[type=hidden]').val(names.name);
 
                                 if (!isSmallBox && !checkMainPhoto()) {
@@ -100,6 +101,68 @@ RecipeCreator = (function () {
             var $box = $(this).parent();
             $mainPhotoInput.val($box.find('input[type=hidden]').attr('data-num'));
             $(this).addClass('active');
+        });
+
+        // Кроп основного изображения
+        $recipeForm.on('click', '.ico-crop', function (e) {
+            e.stopPropagation();
+            var imageUrl = $(this).parent().find('img').attr('data-base');
+            var $image = $('.crop-image-base');
+            $image.attr('src', imageUrl);
+            var $box = $(this).parent();
+            var num = $box.find('input[type=hidden]').attr('data-num');
+
+            $(".modalbox").hide();
+            $("#cropModal").attr('data-num', num)
+                .fadeIn();
+
+            var cropper = $image.data('cropper');
+            if (cropper) {
+                cropper.replace(imageUrl);
+            } else {
+                $image.cropper({
+                    aspectRatio: 860 / 560
+                });
+            }
+        });
+        $('#cropMakeLink').on('click', function () {
+            var $image = $('.crop-image-base');
+            var cropper = $image.data('cropper');
+            var data = cropper.getData();
+            var $el = $('#cropModal .modal_outer');
+            $.ajax({
+                url: '/recipes/crop',
+                method: "post",
+                dataType: "json",
+                data: {
+                    "_csrf_frontend": yii.getCsrfToken(),
+                    x: data.x,
+                    y: data.y,
+                    width: data.width,
+                    height: data.height,
+                    url: $image.attr('src')
+                },
+                beforeSend: function () {
+                    if (!$el.find('.overlay').length) {
+                        $el.prepend(NaPlite.public.getSpinLoader());
+                    }
+                },
+                success: function(data, textStatus, jqXHR) {
+                    if (data.result === "success") {
+                        var $modal = $("#cropModal");
+                        var num = $modal.attr('data-num');
+                        var $box = $('input[name*="RecipeForm[photos]"][data-num=' + num + ']').parent();
+                        $box.find('img').attr('src', data.url);
+                        $modal.hide();
+                    } else {
+                        alert(data.error);
+                    }
+                },
+                complete: function () {
+                    $el.find('.overlay').remove();
+                }
+            });
+
         });
 
         // Стрелочки вверх/вниз над временем приготовления и готовки
@@ -421,6 +484,7 @@ RecipeCreator = (function () {
         $box.find('span').html($box.find(".default-text").html());
         $box.find('.ico-close').remove();
         $box.find('.ico-main').remove();
+        $box.find('.ico-crop').remove();
         $box.find('i, span').show();
         $box.find('input[type=hidden]').val('');
     }

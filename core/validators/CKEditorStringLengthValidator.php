@@ -32,7 +32,7 @@ var html = CKEDITOR.instances['{$attribute}'].ui.editor.getSnapshot(),
     dom = document.createElement("DIV");
 dom.innerHTML=html;
 var plain_text = (dom.textContent || dom.innerText);
-if (plain_text.length < {$this->min} || plain_text.length > {$this->max}) {
+if ((plain_text.length < {$this->min} && plain_text.length > 0) || plain_text.length > {$this->max}) {
     messages.push({$message});
 }
 JS;

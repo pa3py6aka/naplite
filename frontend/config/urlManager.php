@@ -16,7 +16,7 @@ return [
         '<_c:articles|ingredients>/category/<category:[a-z0-9_-]+>' => '<_c>/index',
         '<_c:articles|kitchens>/<slug:[a-z0-9_-]+>' => '<_c>/view',
 
-        'recipes/<_a:new|rate|save-to-user|print|upload|get-sub-categories>' => 'recipes/<_a>',
+        'recipes/<_a:new|rate|save-to-user|print|upload|get-sub-categories|crop>' => 'recipes/<_a>',
         'recipes/<slug:[a-z0-9_-]+>' => 'recipes/view',
         'recipes/<slug:[a-z0-9_-]+>/edit' => 'recipes/edit',
         'recipes' => 'category/view',

@@ -28,7 +28,7 @@ class PhotoSaver
 
         // Основное изображение
         $main = clone $basic;
-        $main->fit(870, 543, function ($constraint) {
+        $main->fit(870, 570, function ($constraint) {
                 $constraint->upsize();
             })
             ->insert(__DIR__ . '/watermark.png', 'bottom-right', 10, 10)
@@ -85,5 +85,13 @@ class PhotoSaver
             ->insert(__DIR__ . '/watermark.png', 'bottom-right', 10, 10)
             ->save($image, 90);
         $this->optimizer->optimize($image);
+    }
+
+    public function crop($path, $width, $height, $x, $y, $saveTo = null)
+    {
+        $this->intervention->make($path)
+            ->crop($width, $height, $x, $y)
+            ->save($saveTo ?: $path, 90);
+        $this->optimizer->optimize($saveTo ?: $path);
     }
 }
