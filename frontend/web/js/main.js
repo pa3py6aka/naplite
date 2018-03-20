@@ -65,10 +65,9 @@ NaPlite = (function () {
             if ($(window).width() < 651 || !$('ul.catalogue_ul').length) { return; }
             var $items = $('span.recipe_prev_th');
             if ($items.length < 2) { return; }
-            var max = 60;
+            var max = 25;
             $.each($items, function (k, item) {
                 var h = $(item).height();
-                console.log(k + " -- " + h);
                 if (h > max) { max = h; }
             });
             $items.height(max);
