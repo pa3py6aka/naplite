@@ -50,8 +50,8 @@ class Ingredient extends ActiveRecord
         $thumbName = 'th_' . $name;
         $path = $this->getImagePath();
         if ($image->saveAs($path . $name)) {
-            Yii::$app->photoSaver->fitBySize($path . $name, 430, 280, $path . $thumbName);
-            Yii::$app->photoSaver->fitBySize($path . $name, 860, 560);
+            Yii::$app->photoSaver->fitBySize($path . $name, 4530, 353, $path . $thumbName);
+            Yii::$app->photoSaver->fitBySize($path . $name, 870, 570);
             if ($this->image && $this->image != $name) {
                 $this->removeImages();
             }

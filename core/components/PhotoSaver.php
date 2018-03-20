@@ -28,17 +28,19 @@ class PhotoSaver
 
         // Основное изображение
         $main = clone $basic;
-        $main->fit(870, 570, function ($constraint) {
-                $constraint->upsize();
-            })
-            ->insert(__DIR__ . '/watermark.png', 'bottom-right', 10, 10)
+        $mainImage = $main->fit(870, 570, function ($constraint) {
+            $constraint->upsize();
+        });
+
+        $small = clone $mainImage;
+
+        $mainImage->insert(__DIR__ . '/watermark.png', 'bottom-right', 10, 10)
             ->save($image, 90);
         $this->optimizer->optimize($image);
 
-        $small = clone $basic;
-
-        // Изображение 300х200
-        $this->create300x200($image, $small);
+        // Превью
+        //$this->create300x200($image, $small);
+        $this->fitManager($image, $small, 530, 353);
     }
 
     public function create300x200($image, Image $manager = null)
@@ -57,6 +59,19 @@ class PhotoSaver
         $this->optimizer->optimize($path . 'sm_' . $name);
     }
 
+    public function fitManager($image, Image $manager, $width, $height = null)
+    {
+        $name = pathinfo($image, PATHINFO_BASENAME);
+        $path = pathinfo($image, PATHINFO_DIRNAME) . '/';
+
+        $manager->fit($width, $height, function ($constraint) {
+            $constraint->upsize();
+        })
+            ->insert(__DIR__ . '/watermark.png', 'bottom-right', 10, 10)
+            ->save($path . 'sm_' . $name, 90);
+        $this->optimizer->optimize($path . 'sm_' . $name);
+    }
+
     public function createStepImage($image)
     {
         $this->intervention->make($image)
@@ -68,14 +83,19 @@ class PhotoSaver
         $this->optimizer->optimize($image);
     }
 
-    public function fitBySize($image, $width, $height, $newName = null)
+    public function fitBySize($image, $width, $height, $newName = null, $addWaterMark = false)
     {
         $saveTo = $newName ?: $image;
-        $this->intervention->make($image)
+        $manager = $this->intervention->make($image)
             ->fit($width, $height, function ($constraint) {
                 $constraint->upsize();
-            })
-            ->save($saveTo, 90);
+            });
+
+        if ($addWaterMark) {
+            $manager->insert(__DIR__ . '/watermark.png', 'bottom-right', 10, 10);
+        }
+
+        $manager->save($saveTo, 90);
         $this->optimizer->optimize($saveTo);
     }
 

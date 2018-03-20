@@ -403,7 +403,7 @@ $data = RecipeHelper::getUomAutocompleteData();
         <div class="modal_inner">
             <div class="modal_scroll_box">
                 <a href="javascript:void(0)" class="ico_close modalClose"><i class="fa fa-close"></i></a>
-                <div class="cb" style="width:80% !important;">
+                <div class="cb" style="max-width:80% !important;max-height: 550px;">
                     <img class="crop-image-base" style="max-width: 100%;">
                 </div>
                 <div class="modal_inputbox">
