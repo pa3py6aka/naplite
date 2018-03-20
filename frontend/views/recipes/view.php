@@ -62,11 +62,6 @@ $this->title = Html::encode($recipe->name);
                 <div class="recipe_content_left">
                     <div class="recipe_content_left_text">
                         <?= ContentHelper::output($recipe->introductory_text) ?>
-                        <?php if ($recipe->notes): ?>
-                            <div class=”advice_box”>
-                                <?= ContentHelper::output($recipe->notes) ?>
-                            </div>
-                        <?php endif; ?>
                     </div>
                     <div class="recipe_ing">
                         <div class="recipe_ing_th">
@@ -194,6 +189,11 @@ $this->title = Html::encode($recipe->name);
                     </div>
                 </div>
             </div>
+            <?php if ($recipe->notes): ?>
+                <div class=”advice_box”>
+                    <?= ContentHelper::output($recipe->notes) ?>
+                </div>
+            <?php endif; ?>
         </div>
         <div class="recipe_page_bottom">
             <div class="recipe_page_bottom_inner">
