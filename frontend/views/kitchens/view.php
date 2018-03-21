@@ -26,7 +26,7 @@ $this->title = $kitchen->name . ' | Кухни мира';
             </div>
         </div>
         <div class="hrecipe">
-            <h1 class="fn"><?= $kitchen->name ?> кухня</h1>
+            <h1 class="fn"><?= $kitchen->name ?></h1>
             <?php if ($kitchen->image): ?>
             <div class="recipe_photo">
                 <div class="recipe_photo"><img src="<?= $kitchen->getPhotoUrl() ?>" width="860" height="560" alt=""/></div>

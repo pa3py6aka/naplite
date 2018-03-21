@@ -169,7 +169,8 @@ class RecipeForm extends Model
 
             //['notes', 'required', 'message' => 'Напишите совет'],
             ['notes', 'trim'],
-            ['notes', CKEditorStringLengthValidator::class, 'min' => 10, 'max' => 5000],
+            ['notes', 'string'],
+            //['notes', CKEditorStringLengthValidator::class, 'min' => 10, 'max' => 5000],
 
             ['commentsNotify', 'boolean'],
         ];

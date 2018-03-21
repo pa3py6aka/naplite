@@ -190,7 +190,7 @@ $this->title = Html::encode($recipe->name);
                 </div>
             </div>
             <?php if ($recipe->notes): ?>
-                <div class=”advice_box”>
+                <div class="advice_box">
                     <?= ContentHelper::output($recipe->notes) ?>
                 </div>
             <?php endif; ?>

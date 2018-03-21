@@ -98,8 +98,10 @@ class Kitchen extends ActiveRecord
     {
         return [
             [['name'], 'required'],
+            ['name', 'trim'],
             [['name'], 'string', 'max' => 255],
             ['description', 'string'],
+            ['description', 'trim'],
             ['image', 'string', 'max' => 40],
             ['imageUpload', 'image', 'extensions' => 'jpg,jpeg,gif,png'],
         ];
