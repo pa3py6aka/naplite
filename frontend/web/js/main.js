@@ -62,7 +62,7 @@ NaPlite = (function () {
             });
         },
         RecipeItemsAlignByHeight: function () {
-            recipeAligning();
+            recipeAligning(true);
             recipeAligning();
         }
     };
@@ -251,12 +251,13 @@ NaPlite = (function () {
         $(document).on('pjax:end', function() { Public.RecipeItemsAlignByHeight(); });
     };
 
-    function recipeAligning() {
+    function recipeAligning(onlyImages) {
         var wWidth = $(window).width();
         if (wWidth < 651 || !$('ul.catalogue_ul').length) { return; }
         var $items = $('a.recipe_prev_top');
         if ($items.length < 2) { return; }
         var elements = {};
+        var maxImage = 0;
         $.each($items, function (k, item) {
             var $item = $(item);
             //console.log($(item).parent().parent().css('display'));
@@ -272,16 +273,19 @@ NaPlite = (function () {
                 var hImage = $item.find('.recipe_prev_image').height();
                 if (hTh > elements[top].hTh) { elements[top].hTh = hTh; }
                 if (hImage > elements[top].hImage) { elements[top].hImage = hImage; }
-
-                //if (h > maxTh) { max = h; }
-                //console.log(max + ' -- ' + $(item).parent().parent().parent().css('display'));
+                if (hImage > maxImage) { maxImage = hImage; }
             }
         });
+
+        if (onlyImages) {
+            $('.recipe_prev_image').height(maxImage);
+            return;
+        }
 
         $.each(elements, function (k, row) {
             $.each(row.items, function (k, item) {
                 item.find('.recipe_prev_th').height(row.hTh);
-                item.find('.recipe_prev_image').height(row.hImage);
+                //item.find('.recipe_prev_image').height(row.hImage);
             })
         });
     }
