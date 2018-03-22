@@ -119,9 +119,10 @@ class RecipeForm extends Model
             ['mainPhoto', 'integer'],
 
             ['introductoryText', 'trim'],
-            ['introductoryText', 'required', 'message' => 'Напишите вводный текст'],
+            ['introductoryText', 'string'],
+            //['introductoryText', 'required', 'message' => 'Напишите вводный текст'],
             //['introductoryText', 'string', 'min' => 20, 'max' => \Yii::$app->settings->get('recipeIntroductoryTextMaxLength'), 'message' => 'Текст должен быть от 20 до 500 символов', 'tooShort' => 'Текст должен быть от 20 до 500 символов', 'tooLong' => 'Текст должен быть от 20 до 500 символов'],
-            ['introductoryText', CKEditorStringLengthValidator::class, 'min' => 20, 'max' => \Yii::$app->settings->get('recipeIntroductoryTextMaxLength')],
+            //['introductoryText', CKEditorStringLengthValidator::class, 'min' => 20, 'max' => \Yii::$app->settings->get('recipeIntroductoryTextMaxLength')],
 
             [['cookingTimeHours', 'cookingTimeMinutes'], 'required', 'message' => 'Укажите время приготовления'],
             ['cookingTimeHours', 'integer', 'max' => 30],

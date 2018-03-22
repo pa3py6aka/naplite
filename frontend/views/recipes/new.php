@@ -123,7 +123,7 @@ $data = RecipeHelper::getUomAutocompleteData();
                 <div class="inputbox">
                     <div class="inputbox_label">
                         <div class="inputbox_label_2col">
-                            <div class="inputbox_label_left">Вводный текст:</div>
+                            <div class="inputbox_label_left">Несколько слов о рецепте:</div>
                             <!--<div class="inputbox_label_right"><img src="/img/wsw.jpg" width="155" height="19" alt=""/></div>-->
                         </div>
                     </div>
