@@ -61,12 +61,12 @@ class Kitchen extends ActiveRecord
         }
     }
 
-    private function getImagePath(): string
+    public function getImagePath(): string
     {
         return Yii::getAlias('@uploads') . '/ktch/';
     }
 
-    private function getThumbName(): string
+    public function getThumbName(): string
     {
         return pathinfo($this->image, PATHINFO_FILENAME) . '_sm.' . pathinfo($this->image, PATHINFO_EXTENSION);
     }
