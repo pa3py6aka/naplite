@@ -26,17 +26,20 @@ class Kitchen extends ActiveRecord
         return Url::to(['/kitchens/view', 'slug' => $this->slug]);
     }
 
-    public function getPhotoUrl($forCP = false): string
+    public function getPhotoUrl($forCP = false, $thumb = false): string
     {
-        return ($forCP ? \Yii::$app->params['frontendHostInfo']: '') . '/uploads/ktch/' . $this->image;
+        return ($forCP ? \Yii::$app->params['frontendHostInfo']: '') . '/uploads/ktch/' . (!$thumb ? $this->image : $this->getThumbName());
     }
 
     public function saveImage(UploadedFile $image): void
     {
-        $name = $this->id . '_' . time() . '.' . $image->extension;
+        $baseName = $this->id . '_' . time();
+        $name = $baseName . '.' . $image->extension;
+        $thumbName = $baseName . '_sm.' . $image->extension;
         $path = $this->getImagePath();
         if ($image->saveAs($path . $name)) {
             Yii::$app->photoSaver->fitBySize($path . $name, 870, 570);
+            Yii::$app->photoSaver->fitBySize($path . $name, 570, 400, $path . $thumbName);
             if ($this->image && $this->image != $name) {
                 $this->removeImages();
             }
@@ -51,12 +54,21 @@ class Kitchen extends ActiveRecord
             if (is_file($path . $this->image)) {
                 unlink($path . $this->image);
             }
+            $thumbFile = $this->getThumbName();
+            if (is_file($path . $thumbFile)) {
+                unlink($path . $thumbFile);
+            }
         }
     }
 
     private function getImagePath(): string
     {
         return Yii::getAlias('@uploads') . '/ktch/';
+    }
+
+    private function getThumbName(): string
+    {
+        return pathinfo($this->image, PATHINFO_FILENAME) . '_sm.' . pathinfo($this->image, PATHINFO_EXTENSION);
     }
 
     public function beforeValidate()

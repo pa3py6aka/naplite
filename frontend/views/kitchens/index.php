@@ -7,6 +7,7 @@ use widgets\BannerWidget;
 use widgets\BestChefsWidget;
 use widgets\RecipeThemesWidget;
 use widgets\TopArticlesSliderWidget;
+use yii\helpers\Url;
 
 $this->title = "Кухни мира";
 
@@ -19,12 +20,22 @@ $this->title = "Кухни мира";
         <div class="th_parent_top">
             <div class="th_parent_top_text"><h1>Кухни мира</h1></div>
         </div>
-        <div class="th_parent_links">
-            <?php foreach ($kitchens as $kitchen): ?>
-                <a href="<?= $kitchen->getUrl() ?>"><?= $kitchen->name ?></a>
-            <?php endforeach; ?>
-        </div>
     </div>
+
+    <div class="cb"></div>
+    <ul class="adaptive_categories min-height-100">
+        <?php foreach ($kitchens as $kitchen): ?>
+            <li>
+                <a href="<?= $kitchen->getUrl() ?>">
+                    <span><b><?= $kitchen->name ?></b></span>
+                    <?php if ($kitchen->image): ?>
+                        <img src="<?= $kitchen->getPhotoUrl(false, true) ?>" width="240" height="170" alt="<?= $kitchen->name ?>"/>
+                    <?php endif; ?>
+                </a>
+            </li>
+        <?php endforeach; ?>
+    </ul>
+    <div class="cb"></div>
 
     <ul class="catalogue_ul">
 
