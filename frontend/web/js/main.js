@@ -62,17 +62,8 @@ NaPlite = (function () {
             });
         },
         RecipeItemsAlignByHeight: function () {
-            if ($(window).width() < 651 || !$('ul.catalogue_ul').length) { return; }
-            var $items = $('span.recipe_prev_th');
-            if ($items.length < 2) { return; }
-            var max = 25;
-            $.each($items, function (k, item) {
-                if ($(item).css('display') !== 'none') {
-                    var h = $(item).height();
-                    if (h > max) { max = h; }
-                }
-            });
-            $items.height(max);
+            recipeAligning();
+            recipeAligning();
         }
     };
 
@@ -259,6 +250,41 @@ NaPlite = (function () {
 
         $(document).on('pjax:end', function() { Public.RecipeItemsAlignByHeight(); });
     };
+
+    function recipeAligning() {
+        var wWidth = $(window).width();
+        if (wWidth < 651 || !$('ul.catalogue_ul').length) { return; }
+        var $items = $('a.recipe_prev_top');
+        if ($items.length < 2) { return; }
+        var elements = {};
+        $.each($items, function (k, item) {
+            var $item = $(item);
+            //console.log($(item).parent().parent().css('display'));
+            if ($item.parent().parent().css('display') !== 'none') {
+                var top = $item.offset().top;//console.log(top);return;
+
+                if (typeof elements[top] === "undefined") {
+                    elements[top] = {items: {}, hTh: 0, hImage: 0};
+                }
+                elements[top].items[k] = $item;
+
+                var hTh = $item.find('.recipe_prev_th').height();
+                var hImage = $item.find('.recipe_prev_image').height();
+                if (hTh > elements[top].hTh) { elements[top].hTh = hTh; }
+                if (hImage > elements[top].hImage) { elements[top].hImage = hImage; }
+
+                //if (h > maxTh) { max = h; }
+                //console.log(max + ' -- ' + $(item).parent().parent().parent().css('display'));
+            }
+        });
+
+        $.each(elements, function (k, row) {
+            $.each(row.items, function (k, item) {
+                item.find('.recipe_prev_th').height(row.hTh);
+                item.find('.recipe_prev_image').height(row.hImage);
+            })
+        });
+    }
 
     function showPreloader($el) {
         if (!$el.find('.overlay').length) {
