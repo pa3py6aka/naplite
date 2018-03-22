@@ -61,9 +61,8 @@ NaPlite = (function () {
                 "extraPlugins": "emojione"
             });
         },
-        RecipeItemsAlignByHeight: function () {
-            recipeAligning(true);
-            recipeAligning();
+        RecipeItemsAlignByHeight: function (resize) {
+            recipeAligning(resize);
         }
     };
 
@@ -251,13 +250,29 @@ NaPlite = (function () {
         $(document).on('pjax:end', function() { Public.RecipeItemsAlignByHeight(); });
     };
 
-    function recipeAligning(onlyImages) {
+    function recipeAligning(resize) {
         var wWidth = $(window).width();
         if (wWidth < 651 || !$('ul.catalogue_ul').length) { return; }
         var $items = $('a.recipe_prev_top');
         if ($items.length < 2) { return; }
         var elements = {};
         var maxImage = 0;
+
+        var commonMaxImage = 0;
+        var commonMaxText = 25;
+        $.each($items, function (k, item) {
+            var $item = $(item);
+            if ($item.parent().parent().css('display') === 'none') { return; }
+            var text = $item.find('.recipe_prev_th').attr('style', '').height();
+            var image = $item.find('.recipe_prev_image > img').height();
+            //$item.attr('data-image-height', image);
+            $item.attr('data-text-height', text);
+            if (text > commonMaxText) { commonMaxText = text; }
+            if (image > commonMaxImage) { commonMaxImage = image; }
+        });
+        $items.find('.recipe_prev_th').height(commonMaxText);
+        $items.find('.recipe_prev_image').height(commonMaxImage);
+
         $.each($items, function (k, item) {
             var $item = $(item);
             //console.log($(item).parent().parent().css('display'));
@@ -276,17 +291,20 @@ NaPlite = (function () {
                 if (hImage > maxImage) { maxImage = hImage; }
             }
         });
-
-        if (onlyImages) {
-            $('.recipe_prev_image').height(maxImage);
-            return;
-        }
+        console.log(elements);
 
         $.each(elements, function (k, row) {
+            var maxText = 25;
             $.each(row.items, function (k, item) {
-                item.find('.recipe_prev_th').height(row.hTh);
+                if (Number(item.attr('data-text-height')) > maxText) {
+                    maxText = item.attr('data-text-height');
+                }
+
                 //item.find('.recipe_prev_image').height(row.hImage);
-            })
+            });
+            $.each(row.items, function (k, item) {
+                item.find('.recipe_prev_th').height(maxText);
+            });
         });
     }
 
@@ -331,6 +349,9 @@ NaPlite = (function () {
     function init() {
         Listen();
         Public.RecipeItemsAlignByHeight();
+        $(window).resize(function () {
+            Public.RecipeItemsAlignByHeight(true);
+        });
     }
 
     return {
