@@ -28,6 +28,7 @@ $this->title = "Кухни мира";
             <li>
                 <a href="<?= $kitchen->getUrl() ?>">
                     <span><b><?= $kitchen->name ?></b></span>
+                    <span class=”grad”></span>
                     <?php if ($kitchen->image): ?>
                         <img src="<?= $kitchen->getPhotoUrl(false, true) ?>" width="240" height="170" alt="<?= $kitchen->name ?>"/>
                     <?php endif; ?>

@@ -55,7 +55,7 @@ $this->title = Html::encode($recipe->name);
                         ]
                     ]); ?>
                 <?php elseif ($recipe->mainPhoto): ?>
-                    <div class="recipe_photo"><img src="<?= $recipe->mainPhoto ?>" width="860" height="560" alt=""/></div>
+                    <div class="recipe_photo"><img src="<?= $recipe->mainPhoto ?>" alt="<?= Html::encode($recipe->name) ?>"/></div>
                 <?php endif; ?>
             </div>
             <div class="recipe_content">

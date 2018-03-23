@@ -40,6 +40,7 @@ $this->title = $category->getHeadingTile();
             <li>
                 <a href="<?= Url::to(['/category/view', 'slug' => $child->slug]) ?>">
                     <span><b><?= $child->name ?></b></span>
+                    <span class=”grad”></span>
                     <?php if ($child->imageUrl): ?>
                         <img src="<?= $child->imageUrl ?>" width="240" height="170" alt="<?= $child->name ?>"/>
                     <?php endif; ?>

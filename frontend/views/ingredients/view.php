@@ -40,7 +40,7 @@ $this->title = Html::encode($ingredient->title);
             <h1 class="fn"><?= Html::encode($ingredient->title) ?></h1>
             <?php if ($ingredient->image): ?>
                 <div class="recipe_photo">
-                    <div class="recipe_photo"><img src="<?= $ingredient->getImageUrl(false) ?>" width="860" height="560" alt=""/></div>
+                    <div class="recipe_photo"><img src="<?= $ingredient->getImageUrl(false) ?>" alt="<?= Html::encode($ingredient->title) ?>"/></div>
                 </div>
             <?php endif; ?>
         </div>
