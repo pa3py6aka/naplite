@@ -16,6 +16,7 @@ class IngredientsBlockWidget extends Widget
         $offset = mt_rand(0, $count);
         $offset = $offset > $count - 4 ? $count - 4 : $offset;
         $ingredients = Ingredient::find()
+            ->andWhere(['show' => 1])
             ->indexBy('id')
             ->orderBy(['id' => SORT_DESC])
             ->offset($offset)
@@ -26,6 +27,7 @@ class IngredientsBlockWidget extends Widget
             unset($ingredients[$this->currentIngredientId]);
             $ingredient = Ingredient::find()
                 ->where(['not', ['id' => array_merge(array_keys($ingredients), [$this->currentIngredientId])]])
+                ->andWhere(['show' => 1])
                 ->limit(1)
                 ->one();
             if ($ingredient) {
