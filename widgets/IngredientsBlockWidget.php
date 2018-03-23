@@ -12,7 +12,7 @@ class IngredientsBlockWidget extends Widget
 
     public function run()
     {
-        $count = Ingredient::find()->count();
+        $count = Ingredient::find()->andWhere(['show' => 1])->count();
         $offset = mt_rand(0, $count);
         $offset = $offset > $count - 4 ? $count - 4 : $offset;
         $ingredients = Ingredient::find()
