@@ -32,7 +32,9 @@ class CategoryRepository
 
     public function getRecipesProviderByCategory(Category $category): ActiveDataProvider
     {
-        $query = Recipe::find()->active()->with('author');
+        $query = Recipe::find()
+            ->active()
+            ->with('author', 'mainPhotoEntity', 'recipePhotos');
 
         if ($category->depth > 0) {
             $categories = $category->getDescendants()->all();

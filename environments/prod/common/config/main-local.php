@@ -7,6 +7,7 @@ return [
             'username' => 'root',
             'password' => '',
             'charset' => 'utf8mb4',
+            'enableSchemaCache' => true,
         ],
         'mailer' => [
             'class' => 'yii\swiftmailer\Mailer',
