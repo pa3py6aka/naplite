@@ -13,7 +13,7 @@ class m180125_011402_add_slug_column_to_blogs_table extends Migration
     public function up()
     {
         $this->addColumn('{{%blogs}}', 'slug', $this->string(191)->notNull()->after('title'));
-        $this->createIndex('z', '{{%blogs}}', 'slug', true);
+        $this->createIndex('ibs', '{{%blogs}}', 'slug', true);
     }
 
     /**
