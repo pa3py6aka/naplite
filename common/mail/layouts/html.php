@@ -19,7 +19,7 @@ $homeUrl = Yii::$app->urlManager->createAbsoluteUrl('/');
 </head>
 <body>
 <?php $this->beginBody() ?>
-<p style="float:left;padding:0px 30px 30px 0px;"><img src="http://naplite.test/img/logo.png" width="282" height="64" alt=""></p><table style="width:650px;max-width:650px;border-collapse:collapse;clear:both;">
+<p style="float:left;padding:0px 30px 30px 0px;"><img src="<?= Yii::$app->params['frontendHostInfo'] ?>/img/logo.png" width="282" height="64" alt=""></p><table style="width:650px;max-width:650px;border-collapse:collapse;clear:both;">
 <tbody><tr>
 <td style="width:50px;min-width:50px;"> </td>
 <td colspan="2">
