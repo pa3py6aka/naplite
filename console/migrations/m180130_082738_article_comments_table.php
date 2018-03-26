@@ -24,10 +24,10 @@ class m180130_082738_article_comments_table extends Migration
             'created_at' => $this->integer()->notNull(),
             'updated_at' => $this->integer()->notNull(),
         ], $tableOptions);
-        $this->createIndex('idx-article_comments-article_id', '{{%article_comments}}', 'article_id');
-        $this->addForeignKey('fk-article_comments-article_id', '{{%article_comments}}', 'article_id', '{{%articles}}', 'id', 'CASCADE', 'CASCADE');
-        $this->addForeignKey('fk-article_comments-author_id', '{{%article_comments}}', 'author_id', '{{%users}}', 'id', 'CASCADE', 'CASCADE');
-        $this->addForeignKey('fk-article_comments-reply_to', '{{%article_comments}}', 'reply_to', '{{%users}}', 'id', 'SET NULL', 'CASCADE');
+        $this->createIndex('iacai', '{{%article_comments}}', 'article_id');
+        $this->addForeignKey('facai', '{{%article_comments}}', 'article_id', '{{%articles}}', 'id', 'CASCADE', 'CASCADE');
+        $this->addForeignKey('facaiui', '{{%article_comments}}', 'author_id', '{{%users}}', 'id', 'CASCADE', 'CASCADE');
+        $this->addForeignKey('facrt', '{{%article_comments}}', 'reply_to', '{{%users}}', 'id', 'SET NULL', 'CASCADE');
     }
 
     /**

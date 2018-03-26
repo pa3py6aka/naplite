@@ -12,7 +12,8 @@ class m180117_173135_create_recipes_table extends Migration
      */
     public function up()
     {
-        $tableOptions = 'CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci ENGINE=InnoDB';
+        $tableOptionsMb4 = 'CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci ENGINE=InnoDB';
+        $tableOptions = 'CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE=InnoDB';
 
         $this->createTable('{{%recipes}}', [
             'id' => $this->primaryKey(),
@@ -30,14 +31,14 @@ class m180117_173135_create_recipes_table extends Migration
 
             'created_at' => $this->integer()->notNull(),
             'updated_at' => $this->integer()->notNull(),
-        ], $tableOptions);
+        ], $tableOptionsMb4);
 
-        $this->createIndex('idx-recipes-author_id', '{{%recipes}}', 'author_id');
-        $this->addForeignKey('fk-recipes-author_id-users-id', '{{%recipes}}', 'author_id', '{{%users}}', 'id', 'CASCADE');
-        $this->createIndex('idx-recipes-category_id', '{{%recipes}}', 'category_id');
-        $this->addForeignKey('fk-recipes-category_id-categories-id', '{{%recipes}}', 'category_id', '{{%categories}}', 'id', 'RESTRICT');
-        $this->createIndex('idx-recipes-kitchen_id', '{{%recipes}}', 'kitchen_id');
-        $this->addForeignKey('fk-recipes-kitchen_id-kitchens-id', '{{%recipes}}', 'kitchen_id', '{{%kitchens}}', 'id', 'RESTRICT');
+        $this->createIndex('irai', '{{%recipes}}', 'author_id');
+        $this->addForeignKey('fraiui', '{{%recipes}}', 'author_id', '{{%users}}', 'id', 'CASCADE');
+        $this->createIndex('irci', '{{%recipes}}', 'category_id');
+        $this->addForeignKey('frcici', '{{%recipes}}', 'category_id', '{{%categories}}', 'id', 'RESTRICT');
+        $this->createIndex('irki', '{{%recipes}}', 'kitchen_id');
+        $this->addForeignKey('frkiki', '{{%recipes}}', 'kitchen_id', '{{%kitchens}}', 'id', 'RESTRICT');
 
         $this->createTable('{{%recipe_photos}}', [
             'id' => $this->primaryKey(),
@@ -46,18 +47,18 @@ class m180117_173135_create_recipes_table extends Migration
             'sort' => $this->integer()->notNull(),
         ], $tableOptions);
 
-        $this->createIndex('{{%idx-recipe_photos-recipe_id}}', '{{%recipe_photos}}', 'recipe_id');
-        $this->addForeignKey('{{%fk-recipe_photos-recipe_id-recipes-id}}', '{{%recipe_photos}}', 'recipe_id', '{{%recipes}}', 'id', 'CASCADE', 'RESTRICT');
+        $this->createIndex('idx-recipe_photos-recipe_id', '{{%recipe_photos}}', 'recipe_id');
+        $this->addForeignKey('fk-recipe_photos-recipe_id-recipes-id', '{{%recipe_photos}}', 'recipe_id', '{{%recipes}}', 'id', 'CASCADE', 'RESTRICT');
 
         $this->createTable('{{%recipe_steps}}', [
             'id' => $this->primaryKey(),
             'recipe_id' => $this->integer()->notNull(),
             'description' => $this->text()->notNull(),
             'photo' => $this->string()->notNull(),
-        ], $tableOptions);
+        ], $tableOptionsMb4);
 
-        $this->createIndex('{{%idx-recipe_steps-recipe_id}}', '{{%recipe_steps}}', 'recipe_id');
-        $this->addForeignKey('{{%fk-recipe_steps-recipe_id-recipes-id}}', '{{%recipe_steps}}', 'recipe_id', '{{%recipes}}', 'id', 'CASCADE', 'RESTRICT');
+        $this->createIndex('irsri}}', '{{%recipe_steps}}', 'recipe_id');
+        $this->addForeignKey('frsriri}}', '{{%recipe_steps}}', 'recipe_id', '{{%recipes}}', 'id', 'CASCADE', 'RESTRICT');
     }
 
     public function down()

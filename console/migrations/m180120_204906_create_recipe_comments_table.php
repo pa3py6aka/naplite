@@ -24,10 +24,10 @@ class m180120_204906_create_recipe_comments_table extends Migration
             'created_at' => $this->integer()->notNull(),
             'updated_at' => $this->integer()->notNull(),
         ], $tableOptions);
-        $this->createIndex('idx-recipe_comments-recipe_id', '{{%recipe_comments}}', 'recipe_id');
-        $this->addForeignKey('fk-recipe_comments-recipe_id', '{{%recipe_comments}}', 'recipe_id', '{{%recipes}}', 'id', 'CASCADE', 'CASCADE');
-        $this->addForeignKey('fk-recipe_comments-author_id', '{{%recipe_comments}}', 'author_id', '{{%users}}', 'id', 'CASCADE', 'CASCADE');
-        $this->addForeignKey('fk-recipe_comments-reply_to', '{{%recipe_comments}}', 'reply_to', '{{%users}}', 'id', 'SET NULL', 'CASCADE');
+        $this->createIndex('ircri', '{{%recipe_comments}}', 'recipe_id');
+        $this->addForeignKey('frcri', '{{%recipe_comments}}', 'recipe_id', '{{%recipes}}', 'id', 'CASCADE', 'CASCADE');
+        $this->addForeignKey('frcai', '{{%recipe_comments}}', 'author_id', '{{%users}}', 'id', 'CASCADE', 'CASCADE');
+        $this->addForeignKey('frcrt', '{{%recipe_comments}}', 'reply_to', '{{%users}}', 'id', 'SET NULL', 'CASCADE');
     }
 
     /**

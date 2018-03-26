@@ -24,10 +24,10 @@ class m180205_134805_create_ingredient_comments_table extends Migration
             'created_at' => $this->integer()->notNull(),
             'updated_at' => $this->integer()->notNull(),
         ], $tableOptions);
-        $this->createIndex('idx-ingredient_comments-ingredient_id', '{{%ingredient_comments}}', 'ingredient_id');
-        $this->addForeignKey('fk-ingredient_comments-ingredient_id', '{{%ingredient_comments}}', 'ingredient_id', '{{%ingredients}}', 'id', 'CASCADE', 'CASCADE');
-        $this->addForeignKey('fk-ingredient_comments-author_id', '{{%ingredient_comments}}', 'author_id', '{{%users}}', 'id', 'CASCADE', 'CASCADE');
-        $this->addForeignKey('fk-ingredient_comments-reply_to', '{{%ingredient_comments}}', 'reply_to', '{{%users}}', 'id', 'SET NULL', 'CASCADE');
+        $this->createIndex('iicii', '{{%ingredient_comments}}', 'ingredient_id');
+        $this->addForeignKey('ficii', '{{%ingredient_comments}}', 'ingredient_id', '{{%ingredients}}', 'id', 'CASCADE', 'CASCADE');
+        $this->addForeignKey('ficai', '{{%ingredient_comments}}', 'author_id', '{{%users}}', 'id', 'CASCADE', 'CASCADE');
+        $this->addForeignKey('ficrt', '{{%ingredient_comments}}', 'reply_to', '{{%users}}', 'id', 'SET NULL', 'CASCADE');
     }
 
     /**

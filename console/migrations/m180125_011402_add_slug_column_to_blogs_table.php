@@ -13,7 +13,7 @@ class m180125_011402_add_slug_column_to_blogs_table extends Migration
     public function up()
     {
         $this->addColumn('{{%blogs}}', 'slug', $this->string()->notNull()->after('title'));
-        $this->createIndex('idx-blogs-slug', '{{%blogs}}', 'slug', true);
+        $this->createIndex('ibs', '{{%blogs}}', 'slug', true);
     }
 
     /**
@@ -21,7 +21,7 @@ class m180125_011402_add_slug_column_to_blogs_table extends Migration
      */
     public function down()
     {
-        $this->dropIndex('idx-blogs-slug', '{{%blogs}}');
+        $this->dropIndex('ibs', '{{%blogs}}');
         $this->dropColumn('{{%blogs}}', 'slug');
     }
 }

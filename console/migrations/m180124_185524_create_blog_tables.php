@@ -9,7 +9,8 @@ class m180124_185524_create_blog_tables extends Migration
 {
     public function up()
     {
-        $tableOptions = 'CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci ENGINE=InnoDB';
+        $tableOptions = 'CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE=InnoDB';
+        $tableOptionsMb4 = 'CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci ENGINE=InnoDB';
 
         $this->createTable('{{%blog_categories}}', [
             'id' => $this->primaryKey(),
@@ -29,11 +30,11 @@ class m180124_185524_create_blog_tables extends Migration
 
             'created_at' => $this->integer()->notNull(),
             'updated_at' => $this->integer()->notNull(),
-        ], $tableOptions);
-        $this->createIndex('idx-blogs-author_id', '{{%blogs}}', 'author_id');
-        $this->addForeignKey('fk-blogs-author_id', '{{%blogs}}', 'author_id', '{{%users}}', 'id', 'CASCADE', 'CASCADE');
-        $this->createIndex('idx-blogs-category_id', '{{%blogs}}', 'category_id');
-        $this->addForeignKey('fk-blogs-category_id', '{{%blogs}}', 'category_id', '{{%blog_categories}}', 'id', 'CASCADE', 'CASCADE');
+        ], $tableOptionsMb4);
+        $this->createIndex('ibaui', '{{%blogs}}', 'author_id');
+        $this->addForeignKey('fbai', '{{%blogs}}', 'author_id', '{{%users}}', 'id', 'CASCADE', 'CASCADE');
+        $this->createIndex('ibci', '{{%blogs}}', 'category_id');
+        $this->addForeignKey('fbci', '{{%blogs}}', 'category_id', '{{%blog_categories}}', 'id', 'CASCADE', 'CASCADE');
 
         $this->createTable('{{%blog_comments}}', [
             'id' => $this->primaryKey(),
@@ -44,11 +45,11 @@ class m180124_185524_create_blog_tables extends Migration
 
             'created_at' => $this->integer()->notNull(),
             'updated_at' => $this->integer()->notNull(),
-        ], $tableOptions);
-        $this->createIndex('idx-blog_comments-blog_id', '{{%blog_comments}}', 'blog_id');
-        $this->addForeignKey('fk-blog_comments-blog_id', '{{%blog_comments}}', 'blog_id', '{{%blogs}}', 'id', 'CASCADE', 'CASCADE');
-        $this->addForeignKey('fk-blog_comments-author_id', '{{%blog_comments}}', 'author_id', '{{%users}}', 'id', 'CASCADE', 'CASCADE');
-        $this->addForeignKey('fk-blog_comments-reply_to', '{{%blog_comments}}', 'reply_to', '{{%users}}', 'id', 'SET NULL', 'CASCADE');
+        ], $tableOptionsMb4);
+        $this->createIndex('ibcbi', '{{%blog_comments}}', 'blog_id');
+        $this->addForeignKey('fbcbi', '{{%blog_comments}}', 'blog_id', '{{%blogs}}', 'id', 'CASCADE', 'CASCADE');
+        $this->addForeignKey('fbcai', '{{%blog_comments}}', 'author_id', '{{%users}}', 'id', 'CASCADE', 'CASCADE');
+        $this->addForeignKey('fbcrt', '{{%blog_comments}}', 'reply_to', '{{%users}}', 'id', 'SET NULL', 'CASCADE');
     }
 
     public function down()

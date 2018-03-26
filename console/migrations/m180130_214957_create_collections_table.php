@@ -12,7 +12,7 @@ class m180130_214957_create_collections_table extends Migration
      */
     public function up()
     {
-        $tableOptions = 'CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci ENGINE=InnoDB';
+        $tableOptions = 'CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE=InnoDB';
 
         $this->createTable('{{%collections}}', [
             'id' => $this->primaryKey(),
