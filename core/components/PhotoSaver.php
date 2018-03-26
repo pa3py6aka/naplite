@@ -15,7 +15,7 @@ class PhotoSaver
     public function __construct()
     {
         $this->intervention = new ImageManager(['driver' => 'imagick']);
-        $this->optimizer = OptimizerChainFactory::create();
+        //$this->optimizer = OptimizerChainFactory::create();
     }
 
     public function createRecipeImages($image)
@@ -36,7 +36,7 @@ class PhotoSaver
 
         $mainImage->insert(__DIR__ . '/watermark.png', 'bottom-right', 10, 10)
             ->save($image, 90);
-        $this->optimizer->optimize($image);
+        //$this->optimizer->optimize($image);
 
         // Превью
         //$this->create300x200($image, $small);
@@ -56,7 +56,7 @@ class PhotoSaver
             })
             ->insert(__DIR__ . '/watermark.png', 'bottom-right', 10, 10)
             ->save($path . 'sm_' . $name, 90);
-        $this->optimizer->optimize($path . 'sm_' . $name);
+        //$this->optimizer->optimize($path . 'sm_' . $name);
     }
 
     public function fitManager($image, Image $manager, $width, $height = null)
@@ -69,7 +69,7 @@ class PhotoSaver
         })
             ->insert(__DIR__ . '/watermark.png', 'bottom-right', 10, 10)
             ->save($path . 'sm_' . $name, 90);
-        $this->optimizer->optimize($path . 'sm_' . $name);
+        //$this->optimizer->optimize($path . 'sm_' . $name);
     }
 
     public function createStepImage($image)
@@ -80,7 +80,7 @@ class PhotoSaver
             })
             ->insert(__DIR__ . '/watermark.png', 'bottom-right', 10, 10)
             ->save($image, 90);
-        $this->optimizer->optimize($image);
+        //$this->optimizer->optimize($image);
     }
 
     public function fitBySize($image, $width, $height, $newName = null, $addWaterMark = false)
@@ -96,7 +96,7 @@ class PhotoSaver
         }
 
         $manager->save($saveTo, 90);
-        $this->optimizer->optimize($saveTo);
+        //$this->optimizer->optimize($saveTo);
     }
 
     public function addWatermark($image)
@@ -104,7 +104,7 @@ class PhotoSaver
         $this->intervention->make($image)
             ->insert(__DIR__ . '/watermark.png', 'bottom-right', 10, 10)
             ->save($image, 90);
-        $this->optimizer->optimize($image);
+        //$this->optimizer->optimize($image);
     }
 
     public function crop($path, $width, $height, $x, $y, $saveTo = null)
@@ -112,6 +112,6 @@ class PhotoSaver
         $this->intervention->make($path)
             ->crop($width, $height, $x, $y)
             ->save($saveTo ?: $path, 90);
-        $this->optimizer->optimize($saveTo ?: $path);
+        //$this->optimizer->optimize($saveTo ?: $path);
     }
 }
