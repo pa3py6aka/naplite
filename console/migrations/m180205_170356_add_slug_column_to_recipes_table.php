@@ -17,7 +17,7 @@ class m180205_170356_add_slug_column_to_recipes_table extends Migration
      */
     public function up()
     {
-        $this->addColumn('{{%recipes}}', 'slug', $this->string()->notNull()->defaultValue('')->after('name'));
+        $this->addColumn('{{%recipes}}', 'slug', $this->string(191)->notNull()->defaultValue('')->after('name'));
 
         $transformer = new Transformer(new TransformerCollection([
             new IntlTransliterateTransformer('Russian-Latin/BGN; Any-Latin; Latin-ASCII; NFD; [:Nonspacing Mark:] Remove; NFC;'),
@@ -27,7 +27,7 @@ class m180205_170356_add_slug_column_to_recipes_table extends Migration
             $recipe->updateAttributes(['slug' => $transformer->transform($recipe->name)]);
         }
 
-        $this->createIndex('idx-recipes-slug', '{{%recipes}}', 'slug', true);
+        $this->createIndex('irs', '{{%recipes}}', 'slug', true);
     }
 
     /**
