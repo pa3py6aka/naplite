@@ -173,19 +173,19 @@ $this->title = Html::encode($recipe->name);
                     <div class="recipe_stat_buttons">
                         <?php if (Yii::$app->user->can(Rbac::PERMISSION_MANAGE, ['user_id' => $recipe->author_id])): ?>
                             <a href="<?= Url::to(['/recipes/edit', 'slug' => $recipe->slug]) ?>" class="b_gray">
-                                <i class="fa fa-edit"></i>Редактировать
+                                <i class="fa fa-edit"></i><span class="recipe_stat_buttons_text">Редактировать</span>
                             </a>
                         <?php endif; ?>
                         <a href="javascript:void(0)" class="b_gray<?= Yii::$app->user->isGuest ? ' loginButton' : '' ?>"<?= !Yii::$app->user->isGuest ? ' data-link="save-recipe-link" data-recipe-id="' . $recipe->id . '"' : '' ?>>
-                            <i class="fa fa-<?= $isFavorite ? 'minus' : 'plus' ?>"></i><?= $isFavorite ? 'Убрать из избранных' : 'Сохранить рецепт' ?>
+                            <i class="fa fa-<?= $isFavorite ? 'minus' : 'plus' ?>"></i><span class="recipe_stat_buttons_text"><?= $isFavorite ? 'Убрать из избранных' : 'Сохранить рецепт' ?></span>
                         </a>
                         <a href="<?= Url::to(['/recipes/print', 'id' => $recipe->id]) ?>" class="b_gray" target="_blank">
-                            <i class="fa fa-print"></i>Распечатать рецепт
+                            <i class="fa fa-print"></i><span class="recipe_stat_buttons_text">Распечатать рецепт</span>
                         </a>
                         <a href="javascript:void(0)" data-link="weights-search-modal" class="b_gray">
-                            <i class="fa fa-calendar"></i>Таблица мер и весов
+                            <i class="fa fa-calendar"></i><span class="recipe_stat_buttons_text">Таблица мер и весов</span>
                         </a>
-                        <a href="javascript:void(0)" class="b_gray" data-link="goToComments"><i class="fa fa-comment"></i>Обсудить с автором</a>
+                        <a href="javascript:void(0)" class="b_gray" data-link="goToComments"><i class="fa fa-comment"></i><span class="recipe_stat_buttons_text">Обсудить с автором</span></a>
                     </div>
                 </div>
             </div>
