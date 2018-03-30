@@ -109,10 +109,11 @@ RecipeView = (function () {
                 if (result[result.length - 2] === '.' && result[result.length - 1] === '0') {
                     result = result.substring(0, result.length - 2);
                 }
-                $item.html(result);
+                result = Number(result);
+                $item.html(result.toFixed());
 
                 var $uomSpan = $item.parent().find('span.type');
-                $uomSpan.html(NaPlite.public.pluralize(result, [$uomSpan.attr('data-f1'), $uomSpan.attr('data-f2'), $uomSpan.attr('data-f5')]));
+                $uomSpan.html(NaPlite.public.pluralize(result.toFixed(), [$uomSpan.attr('data-f1'), $uomSpan.attr('data-f2'), $uomSpan.attr('data-f5')]));
             }
         });
         $input.prop('disabled', false);

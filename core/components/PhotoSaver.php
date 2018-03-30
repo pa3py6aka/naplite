@@ -40,7 +40,7 @@ class PhotoSaver
 
         // Превью
         //$this->create300x200($image, $small);
-        $this->fitManager($image, $small, 530, 353);
+        $this->fitManager($image, $small, 530, 353, false);
     }
 
     public function create300x200($image, Image $manager = null)
@@ -59,16 +59,20 @@ class PhotoSaver
         //$this->optimizer->optimize($path . 'sm_' . $name);
     }
 
-    public function fitManager($image, Image $manager, $width, $height = null)
+    public function fitManager($image, Image $manager, $width, $height = null, $watermark = true)
     {
         $name = pathinfo($image, PATHINFO_BASENAME);
         $path = pathinfo($image, PATHINFO_DIRNAME) . '/';
 
-        $manager->fit($width, $height, function ($constraint) {
+        $image = $manager->fit($width, $height, function ($constraint) {
             $constraint->upsize();
-        })
-            ->insert(__DIR__ . '/watermark.png', 'bottom-right', 10, 10)
-            ->save($path . 'sm_' . $name, 90);
+        });
+
+        if ($watermark) {
+            $image->insert(__DIR__ . '/watermark.png', 'bottom-right', 10, 10);
+        }
+
+        $image->save($path . 'sm_' . $name, 90);
         //$this->optimizer->optimize($path . 'sm_' . $name);
     }
 
