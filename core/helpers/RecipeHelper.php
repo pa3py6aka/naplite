@@ -35,7 +35,7 @@ class RecipeHelper
     public static function getUom(RecipeIngredient $ingredient)
     {
         if (!$ingredient->quantity) {
-            return '';
+            return $ingredient->uom_id ? $ingredient->uomEntity->name : $ingredient->uom;
         }
         return $ingredient->uom_id ? Pluralize::get($ingredient->quantity, $ingredient->getUomForm(1), $ingredient->getUomForm(2), $ingredient->getUomForm(5), true) : Html::encode($ingredient->uom);
     }
