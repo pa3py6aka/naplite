@@ -22,7 +22,7 @@ $this->title = 'На плите! Кулинарные рецепты на люб
                 <li>
                     <a href="<?= $collection->getUrl() ?>">
                         <span><b><?= $collection->title ?></b></span>
-                        <span class=”grad”></span>
+                        <span class="grad"></span>
                         <img src="<?= $collection->getImageUrl() ?>" width="240" height="170" alt="<?= $collection->title ?>"/>
                     </a>
                 </li>
