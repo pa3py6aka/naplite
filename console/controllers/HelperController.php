@@ -16,7 +16,7 @@ class HelperController extends Controller
         foreach ($kitchens as $kitchen) {
             /* @var $kitchen Kitchen */
             if ($kitchen->image) {
-                $saver->fitBySize($kitchen->getImagePath() . $kitchen->image, 570, 400, $kitchen->getImagePath() . $kitchen->getThumbName());
+                $saver->fitBySize($kitchen->getImagePath() . $kitchen->image, 575, null, $kitchen->getImagePath() . $kitchen->getThumbName());
                 echo $kitchen->name . ": превьюшка создана" . PHP_EOL;
             }
         }
