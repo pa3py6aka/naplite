@@ -50,9 +50,9 @@ $this->title = $category->getHeadingTile();
         </div>
     <?php endif; ?>
 
-    <?php Pjax::begin([
+    <?php /*Pjax::begin([
         'linkSelector' => '.pjax'
-    ]) ?>
+    ])*/ ?>
     <div class="sort_panel">
         <div class="sort_panel_left">
             <div class="inputbox_2_col">
@@ -92,7 +92,7 @@ $this->title = $category->getHeadingTile();
     </div>
 
     <?= $this->render('@frontend/views/recipes/recipes-block', ['recipesProvider' => $recipesProvider]) ?>
-    <?php Pjax::end() ?>
+    <?php // Pjax::end() ?>
 
     <div class="p40"></div>
 

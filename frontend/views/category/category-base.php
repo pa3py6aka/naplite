@@ -56,9 +56,9 @@ $this->title = $category->getHeadingTile();
         </div>
     <?php endif; ?>
 
-    <?php Pjax::begin([
+    <?php /*Pjax::begin([
         'linkSelector' => '.pjax'
-    ]) ?>
+    ])*/ ?>
     <div class="sort_panel_th">
         <span class="sort_panel_th_top">
             <?php if ($category->depth > 0): ?>
@@ -80,7 +80,7 @@ $this->title = $category->getHeadingTile();
 
     <?= $this->render('@frontend/views/recipes/recipes-block', ['recipesProvider' => $recipesProvider]) ?>
 
-    <?php Pjax::end() ?>
+    <?php // Pjax::end() ?>
 
     <div class="p40"></div>
 
