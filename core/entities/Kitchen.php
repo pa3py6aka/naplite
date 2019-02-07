@@ -39,7 +39,7 @@ class Kitchen extends ActiveRecord
         $path = $this->getImagePath();
         if ($image->saveAs($path . $name)) {
             Yii::$app->photoSaver->fitBySize($path . $name, 870, 570);
-            Yii::$app->photoSaver->fitBySize($path . $name, 570, 400, $path . $thumbName);
+            Yii::$app->photoSaver->fitBySize($path . $name, 575, null, $path . $thumbName);
             if ($this->image && $this->image != $name) {
                 $this->removeImages();
             }
