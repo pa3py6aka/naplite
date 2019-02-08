@@ -7,6 +7,7 @@ use core\entities\Article\Article;
 use core\entities\Article\ArticleCategory;
 use core\entities\Ingredient\Ingredient;
 use core\entities\Ingredient\IngredientCategory;
+use Yii;
 use yii\data\ActiveDataProvider;
 
 class IngredientRepository
@@ -35,7 +36,7 @@ class IngredientRepository
 
         return new ActiveDataProvider([
             'query' => $query,
-            'pagination' => ['pageSize' => 3, 'defaultPageSize' => 3], //ToDO: Количество ингредиентов на странице
+            'pagination' => ['pageSize' => Yii::$app->settings->get('ingredientsOnPage'), 'defaultPageSize' => Yii::$app->settings->get('ingredientsOnPage')],
             'sort' => ['defaultOrder' => ['id' => SORT_DESC]]
         ]);
     }

@@ -20,6 +20,9 @@ $this->title = "Основные настройки";
         <?= $form->field($model, 'recipeIntroductoryTextMaxLength')->input('number') ?>
 
         <?= $form->field($model, 'recipesOnPage')->input('number') ?>
+        <?= $form->field($model, 'articlesOnPage')->input('number') ?>
+        <?= $form->field($model, 'blogsOnPage')->input('number') ?>
+        <?= $form->field($model, 'ingredientsOnPage')->input('number') ?>
 
         <?= $form->field($model, 'widgetVK')->textarea(['rows' => 4])
                 ->hint('<a href="https://vk.com/dev/Community" target="_blank">https://vk.com/dev/Community</a>') ?>

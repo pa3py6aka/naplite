@@ -5,6 +5,7 @@ namespace core\repositories;
 
 use core\entities\Blog\Blog;
 use core\entities\Blog\BlogCategory;
+use Yii;
 use yii\data\ActiveDataProvider;
 
 class BlogRepository
@@ -63,7 +64,7 @@ class BlogRepository
 
         return new ActiveDataProvider([
             'query' => $query,
-            'pagination' => ['pageSize' => 3, 'defaultPageSize' => 3], //ToDO: Количество постов на странице
+            'pagination' => ['pageSize' => Yii::$app->settings->get('blogsOnPage'), 'defaultPageSize' => Yii::$app->settings->get('blogsOnPage')],
             'sort' => ['defaultOrder' => ['id' => SORT_DESC]]
         ]);
     }
@@ -76,7 +77,7 @@ class BlogRepository
 
         return new ActiveDataProvider([
             'query' => $query,
-            'pagination' => ['pageSize' => 3, 'defaultPageSize' => 3], //ToDO: Количество постов на странице пользователя
+            'pagination' => ['pageSize' => Yii::$app->settings->get('blogsOnPage'), 'defaultPageSize' => Yii::$app->settings->get('blogsOnPage')],
             'sort' => ['defaultOrder' => ['id' => SORT_DESC]]
         ]);
     }

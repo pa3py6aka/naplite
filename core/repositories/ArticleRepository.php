@@ -5,6 +5,7 @@ namespace core\repositories;
 
 use core\entities\Article\Article;
 use core\entities\Article\ArticleCategory;
+use Yii;
 use yii\data\ActiveDataProvider;
 
 class ArticleRepository
@@ -41,7 +42,7 @@ class ArticleRepository
 
         return new ActiveDataProvider([
             'query' => $query,
-            'pagination' => ['pageSize' => 3, 'defaultPageSize' => 3], //ToDO: Количество статей на странице
+            'pagination' => ['pageSize' => Yii::$app->settings->get('articlesOnPage'), 'defaultPageSize' => Yii::$app->settings->get('articlesOnPage')],
             'sort' => ['defaultOrder' => ['id' => SORT_DESC]]
         ]);
     }

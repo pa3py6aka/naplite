@@ -10,6 +10,10 @@ class MainSettingsForm extends CommonForm
     public $recipeIntroductoryTextMaxLength;
 
     public $recipesOnPage;
+    public $articlesOnPage;
+    public $blogsOnPage;
+    public $ingredientsOnPage;
+    public $kitchensOnPage;
 
     public $widgetVK;
     public $instagramLogin;
@@ -24,7 +28,7 @@ class MainSettingsForm extends CommonForm
             ['contactEmail', 'email'],
             ['recipeIntroductoryTextMaxLength', 'integer'],
 
-            [['recipesOnPage'], 'integer'],
+            [['recipesOnPage', 'articlesOnPage', 'blogsOnPage', 'ingredientsOnPage', 'kitchensOnPage'], 'integer'],
 
             [['widgetVK', 'instagramLogin', 'widgetFB'], 'string'],
             ['footer', 'string'],
@@ -38,6 +42,10 @@ class MainSettingsForm extends CommonForm
             'recipeIntroductoryTextMaxLength' => 'Максимальный размер вводного текста в рецепте',
 
             'recipesOnPage' => 'Кол-во рецептов на страницу',
+            'articlesOnPage' => 'Кол-во статей на страницу',
+            'blogsOnPage' => 'Кол-во блогов на страницу',
+            'ingredientsOnPage' => 'Кол-во ингредиентов на сраницу',
+            'kitchensOnPage' => 'Кол-во кухонь мира на сраницу',
 
             'widgetVK' => 'Код виджета VKontakte',
             'instagramLogin' => 'Ник в инстаграм',

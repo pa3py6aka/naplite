@@ -17,6 +17,10 @@ class SettingsManager
         'contactEmail' => 'contact@na-plite.ru',
         'recipeIntroductoryTextMaxLength' => 500,
         'recipesOnPage' => 30,
+        'articlesOnPage' => 10,
+        'blogsOnPage' => 10,
+        'ingredientsOnPage' => 10,
+        'kitchensOnPage' => 10,
 
         'widgetVK' => "VK.Widgets.Group('vk_groups', {
                 mode: 3,
