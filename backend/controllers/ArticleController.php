@@ -96,6 +96,10 @@ class ArticleController extends Controller
         $form = new ArticleManageForm();
         $form->scenario = ArticleManageForm::SCENARIO_CREATE;
 
+        if (is_file(Yii::getAlias('@data/article-template.html'))) {
+            $form->content = file_get_contents(Yii::getAlias('@data/article-template.html'));
+        }
+
         if ($form->load(Yii::$app->request->post()) && $form->validate()) {
             try {
                 $article = $this->service->create($form);
