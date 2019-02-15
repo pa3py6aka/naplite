@@ -131,3 +131,15 @@ a.desc:after {
 .link-ya-metrica {
     background-image: url('/img/ya-metrica.ico');
 }
+
+.redactor-editor .article-box, .redactor-editor .article-box div {border:1px solid black;}
+.article-box-prev{display:block;padding:0px 0px 40px 0px;}
+.article-box-base{display:table;width:100%;}
+.article-box-base-left{display:table-cell;vertical-align:top;padding:0px 40px 40px 0px;}
+.article-box-base-right{display:table-cell;vertical-align:top;}
+.article-box-base-right span{display:block;width:150px;font-size:12px;line-height:180%;padding:20px 30px 30px 30px;font-style:italic;background-color:#f6f6f6;margin-top:8px;}
+.article-box-bottom{display:block;clear:both;padding-bottom:40px;}
+.article-box-photo{background-color:#eaeaea;display:block;margin:30px 0px;text-align:center;font-size:12px;font-style:italic;}
+.ingredients{display:inline-block;width:100%;}
+.ingredients li p{margin-top:-8px;padding-top:0;}
+.post_page_top{padding-bottom:20px;}

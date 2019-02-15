@@ -8,6 +8,7 @@ class CommonVars
     public const IMPERAVI_SETTINGS = [
         'lang' => 'ru',
         'replaceDivs' => false,
+        'styles' => false,
         'minHeight' => 200,
         'buttons' => ['html','formatting','bold','italic','deleted',
             'unorderedlist','orderedlist','outdent','indent',
