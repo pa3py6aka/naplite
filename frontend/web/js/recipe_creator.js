@@ -61,6 +61,8 @@ RecipeCreator = (function () {
                                     $appendTo.parent().prepend('<a href="javascript:void(0)" class="ico-close" title="Удалить фотографию"><i class="fa fa-close"></i></a>');
                                     $appendTo.parent().prepend('<a href="javascript:void(0)" class="ico-crop" title="Выбрать фрагмент"><i class="fa fa-crop"></i></a>');
                                     $appendTo.parent().prepend('<a href="javascript:void(0)" class="ico-main" title="Сделать главной"><i class="fa fa-check-circle-o"></i></a>');
+                                } else {
+                                    $appendTo.prepend('<div class="ico-close" title="Удалить фотографию" data-id="' + num + '"><i class="fa fa-close step-photo-remove"></i></div>');
                                 }
                                 $appendTo.prepend('<img src="/tmp/' + names.name + '" data-base="/tmp/' + names.editName + '">');
                                 $appendTo.find('input[type=hidden]').val(names.name);
@@ -92,6 +94,13 @@ RecipeCreator = (function () {
                 $firstBox.find('.ico-main').first().addClass('active');
                 $mainPhotoInput.val($firstBox.find('input[type=hidden]').attr('data-num'));
             }
+        });
+
+        // Удаление фото шага рецепта
+        $recipeForm.on('click', '.uploadbox_small .ico-close', function (e) {
+            e.stopPropagation();
+            $(this).find('span').show();
+            $(this).find('input').val('');
         });
 
         // Отмечание главного фото
@@ -288,6 +297,7 @@ RecipeCreator = (function () {
             $stepBox.find('.uploadbox_small').find('input[type=hidden]')
                 .attr('id', 'recipeform-stepphoto-' + stepNumber)
                 .attr('name', 'RecipeForm[stepPhoto][' + stepNumber + ']');
+
             setBigUploadBoxEmpty($stepBox.find('.uploadbox_small'));
             $lastStep.after($stepBox);
 
@@ -301,6 +311,7 @@ RecipeCreator = (function () {
 
         // Submit формы
         $recipeForm.on('click', '[data-button=submitForm]', function (e) {
+            $(this).addClass('not-active');
             // Переводим с wysiwyg в textarea's
             var introductoryText = CKEDITOR.instances['introductoryText'].ui.editor.getData();
             $('#introductoryText').val(introductoryText);
@@ -318,6 +329,7 @@ RecipeCreator = (function () {
                 $('html, body').animate({
                     scrollTop: $('.uploadbox_big').offset().top
                 }, 800);
+                $(this).removeClass('not-active');
                 return;
             }
             // Ингредиенты
@@ -335,6 +347,7 @@ RecipeCreator = (function () {
                 $('html, body').animate({
                     scrollTop: $('.add_ing_box').offset().top
                 }, 800);
+                $(this).removeClass('not-active');
                 return;
             }
             // Шаги приготовления
@@ -345,12 +358,19 @@ RecipeCreator = (function () {
                 $('html, body').animate({
                     scrollTop: $('.add_steps').offset().top
                 }, 800);
+                $(this).removeClass('not-active');
                 return;
             }
 
             $('#commentsNotify').val($("#commentsNotifyVisibleInput").is(':checked') ? 1 : 0);
 
             $recipeForm.yiiActiveForm('submitForm');
+        });
+
+        $recipeForm.on('afterValidate', function(e, messages, attributes) {
+            if (attributes.length > 0) {
+                $('[data-button=submitForm]').removeClass('not-active');
+            }
         });
 
         $(".hours-block,.minutes-block,.time-colon").on('mouseenter',function(){

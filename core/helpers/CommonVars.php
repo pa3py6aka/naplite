@@ -10,6 +10,7 @@ class CommonVars
         'replaceDivs' => false,
         'styles' => false,
         'minHeight' => 200,
+        'structure' => true,
         'buttons' => ['html','formatting','bold','italic','deleted',
             'unorderedlist','orderedlist','outdent','indent',
             'image','file','link','alignment','horizontalrule'],

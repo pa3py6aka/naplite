@@ -20,6 +20,7 @@ use yii\filters\VerbFilter;
 use yii\validators\ImageValidator;
 use yii\web\Controller;
 use yii\web\ForbiddenHttpException;
+use yii\web\NotFoundHttpException;
 use yii\web\Response;
 use yii\web\UploadedFile;
 
@@ -108,6 +109,9 @@ class RecipesController extends Controller
     public function actionView($slug)
     {
         $recipe = $this->repository->getBySlug($slug);
+        if ($recipe->status != Recipe::STATUS_ACTIVE && $recipe->author_id != Yii::$app->user->id) {
+            throw new NotFoundHttpException('Рецепт не найден.');
+        }
         $this->view->params['activeCategorySlug'] = CategoryHelper::getActiveSlug($recipe->category);
         $commentForm = new CommentForm();
         $photoReports = $recipe->getPhotoReports()->with('user')->orderBy(['id' => SORT_DESC])->limit(5)->all();

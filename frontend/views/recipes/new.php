@@ -317,6 +317,9 @@ $data = RecipeHelper::getUomAutocompleteData();
                             <div class="uploadbox_small">
                                 <?php if (isset($model->stepPhoto[$i]) && $model->stepPhoto[$i]): ?>
                                     <a href="javascript:void(0)" class="upload-link">
+                                        <div class="ico-close" title="Удалить фотографию" data-id="<?= $i ?>">
+                                            <i class="fa fa-close step-photo-remove"></i>
+                                        </div>
                                         <img src="/photos/<?= $model->stepPhoto[$i] ?>">
                                         <i class="fa fa-photo" style="display:none;"></i>
                                         <span style="display:none;">Нажмите, чтобы <br />добавить фото</span>
@@ -362,7 +365,7 @@ $data = RecipeHelper::getUomAutocompleteData();
 
                 </div>
                 <div class="add_recipe_bottom">
-                    <a href="javascript:void(0)" class="b_red" data-button="submitForm"><i class="fa fa-plus"></i><?= $recipe ? "Сохранить" : "Добавить" ?> рецепт</a>
+                    <a href="javascript:void(0)" class="b_red" data-button="submitForm"><i class="fa fa-plus"></i><?= $recipe ? 'Сохранить' : 'Добавить' ?> рецепт</a>
                 </div>
                 <?= Html::activeHiddenInput($model, 'commentsNotify', ['id' => 'commentsNotify']) ?>
             <?php ActiveForm::end() ?>

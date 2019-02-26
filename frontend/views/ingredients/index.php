@@ -18,7 +18,7 @@ use yii\widgets\Pjax;
 
 /* @var $ingredient \core\entities\Ingredient\Ingredient */
 
-$this->title = "Кулинарные ингридиенты";
+$this->title = 'Кулинарные ингридиенты';
 
 ?>
 <div class="content_left" id="ingredientsCategory">
@@ -41,7 +41,7 @@ $this->title = "Кулинарные ингридиенты";
     </div>
     <div class="cb"></div>
 
-    <?php Pjax::begin(['linkSelector' => '.pjax', 'formSelector' => '.pjax']) ?>
+    <?php Pjax::begin(['linkSelector' => '.pjax', 'formSelector' => '.pjax', 'scrollTo' => 510]) ?>
     <div class="textbox">
         <div class="th_2col">
             <div class="th_2col_left"><h2>Новые ингредиенты</h2></div>
