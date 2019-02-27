@@ -7,6 +7,7 @@ use core\entities\Ingredient\Ingredient;
 use core\entities\Recipe\Recipe;
 use core\entities\Recipe\RecipeIngredient;
 use core\entities\Uom;
+use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 
 class RecipeHelper
@@ -66,5 +67,26 @@ class RecipeHelper
         $f = Pluralize::get($int, 'f1', 'f2', 'f5', true);
         //\Yii::trace($data[$f], "PLURALIZATION DATA");
         return $data[$f];
+    }
+
+    public static function statusLabel($status): string
+    {
+        switch ($status) {
+            case Recipe::STATUS_BLOCKED:
+                $class = 'label label-danger';
+                break;
+            case Recipe::STATUS_DELETED:
+                $class = 'label label-default';
+                break;
+            case Recipe::STATUS_ACTIVE:
+                $class = 'label label-success';
+                break;
+            default:
+                $class = 'label label-default';
+        }
+
+        return Html::tag('span', ArrayHelper::getValue(Recipe::statusesArray(), $status), [
+            'class' => $class,
+        ]);
     }
 }

@@ -81,7 +81,9 @@ class RecipeRepository
             ->with('author')
             ->andWhere(['author_id' => $userId]);
 
-        if (Yii::$app->user->id != $userId) {
+        if (Yii::$app->user->id == $userId) {
+            $query->active(null, true);
+        } else {
             $query->active();
         }
 

@@ -69,7 +69,7 @@ class Recipe extends ActiveRecord
     public const COMPLEXITY_HARD = 3;
 
     public const STATUS_BLOCKED = 0;
-    public const STATUS_HIDDEN = 3;
+    public const STATUS_DELETED = 3;
     public const STATUS_ACTIVE = 5;
 
     public $complexityName;
@@ -172,7 +172,7 @@ class Recipe extends ActiveRecord
     {
         return [
             self::STATUS_BLOCKED => 'Заблокирован',
-            self::STATUS_HIDDEN => 'Скрыт',
+            self::STATUS_DELETED => 'Удалён',
             self::STATUS_ACTIVE => 'Опубликован',
         ];
     }
@@ -314,6 +314,8 @@ class Recipe extends ActiveRecord
             'comments_notify' => 'Уведомления автору о новых комментариях',
             'created_at' => 'Дата добавления',
             'updated_at' => 'Дата обновления',
+            'status' => 'Статус',
+            'statusName' => 'Статус',
         ];
     }
 

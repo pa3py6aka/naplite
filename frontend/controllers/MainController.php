@@ -17,7 +17,8 @@ class MainController extends Controller
     {
         $recipesQuery = Recipe::find()
             ->with('mainPhotoEntity', 'author', 'recipePhotos')
-            ->orderBy(['id' => SORT_DESC]);
+            ->orderBy(['id' => SORT_DESC])
+            ->active();
         $provider = new ActiveDataProvider([
             'query' => $recipesQuery,
             'sort' => ['defaultOrder' => ['id' => SORT_DESC]],

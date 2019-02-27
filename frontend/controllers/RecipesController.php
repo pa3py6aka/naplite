@@ -114,25 +114,11 @@ class RecipesController extends Controller
             throw new ForbiddenHttpException('Вы не можете удалить этот рецепт.');
         }
 
-        if (!$recipe->delete()) {
-            throw new \RuntimeException('Ошибка удаления рецепта.');
+        $recipe->status = Recipe::STATUS_DELETED;
+        if (!$recipe->save()) {
+            throw new \RuntimeException('Ошибка установки рецепту статуса "удалён".');
         }
         Yii::$app->session->setFlash('success', 'Рецепт удалён.');
-        return $this->redirect(['/users/recipes', 'id' => Yii::$app->user->id]);
-    }
-
-    public function actionHide($slug)
-    {
-        $recipe = $this->repository->getBySlug($slug);
-        if (!Yii::$app->user->can(Rbac::PERMISSION_MANAGE, ['user_id' => $recipe->author_id])) {
-            throw new ForbiddenHttpException('Вы не можете скрыть этот рецепт.');
-        }
-
-        $recipe->status = Recipe::STATUS_HIDDEN;
-        if (!$recipe->save()) {
-            throw new \RuntimeException('Ошибка установки рецепту статуса "скрыт".');
-        }
-        Yii::$app->session->setFlash('success', 'Рецепт скрыт.');
         return $this->redirect(['/users/recipes', 'id' => Yii::$app->user->id]);
     }
 

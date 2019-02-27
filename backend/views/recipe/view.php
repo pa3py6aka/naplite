@@ -45,6 +45,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'model' => $model,
             'attributes' => [
                 'id',
+                'statusName',
                 [
                     'label' => 'Автор',
                     'attribute' => 'author.fullName'

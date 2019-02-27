@@ -175,7 +175,7 @@ $this->title = Html::encode($recipe->name);
                             <a href="<?= Url::to(['/recipes/edit', 'slug' => $recipe->slug]) ?>" class="b_gray">
                                 <i class="fa fa-edit"></i><span class="recipe_stat_buttons_text">Редактировать</span>
                             </a>
-                            <a href="<?= Url::to(['/recipes/remove', 'slug' => $recipe->slug]) ?>" class="b_gray" data-method="post" data-confirm="Удалить данный рецепт безвозвратно?">
+                            <a href="<?= Url::to(['/recipes/remove', 'slug' => $recipe->slug]) ?>" class="b_gray" data-method="post" data-confirm="Удалить данный рецепт?">
                                 <i class="fa fa-trash"></i><span class="recipe_stat_buttons_text">Удалить</span>
                             </a>
                         <?php endif; ?>

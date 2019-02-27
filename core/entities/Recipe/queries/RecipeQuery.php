@@ -16,13 +16,21 @@ class RecipeQuery extends ActiveQuery
 {
     use NestedSetsQueryTrait;
 
-    public function active($alias = null)
+    public function active($alias = null, $withBlocked = false)
     {
+        if ($withBlocked) {
+            return $this->andWhere([($alias ? $alias . '.' : '') . 'status' => [Recipe::STATUS_ACTIVE, Recipe::STATUS_BLOCKED]]);
+        }
         return $this->andWhere([($alias ? $alias . '.' : '') . 'status' => Recipe::STATUS_ACTIVE]);
     }
 
-    public function hidden($alias = null)
+    public function blocked($alias = null)
     {
-        return $this->andWhere([($alias ? $alias . '.' : '') . 'status' => Recipe::STATUS_HIDDEN]);
+        return $this->andWhere([($alias ? $alias . '.' : '') . 'status' => Recipe::STATUS_BLOCKED]);
+    }
+
+    public function deleted($alias = null)
+    {
+        return $this->andWhere([($alias ? $alias . '.' : '') . 'status' => Recipe::STATUS_DELETED]);
     }
 }

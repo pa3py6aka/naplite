@@ -92,6 +92,14 @@ $this->params['breadcrumbs'][] = $this->title;
                     ]),
                 ],
                 [
+                    'attribute' => 'status',
+                    'value' => function (Recipe $recipe) {
+                        return \core\helpers\RecipeHelper::statusLabel($recipe->status);
+                    },
+                    'format' => 'raw',
+                    'filter' => Recipe::statusesArray(),
+                ],
+                [
                     'attribute' => 'created_at',
                     'filter' => DatePicker::widget([
                         'model' => $searchModel,

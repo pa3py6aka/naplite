@@ -23,7 +23,7 @@ class RecipeSearch extends Recipe
     {
         return [
             [['id', 'author_id', 'category_id', 'kitchen_id', 'main_photo_id', 'cooking_time', 'preparation_time', 'persons', 'complexity', 'rate', 'comments_count', 'comments_notify', 'created_at', 'updated_at'], 'integer'],
-            [['name', 'introductory_text', 'notes'], 'safe'],
+            [['name', 'introductory_text', 'notes', 'status'], 'safe'],
             ['author', 'string'],
             [['date_from', 'date_to'], 'date', 'format' => 'php:d.m.Y'],
         ];
@@ -89,6 +89,7 @@ class RecipeSearch extends Recipe
             'r.rate' => $this->rate,
             'r.comments_count' => $this->comments_count,
             'r.comments_notify' => $this->comments_notify,
+            'r.status' => $this->status,
             //'r.created_at' => $this->created_at,
             //'r.updated_at' => $this->updated_at,
         ]);
