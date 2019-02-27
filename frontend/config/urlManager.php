@@ -18,7 +18,7 @@ return [
 
         'recipes/<_a:new|rate|save-to-user|print|upload|get-sub-categories|crop>' => 'recipes/<_a>',
         'recipes/<slug:[a-z0-9_-]+>' => 'recipes/view',
-        'recipes/<slug:[a-z0-9_-]+>/edit' => 'recipes/edit',
+        'recipes/<slug:[a-z0-9_-]+>/<_a:edit|remove>' => 'recipes/<_a>',
         'recipes' => 'category/view',
 
         // Не забудьте добавить нужные экшены(доступные по адресу /forum/<action>) в core\helpers\BlogHelper::USED_ACTIONS

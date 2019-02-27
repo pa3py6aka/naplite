@@ -66,7 +66,7 @@ class AuthController extends Controller
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
             return $this->goBack();
         }
-        throw new UserException("Ошибка при входе.");
+        throw new UserException('Ошибка при входе.');
     }
 
     public function actionLoginValidation()
@@ -98,7 +98,7 @@ class AuthController extends Controller
                             ->send();
 
                         if (!$sent) {
-                            throw new \DomainException("Ошибка отправки e-mail");
+                            throw new \DomainException('Ошибка отправки e-mail');
                         }
                     }
                 });
@@ -118,7 +118,7 @@ class AuthController extends Controller
             Yii::$app->response->format = Response::FORMAT_JSON;
             return ActiveForm::validate($form);
         }
-        return "";
+        return '';
     }
 
     public function actionConfirm($token)
@@ -136,10 +136,10 @@ class AuthController extends Controller
         if ($user->save()) {
             $this->roleManager->assign($user->id, Rbac::ROLE_USER);
             Yii::$app->user->login($user, Yii::$app->params['user.rememberMeDuration']);
-            Yii::$app->session->setFlash("confirm-success", "Ваш адрес e-mail успешно подтверждён!");
+            Yii::$app->session->setFlash('confirm-success', 'Ваш адрес e-mail успешно подтверждён!');
             return $this->redirect(['/users/settings']);
         }
-        throw new UserException("Ошибка сохранения в базу, обратитесь в службу поддержки!");
+        throw new UserException('Ошибка сохранения в базу, обратитесь в службу поддержки!');
     }
 
     public function actionLogout()

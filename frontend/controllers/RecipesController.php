@@ -41,10 +41,10 @@ class RecipesController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'only' => ['new', 'upload', 'rate', 'edit', 'save-to-user', 'crop'],
+                'only' => ['new', 'upload', 'rate', 'edit', 'save-to-user', 'crop', 'remove'],
                 'rules' => [
                     [
-                        'actions' => ['new', 'upload', 'rate', 'edit', 'save-to-user', 'crop'],
+                        'actions' => ['new', 'upload', 'rate', 'edit', 'save-to-user', 'crop', 'remove'],
                         'allow' => true,
                         'roles' => [Rbac::ROLE_USER],
                     ],
@@ -58,6 +58,7 @@ class RecipesController extends Controller
                     'save-to-user' => ['post'],
                     'get-sub-categories' => ['post'],
                     'crop' => ['post'],
+                    'remove' => ['post'],
                 ],
             ],
         ];
@@ -86,7 +87,7 @@ class RecipesController extends Controller
     {
         $recipe = $this->repository->getBySlug($slug);
         if (!Yii::$app->user->can(Rbac::PERMISSION_MANAGE, ['user_id' => $recipe->author_id])) {
-            throw new ForbiddenHttpException("Вы не можете редактировать этот рецепт.");
+            throw new ForbiddenHttpException('Вы не можете редактировать этот рецепт.');
         }
 
         $form = new RecipeForm($recipe);
@@ -104,6 +105,35 @@ class RecipesController extends Controller
             'model' => $form,
             'recipe' => $recipe,
         ]);
+    }
+
+    public function actionRemove($slug)
+    {
+        $recipe = $this->repository->getBySlug($slug);
+        if (!Yii::$app->user->can(Rbac::PERMISSION_MANAGE, ['user_id' => $recipe->author_id])) {
+            throw new ForbiddenHttpException('Вы не можете удалить этот рецепт.');
+        }
+
+        if (!$recipe->delete()) {
+            throw new \RuntimeException('Ошибка удаления рецепта.');
+        }
+        Yii::$app->session->setFlash('success', 'Рецепт удалён.');
+        return $this->redirect(['/users/recipes', 'id' => Yii::$app->user->id]);
+    }
+
+    public function actionHide($slug)
+    {
+        $recipe = $this->repository->getBySlug($slug);
+        if (!Yii::$app->user->can(Rbac::PERMISSION_MANAGE, ['user_id' => $recipe->author_id])) {
+            throw new ForbiddenHttpException('Вы не можете скрыть этот рецепт.');
+        }
+
+        $recipe->status = Recipe::STATUS_HIDDEN;
+        if (!$recipe->save()) {
+            throw new \RuntimeException('Ошибка установки рецепту статуса "скрыт".');
+        }
+        Yii::$app->session->setFlash('success', 'Рецепт скрыт.');
+        return $this->redirect(['/users/recipes', 'id' => Yii::$app->user->id]);
     }
 
     public function actionView($slug)

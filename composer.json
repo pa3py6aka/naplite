@@ -28,7 +28,8 @@
         "mihaildev/yii2-ckeditor": "*",
         "yiisoft/yii2-queue": "^2.0",
         "yiisoft/yii2-redis": "^2.0",
-        "richardfan1126/yii2-sortable-gridview": "*"
+        "richardfan1126/yii2-sortable-gridview": "*",
+        "kotchuprik/yii2-odnoklassniki-authclient": "*"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.0.0",

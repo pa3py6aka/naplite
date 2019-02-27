@@ -46,6 +46,7 @@ use Zelenin\yii\behaviors\Slug;
  *
  * @property string|null $mainPhoto
  * @property string $url
+ * @property string $statusName
  *
  * @property CollectionRecipe[] $collectionRecipes
  * @property Collection[] $collections
@@ -63,12 +64,13 @@ use Zelenin\yii\behaviors\Slug;
  */
 class Recipe extends ActiveRecord
 {
-    const COMPLEXITY_EASY = 1;
-    const COMPLEXITY_MIDDLE = 2;
-    const COMPLEXITY_HARD = 3;
+    public const COMPLEXITY_EASY = 1;
+    public const COMPLEXITY_MIDDLE = 2;
+    public const COMPLEXITY_HARD = 3;
 
-    const STATUS_BLOCKED = 0;
-    const STATUS_ACTIVE = 5;
+    public const STATUS_BLOCKED = 0;
+    public const STATUS_HIDDEN = 3;
+    public const STATUS_ACTIVE = 5;
 
     public $complexityName;
 
@@ -170,8 +172,14 @@ class Recipe extends ActiveRecord
     {
         return [
             self::STATUS_BLOCKED => 'Заблокирован',
+            self::STATUS_HIDDEN => 'Скрыт',
             self::STATUS_ACTIVE => 'Опубликован',
         ];
+    }
+
+    public function getStatusName(): string
+    {
+        return ArrayHelper::getValue(self::statusesArray(), $this->status, '-');
     }
 
     public function beforeSave($insert)
@@ -206,6 +214,25 @@ class Recipe extends ActiveRecord
     {
         $this->complexityName = ArrayHelper::getValue(self::complexities(), $this->complexity);
         parent::afterFind();
+    }
+
+    public function beforeDelete(): bool
+    {
+        if (!parent::beforeDelete()) {
+            return false;
+        }
+        $this->removePhotos();
+        return true;
+    }
+
+    private function removePhotos(): void
+    {
+        foreach ($this->recipePhotos as $recipePhoto) {
+            $recipePhoto->delete();
+        }
+        foreach ($this->recipeSteps as $recipeStep) {
+            $recipeStep->delete();
+        }
     }
 
     /**

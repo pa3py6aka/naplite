@@ -81,9 +81,12 @@ class User extends ActiveRecord implements IdentityInterface
 
     public static function signupByNetwork($network, $identity, $attributes)
     {
-        $email = is_array($attributes) ? ArrayHelper::getValue($attributes, 'email') : null;
-        $user = new User();
-        $user->email = null;
+        $email = \is_array($attributes) ? ArrayHelper::getValue($attributes, 'email') : null;
+        $user = new self();
+        $user->email = $email;
+        if (self::find()->where(['email' => $email])->limit(1)->exists()) {
+            $user->email = null;
+        }
         $user->created_at = time();
         $user->status = self::STATUS_ACTIVE;
         $user->subscribes = Subscriber::DEFAULT_SUBSCRIBES;

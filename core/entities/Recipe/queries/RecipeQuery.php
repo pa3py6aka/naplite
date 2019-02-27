@@ -20,4 +20,9 @@ class RecipeQuery extends ActiveQuery
     {
         return $this->andWhere([($alias ? $alias . '.' : '') . 'status' => Recipe::STATUS_ACTIVE]);
     }
+
+    public function hidden($alias = null)
+    {
+        return $this->andWhere([($alias ? $alias . '.' : '') . 'status' => Recipe::STATUS_HIDDEN]);
+    }
 }

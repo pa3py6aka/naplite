@@ -29,7 +29,7 @@ class NetworkService
         }
         $user = User::signupByNetwork($network, $identity, $attributes);
         if (!$user->save()) {
-            throw new \DomainException("Ошибка сохранения нового пользователя.");
+            throw new \DomainException('Ошибка сохранения нового пользователя.');
         }
         $this->roleManager->assign($user->id, Rbac::ROLE_USER);
         return $user;

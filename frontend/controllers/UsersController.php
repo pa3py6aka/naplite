@@ -117,12 +117,14 @@ class UsersController extends Controller
         $user = $this->userRepository->get($id);
         $category = $category ? (new CategoryRepository())->getBySlug($category) : null;
         $provider = $this->recipeRepository->getUserFavoriteRecipes($user->id, $category);
-        $userCategories = Category::find()
+        $query = Category::find()
             ->alias('c')
             ->leftJoin('{{%recipes}} r', 'r.category_id=c.id')
-            ->leftJoin('{{%user_recipes}} ur', 'ur.recipe_id=r.id')
-            ->andWhere(['ur.user_id' => $user->id, 'r.status' => Recipe::STATUS_ACTIVE])
-            ->all();
+            ->leftJoin('{{%user_recipes}} ur', 'ur.recipe_id=r.id');
+        if ($user->id != Yii::$app->user->id) {
+            $query->andWhere(['ur.user_id' => $user->id, 'r.status' => Recipe::STATUS_ACTIVE]);
+        }
+        $userCategories = $query->all();
 
         $view = Yii::$app->user->id === $user->id ? 'my-cookbook' : 'cookbook';
         return $this->render($view, [

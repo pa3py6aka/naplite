@@ -43,10 +43,11 @@ $this->title = 'На плите! Кулинарные рецепты на люб
                 <span class="icobox_left"><i class="fa fa-folder-open"></i></span>
                 <span class="icobox_right">Рубрикатор рецептов</span>
             </a>
+            <?php /*
             <a href="javascript:void(0)" class="icobox">
                 <span class="icobox_left"><i class="fa fa-cubes"></i></span>
                 <span class="icobox_right">Подобрать рецепт</span>
-            </a>
+            </a> */ ?>
             <a href="javascript:void(0)" class="icobox" data-link="goToSearch">
                 <span class="icobox_left"><i class="fa fa-search"></i></span>
                 <span class="icobox_right">Поиск<span class="hidden1260"> рецептов</span></span>
