@@ -154,13 +154,11 @@ $this->title = Html::encode($recipe->name);
                         <?php $n = 1; ?>
                         <?php foreach ($recipe->recipeSteps as $step): ?>
                             <li class="instruction">
+                                <span class="instruction_number">Шаг <?=  $n ?></span>
                                 <?php if ($step->photo): ?>
-                                <span class="relative">
                                     <a href="<?= $step->getPhotoUrl() ?>" class="step-photo">
                                         <img src="<?= $step->getPhotoUrl() ?>" width="540" height="325" alt=""/>
                                     </a>
-                                    <span class="instruction_number"><?= $n ?></span>
-                                </span>
                                 <?php endif; ?>
                                 <?= ContentHelper::output($step->description) ?>
                             </li>
