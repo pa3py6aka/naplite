@@ -4,6 +4,7 @@ use core\forms\manage\IngredientCategoryForm;
 use vova07\imperavi\Widget;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use mihaildev\ckeditor\CKEditor;
 
 /* @var $this yii\web\View */
 /* @var $model \core\forms\manage\IngredientManageForm */
@@ -38,7 +39,7 @@ use yii\widgets\ActiveForm;
             ],
         ]); ?>
 
-        <?= $form->field($model, 'content')->widget(Widget::className(), [
+        <?php /*= $form->field($model, 'content')->widget(Widget::className(), [
             'id' => 'redactor',
             'settings' => [
                 'lang' => 'ru',
@@ -53,7 +54,12 @@ use yii\widgets\ActiveForm;
                     'fullscreen',
                 ],
             ],
-        ]); ?>
+        ]);*/ ?>
+        <?= $form->field($model, 'content')->widget(CKEditor::class, [
+            'editorOptions' => [
+                'preset' => 'standart',
+            ]
+        ]) ?>
 
         <?= $form->field($model, 'image')->fileInput(['accept' => 'image/*']) ?>
 

@@ -49,16 +49,16 @@ body *::selection{background:rgba(239,67,67,1);color:rgb(255,255,255);}
 
 
 @media screen and (max-device-width: 1150px), screen and (max-width: 1150px){
-    .recipe_steps{display:block;width:100%;}
-    .recipe_steps_left{display:block;width:100%;padding-bottom:0px;}
-    .recipe_content_right{display:block;width:100%;padding:0px;}
-    .recipe_content_right .recipe_stat_buttons{display:block;width:100%;padding-top:0px;padding-bottom:20px;}
+	.recipe_steps{display:block;width:100%;}
+	.recipe_steps_left{display:block;width:100%;padding-bottom:0px;}
+	.recipe_content_right{display:block;width:100%;padding:0px;}
+	.recipe_content_right .recipe_stat_buttons{display:block;width:100%;padding-top:0px;padding-bottom:20px;}
 }
 
 
 @media screen and (max-device-width:650px), screen and (max-width:650px){
-    .portions-selector i:first-child{top:-5px;}
-    .portions-selector i:last-child{top:15px;}
-    .recipe_photo{margin:0px -20px;}
-    .instruction a{display:block;margin:0px -40px;}
+	.portions-selector i:first-child{top:-5px;}
+	.portions-selector i:last-child{top:15px;}
+	.recipe_photo{margin:0px -20px;}
+	.instruction a{display:block;margin:0px -40px;}
 }

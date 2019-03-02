@@ -15,6 +15,7 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\web\Response;
+use yii\web\UploadedFile;
 
 /**
  * ArticleController implements the CRUD actions for Article model.
@@ -44,7 +45,7 @@ class ArticleController extends Controller
     {
         return [
             'access' => [
-                'class' => AccessControl::className(),
+                'class' => AccessControl::class,
                 'rules' => [
                     [
                         'allow' => true,
@@ -53,12 +54,21 @@ class ArticleController extends Controller
                 ],
             ],
             'verbs' => [
-                'class' => VerbFilter::className(),
+                'class' => VerbFilter::class,
                 'actions' => [
                     'delete' => ['POST'],
                 ],
             ],
         ];
+    }
+
+    public function beforeAction($action)
+    {
+        if ($action->id === 'upload-image') {
+            $this->enableCsrfValidation = false;
+        }
+
+        return parent::beforeAction($action);
     }
 
     /**
@@ -138,6 +148,23 @@ class ArticleController extends Controller
             'model' => $form,
             'article' => $article,
         ]);
+    }
+
+    public function actionUploadImage()
+    {
+        Yii::$app->response->format = Response::FORMAT_JSON;
+        $path = Yii::getAlias('@frontend/web/uploads/art/content');
+        $file = UploadedFile::getInstanceByName('upload');
+        $name = time() . Yii::$app->security->generateRandomString(10) . '.' . $file->extension;
+        if ($file->saveAs($path . '/' . $name)) {
+            return [
+                'fileName' => $name,
+                'uploaded' => 1,
+                'url' => Yii::$app->params['frontendHostInfo'] . '/uploads/art/content/' . $name,
+            ];
+        }
+
+        return ['error' => 'Ошибка сохранения файла'];
     }
 
     /**
