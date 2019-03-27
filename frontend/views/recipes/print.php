@@ -1,19 +1,9 @@
 <?php
 
-use core\access\Rbac;
 use core\helpers\ContentHelper;
-use core\helpers\IngredientHelper;
 use core\helpers\Pluralize;
 use core\helpers\RecipeHelper;
-use frontend\assets\RecipeViewAsset;
-use widgets\BannerWidget;
-use widgets\BestChefsWidget;
-use widgets\RateWidget;
-use widgets\SocialBlockWidget;
-use yii\bootstrap\Carousel;
 use yii\helpers\Html;
-use yii\helpers\Url;
-use yii\widgets\ActiveForm;
 
 /* @var $this \yii\web\View */
 /* @var $recipe \core\entities\Recipe\Recipe */

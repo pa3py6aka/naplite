@@ -82,7 +82,6 @@ if ($category) {
     <div class="p40"></div>
 
     <?= SocialBlockWidget::widget() ?>
-    <div class="p40"></div>
 
     <?= SidebarCollectionsWidget::widget() ?>
 </div>

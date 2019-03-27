@@ -91,7 +91,6 @@ $this->title = $category->getHeadingTile();
     <?= BannerWidget::widget(['type' => BannerWidget::TYPE_RIGHT, 'bannerId' => 'bannerSimple1']) ?>
 
     <?= SocialBlockWidget::widget() ?>
-    <div class="p40"></div>
 
     <?= BannerWidget::widget(['type' => BannerWidget::TYPE_RIGHT, 'bannerId' => 'bannerSimple2']) ?>
 

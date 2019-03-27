@@ -66,7 +66,6 @@ $this->title = $user->fullName . ' | Фотоотчёты';
     <div class="p40"></div>
 
     <?= SocialBlockWidget::widget() ?>
-    <div class="p40"></div>
 
     <?= SidebarCollectionsWidget::widget() ?>
 

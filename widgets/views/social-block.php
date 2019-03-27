@@ -22,3 +22,4 @@
         <?= Yii::$app->settings->get('widgetFB') ?>
     </div>
 </div>
+<div class="p40"></div>

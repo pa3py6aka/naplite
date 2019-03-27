@@ -74,7 +74,6 @@ $this->title = 'На плите! Кулинарные рецепты на люб
     <?= BannerWidget::widget(['type' => BannerWidget::TYPE_RIGHT, 'bannerId' => 'bannerSimple1']) ?>
 
     <?= SocialBlockWidget::widget() ?>
-    <div class="p40"></div>
 
     <?= BannerWidget::widget(['type' => BannerWidget::TYPE_RIGHT, 'bannerId' => 'bannerSimple2']) ?>
 
