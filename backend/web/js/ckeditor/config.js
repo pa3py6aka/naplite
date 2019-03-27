@@ -16,10 +16,11 @@ CKEDITOR.editorConfig = function( config ) {
         { name: 'insert', groups: [ 'insert' ] },
         { name: 'styles', groups: [ 'styles' ] },
         { name: 'colors', groups: [ 'colors' ] },
+        { name: 'basicstyles', groups: [ 'cleanup' ] },
         { name: 'tools', groups: [ 'tools' ] },
         { name: 'others', groups: [ 'others' ] },
         { name: 'about', groups: [ 'about' ] },
         { name: 'document', groups: [ 'mode' ] }
     ];
-    config.removeButtons = 'Save,NewPage,Preview,Print,Templates,Cut,Copy,Paste,PasteText,Redo,Undo,Find,Replace,SelectAll,Scayt,Form,Checkbox,Radio,TextField,Textarea,Select,Button,HiddenField,CopyFormatting,RemoveFormat,BidiRtl,BidiLtr,Language,Flash,SpecialChar,PageBreak,Iframe,Styles,ShowBlocks,About,ImageButton';
+    config.removeButtons = 'Save,NewPage,Preview,Print,Templates,Cut,Copy,Paste,PasteText,Redo,Undo,Find,Replace,SelectAll,Scayt,Form,Checkbox,Radio,TextField,Textarea,Select,Button,HiddenField,CopyFormatting,BidiRtl,BidiLtr,Language,Flash,SpecialChar,PageBreak,Iframe,Styles,ShowBlocks,About,ImageButton';
 };
