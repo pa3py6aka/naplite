@@ -33,11 +33,21 @@ $this->title = 'Кулинарные ингридиенты';
                 <div class="th_parent_top_text"><h1>Ингредиенты</h1></div>
             <?php endif; ?>
         </div>
+        <?php if ($category->description): ?>
+            <div class="th_parent_bottom_text">
+            <span class="th_parent_seo mini" id="categorySeoText">
+                <?= nl2br($category->description) ?>
+            </span>
+                <a href="javascript:void(0)" class="b_white" data-link="readSeoText"><i class="fa fa-refresh"></i>Читать далее</a>
+            </div>
+        <?php endif; ?>
+        <?php if ($category->children): ?>
         <div class="th_parent_links">
             <?php foreach ($category->children as $child): ?>
                 <a href="<?= $child->getUrl() ?>"><?= $child->name ?></a>
             <?php endforeach; ?>
         </div>
+        <?php endif; ?>
     </div>
     <div class="cb"></div>
 
